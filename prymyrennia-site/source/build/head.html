@@ -509,6 +509,14 @@ span[data-ic]{display:inline-grid;place-items:center;line-height:0;flex:none}
   .nav-x button{height:52px;padding:0 16px;gap:14px;font-size:15px;border-radius:99px}
   .nav-x button svg.i{width:19px;height:19px;opacity:1}
   .content{padding-bottom:calc(124px + env(safe-area-inset-bottom,0px))}
+  /* all sections in one row that scrolls sideways; the next item peeks in to show there is more */
+  #nav{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;overscroll-behavior-x:contain;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  #nav #navMore{display:none}
+  #nav .nav-x{display:contents}
+  #nav button,#nav .nav-x button{flex:0 0 auto;min-width:78px;height:auto;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:0 9px;border-radius:28px;font-size:10.5px;letter-spacing:-.01em;line-height:1.1;position:relative;text-align:center;scroll-snap-align:center}
+  #nav button svg.i,#nav .nav-x button svg.i{width:21px;height:21px;opacity:1}
+  #nav button .nl{flex:none;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+  #nav button .cnt{display:none}
   body.touring #nav button.tour-hl{filter:none!important;opacity:1!important}
   body:has(#nav.more) #aiFab{opacity:0;pointer-events:none}
   .shell{overflow-x:hidden;overflow-x:clip}

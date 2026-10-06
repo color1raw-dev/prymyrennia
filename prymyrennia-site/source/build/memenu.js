@@ -52,7 +52,7 @@ function fieldsBack(o){if(!o||o.k!==S.tab+"|"+(S.card||"")+"|"+(S.mode||"")+"|"+
     if(e.tagName==="SELECT"){for(var i=0;i<e.options.length;i++)if(e.options[i].value===x.t){e.value=x.t;break}}else e.value=x.t});
   if(o.sc!=null&&dlg.open)dlg.scrollTop=o.sc;
   if(o.f){var el=document.getElementById(o.f.id);if(el&&document.activeElement!==el){try{el.focus({preventScroll:true});if(o.f.s!=null&&el.setSelectionRange)el.setSelectionRange(o.f.s,o.f.e)}catch(x){}}}}
-function render(){var keep=null;try{keep=fieldsKeep()}catch(e){}if(S.tab==="reminders")S.tab="home";render0();try{var rb=document.getElementById("remBtn"),cb=document.getElementById("c_rem");if(rb&&cb)rb.classList.toggle("has",!cb.hidden)}catch(e){}try{fieldsBack(keep)}catch(e){}}
+function render(){var keep=null;try{keep=fieldsKeep()}catch(e){}if(S.tab==="reminders")S.tab="home";render0();try{var rb=document.getElementById("remBtn"),cb=document.getElementById("c_rem");if(rb&&cb)rb.classList.toggle("has",!cb.hidden)}catch(e){}try{if(S.tab!==render.t){render.t=S.tab;var nv=document.getElementById("nav"),cur=nv&&nv.querySelector('button[aria-current="page"]');if(cur&&nv.scrollWidth>nv.clientWidth+2)nv.scrollTo({left:cur.offsetLeft-(nv.clientWidth-cur.offsetWidth)/2,behavior:"smooth"})}}catch(e){}try{fieldsBack(keep)}catch(e){}}
 /* ---------- pastors can be chosen as the person someone is assigned to; the list of ministries is editable ---------- */
 function careList(){var out=deaconList().slice();S.pastors.forEach(function(p){if(p&&p.name&&out.indexOf(p.name)<0)out.push(p.name)});return out}
 function roleNames(){var hid=S.cfg.hiddenRoles||[],out=DEFROLES.filter(function(r){return hid.indexOf(r)<0});S.customRoles.concat(Object.keys(S.min)).forEach(function(r){if(out.indexOf(r)<0)out.push(r)});return out}
@@ -104,9 +104,10 @@ function careWord(name,cap){var p=S.pastors.some(function(x){return x&&x.name===
 
 /* ---------- what's new: shown once after an update, and always available in the account menu ---------- */
 var NEWS=[
- {id:"2026-10-07-3",d:"7 жовтня 2026",t:"Нагадування переїхали у дзвіночок",items:[
+ {id:"2026-10-07-4",d:"7 жовтня 2026",t:"Нагадування переїхали у дзвіночок",items:[
   ["bell","Дзвіночок замість пункту меню","Нагадування тепер відкриваються дзвіночком біля назви «Примирення» (на телефоні — вгорі праворуч). Цифра на ньому показує, скільки справ на сьогодні."],
-  ["grid","Зручніші вікна","Поки відкрите вікно, сторінка під ним не прокручується."]]},
+  ["grid","Зручніші вікна","Поки відкрите вікно, сторінка під ним не прокручується."],
+  ["swap","Меню на телефоні гортається","Кнопки «Ще» більше немає: усі розділи в одному рядку внизу, просто проведіть по меню вбік."]]},
  {id:"2026-10-07-2",d:"7 жовтня 2026",t:"У кожного свій чоловічок, у кожного статусу свій колір",items:[
   ["users","Аватарки замість ініціалів","Застосунок сам малює чоловічка за даними картки: стать, вік і служіння. У пастора посох і помаранчевий фон, у диякона стрічка й зелений, в інших служителів лаймовий пояс."],
   ["heart","Щоб чоловічок з'явився","Вкажіть у картці стать, а для точнішого вигляду ще й дату народження. Доки стать не вказана, лишається кружечок з ініціалами."],

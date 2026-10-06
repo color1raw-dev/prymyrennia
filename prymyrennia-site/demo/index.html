@@ -581,6 +581,14 @@ span[data-ic]{display:inline-grid;place-items:center;line-height:0;flex:none}
   .nav-x button{height:52px;padding:0 16px;gap:14px;font-size:15px;border-radius:99px}
   .nav-x button svg.i{width:19px;height:19px;opacity:1}
   .content{padding-bottom:calc(124px + env(safe-area-inset-bottom,0px))}
+  /* all sections in one row that scrolls sideways; the next item peeks in to show there is more */
+  #nav{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;overscroll-behavior-x:contain;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  #nav #navMore{display:none}
+  #nav .nav-x{display:contents}
+  #nav button,#nav .nav-x button{flex:0 0 auto;min-width:78px;height:auto;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:0 9px;border-radius:28px;font-size:10.5px;letter-spacing:-.01em;line-height:1.1;position:relative;text-align:center;scroll-snap-align:center}
+  #nav button svg.i,#nav .nav-x button svg.i{width:21px;height:21px;opacity:1}
+  #nav button .nl{flex:none;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+  #nav button .cnt{display:none}
   body.touring #nav button.tour-hl{filter:none!important;opacity:1!important}
   body:has(#nav.more) #aiFab{opacity:0;pointer-events:none}
   .shell{overflow-x:hidden;overflow-x:clip}
@@ -1776,7 +1784,7 @@ function renderDlg(){if(S.mode==="rems"){var sc=dlg.open?dlg.scrollTop:0;dlg.inn
 var TOUR=null;
 function tourSteps(){var full=S.canWrite&&!lim(),s=[
   {tab:"home",ic:"spark",t:"Вітаємо в обліку «Примирення»",x:"Це робочий інструмент служителів: люди, служіння, малі групи, зібрання й нагадування в одному місці. Покажу головне за хвилину."},
-  {tab:"home",ic:"grid",sel:".side-top,#nav button,.me",t:"Меню",x:"Усі розділи зібрані в одній панелі: на комп'ютері вона ліворуч, на телефоні — внизу екрана, решта розділів під кнопкою «Ще». Під меню — ваш акаунт: там підказки, «Що нового» і налаштування огляду."},
+  {tab:"home",ic:"grid",sel:".side-top,#nav button,.me",t:"Меню",x:"Усі розділи зібрані в одній панелі: на комп'ютері вона ліворуч, на телефоні — внизу екрана, гортається вбік. Під меню — ваш акаунт: там підказки, «Що нового» і налаштування огляду."},
   {tab:"home",ic:"book",sel:".verse,.stats,.features",t:"Огляд",x:"Угорі — слово на сьогодні. Нижче головні цифри церкви: натисніть на картку, щоб перейти до списку. Картка «Медіанний вік» відкриває статистику за віком і віковими групами. Які блоки показувати, ви вибираєте в «Налаштувати огляд»."},
   {tab:"people",ic:"users",sel:".toolbar,.tools",t:"Люди",x:"Усі картки. Угорі — пошук по всьому: прізвище, телефон, адреса, примітки. Фільтри показують чинних, тих, хто на замітці, і вибулих, а також людей конкретного диякона чи пастора."},
   {tab:"people",ic:"heart",sel:"#app>.panel",one:1,t:"Картка людини",x:full?"У картці ви записуєте відвідини, дзвінки й переписку, ставите потреби, призначаєте служіння, додаєте родичів. Кнопки вгорі: прийняти в члени, закріпити за дияконом або пастором, взяти на замітку. Дату прийняття вказуйте фактичну, а не сьогоднішню.":"У картках своїх людей ви записуєте відвідини, дзвінки й переписку, оновлюєте телефон та адресу, ставите потреби. Картки людей інших служителів відкриваються лише для перегляду."},
@@ -2146,7 +2154,7 @@ function fieldsBack(o){if(!o||o.k!==S.tab+"|"+(S.card||"")+"|"+(S.mode||"")+"|"+
     if(e.tagName==="SELECT"){for(var i=0;i<e.options.length;i++)if(e.options[i].value===x.t){e.value=x.t;break}}else e.value=x.t});
   if(o.sc!=null&&dlg.open)dlg.scrollTop=o.sc;
   if(o.f){var el=document.getElementById(o.f.id);if(el&&document.activeElement!==el){try{el.focus({preventScroll:true});if(o.f.s!=null&&el.setSelectionRange)el.setSelectionRange(o.f.s,o.f.e)}catch(x){}}}}
-function render(){var keep=null;try{keep=fieldsKeep()}catch(e){}if(S.tab==="reminders")S.tab="home";render0();try{var rb=document.getElementById("remBtn"),cb=document.getElementById("c_rem");if(rb&&cb)rb.classList.toggle("has",!cb.hidden)}catch(e){}try{fieldsBack(keep)}catch(e){}}
+function render(){var keep=null;try{keep=fieldsKeep()}catch(e){}if(S.tab==="reminders")S.tab="home";render0();try{var rb=document.getElementById("remBtn"),cb=document.getElementById("c_rem");if(rb&&cb)rb.classList.toggle("has",!cb.hidden)}catch(e){}try{if(S.tab!==render.t){render.t=S.tab;var nv=document.getElementById("nav"),cur=nv&&nv.querySelector('button[aria-current="page"]');if(cur&&nv.scrollWidth>nv.clientWidth+2)nv.scrollTo({left:cur.offsetLeft-(nv.clientWidth-cur.offsetWidth)/2,behavior:"smooth"})}}catch(e){}try{fieldsBack(keep)}catch(e){}}
 /* ---------- pastors can be chosen as the person someone is assigned to; the list of ministries is editable ---------- */
 function careList(){var out=deaconList().slice();S.pastors.forEach(function(p){if(p&&p.name&&out.indexOf(p.name)<0)out.push(p.name)});return out}
 function roleNames(){var hid=S.cfg.hiddenRoles||[],out=DEFROLES.filter(function(r){return hid.indexOf(r)<0});S.customRoles.concat(Object.keys(S.min)).forEach(function(r){if(out.indexOf(r)<0)out.push(r)});return out}
@@ -2198,9 +2206,10 @@ function careWord(name,cap){var p=S.pastors.some(function(x){return x&&x.name===
 
 /* ---------- what's new: shown once after an update, and always available in the account menu ---------- */
 var NEWS=[
- {id:"2026-10-07-3",d:"7 жовтня 2026",t:"Нагадування переїхали у дзвіночок",items:[
+ {id:"2026-10-07-4",d:"7 жовтня 2026",t:"Нагадування переїхали у дзвіночок",items:[
   ["bell","Дзвіночок замість пункту меню","Нагадування тепер відкриваються дзвіночком біля назви «Примирення» (на телефоні — вгорі праворуч). Цифра на ньому показує, скільки справ на сьогодні."],
-  ["grid","Зручніші вікна","Поки відкрите вікно, сторінка під ним не прокручується."]]},
+  ["grid","Зручніші вікна","Поки відкрите вікно, сторінка під ним не прокручується."],
+  ["swap","Меню на телефоні гортається","Кнопки «Ще» більше немає: усі розділи в одному рядку внизу, просто проведіть по меню вбік."]]},
  {id:"2026-10-07-2",d:"7 жовтня 2026",t:"У кожного свій чоловічок, у кожного статусу свій колір",items:[
   ["users","Аватарки замість ініціалів","Застосунок сам малює чоловічка за даними картки: стать, вік і служіння. У пастора посох і помаранчевий фон, у диякона стрічка й зелений, в інших служителів лаймовий пояс."],
   ["heart","Щоб чоловічок з'явився","Вкажіть у картці стать, а для точнішого вигляду ще й дату народження. Доки стать не вказана, лишається кружечок з ініціалами."],
