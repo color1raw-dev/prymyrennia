@@ -140,6 +140,9 @@ h3{font-size:16px;margin:0;font-weight:500;letter-spacing:-.01em}
 .panel{background:var(--surface);border-radius:var(--r);min-width:0}
 .pad{padding:22px 24px;display:flex;flex-direction:column;gap:16px}
 .scroll{overflow-x:auto}
+.panel>.scroll:last-child,.panel>table:last-child{border-bottom-left-radius:var(--r);border-bottom-right-radius:var(--r)}
+.panel>.scroll:first-child{border-top-left-radius:var(--r);border-top-right-radius:var(--r)}
+.panel>table:last-child{overflow:hidden}
 .hint{max-width:70ch;margin-top:-8px}
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px;border-radius:32px;background:var(--glass);border:1px solid var(--glass-line);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
 .toolbar>.tl-t{padding-left:12px}
@@ -348,7 +351,9 @@ dialog::backdrop{background:rgba(10,10,14,.38);-webkit-backdrop-filter:blur(8px)
 .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-block:0}
 .facts div{min-width:0;background:var(--raise);border-radius:18px;padding:12px 14px}
 .facts dt{font-size:12px;color:var(--muted)} .facts dd{margin:3px 0 0;overflow-wrap:anywhere}
-.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.facts .wide{grid-column:1/-1}
+.facts a.link{white-space:normal;overflow-wrap:anywhere}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;align-items:end}
 .form label{display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--muted);min-width:0}
 .form .wide{grid-column:1/-1}
 ol.tl{list-style:none;margin:0 0 0 6px;padding:0 0 0 20px;border-left:1px dashed var(--line);display:flex;flex-direction:column;gap:18px}
@@ -401,7 +406,7 @@ ol.tl .d{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
   .sh h3{font-size:18px}
   .sh-r,.sh-r select{flex:1 1 100%;max-width:none}
   .sh-r .btn{flex:1 1 auto}
-  dialog{margin:8px;width:calc(100vw - 16px);height:calc(100% - 16px);max-height:calc(100% - 16px);border-radius:30px}
+  dialog{margin:8px auto;width:calc(100% - 16px);max-width:none;height:calc(100% - 16px);max-height:calc(100% - 16px);border-radius:30px;box-sizing:border-box}
   .dlg>*{margin-inline:6px}
   #addBtn .lbl{display:none} #addBtn{width:48px;padding:0}
 }

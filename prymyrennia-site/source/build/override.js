@@ -225,7 +225,7 @@ function personForm(p,isNew){p=p||{};function f(l,id,v,type,cls){return '<label'
     (ai>=0?dt("Дата прийняття в члени церкви","f_joined",p.events[ai].date):"")+
     f("Телефон","f_phone",p.phone)+f("Населений пункт","f_place",p.place)+f("Адреса","f_address",p.address,"text","wide")+f("Сім\'я (спільна назва для родини)","f_family",p.family,"text","wide")+'<label>Сімейний стан<select id="f_marital">'+opts(MARITAL,p.marital,"—")+'</select></label>'+f("Дата шлюбу","f_wedding",p.wedding,"date")+
     (isNew||derive(p).st==="none"?'<label>Хто це<select id="f_kind">'+(isNew?'<option value="">член церкви</option>':'<option value="">не вказано</option>')+opts(KINDS,p.kind)+'</select></label>':"")+
-    (isNew?f("Дата прийняття в члени церкви","f_adate","","date")+'<label>Як прийшов<select id="f_how">'+opts(HOW,HOW[0])+'</select></label><label>Закріплений за (диякон або пастор)<select id="f_deacon">'+opts(careList(),"","не закріплений")+'</select></label><div class="wide small muted">Дата прийняття — це день, коли людину прийняли в члени церкви, а не сьогоднішня дата. Якщо не знаєте — лишіть порожньою, допишете пізніше через «Редагувати дані».</div>':"")+
+    (isNew?f("Дата прийняття в члени церкви","f_adate","","date")+'<label>Як прийшов<select id="f_how">'+opts(HOW,HOW[0])+'</select></label><label>Закріплений за<select id="f_deacon">'+opts(careList(),"","не закріплений")+'</select></label><div class="wide small muted">Дата прийняття — це день, коли людину прийняли в члени церкви, а не сьогоднішня дата. Якщо не знаєте — лишіть порожньою, допишете пізніше через «Редагувати дані».</div>':"")+
     '<label class="wide">Примітки<textarea id="f_notes">'+esc(p.notes||"")+'</textarea></label></div>'}
 /* ---------- participation state: active, long absent, serving in the army, moving to another church, custom ---------- */
 var PART=["активний","давно не відвідує","служить у ЗСУ","за кордоном","у процесі переходу до іншої церкви"];FL.part="Стан у церкві";S.fPart="";
@@ -315,6 +315,7 @@ document.addEventListener("change",function(e){var t=e.target,d=t.dataset||{};if
 function lim(){if(window.__site)return window.__site.role==="deacon";if(!(S.canWrite&&S.roleKnown)||S.isAdmin)return false;if((S.cfg.fullUsers||[]).indexOf(S.uid)>=0)return false;return !isOffice(myPid())}
 function ownOnly(p){if(!p||!lim())return false;var md=myDeacon();return !(md&&derive(p).deacon===md)}
 function renderDlg(){var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
+  Array.prototype.forEach.call(dlg.querySelectorAll(".facts dd"),function(d){if(d.textContent.length>34)d.parentNode.classList.add("wide")});
   if(p&&ownOnly(p)&&dlg.open){var d=dlg.querySelector(".dlg-head");if(d)d.insertAdjacentHTML("afterend",'<div class="box small" style="margin-inline:12px">Ця людина закріплена за іншим дияконом, тому картка відкрита лише для перегляду. Зміни вносить її диякон, пастор або секретар.</div>')}
   strip(dlg)}
 /* ---------- first-run tour ---------- */

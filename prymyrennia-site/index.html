@@ -146,6 +146,9 @@ h3{font-size:16px;margin:0;font-weight:500;letter-spacing:-.01em}
 .panel{background:var(--surface);border-radius:var(--r);min-width:0}
 .pad{padding:22px 24px;display:flex;flex-direction:column;gap:16px}
 .scroll{overflow-x:auto}
+.panel>.scroll:last-child,.panel>table:last-child{border-bottom-left-radius:var(--r);border-bottom-right-radius:var(--r)}
+.panel>.scroll:first-child{border-top-left-radius:var(--r);border-top-right-radius:var(--r)}
+.panel>table:last-child{overflow:hidden}
 .hint{max-width:70ch;margin-top:-8px}
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px;border-radius:32px;background:var(--glass);border:1px solid var(--glass-line);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
 .toolbar>.tl-t{padding-left:12px}
@@ -354,7 +357,9 @@ dialog::backdrop{background:rgba(10,10,14,.38);-webkit-backdrop-filter:blur(8px)
 .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-block:0}
 .facts div{min-width:0;background:var(--raise);border-radius:18px;padding:12px 14px}
 .facts dt{font-size:12px;color:var(--muted)} .facts dd{margin:3px 0 0;overflow-wrap:anywhere}
-.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.facts .wide{grid-column:1/-1}
+.facts a.link{white-space:normal;overflow-wrap:anywhere}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;align-items:end}
 .form label{display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--muted);min-width:0}
 .form .wide{grid-column:1/-1}
 ol.tl{list-style:none;margin:0 0 0 6px;padding:0 0 0 20px;border-left:1px dashed var(--line);display:flex;flex-direction:column;gap:18px}
@@ -407,7 +412,7 @@ ol.tl .d{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
   .sh h3{font-size:18px}
   .sh-r,.sh-r select{flex:1 1 100%;max-width:none}
   .sh-r .btn{flex:1 1 auto}
-  dialog{margin:8px;width:calc(100vw - 16px);height:calc(100% - 16px);max-height:calc(100% - 16px);border-radius:30px}
+  dialog{margin:8px auto;width:calc(100% - 16px);max-width:none;height:calc(100% - 16px);max-height:calc(100% - 16px);border-radius:30px;box-sizing:border-box}
   .dlg>*{margin-inline:6px}
   #addBtn .lbl{display:none} #addBtn{width:48px;padding:0}
 }
@@ -805,7 +810,7 @@ SB.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(s)enter(s.
   /* after sign-in: find out whether this device is already subscribed and refresh its record */
   READY.then(function(){if(!P.ok||Notification.permission!=="granted")return;reg().then(function(r){return r.pushManager.getSubscription()}).then(function(s){P.on=!!s;tell();if(s)save(s).then(function(){},function(){})},function(){})})})();
 /* new version check: the page knows its own build id and compares it with version.txt on the server */
-(function(){var dir=location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/",cur="ba274f563e3c",shown=false;
+(function(){var dir=location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/",cur="31fba8f7a3d1",shown=false;
   function latest(){return fetch(dir+"version.txt?v="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(t){return String(t).trim()})}
   function busy(){if(document.querySelector("dialog[open]"))return true;var f=document.querySelectorAll("input,textarea");for(var i=0;i<f.length;i++){var e=f[i];if(e.type==="checkbox"||e.type==="radio"||e.type==="date"||e.id==="gq")continue;if(e.value&&e.value!==e.defaultValue)return true}return false}
   function reload(v){location.replace(location.pathname+"?v="+encodeURIComponent(v))}
@@ -1676,7 +1681,7 @@ function personForm(p,isNew){p=p||{};function f(l,id,v,type,cls){return '<label'
     (ai>=0?dt("Дата прийняття в члени церкви","f_joined",p.events[ai].date):"")+
     f("Телефон","f_phone",p.phone)+f("Населений пункт","f_place",p.place)+f("Адреса","f_address",p.address,"text","wide")+f("Сім\'я (спільна назва для родини)","f_family",p.family,"text","wide")+'<label>Сімейний стан<select id="f_marital">'+opts(MARITAL,p.marital,"—")+'</select></label>'+f("Дата шлюбу","f_wedding",p.wedding,"date")+
     (isNew||derive(p).st==="none"?'<label>Хто це<select id="f_kind">'+(isNew?'<option value="">член церкви</option>':'<option value="">не вказано</option>')+opts(KINDS,p.kind)+'</select></label>':"")+
-    (isNew?f("Дата прийняття в члени церкви","f_adate","","date")+'<label>Як прийшов<select id="f_how">'+opts(HOW,HOW[0])+'</select></label><label>Закріплений за (диякон або пастор)<select id="f_deacon">'+opts(careList(),"","не закріплений")+'</select></label><div class="wide small muted">Дата прийняття — це день, коли людину прийняли в члени церкви, а не сьогоднішня дата. Якщо не знаєте — лишіть порожньою, допишете пізніше через «Редагувати дані».</div>':"")+
+    (isNew?f("Дата прийняття в члени церкви","f_adate","","date")+'<label>Як прийшов<select id="f_how">'+opts(HOW,HOW[0])+'</select></label><label>Закріплений за<select id="f_deacon">'+opts(careList(),"","не закріплений")+'</select></label><div class="wide small muted">Дата прийняття — це день, коли людину прийняли в члени церкви, а не сьогоднішня дата. Якщо не знаєте — лишіть порожньою, допишете пізніше через «Редагувати дані».</div>':"")+
     '<label class="wide">Примітки<textarea id="f_notes">'+esc(p.notes||"")+'</textarea></label></div>'}
 /* ---------- participation state: active, long absent, serving in the army, moving to another church, custom ---------- */
 var PART=["активний","давно не відвідує","служить у ЗСУ","за кордоном","у процесі переходу до іншої церкви"];FL.part="Стан у церкві";S.fPart="";
@@ -1766,6 +1771,7 @@ document.addEventListener("change",function(e){var t=e.target,d=t.dataset||{};if
 function lim(){if(window.__site)return window.__site.role==="deacon";if(!(S.canWrite&&S.roleKnown)||S.isAdmin)return false;if((S.cfg.fullUsers||[]).indexOf(S.uid)>=0)return false;return !isOffice(myPid())}
 function ownOnly(p){if(!p||!lim())return false;var md=myDeacon();return !(md&&derive(p).deacon===md)}
 function renderDlg(){var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
+  Array.prototype.forEach.call(dlg.querySelectorAll(".facts dd"),function(d){if(d.textContent.length>34)d.parentNode.classList.add("wide")});
   if(p&&ownOnly(p)&&dlg.open){var d=dlg.querySelector(".dlg-head");if(d)d.insertAdjacentHTML("afterend",'<div class="box small" style="margin-inline:12px">Ця людина закріплена за іншим дияконом, тому картка відкрита лише для перегляду. Зміни вносить її диякон, пастор або секретар.</div>')}
   strip(dlg)}
 /* ---------- first-run tour ---------- */
