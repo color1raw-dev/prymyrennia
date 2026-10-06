@@ -5,6 +5,11 @@ i=page.rindex('<script>'); markup=page[:i]; app=page[i:]
 lib=open('site/lib/supabase.js',encoding='utf8').read()
 assert '</script' not in lib.lower()
 shim=open('site/shim.js',encoding='utf8').read().replace('__SB_URL__','https://nbxsomiypukivlnralrv.supabase.co').replace('__SB_KEY__','sb_publishable_jJqOvUT8q7Gj54h4xZ45ng_YxUR0eMV')
+import hashlib
+BUILD=hashlib.sha1((page+shim).encode('utf8')).hexdigest()[:12]
+shim=shim.replace('__BUILD__',BUILD)
+os.makedirs('site/out',exist_ok=True) if '../'=='site/out/' else None
+open('../version.txt','w').write(BUILD+'\n')
 shim+='''
 (function(){var t0=Date.now();function hidePre(){var p=document.getElementById("pre");if(p&&document.getElementById("auth"))p.classList.add("out")}setTimeout(hidePre,2900);setTimeout(hidePre,4200)})();
 '''
