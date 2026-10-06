@@ -2,11 +2,11 @@
 function meIni(n){return String(n||"?").trim().split(/\s+/).map(function(w){return w.charAt(0)}).slice(0,2).join("").toUpperCase()||"?"}
 function meRoleT(){var w=document.getElementById("who"),r=w?(w.textContent.split(" \u00b7 ")[1]||""):"";return r?r.charAt(0).toUpperCase()+r.slice(1):""}
 function meKind(){var id=myPid();if(id&&isPastor(id))return ["pastor","Пастор"];if(id&&isDeacon(id))return dkTrialP(id)?["trial","Диякон · випробувальний"]:["deacon","Диякон"];return [S.isOwner?"owner":S.isAdmin?"full":"user",""]}
-function meAvH(c){var n=S.me&&S.me.name||"",mp=!(S.me&&S.me.avatarUrl)&&person(myPid());if(mp&&avOk(mp))return '<span class="'+c+' fig">'+avOf(mp)+'</span>';return S.me&&S.me.avatarUrl?'<img class="'+c+'" src="'+esc(S.me.avatarUrl)+'" alt="">':'<span class="'+c+'">'+esc(meIni(n))+'</span>'}
-function meSync(){var b=document.getElementById("meBtn"),m=document.getElementById("meBtnM");if(!b)return;var has=!!S.me;b.hidden=!has;if(m)m.hidden=!has;if(!has)return;
-  var nm=S.me.name||"Без імені",ini=document.getElementById("meIn");document.getElementById("meName").textContent=nm;document.getElementById("meRole").textContent=meRoleT();
-  ini.hidden=!!S.me.avatarUrl;var mp=person(myPid()),mfig=mp&&avOk(mp),mk0=mfig?"f"+mp.id+"|"+mp.sex+"|"+mp.birth+"|"+avRole(mp.id):"t"+nm;if(ini.dataset.k!==mk0){ini.dataset.k=mk0;ini.classList.toggle("fig",!!mfig);if(mfig)ini.innerHTML=avOf(mp);else ini.textContent=meIni(nm)}
-  if(m){var k=(S.me.avatarUrl||"")+"|"+nm;if(m.dataset.k!==k){m.dataset.k=k;m.innerHTML=S.me.avatarUrl?'<img src="'+esc(S.me.avatarUrl)+'" alt="">':esc(meIni(nm))}}}
+function meAvH(c){var n=S.me&&S.me.name||"",mp=person(myPid());if(mp&&avOk(mp))return '<span class="'+c+' fig">'+avOf(mp)+'</span>';return S.me&&S.me.avatarUrl?'<img class="'+c+'" src="'+esc(S.me.avatarUrl)+'" alt="">':'<span class="'+c+'">'+esc(meIni(n))+'</span>'}
+function meSync(){var b=document.getElementById("meBtn"),m=document.getElementById("meBtnM");if(!b)return;var has=!!S.me;if(b.hidden===has)b.hidden=!has;if(m&&m.hidden===has)m.hidden=!has;if(!has)return;
+  var nm=S.me.name||"Без імені",ini=document.getElementById("meIn");var en=document.getElementById("meName"),er=document.getElementById("meRole"),rt=meRoleT();if(en.textContent!==nm)en.textContent=nm;if(er.textContent!==rt)er.textContent=rt;
+  var mp=person(myPid()),mfig=!!(mp&&avOk(mp)),hideIni=!mfig&&!!S.me.avatarUrl,avI=document.getElementById("meAv");if(ini.hidden!==hideIni)ini.hidden=hideIni;if(avI&&mfig&&!avI.hidden)avI.hidden=true;var mk0=mfig?"f"+mp.id+"|"+mp.sex+"|"+mp.birth+"|"+avRole(mp.id):"t"+nm;if(ini.dataset.k!==mk0){ini.dataset.k=mk0;ini.classList.toggle("fig",!!mfig);if(mfig)ini.innerHTML=avOf(mp);else ini.textContent=meIni(nm)}
+  if(m){var k=(S.me.avatarUrl||"")+"|"+nm+"|"+mk0;if(m.dataset.k!==k){m.dataset.k=k;m.classList.toggle("fig",mfig);m.innerHTML=mfig?avOf(mp):S.me.avatarUrl?'<img src="'+esc(S.me.avatarUrl)+'" alt="">':esc(meIni(nm))}}}
 function meClose(){var el=document.getElementById("meMenu");if(el)el.remove();var b=document.getElementById("meBtn");if(b)b.setAttribute("aria-expanded","false")}
 function meItem(act,ic,label,id){return '<button type="button" role="menuitem"'+(id?' id="'+id+'"':' data-act="'+act+'"')+'><span class="si">'+ico(ic)+'</span><span class="grow">'+label+'</span>'+(id?"":'<span class="go">'+ico("arrow")+'</span>')+'</button>'}
 function meMenu(src){if(document.getElementById("meMenu")){meClose();return}if(!S.me)return;
@@ -38,7 +38,8 @@ function pushOn(){var p=window.__push;if(!p)return;meClose();p.enable().then(fun
 function pushCard(){var p=window.__push;if(!p)return "";var st=p.state();if(st==="on")return "";
   var t=st==="home"?"На iPhone спершу додайте застосунок на головний екран: «Поділитися» → «На початковий екран», і відкрийте його звідти. Тоді тут з'явиться кнопка.":st==="denied"?"Сповіщення для цього сайту заборонені. Дозвольте їх у налаштуваннях браузера або телефона і поверніться сюди.":st==="none"?"Цей браузер не підтримує сповіщення. Спробуйте Chrome або Safari.":"У день нагадування прийде звичайне сповіщення на цей пристрій, навіть коли застосунок закритий.";
   return '<div class="notice"><span class="si t-lime">'+ico("bell")+'</span><span class="nt"><b>Сповіщення про нагадування</b><span class="muted small">'+esc(t)+'</span></span>'+(st==="off"?'<button class="btn primary" data-act="pushOn"'+(p.busy()?" disabled":"")+'>'+(p.busy()?"Вмикаю…":"Увімкнути")+'</button>':"")+'</div>'}
-window.addEventListener("pushstate",function(){if(S.ready&&S.tab==="reminders")render()});
+window.addEventListener("pushstate",function(){if(S.ready&&S.mode==="rems"&&dlg.open)renderDlg()});
+function remOpen(){if(TOUR)return;meClose();if(typeof AI!=="undefined"&&AI.open){AI.open=false;aiRender()}S.card=null;S.mode="rems";renderDlg()}
 /* ---------- keep what the person is typing when the screen redraws because someone else's data arrived ---------- */
 var UACT=0;
 ["pointerdown","submit","keydown","change"].forEach(function(ev){document.addEventListener(ev,function(e){if(ev==="keydown"&&e.key!=="Enter")return;if(ev==="change"&&!/^(SELECT)$/.test(e.target.tagName)&&e.target.type!=="checkbox")return;UACT=Date.now()},true)});
@@ -51,7 +52,7 @@ function fieldsBack(o){if(!o||o.k!==S.tab+"|"+(S.card||"")+"|"+(S.mode||"")+"|"+
     if(e.tagName==="SELECT"){for(var i=0;i<e.options.length;i++)if(e.options[i].value===x.t){e.value=x.t;break}}else e.value=x.t});
   if(o.sc!=null&&dlg.open)dlg.scrollTop=o.sc;
   if(o.f){var el=document.getElementById(o.f.id);if(el&&document.activeElement!==el){try{el.focus({preventScroll:true});if(o.f.s!=null&&el.setSelectionRange)el.setSelectionRange(o.f.s,o.f.e)}catch(x){}}}}
-function render(){var keep=null;try{keep=fieldsKeep()}catch(e){}render0();try{fieldsBack(keep)}catch(e){}}
+function render(){var keep=null;try{keep=fieldsKeep()}catch(e){}if(S.tab==="reminders")S.tab="home";render0();try{var rb=document.getElementById("remBtn"),cb=document.getElementById("c_rem");if(rb&&cb)rb.classList.toggle("has",!cb.hidden)}catch(e){}try{fieldsBack(keep)}catch(e){}}
 /* ---------- pastors can be chosen as the person someone is assigned to; the list of ministries is editable ---------- */
 function careList(){var out=deaconList().slice();S.pastors.forEach(function(p){if(p&&p.name&&out.indexOf(p.name)<0)out.push(p.name)});return out}
 function roleNames(){var hid=S.cfg.hiddenRoles||[],out=DEFROLES.filter(function(r){return hid.indexOf(r)<0});S.customRoles.concat(Object.keys(S.min)).forEach(function(r){if(out.indexOf(r)<0)out.push(r)});return out}
@@ -103,6 +104,9 @@ function careWord(name,cap){var p=S.pastors.some(function(x){return x&&x.name===
 
 /* ---------- what's new: shown once after an update, and always available in the account menu ---------- */
 var NEWS=[
+ {id:"2026-10-07-3",d:"7 жовтня 2026",t:"Нагадування переїхали у дзвіночок",items:[
+  ["bell","Дзвіночок замість пункту меню","Нагадування тепер відкриваються дзвіночком біля назви «Примирення» (на телефоні — вгорі праворуч). Цифра на ньому показує, скільки справ на сьогодні."],
+  ["grid","Зручніші вікна","Поки відкрите вікно, сторінка під ним не прокручується."]]},
  {id:"2026-10-07-2",d:"7 жовтня 2026",t:"У кожного свій чоловічок, у кожного статусу свій колір",items:[
   ["users","Аватарки замість ініціалів","Застосунок сам малює чоловічка за даними картки: стать, вік і служіння. У пастора посох і помаранчевий фон, у диякона стрічка й зелений, в інших служителів лаймовий пояс."],
   ["heart","Щоб чоловічок з'явився","Вкажіть у картці стать, а для точнішого вигляду ще й дату народження. Доки стать не вказана, лишається кружечок з ініціалами."],

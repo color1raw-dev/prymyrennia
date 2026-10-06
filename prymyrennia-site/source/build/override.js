@@ -35,7 +35,7 @@ function short(p){return [p.last,p.first].filter(Boolean).join(" ")}
 function setHead(){
   var t=TITLES[S.tab];if(S.tab==="home"&&S.me&&S.me.name)t="Вітаю, "+S.me.name.split(" ")[0]+"!";
   document.getElementById("title").textContent=t;document.getElementById("sub").textContent=SUBT[S.tab]||"";
-  var av=document.getElementById("meAv");if(S.me&&S.me.avatarUrl){if(av.getAttribute("src")!==S.me.avatarUrl)av.src=S.me.avatarUrl;av.hidden=false}
+  var av=document.getElementById("meAv");if(S.me&&S.me.avatarUrl&&!avOk(person(myPid()))){if(av.getAttribute("src")!==S.me.avatarUrl)av.src=S.me.avatarUrl;av.hidden=false}
   var g=document.getElementById("gq");if(g.value!==S.q&&document.activeElement!==g)g.value=S.q;
   var sc=document.getElementById("sideCard");
   if(S.ready&&S.roleKnown&&S.canWrite&&!lim()){var ds=daysSince(S.cfg.lastBackup),late=ds==null||ds>7;
@@ -258,6 +258,7 @@ function extra(a,t,v){
   if(a==="news"){meClose();S.card=null;S.mode="news";S.newsAll=false;renderDlg();newsSeen();return true}
   if(a==="newsAll"){S.newsAll=true;renderDlg();return true}
   if(a==="newsTour"){dlg.close();tourStart();return true}
+  if(a==="rems"){remOpen();return true}
   if(a==="ages"){S.mode="ages";S.card=null;S.ageG=-1;renderDlg();return true}
   if(a==="ageG"){S.ageG=S.ageG===+v?-1:+v;renderDlg();return true}
   if(a==="addCare"){if(lim()){toast("Для цього потрібні повні права");return true}var cp0=person(val("newCare")),cr=val("newCareRole");if(!cp0){toast("Виберіть людину зі списку");return true}var cn=[cp0.last,cp0.first].filter(Boolean).join(" ");
@@ -330,7 +331,7 @@ document.addEventListener("change",function(e){var t=e.target,d=t.dataset||{};if
   st.updateStaff(d.srole||d.sperson,d.srole?{role:t.value}:{person_id:t.value}).then(function(){toast("Збережено")},function(){toast("Не вдалося зберегти. Можливо, бракує прав.")})});
 function lim(){if(window.__site)return window.__site.role==="deacon";if(!(S.canWrite&&S.roleKnown)||S.isAdmin)return false;if((S.cfg.fullUsers||[]).indexOf(S.uid)>=0)return false;return !isOffice(myPid())}
 function ownOnly(p){if(!p||!lim())return false;var md=myDeacon();return !(md&&derive(p).deacon===md)}
-function renderDlg(){if(S.mode==="news"){dlg.innerHTML=newsDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="care"){dlg.innerHTML=careDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="ages"){dlg.innerHTML=agesDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
+function renderDlg(){if(S.mode==="rems"){var sc=dlg.open?dlg.scrollTop:0;dlg.innerHTML='<div class="dlg rems"><div class="dlg-head"><h2>Нагадування</h2><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>'+vReminders()+'</div>';if(!dlg.open)dlg.showModal();dlg.scrollTop=sc;strip(dlg);return}if(S.mode==="news"){dlg.innerHTML=newsDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="care"){dlg.innerHTML=careDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="ages"){dlg.innerHTML=agesDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
   Array.prototype.forEach.call(dlg.querySelectorAll(".facts dd"),function(d){if(d.textContent.length>34)d.parentNode.classList.add("wide")});
   if(p&&ownOnly(p)&&dlg.open){var d=dlg.querySelector(".dlg-head");if(d)d.insertAdjacentHTML("afterend",'<div class="box small" style="margin-inline:12px">Ця людина закріплена за іншим дияконом, тому картка відкрита лише для перегляду. Зміни вносить її диякон, пастор або секретар.</div>')}
   strip(dlg)}
@@ -342,7 +343,7 @@ function tourSteps(){var full=S.canWrite&&!lim(),s=[
   {tab:"home",ic:"book",sel:".verse,.stats,.features",t:"Огляд",x:"Угорі — слово на сьогодні. Нижче головні цифри церкви: натисніть на картку, щоб перейти до списку. Картка «Медіанний вік» відкриває статистику за віком і віковими групами. Які блоки показувати, ви вибираєте в «Налаштувати огляд»."},
   {tab:"people",ic:"users",sel:".toolbar,.tools",t:"Люди",x:"Усі картки. Угорі — пошук по всьому: прізвище, телефон, адреса, примітки. Фільтри показують чинних, тих, хто на замітці, і вибулих, а також людей конкретного диякона чи пастора."},
   {tab:"people",ic:"heart",sel:"#app>.panel",one:1,t:"Картка людини",x:full?"У картці ви записуєте відвідини, дзвінки й переписку, ставите потреби, призначаєте служіння, додаєте родичів. Кнопки вгорі: прийняти в члени, закріпити за дияконом або пастором, взяти на замітку. Дату прийняття вказуйте фактичну, а не сьогоднішню.":"У картках своїх людей ви записуєте відвідини, дзвінки й переписку, оновлюєте телефон та адресу, ставите потреби. Картки людей інших служителів відкриваються лише для перегляду."},
-  {tab:"reminders",ic:"bell",sel:"#app>.panel",one:1,t:"Нагадування",x:"Додайте своє нагадування з датою: подзвонити, відвідати, привітати. Сюди ж самі потрапляють ті, у кого минув термін замітки, і ті, хто потребує опіки. Увімкніть сповіщення вгорі розділу — нагадування приходитимуть на телефон або комп'ютер, як у звичайному застосунку."},
+  {tab:"home",ic:"bell",sel:".side-top",t:"Нагадування",x:"Дзвіночок біля назви, цифра на ньому — скільки справ на сьогодні. Натисніть, щоб додати своє нагадування з датою: подзвонити, відвідати, привітати. Туди ж самі потрапляють ті, у кого минув термін замітки, і ті, хто потребує опіки. Там же вмикаються сповіщення на телефон або комп'ютер."},
   {tab:"deacons",ic:"shield",sel:".dcards,#app>.sh",t:"Пастори і диякони",x:"Вони в одному списку, а колір картки показує, хто є хто: помаранчева — пастор, зелена — диякон, сіро-блакитна — диякон на випробувальному терміні. Натисніть на картку — відкриється список закріплених людей з копіюванням, Excel і друком."},
   {tab:"deacons",ic:"sliders",sel:"#app>.panel",t:"Інші служіння і малі групи",x:"Нижче — решта служінь: призначайте людей і редагуйте сам список служінь під свою церкву. У розділі «Малі групи» — склад, лідер і відвідуваність зустрічей."},
   {tab:"meetings",ic:"calendar",sel:"#app>.panel",one:1,t:"Зібрання і трансляція",x:"Членські зібрання з рішеннями щодо людей. Кнопка «Дивитися наживо» відкриває поточну трансляцію на YouTube."}];

@@ -272,6 +272,7 @@ tr.sum td{font-weight:500}
 .av.big{width:58px;height:58px;font-size:19px}
 .av.fig,.me-in.fig,.mm-av.fig,.hero-head .av.fig,.mm-h .mm-av.fig{background:none;border:0;padding:0;overflow:hidden;box-shadow:none}
 .av.fig svg,.me-in.fig svg,.mm-av.fig svg{width:100%;height:100%;display:block}
+.me-m.fig{background:none;padding:0;overflow:hidden}.me-m.fig svg{width:100%;height:100%;display:block}
 .av.fig.big{width:64px;height:64px;box-shadow:0 0 0 2px rgba(255,255,255,.5)}
 .pill{display:inline-block;font-size:12px;font-weight:500;line-height:1;padding:5px 10px;border-radius:99px;white-space:nowrap}
 .s-part{background:color-mix(in srgb,var(--t4) 20%,var(--raise));color:var(--t4)}
@@ -354,6 +355,9 @@ span.chip{cursor:default}
 /* person sheet */
 dialog{border:0;background:var(--surface);color:var(--fg);padding:0;margin:12px 12px 12px auto;width:min(600px,calc(100vw - 24px));height:calc(100% - 24px);max-height:calc(100% - 24px);border-radius:36px;box-shadow:0 30px 80px rgba(0,0,0,.28)}
 dialog::backdrop{background:rgba(10,10,14,.38);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+/* nothing moves or repaints under an open popup, so its blurred backdrop stays steady */
+html:has(dialog[open]) .bgfx i{animation-play-state:paused}
+html:has(dialog[open]) .side,html:has(dialog[open]) #nav{-webkit-backdrop-filter:none;backdrop-filter:none}
 .dlg{padding:12px 12px 28px;display:flex;flex-direction:column;gap:26px}
 .dlg>*{margin-inline:12px}
 .dlg h3{font-size:18px;font-weight:400;letter-spacing:-.02em}
@@ -682,7 +686,21 @@ body.touring #nav{-webkit-mask-image:none;mask-image:none}
 .side .me{border:0;background:var(--isl-row);height:62px;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
 #sideCard{background:var(--isl-row)}
 }
-@media (min-width:921px) and (max-height:820px){.side-top::before{height:104px}.side .hands{top:52px;width:330px}#nav button{height:42px}}
+@media (min-width:921px){body.touring #nav{overflow:visible}}
+/* reminders live behind the bell next to the name, not in the menu */
+.brand{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.rem-b{position:relative;flex:none;width:44px;height:44px;margin-top:-4px;border-radius:50%;border:0;background:var(--isl-row);color:var(--fg);display:grid;place-items:center;cursor:pointer;transition:background .2s,transform .2s}
+.rem-b:hover{background:var(--raise);transform:scale(1.05)}
+.rem-b svg.i{width:19px;height:19px;vertical-align:0}
+.rem-b .badge{position:absolute;top:-5px;right:-5px;min-width:21px;height:21px;padding:0 6px;font-size:11px;box-shadow:0 0 0 2px var(--surface)}
+.rem-b.has svg.i{animation:bellR 3.2s ease-in-out 1.2s 2;transform-origin:50% 10%}
+@keyframes bellR{0%,86%,100%{transform:none}89%{transform:rotate(-14deg)}92%{transform:rotate(12deg)}95%{transform:rotate(-8deg)}98%{transform:rotate(5deg)}}
+@media (prefers-reduced-motion:reduce){.rem-b.has svg.i{animation:none}}
+@media (max-width:920px){.rem-b{background:var(--glass);border:1px solid var(--glass-line);margin-top:0;align-self:center}}
+/* the page under an open popup does not scroll */
+html:has(dialog[open]),html:has(dialog[open]) body{overflow:hidden}
+dialog{overscroll-behavior:contain}
+@media (min-width:921px) and (max-height:820px){.side-top::before{height:104px}.side .hands{top:44px;width:290px;transform:translate(-50%,-50%) rotate(-9deg)}#nav button{height:42px}}
 @media (min-width:921px) and (max-height:700px){.side-top::before{display:none}.side .hands{display:none}.side-top{padding-top:10px}}
 </style>
 
@@ -690,14 +708,13 @@ body.touring #nav{-webkit-mask-image:none;mask-image:none}
 <div class="bgfx" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="shell">
   <aside class="side">
-    <div class="side-top"><div class="hands" aria-hidden="true"></div><div class="brand"><span class="wm">Примирення<small>церковний облік</small></span></div></div>
+    <div class="side-top"><div class="hands" aria-hidden="true"></div><div class="brand"><span class="wm">Примирення<small>церковний облік</small></span><button class="rem-b" id="remBtn" type="button" data-act="rems" aria-label="Нагадування" title="Нагадування"><span data-ic="bell"></span><span class="badge" id="c_rem" hidden></span></button></div></div>
     <nav id="nav" aria-label="Розділи">
       <button data-tab="home" data-ic="grid"><span class="nl">Огляд</span></button>
-      <button data-tab="reminders" data-ic="bell"><span class="nl">Нагадування</span><span class="badge" id="c_rem" hidden></span></button>
       <button data-tab="people" data-ic="users"><span class="nl">Люди</span><span class="cnt" id="c_people"></span></button>
       <button data-tab="deacons" data-ic="shield"><span class="nl">Служителі</span><span class="cnt" id="c_deacons"></span></button>
-      <div class="nav-x" id="navX">
       <button data-tab="groups" data-ic="circles"><span class="nl">Малі групи</span><span class="cnt" id="c_groups"></span></button>
+      <div class="nav-x" id="navX">
       <button data-tab="meetings" data-ic="calendar"><span class="nl">Зібрання</span><span class="cnt" id="c_meet"></span></button>
       <button data-tab="journal" data-ic="swap"><span class="nl">Рух членства</span></button>
       <button data-tab="reports" data-ic="chart"><span class="nl">Звіти</span></button>

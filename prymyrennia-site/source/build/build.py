@@ -72,6 +72,7 @@ rep('lcList("Люди диякона "+bd,A)','lcList("Люди, закріпл�
 rep('<span class="av big">\'+esc(ini(p))+\'</span>','\'+avFig(p,"big")+\'')
 rep("""function rtag(id){return roles(id).map(function(r){return ' <span class="pill s-role">'+esc(r)+'</span>'}""","""function rtag(id){return roles(id).map(function(r){var k=r==="пастор"?" pc r-p":r==="диякон"?" pc r-d":r.indexOf("диякон")===0?" pc r-t":"";return ' <span class="pill s-role'+k+'">'+esc(r)+'</span>'}""")
 rep("""function ntag(p){return (p.needs||[]).map(function(n){return ' <span class="pill s-note">'+esc(n)+'</span>'}""","""function ntag(p){return (p.needs||[]).map(function(n){var i=NEEDS.indexOf(n);return ' <span class="pill s-note pc n'+(i<0?9:i)+'">'+esc(n)+'</span>'}""")
+rep('function go(tab){S.tab=tab;','function go(tab){if(tab==="reminders"){remOpen();return}S.tab=tab;')
 for ch in '✕✓↑↓': assert ch not in js, ch
 import base64
 hd=open('build/head.html',encoding='utf8').read().replace('{{HANDS}}','data:image/webp;base64,'+open('logo/hands2.b64.txt').read().strip())
