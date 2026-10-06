@@ -94,11 +94,33 @@ async function run() {
   return { day, due: due.length, sent };
 }
 
+// latest broadcasts of the church channel, read from YouTube's public feed (no key needed); cached for 15 minutes
+const YT_CH = "UCzNKDB2r8mOoUO2wpT8Cn1g";
+let ytCache: { at: number; items: { id: string; title: string; date: string }[] } | null = null;
+async function ytLatest() {
+  if (ytCache && Date.now() - ytCache.at < 15 * 60 * 1000) return { items: ytCache.items };
+  const unesc = (t: string) => t.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+  for (const q of ["playlist_id=UULV" + YT_CH.slice(2), "channel_id=" + YT_CH]) {
+    try {
+      const r = await fetch("https://www.youtube.com/feeds/videos.xml?" + q);
+      if (!r.ok) continue;
+      const items = (await r.text()).split("<entry>").slice(1, 13).map((e) => ({
+        id: (e.match(/<yt:videoId>([^<]+)/) || [])[1] || "",
+        title: unesc((e.match(/<title>([^<]+)/) || [])[1] || ""),
+        date: (e.match(/<published>([^<]{10})/) || [])[1] || "",
+      })).filter((x) => /^[\w-]{11}$/.test(x.id));
+      if (items.length) { ytCache = { at: Date.now(), items }; return { items }; }
+    } catch (_) { /* try the next feed */ }
+  }
+  return { items: ytCache ? ytCache.items : [] };
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   try {
     const url = new URL(req.url);
     if (req.method === "GET") {
+      if (url.searchParams.get("op") === "yt") return J(await ytLatest());
       if (url.searchParams.get("op") === "key") return J({ publicKey: (await keys()).pub });
       return J({ ok: true, env: Object.keys(Deno.env.toObject()).filter((k) => k.indexOf("SUPABASE_") === 0), key: secretKey() ? "present" : "missing" });
     }

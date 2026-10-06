@@ -1,0 +1,363 @@
+<title>Церква Примирення</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600&family=Doto:wght@700;900&display=swap">
+<style>
+/* Layout: one calm column on a soft grey canvas. The two hands reach across the full width of the hero and almost touch above the name; below, every block is one of four parts: glass pill, white rounded panel, mesh-gradient card, dotted numeral. */
+{{TOKENS}}
+:root{--hands:url("{{HANDS}}");--w:1240px;--gut:clamp(16px,4vw,40px)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden;overflow-x:clip}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;overflow-x:clip}
+{{BGFX}}
+{{GRAD}}
+svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+a{color:inherit}
+h1,h2,h3,p{margin:0}
+h2{font-size:clamp(30px,4.2vw,52px);font-weight:400;letter-spacing:-.035em;line-height:1.05;text-wrap:balance}
+h3{font-size:19px;font-weight:500;letter-spacing:-.015em;line-height:1.25}
+.page{position:relative;z-index:1;display:flex;flex-direction:column;gap:clamp(72px,10vw,128px);padding-block:0 48px}
+.wrap{width:100%;max-width:calc(var(--w) + 2*var(--gut));margin-inline:auto;padding-inline:var(--gut)}
+.muted{color:var(--muted)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;height:32px;padding:0 14px;border-radius:99px;background:var(--glass);border:1px solid var(--glass-line);font-size:13px;color:var(--muted);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 1px var(--line)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:8px 24px;border-radius:99px;border:1px solid transparent;background:var(--raise);color:var(--fg);font:inherit;font-size:15px;font-weight:500;text-decoration:none;cursor:pointer;transition:transform .18s,opacity .18s,border-color .18s}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--accent);color:var(--accent-fg)}
+.btn.glass{background:var(--glass);border-color:var(--glass-line);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.btn.small{min-height:40px;padding:6px 16px;font-size:14px}
+.btn:focus-visible,a:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.si{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--soft);color:var(--fg)}
+.si.lime{background:var(--lime);color:var(--lime-fg)}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;padding-block:14px 0;pointer-events:none}
+.top .bar{pointer-events:auto;display:flex;align-items:center;gap:8px;height:60px;padding:0 8px 0 22px;border-radius:99px;background:var(--glass);border:1px solid var(--glass-line);-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);box-shadow:0 10px 34px var(--shade)}
+.top .name{font-size:19px;font-weight:500;letter-spacing:-.035em;text-decoration:none;margin-right:auto}
+.top nav{display:flex;gap:2px}
+.top nav a{display:inline-flex;align-items:center;height:44px;padding:0 14px;border-radius:99px;font-size:14.5px;text-decoration:none;color:var(--fg);transition:background .18s}
+.top nav a:hover{background:var(--raise)}
+@media (max-width:860px){.top nav{display:none}.top .bar{padding-left:20px}}
+
+/* hero */
+.hero{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;padding-top:clamp(8px,2vw,24px)}
+.hands{position:relative;flex:none;width:max(620px,min(max(132vw,900px),170svh));max-width:2400px;aspect-ratio:1900/483;margin-block:clamp(-8px,-1vw,0px) clamp(-34px,-3.4vw,-12px);pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent 1%,#000 15%,#000 85%,transparent 99%);mask-image:linear-gradient(90deg,transparent 1%,#000 15%,#000 85%,transparent 99%)}
+@media (min-width:1800px){.hands{-webkit-mask-image:linear-gradient(90deg,transparent 12%,#000 26%,#000 74%,transparent 88%);mask-image:linear-gradient(90deg,transparent 12%,#000 26%,#000 74%,transparent 88%)}}
+.hands i{position:absolute;inset:0;background:var(--hands) center/100% 100% no-repeat}
+.hands .l{clip-path:inset(0 50.7% 0 0);animation:hl 1.5s cubic-bezier(.2,.8,.2,1) both}
+.hands .r{clip-path:inset(0 0 0 49.300%);animation:hr 1.5s cubic-bezier(.2,.8,.2,1) both}
+.hands::after{content:"";position:absolute;left:49.300%;top:49%;width:7%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(217,242,58,.6),rgba(245,166,35,.22) 55%,transparent);animation:glow 3.6s ease-in-out 1.2s infinite alternate;opacity:.55}
+@keyframes hl{from{transform:translate(-5%,3%)}to{transform:none}}
+@keyframes hr{from{transform:translate(5%,-3%)}to{transform:none}}
+@keyframes glow{from{opacity:.25;transform:translate(-50%,-50%) scale(.8)}to{opacity:.75;transform:translate(-50%,-50%) scale(1.15)}}
+@media (prefers-reduced-motion:reduce){.hands .l,.hands .r,.hands::after{animation:none}html{scroll-behavior:auto}}
+.hero h1{font-size:clamp(58px,min(13.2vw,20svh),176px);font-weight:500;letter-spacing:-.06em;line-height:.9}
+.hero .lead{font-size:clamp(18px,2vw,24px);font-weight:300;letter-spacing:-.015em;line-height:1.35;max-width:30em;text-wrap:balance}
+.hero .cta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:6px}
+.hero .verse{margin-top:10px;font-size:14px;color:var(--muted);max-width:34em}
+.hero .verse b{font-weight:500;color:var(--fg)}
+
+@media (min-width:861px) and (max-height:800px){.hands{width:max(620px,min(132vw,150svh))}.hero,.hero>.wrap{gap:14px!important}.hero .lead{font-size:18px}.hero .cta{margin-top:2px}}
+@media (min-width:861px) and (max-height:680px){.hands{width:max(620px,min(132vw,138svh))}.hero h1{font-size:clamp(58px,min(13.2vw,18svh),176px)}}
+
+/* section head */
+.sh{display:flex;flex-direction:column;gap:16px;max-width:780px}
+.sh p{font-size:18px;color:var(--muted);max-width:36em}
+.sec{display:flex;flex-direction:column;gap:clamp(28px,4vw,44px)}
+
+/* first visit */
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.card{display:flex;flex-direction:column;gap:14px;padding:24px;border-radius:var(--r);background:var(--surface);min-width:0}
+.card p{color:var(--muted);font-size:15px}
+@media (max-width:980px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.grid4{grid-template-columns:minmax(0,1fr)}}
+
+/* visit */
+.visit{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:12px}
+.vcard{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:40px;min-height:380px;padding:32px;border-radius:36px;color:var(--on-g);overflow:hidden;isolation:isolate}
+.vcard::after{content:"";position:absolute;z-index:-1;left:32px;right:32px;bottom:24px;height:13px;background-image:radial-gradient(circle,rgba(255,255,255,.6) 1px,transparent 1.5px);background-size:7px 7px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(90deg,transparent,#000 30%,#000 70%,transparent)}
+.vcard .day{font-family:var(--dot);font-weight:900;font-size:clamp(64px,9vw,120px);line-height:.85;letter-spacing:-.02em}
+.vcard .lbl{font-size:15px;color:var(--on-g-soft)}
+.vcard .pill{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:99px;background:var(--on-g-glass);border:1px solid var(--on-g-line);font-size:13.5px}
+.vlist{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:var(--r);background:var(--surface);min-width:0}
+.row .t{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1 1 auto}
+.row .t small{font-size:13px;color:var(--muted)}
+.row .t b{font-weight:500;font-size:17px;overflow-wrap:anywhere}
+.todo{display:inline-block;padding:2px 10px;border-radius:99px;border:1px dashed var(--muted);color:var(--muted);font-size:13.5px;font-weight:400}
+@media (max-width:860px){.visit{grid-template-columns:minmax(0,1fr)}.vcard{min-height:300px}}
+
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:start}
+.about .big{font-size:clamp(22px,2.6vw,32px);font-weight:300;letter-spacing:-.025em;line-height:1.28;text-wrap:pretty}
+.vals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.val{display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:var(--r);background:var(--glass);border:1px solid var(--glass-line);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.val p{font-size:14.5px;color:var(--muted)}
+@media (max-width:900px){.about{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.vals{grid-template-columns:minmax(0,1fr)}}
+
+/* ministries */
+.mins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.min{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;min-height:220px;padding:24px;border-radius:var(--r);color:var(--on-g);overflow:hidden;isolation:isolate}
+.min .si{position:absolute;top:20px;left:20px;background:rgba(255,255,255,.94);color:#131315}
+.min p{font-size:14.5px;color:var(--on-g-soft)}
+.min.plain{background:var(--surface);color:var(--fg)}
+.min.plain p{color:var(--muted)}
+.min.plain .si{background:var(--soft);color:var(--fg)}
+@media (max-width:900px){.mins{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.mins{grid-template-columns:minmax(0,1fr)}.min{min-height:180px}}
+
+/* sermons band */
+.band{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);padding:clamp(28px,4vw,48px);border-radius:40px;background:var(--ink);color:var(--ink-fg)}
+.band .sh p{color:var(--ink-muted)}
+.band .nums{display:flex;flex-wrap:wrap;gap:12px 40px;margin-top:8px}
+.band .num{display:flex;flex-direction:column;gap:2px}
+.band .num b{font-family:var(--dot);font-weight:900;font-size:clamp(44px,5.4vw,68px);line-height:.95;color:var(--lime)}
+.band .num span{font-size:13.5px;color:var(--ink-muted)}
+.band .btn{background:var(--ink-fg);color:#131315}
+.band .btn.line{background:none;color:var(--ink-fg);border-color:var(--ink-line)}
+.recs{display:flex;flex-direction:column;gap:2px}
+.rec{display:flex;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid var(--ink-line);text-decoration:none;color:inherit}
+.rec:last-child{border-bottom:0}
+.rec .pl{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--ink-2);border:1px solid var(--ink-line)}
+.rec .pl svg.i{width:14px;height:14px}
+.rec .t{flex:1 1 auto;min-width:0;display:flex;flex-direction:column}
+.rec .t small{color:var(--ink-muted);font-size:13px}
+.rec .t b{font-weight:500}
+.rec:first-child .pl{background:var(--lime);color:var(--lime-fg);border-color:transparent}
+.rec .go svg.i{width:16px;height:16px;color:var(--ink-muted)}
+.rec:hover .pl{background:var(--lime);color:var(--lime-fg);border-color:transparent}
+@media (max-width:900px){.band{grid-template-columns:minmax(0,1fr);border-radius:32px}}
+
+/* pastor + contacts */
+.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:12px}
+.pastor{display:flex;flex-direction:column;gap:20px;padding:28px;border-radius:36px;background:var(--surface)}
+.pastor .av{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font-size:26px;font-weight:500;letter-spacing:.02em;background:var(--warn-bg);color:var(--warn)}
+.pastor .nm{font-size:28px;font-weight:400;letter-spacing:-.03em;line-height:1.1}
+.pastor p{color:var(--muted)}
+.contacts{display:flex;flex-direction:column;gap:12px}
+@media (max-width:860px){.duo{grid-template-columns:minmax(0,1fr)}}
+
+footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding-top:24px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+footer a{text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+footer a:hover{color:var(--fg)}
+footer svg.i{width:15px;height:15px}
+
+/* motion */
+.top .bar{transition:height .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,background .35s}
+.top.scrolled .bar{height:52px;box-shadow:0 14px 44px rgba(20,20,30,.16)}
+.top nav a.on{background:var(--raise)}
+.hands .l{translate:calc(var(--sc,0)*-7% + var(--mx,0)*.5%) calc(var(--sc,0)*5% + var(--my,0)*.4%)}
+.hands .r{translate:calc(var(--sc,0)*7% + var(--mx,0)*-.5%) calc(var(--sc,0)*-5% + var(--my,0)*-.4%)}
+.hands i{transition:translate .5s cubic-bezier(.2,.8,.2,1);will-change:translate}
+.hands::after{scale:calc(1 - var(--sc,0)*.8)}
+.hero h1 .ch{display:inline-block;animation:chin .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--n)*40ms + .05s)}
+@keyframes chin{from{opacity:.15;transform:translateY(.3em) rotate(4deg);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+.js .hero .eyebrow,.js .hero .lead,.js .hero .cta,.js .hero .verse{animation:up .9s cubic-bezier(.2,.8,.2,1) both}
+.js .hero .eyebrow{animation-delay:0s}.js .hero .lead{animation-delay:.35s}.js .hero .cta{animation-delay:.45s}.js .hero .verse{animation-delay:.55s}
+@keyframes up{from{opacity:0;translate:0 22px;filter:blur(6px)}to{opacity:1;translate:none;filter:none}}
+.js [data-r]{opacity:0;translate:0 30px;filter:blur(8px)}
+.js [data-r].in{opacity:1;translate:none;filter:none;transition:opacity .9s cubic-bezier(.2,.8,.2,1),translate .9s cubic-bezier(.2,.8,.2,1),filter .9s}
+.min:not(.plain),.vcard{background-size:170% 170%;animation:drift 16s ease-in-out infinite alternate}
+.min:nth-child(2){animation-duration:21s}.min:nth-child(3){animation-duration:26s}
+@keyframes drift{from{background-position:0% 0%}to{background-position:100% 100%}}
+.vcard::after{animation:march 2.4s linear infinite}
+@keyframes march{to{background-position:28px 0}}
+.rec .go,.rec .pl{transition:transform .3s cubic-bezier(.2,.8,.2,1),background .25s,color .25s}
+.rec:hover .go{transform:translate(4px,-4px)}
+.rec:hover .pl{transform:scale(1.08)}
+.btn .i{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.btn:hover .i{transform:translate(2px,-2px)}
+.tick{overflow:hidden;padding-block:6px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.tick .tr{display:flex;width:max-content;animation:tick 46s linear infinite}
+.tick .tr>span{display:flex;align-items:center;gap:clamp(20px,3vw,44px);padding-right:clamp(20px,3vw,44px);font-size:clamp(38px,7vw,104px);font-weight:300;letter-spacing:-.045em;line-height:1.1;white-space:nowrap}
+.tick em{font-style:normal;color:var(--muted)}
+.tick svg.i{width:.42em;height:.42em;color:var(--out);stroke-width:1.4}
+@keyframes tick{to{transform:translateX(-50%)}}
+.prog{position:fixed;left:0;top:0;height:3px;width:100%;z-index:30;transform-origin:0 50%;transform:scaleX(var(--pg,0));background:linear-gradient(90deg,var(--lime),var(--out));pointer-events:none}
+@media (prefers-reduced-motion:reduce){.js [data-r]{opacity:1;translate:none;filter:none}.hero h1 .ch,.js .hero .eyebrow,.js .hero .lead,.js .hero .cta,.js .hero .verse,.min:not(.plain),.vcard,.vcard::after,.tick .tr{animation:none}.hands i{translate:none}}
+</style>
+
+<div class="prog" aria-hidden="true"></div>
+<div class="bgfx" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+<div class="page">
+  <div>
+    <header class="top">
+      <div class="wrap"><div class="bar">
+        <a class="name" href="#top">Примирення</a>
+        <nav aria-label="Розділи">
+          <a href="#first">Вперше у нас</a>
+          <a href="#visit">Зібрання</a>
+          <a href="#about">Про церкву</a>
+          <a href="#ministries">Служіння</a>
+          <a href="#contacts">Контакти</a>
+        </nav>
+        <a class="btn primary small" href="{{YT}}/live" target="_blank" rel="noopener">{{i:play}} Дивитися онлайн</a>
+      </div></div>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="hands" aria-hidden="true"><i class="l"></i><i class="r"></i></div>
+      <div class="wrap" style="display:flex;flex-direction:column;align-items:center;gap:22px">
+        <span class="eyebrow" style="align-self:center">Церква в Чернівцях</span>
+        <h1>Примирення</h1>
+        <p class="lead">Місце, де людина повертається до Бога і знаходить своїх. Щонеділі об 11:00 читаємо Писання, молимось і співаємо разом.</p>
+        <div class="cta">
+          <a class="btn primary" href="#visit">Прийти в неділю {{i:arrow}}</a>
+          <a class="btn glass" href="{{YT}}" target="_blank" rel="noopener">{{i:play}} Проповіді на YouTube</a>
+        </div>
+        <p class="verse">Бог примирив нас із Собою через Христа і довірив нам служіння примирення. <b>За 2 до коринтян 5:18</b></p>
+      </div>
+    </section>
+  </div>
+
+
+  <div class="tick" aria-hidden="true"><div class="tr"><span>Примирення з Богом {{i:spark}} <em>одне з одним</em> {{i:spark}} із собою {{i:spark}} <em>щонеділі об 11:00</em> {{i:spark}}</span><span>Примирення з Богом {{i:spark}} <em>одне з одним</em> {{i:spark}} із собою {{i:spark}} <em>щонеділі об 11:00</em> {{i:spark}}</span></div></div>
+  <section class="wrap sec" id="first">
+    <div class="sh">
+      <span class="eyebrow">Вперше у нас</span>
+      <h2>Приходьте такими, як є</h2>
+      <p>Не треба нічого знати наперед і нічого з собою брати. Ось чого чекати першої неділі.</p>
+    </div>
+    <div class="grid4">
+      <div class="card"><span class="si lime">{{i:smile}}</span><h3>Вас зустрінуть</h3><p>Біля входу привітають, покажуть, де сісти, і дадуть відповідь на будь-яке запитання.</p></div>
+      <div class="card"><span class="si">{{i:book}}</span><h3>Як проходить зібрання</h3><p>Спільний спів, молитва і проповідь за Біблією. Триває близько години сорока п'яти хвилин.</p></div>
+      <div class="card"><span class="si">{{i:child}}</span><h3>Для дітей</h3><p>Під час зібрання діти мають своє заняття в недільній школі з учителями церкви.</p></div>
+      <div class="card"><span class="si">{{i:cup}}</span><h3>Після зібрання</h3><p>Залишайтесь на каву в нашій кав'ярні. Це найкращий час познайомитись.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap sec" id="visit">
+    <div class="sh">
+      <span class="eyebrow">Зібрання</span>
+      <h2>Коли і де ми збираємось</h2>
+    </div>
+    <div class="visit">
+      <div class="vcard g-olive">
+        <span class="pill">{{i:clock}} Щотижня об 11:00</span>
+        <div>
+          <div class="day">Неділя</div>
+          <div class="lbl" style="margin-top:14px">Недільне зібрання церкви. Початок об 11:00.</div>
+        </div>
+      </div>
+      <div class="vlist">
+        <div class="row"><span class="si lime">{{i:pin}}</span><span class="t"><small>Адреса</small><b>Чернівці, <span class="todo">вулиця і номер будинку</span></b></span></div>
+        <div class="row"><span class="si">{{i:cam}}</span><span class="t"><small>Не можете прийти</small><b>Трансляція щонеділі</b></span><a class="btn small primary" href="{{YT}}/live" target="_blank" rel="noopener">Дивитися</a></div>
+        <div class="row"><span class="si">{{i:circles}}</span><span class="t"><small>Серед тижня</small><b>Малі групи</b></span><a class="btn small" href="#ministries">Докладніше</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap sec" id="about">
+    <div class="about">
+      <div class="sh">
+        <span class="eyebrow">Про церкву</span>
+        <h2>Чому «Примирення»</h2>
+        <p class="big" style="color:var(--fg)">Бо це головне, що робить Євангеліє: Бог повертає людину до Себе, а людей одне до одного. Ми хочемо бути церквою, де це видно на ділі.</p>
+      </div>
+      <div class="vals">
+        <div class="val"><span class="si lime">{{i:book}}</span><h3>Писання</h3><p>Біблія в центрі кожного зібрання і кожної малої групи.</p></div>
+        <div class="val"><span class="si">{{i:hand}}</span><h3>Молитва</h3><p>Молимось разом і одне за одного, а не лише в неділю.</p></div>
+        <div class="val"><span class="si">{{i:users}}</span><h3>Спільнота</h3><p>Знаємо одне одного на ім'я і не лишаємо людину саму.</p></div>
+        <div class="val"><span class="si">{{i:heart}}</span><h3>Служіння</h3><p>Кожен має що дати: час, руки, голос, увагу.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap sec" id="ministries">
+    <div class="sh">
+      <span class="eyebrow">Служіння</span>
+      <h2>Де можна бути разом і бути корисним</h2>
+    </div>
+    <div class="mins">
+      <div class="min g-sun"><span class="si">{{i:child}}</span><h3>Недільна школа</h3><p>Біблійні уроки для дітей під час недільного зібрання.</p></div>
+      <div class="min g-steel"><span class="si">{{i:spark}}</span><h3>Young Life</h3><p>Молодь церкви: зустрічі, спілкування, спільні справи.</p></div>
+      <div class="min g-rose"><span class="si">{{i:music}}</span><h3>Прославлення</h3><p>Музиканти і співаки, які ведуть церкву в поклонінні.</p></div>
+      <div class="min plain"><span class="si">{{i:circles}}</span><h3>Малі групи</h3><p>Невеликі кола серед тижня, де читають Біблію і підтримують одне одного.</p></div>
+      <div class="min plain"><span class="si">{{i:cup}}</span><h3>Кав'ярня</h3><p>Кава і розмова після зібрання. Тут найпростіше познайомитись.</p></div>
+      <div class="min plain"><span class="si">{{i:cam}}</span><h3>Медіа</h3><p>Звук, трансляції та записи, щоб зібрання було чути й тим, хто далеко.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="sermons">
+    <div class="band">
+      <div class="sh">
+        <span class="eyebrow" style="background:var(--ink-2);border-color:var(--ink-line);color:var(--ink-muted)">Проповіді</span>
+        <h2>Усі зібрання є на YouTube</h2>
+        <p>Записуємо недільні зібрання з 2018 року. Останнє зібрання завжди зверху списку.</p>
+        <div class="nums">
+          <div class="num"><b data-count="451">451</b><span>відео на каналі</span></div>
+          <div class="num"><b data-count="2018" data-from="1990">2018</b><span>рік першого запису</span></div>
+        </div>
+        <div class="cta" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px">
+          <a class="btn" href="{{YT}}/streams" target="_blank" rel="noopener">{{i:play}} Відкрити канал</a>
+          <a class="btn line" href="{{YT}}/live" target="_blank" rel="noopener">Пряма трансляція</a>
+        </div>
+      </div>
+      <div class="recs" id="recs">
+        <a class="rec" href="https://www.youtube.com/watch?v=5oPWRXm1hfs" target="_blank" rel="noopener"><span class="pl">{{i:play}}</span><span class="t"><b>Недільне зібрання</b><small>27 вересня 2026 · останнє</small></span><span class="go">{{i:arrow}}</span></a>
+        <a class="rec" href="https://www.youtube.com/watch?v=pC9kIRtC8Os" target="_blank" rel="noopener"><span class="pl">{{i:play}}</span><span class="t"><b>Недільне зібрання</b><small>20 вересня 2026</small></span><span class="go">{{i:arrow}}</span></a>
+        <a class="rec" href="https://www.youtube.com/watch?v=YHLmD_MYQk4" target="_blank" rel="noopener"><span class="pl">{{i:play}}</span><span class="t"><b>Недільне зібрання</b><small>13 вересня 2026</small></span><span class="go">{{i:arrow}}</span></a>
+        <a class="rec" href="https://www.youtube.com/watch?v=lCSmXk4GA5A" target="_blank" rel="noopener"><span class="pl">{{i:play}}</span><span class="t"><b>Недільне зібрання</b><small>6 вересня 2026</small></span><span class="go">{{i:arrow}}</span></a>
+        <a class="rec" href="{{YT}}/streams" target="_blank" rel="noopener"><span class="pl">{{i:play}}</span><span class="t"><b>Усі записи</b><small>архів каналу «Церква Примирення»</small></span><span class="go">{{i:arrow}}</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap sec" id="contacts">
+    <div class="sh">
+      <span class="eyebrow">Контакти</span>
+      <h2>Напишіть або підійдіть після зібрання</h2>
+    </div>
+    <div class="duo">
+      <div class="pastor">
+        <span class="av">ВБ</span>
+        <div><div class="nm">Вадим Бурлака</div><p>пастор церкви</p></div>
+        <p>Є запитання про віру, хрещення чи церкву, потрібна молитва або розмова? Пастор і служителі поруч.</p>
+      </div>
+      <div class="contacts">
+        <div class="row"><span class="si lime">{{i:pin}}</span><span class="t"><small>Де ми</small><b>Чернівці, <span class="todo">адреса</span></b></span></div>
+        <div class="row"><span class="si">{{i:clock}}</span><span class="t"><small>Коли</small><b>Щонеділі об 11:00</b></span></div>
+        <div class="row"><span class="si">{{i:hand}}</span><span class="t"><small>Зв'язатися</small><b><span class="todo">телефон або месенджер</span></b></span></div>
+        <div class="row"><span class="si">{{i:play}}</span><span class="t"><small>YouTube</small><b>Канал церкви</b></span><a class="btn small" href="{{YT}}" target="_blank" rel="noopener">Відкрити</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <footer>
+      <span>Церква «Примирення», Чернівці</span>
+      <a href="https://color1raw-dev.github.io/prymyrennia/" target="_blank" rel="noopener">{{i:lock}} Служителям: вхід до обліку</a>
+    </footer>
+  </div>
+</div>
+
+<script>
+(function(){
+  var R=document.documentElement,reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  R.classList.add("js");
+  var h1=document.querySelector(".hero h1");
+  if(h1&&!reduce){var t=h1.textContent;h1.setAttribute("aria-label",t);h1.textContent="";t.split("").forEach(function(c,i){var s=document.createElement("span");s.className="ch";s.setAttribute("aria-hidden","true");s.style.setProperty("--n",i);s.textContent=c;h1.appendChild(s)})}
+  var sel=".sh>*,.card,.vcard,.row,.val,.min,.band,.rec,.pastor,.tick";
+  var els=[].slice.call(document.querySelectorAll(sel)).filter(function(e){return !e.closest(".hero")&&!(e.matches(".sh>*")&&e.closest(".band"))});
+  els.forEach(function(e){e.setAttribute("data-r","")});
+  function show(e){if(e.classList.contains("in"))return;var sib=[].slice.call(e.parentNode.children).filter(function(x){return x.hasAttribute("data-r")&&!x.classList.contains("in")}),i=Math.max(0,sib.indexOf(e));e.style.transitionDelay=Math.min(i,7)*80+"ms";e.classList.add("in");setTimeout(function(){e.style.transitionDelay=""},1700)}
+  if(reduce||!("IntersectionObserver" in window))els.forEach(function(e){e.classList.add("in")});
+  else{var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){show(x.target);io.unobserve(x.target)}})},{rootMargin:"0px 0px -8% 0px",threshold:.08});els.forEach(function(e){io.observe(e)})}
+  var top=document.querySelector(".top"),hands=document.querySelector(".hands"),tick=false;
+  function onScroll(){tick=false;var y=window.scrollY||0,max=Math.max(1,R.scrollHeight-innerHeight);R.style.setProperty("--pg",Math.min(1,y/max).toFixed(4));if(top)top.classList.toggle("scrolled",y>24);if(hands&&!reduce)hands.style.setProperty("--sc",Math.min(1,y/Math.max(420,innerHeight*.7)).toFixed(3))}
+  addEventListener("scroll",function(){if(!tick){tick=true;requestAnimationFrame(onScroll)}},{passive:true});onScroll();
+  if(hands&&!reduce&&matchMedia("(hover:hover)").matches)addEventListener("pointermove",function(e){hands.style.setProperty("--mx",((e.clientX/innerWidth)*2-1).toFixed(3));hands.style.setProperty("--my",((e.clientY/innerHeight)*2-1).toFixed(3))},{passive:true});
+  var links=[].slice.call(document.querySelectorAll(".top nav a"));
+  if("IntersectionObserver" in window){var so=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting)links.forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+x.target.id)})})},{rootMargin:"-40% 0px -55% 0px"});links.forEach(function(a){var s=document.getElementById(a.getAttribute("href").slice(1));if(s)so.observe(s)})}
+  /* latest broadcasts: the list in the page is a snapshot; on a normal web host it is refreshed from the church's YouTube channel */
+  (function(){var box=document.getElementById("recs");if(!box||!window.fetch)return;var MON=["січня","лютого","березня","квітня","травня","червня","липня","серпня","вересня","жовтня","листопада","грудня"];
+    function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+    fetch("https://nbxsomiypukivlnralrv.supabase.co/functions/v1/push?op=yt").then(function(r){return r.json()}).then(function(d){var seen={},L=[];(d.items||[]).forEach(function(v){if(!/^[\w-]{11}$/.test(v.id))return;var m=/(\d{1,2})\.(\d{1,2})\.(\d{4})/.exec(v.title)||/(\d{4})\.(\d{1,2})\.(\d{1,2})/.exec(v.title),day,mon,yr;
+        if(m&&m[1].length===4){yr=+m[1];mon=+m[2];day=+m[3]}else if(m){day=+m[1];mon=+m[2];yr=+m[3]}else{var p=String(v.date).split("-");yr=+p[0];mon=+p[1];day=+p[2]}
+        var name=v.title.replace(/\s*Церква\s*["«“]?Примирення["»”]?\s*/i," ").replace(/\d{1,4}\.\d{1,2}\.\d{1,4}/,"").replace(/\s+/g," ").trim()||"Зібрання",key=name+"|"+yr+"-"+mon+"-"+day;if(seen[key]||!MON[mon-1])return;seen[key]=1;L.push({id:v.id,name:name,when:day+" "+MON[mon-1]+" "+yr})});
+      if(L.length<2)return;var rows=box.querySelectorAll(".rec"),last=rows[rows.length-1],play=rows[0].querySelector(".pl").innerHTML,go=rows[0].querySelector(".go").innerHTML;
+      box.innerHTML=L.slice(0,4).map(function(v,i){return '<a class="rec" data-r class="in" href="https://www.youtube.com/watch?v='+v.id+'" target="_blank" rel="noopener"><span class="pl">'+play+'</span><span class="t"><b>'+esc(v.name)+'</b><small>'+esc(v.when)+(i?"":" · останнє")+'</small></span><span class="go">'+go+'</span></a>'}).join("");
+      [].forEach.call(box.children,function(a){a.classList.add("in")});box.appendChild(last)}).catch(function(){})})();
+  [].forEach.call(document.querySelectorAll("[data-count]"),function(b){var to=+b.getAttribute("data-count"),from=+(b.getAttribute("data-from")||0);if(reduce||!("IntersectionObserver" in window))return;b.textContent=from;var o=new IntersectionObserver(function(en){if(!en[0].isIntersecting)return;o.disconnect();var t0=performance.now();(function step(t){var k=Math.min(1,(t-t0)/1600),e=1-Math.pow(1-k,4);b.textContent=Math.round(from+(to-from)*e);if(k<1)requestAnimationFrame(step)})(t0)},{threshold:.6});o.observe(b)});
+})();
+</script>
