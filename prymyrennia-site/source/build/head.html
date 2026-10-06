@@ -445,13 +445,17 @@ a.btn{text-decoration:none}
 .me-m img{width:100%;height:100%;object-fit:cover;display:block}
 @media (max-width:920px){.me{display:none}.me-m{display:grid}}
 .me[hidden],.me-m[hidden]{display:none}
+input[type="date"],input[type="time"],input[type="month"],input[type="datetime-local"]{-webkit-appearance:none;appearance:none;min-width:0;display:inline-flex;align-items:center;text-align:left;box-sizing:border-box}
+input::-webkit-date-and-time-value{text-align:left;margin:0;min-height:1.2em}
+input::-webkit-calendar-picker-indicator{margin-left:auto}
+.ai-tb{display:none}
 span[data-ic]{display:inline-grid;place-items:center;line-height:0;flex:none}
-#navMore{display:none}
+#nav #navMore{display:none}
 .nav-x{display:contents}
 @media (max-width:920px){
   #nav{position:fixed;top:auto;left:12px;right:12px;bottom:max(12px,calc(env(safe-area-inset-bottom,0px) - 6px));z-index:30;margin:0;padding:6px;gap:2px;height:68px;box-sizing:border-box;align-items:stretch;overflow:visible;border-radius:34px;background:color-mix(in srgb,var(--raise) 88%,transparent);box-shadow:0 14px 44px var(--shade),0 0 0 1px var(--glass-line)}
-  #nav>button{flex:1 1 0;min-width:0;height:auto;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:0 1px;border-radius:28px;font-size:10px;letter-spacing:-.02em;line-height:1.1;position:relative;text-align:center}
-  #navMore{display:flex}
+  #nav>button{flex:1 1 auto;min-width:44px;height:auto;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:0 9px;border-radius:28px;font-size:10.5px;letter-spacing:-.01em;line-height:1.1;position:relative;text-align:center}
+  #nav #navMore{display:flex}
   #nav>button svg.i{width:21px;height:21px;opacity:1}
   #nav>button .nl{flex:none;max-width:100%;overflow:hidden;text-overflow:ellipsis}
   #nav>button .badge{position:absolute;top:5px;left:calc(50% + 5px);min-width:18px;height:18px;padding:0 5px;font-size:10.5px;box-shadow:0 0 0 2px var(--bg)}
@@ -553,7 +557,38 @@ body.touring #nav{-webkit-mask-image:none;mask-image:none}
 .ai-f input{flex:1;height:48px;border-color:var(--line)}
 .iconbtn.inv{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);width:48px;height:48px}
 @media (max-width:920px){
-  #aiFab{bottom:calc(94px + env(safe-area-inset-bottom,0px))}
+  #aiFab{display:none!important}
+  .ai-tb{display:grid;place-items:center;width:var(--h);height:var(--h);flex:none;padding:0;border:0;border-radius:50%;cursor:pointer;color:#fff;background:radial-gradient(60% 60% at 40% 40%,#f7b521 0%,transparent 72%),radial-gradient(90% 90% at 100% 100%,#ff2f74 0%,transparent 60%),radial-gradient(80% 80% at 0% 100%,#7ac943 0%,transparent 62%),#ee8a28}
+  .ai-tb[hidden]{display:none}
+  .ai-tb svg.i{width:19px;height:19px;vertical-align:0}
+  .tools{gap:6px}
+  input:not([type="checkbox"]):not([type="radio"]),select,textarea{font-size:16px}
+  .form{grid-template-columns:minmax(0,1fr)}
+  /* person tables become rows of text on a phone */
+  table:has(th.hide-s),table:has(th.hide-s) tbody{display:block;width:100%}
+  table:has(th.hide-s) thead{display:none}
+  table:has(th.hide-s) tr{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:13px 16px;border-bottom:1px solid var(--line)}
+  table:has(th.hide-s) tbody tr:last-child{border-bottom:0}
+  table:has(th.hide-s) td{display:block;padding:0;border:0;min-width:0}
+  table:has(th.hide-s) td.hide-s{display:none}
+  table:has(th.hide-s) td:first-child{flex:1 1 0}
+  table:has(th.hide-s) td[style*="nowrap"]:first-child{flex:none;color:var(--muted);font-size:13px}
+  table:has(th.hide-s) td[style*="nowrap"]:first-child+td{order:3;flex:1 1 100%}
+  table:has(th.hide-s) td[style*="nowrap"]:first-child~td:not(.hide-s):nth-child(3){margin-left:auto}
+  table:has(th.hide-s) td:not(:first-child):not(.hide-s){flex:none;max-width:100%}
+  .wn{flex:1 1 0}
+  .wn .nm{flex:1 1 100%;overflow-wrap:anywhere}
+  .pill,.tag{max-width:100%;overflow:hidden;text-overflow:ellipsis;vertical-align:middle;line-height:1.2;padding-block:4px}
+  a.link{white-space:normal;overflow-wrap:anywhere}
+  .dlg-head>div{flex:1 1 0;min-width:0}
+  .dlg-head h2{font-size:23px;overflow-wrap:anywhere;text-wrap:wrap}
+  .dlg-head.hero-head{padding:18px 16px 38px;gap:12px}
+  .hero-head .av.big{width:46px;height:46px;font-size:15px}
+  .btn{white-space:normal;height:auto;min-height:var(--h);padding-block:8px;max-width:100%;line-height:1.25;text-align:center}
+  .btn.small{min-height:34px;padding-block:6px}
+  .composer>input,.composer>select{flex:1 1 100%}
+  .chip{white-space:normal;height:auto;min-height:36px;padding-block:7px;max-width:100%;text-align:left;line-height:1.25}
+  .bar{min-width:0}
   #toast,#tour{bottom:calc(98px + env(safe-area-inset-bottom,0px))}
   #aiPanel{left:0;right:0;top:0;bottom:auto;width:100%;height:100%;height:100dvh;box-sizing:border-box;border:0;border-radius:0;box-shadow:none;z-index:45;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
   #aiPanel .ai-h{padding:14px 16px 12px}
@@ -592,7 +627,7 @@ body.touring #nav{-webkit-mask-image:none;mask-image:none}
   <div class="content">
     <div class="topbar">
       <div class="head"><h2 id="title">Огляд</h2><p id="sub">Стан церкви на сьогодні</p></div>
-      <div class="tools"><label class="search"><span data-ic="search"></span><input id="gq" type="search" placeholder="Пошук по всьому…" aria-label="Знайти людину"></label><button class="btn primary" id="addBtn" data-act="add" aria-label="Додати людину"><span data-ic="plus"></span><span class="lbl">Додати людину</span></button><button class="me-m" id="meBtnM" type="button" data-act="meMenu" aria-haspopup="menu" aria-label="Мій обліковий запис" hidden></button></div>
+      <div class="tools"><label class="search"><span data-ic="search"></span><input id="gq" type="search" placeholder="Пошук по всьому…" aria-label="Знайти людину"></label><button class="btn primary" id="addBtn" data-act="add" aria-label="Додати людину"><span data-ic="plus"></span><span class="lbl">Додати людину</span></button><button class="ai-tb" id="aiBtnM" type="button" data-act="aiOpen" aria-label="Відкрити помічника" hidden><span data-ic="spark"></span></button><button class="me-m" id="meBtnM" type="button" data-act="meMenu" aria-haspopup="menu" aria-label="Мій обліковий запис" hidden></button></div>
     </div>
     <main id="app"><div class="panel empty"><b>Завантаження даних…</b></div></main>
   </div>
