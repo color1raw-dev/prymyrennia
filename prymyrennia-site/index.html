@@ -276,11 +276,23 @@ tr.sum td{font-weight:500}
 .av.c3{background:color-mix(in srgb,var(--t4) 22%,var(--raise));color:var(--t4)}
 .av.c4{background:color-mix(in srgb,var(--t5) 22%,var(--raise));color:var(--t5)}
 .av.big{width:58px;height:58px;font-size:19px}
+.av.fig,.me-in.fig,.mm-av.fig,.hero-head .av.fig,.mm-h .mm-av.fig{background:none;border:0;padding:0;overflow:hidden;box-shadow:none}
+.av.fig svg,.me-in.fig svg,.mm-av.fig svg{width:100%;height:100%;display:block}
+.av.fig.big{width:64px;height:64px;box-shadow:0 0 0 2px rgba(255,255,255,.5)}
 .pill{display:inline-block;font-size:12px;font-weight:500;line-height:1;padding:5px 10px;border-radius:99px;white-space:nowrap}
 .s-part{background:color-mix(in srgb,var(--t4) 20%,var(--raise));color:var(--t4)}
 .s-role{background:var(--raise);color:var(--fg);box-shadow:0 0 0 1px var(--line) inset;font-weight:400}
 .s-member,.e-in{background:var(--lime);color:var(--lime-fg)} .s-note{background:var(--warn-bg);color:var(--warn)}
-.s-excluded,.e-out{background:var(--bad-bg);color:var(--bad)} .s-left,.s-moved,.s-died,.s-none,.e-n{background:var(--gone-bg);color:var(--gone)}
+/* one colour per meaning: membership status, state in church, needs, ministry */
+.pill.pc,.s-excluded,.s-left,.s-moved,.s-died{background:color-mix(in srgb,var(--pc) 17%,var(--raise));color:color-mix(in srgb,var(--pc) 72%,var(--fg));box-shadow:none}
+.s-excluded{--pc:#d0352b}.s-left{--pc:#e0662a}.s-moved{--pc:#3f86b5}.s-died{--pc:#74747e}
+.s-none{background:var(--raise);color:var(--muted);box-shadow:0 0 0 1px var(--line) inset;font-weight:400}
+.pill.p1{--pc:#d98a08}.pill.p2{--pc:#5f7a1f}.pill.p3{--pc:#3f86b5}.pill.p4{--pc:#8362b8}
+.pill.n0{--pc:#d98a08}.pill.n1{--pc:#e0662a}.pill.n2{--pc:#d0352b}.pill.n9{--pc:#b0721a}
+.pill.r-p{--pc:#e07b1a}.pill.r-d{--pc:#5f7a1f}.pill.r-t{--pc:#5d87a3}
+.s-note{--pc:#d98a08}.s-member{--pc:#9fb81f}
+.hero-head .pill.pc::before,.hero-head .pill.s-note::before,.hero-head .pill.s-member::before,.hero-head .pill.s-excluded::before,.hero-head .pill.s-left::before,.hero-head .pill.s-moved::before,.hero-head .pill.s-died::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--pc);margin-right:6px;vertical-align:1px}
+.e-out{background:var(--bad-bg);color:var(--bad)} .e-n{background:var(--gone-bg);color:var(--gone)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{position:relative;display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;height:38px;border:1px solid transparent;background:var(--raise);color:var(--fg);border-radius:99px;padding:0 15px;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s}
 .panel .chip,dialog .chip{border-color:var(--line)}
@@ -362,6 +374,15 @@ dialog::backdrop{background:rgba(10,10,14,.38);-webkit-backdrop-filter:blur(8px)
 .g-rose{background:radial-gradient(110% 90% at 85% 95%,#e9bba9 0%,transparent 58%),radial-gradient(90% 90% at 5% 5%,#8c463c 0%,transparent 62%),#b56d5f}
 .g-steel{background:radial-gradient(90% 90% at 12% 8%,#547a92 0%,transparent 60%),radial-gradient(90% 80% at 95% 90%,#e79a48 0%,transparent 58%),#8399a7}
 .g-ink{background:radial-gradient(90% 90% at 90% 100%,#5a5a64 0%,transparent 60%),#232327}
+.g-green{background:radial-gradient(120% 90% at 88% 105%,#b9e86a 0%,transparent 52%),radial-gradient(90% 80% at 5% 0%,#0f4a26 0%,transparent 62%),radial-gradient(80% 80% at 55% 45%,#2f9e33 0%,transparent 70%),#1f7a34}
+.g-gold{background:radial-gradient(120% 90% at 88% 105%,#ffe27a 0%,transparent 52%),radial-gradient(90% 80% at 5% 0%,#7a4c00 0%,transparent 62%),radial-gradient(80% 80% at 55% 45%,#e0a100 0%,transparent 70%),#b97f00}
+.g-red{background:radial-gradient(120% 90% at 88% 105%,#f2a595 0%,transparent 52%),radial-gradient(90% 80% at 5% 0%,#571210 0%,transparent 62%),radial-gradient(80% 80% at 55% 45%,#c23a30 0%,transparent 70%),#a52a23}
+.g-clay{background:radial-gradient(120% 90% at 88% 105%,#f2c19a 0%,transparent 52%),radial-gradient(90% 80% at 5% 0%,#63290f 0%,transparent 62%),radial-gradient(80% 80% at 55% 45%,#c0622f 0%,transparent 70%),#a3501f}
+.g-blue{background:radial-gradient(120% 90% at 88% 105%,#a9d4ee 0%,transparent 52%),radial-gradient(90% 80% at 5% 0%,#143a55 0%,transparent 62%),radial-gradient(80% 80% at 55% 45%,#3b7fae 0%,transparent 70%),#2f6f9a}
+.g-sand{background:radial-gradient(120% 90% at 88% 105%,#f3e7c4 0%,transparent 52%),radial-gradient(90% 80% at 5% 0%,#77602f 0%,transparent 62%),radial-gradient(80% 80% at 55% 45%,#bfa56a 0%,transparent 70%),#a58a52}
+.g-dust{background:radial-gradient(120% 90% at 88% 105%,#e8dcb8 0%,transparent 52%),radial-gradient(90% 80% at 5% 0%,#4d473d 0%,transparent 62%),radial-gradient(80% 80% at 55% 45%,#9a917f 0%,transparent 70%),#857c6b}
+.g-khaki{background:radial-gradient(120% 90% at 88% 105%,#b8b47c 0%,transparent 52%),radial-gradient(90% 80% at 5% 0%,#20241a 0%,transparent 62%),radial-gradient(80% 80% at 55% 45%,#6a6b3e 0%,transparent 70%),#55572f}
+.g-violet{background:radial-gradient(120% 90% at 88% 105%,#cdbbe8 0%,transparent 52%),radial-gradient(90% 80% at 5% 0%,#2b2150 0%,transparent 62%),radial-gradient(80% 80% at 55% 45%,#7a63b4 0%,transparent 70%),#6a55a0}
 .hero-head .av{background:var(--on-g-glass);border:1px solid var(--on-g-line);color:var(--on-g)}
 .hero-head .muted{color:var(--on-g-soft);display:flex;flex-wrap:wrap;gap:5px 6px;align-items:center}
 .hero-head .pill{background:rgba(255,255,255,.94);color:#131315;box-shadow:none}
@@ -514,6 +535,29 @@ span[data-ic]{display:inline-grid;place-items:center;line-height:0;flex:none}
 .mm-t b{font-size:19px;font-weight:400;letter-spacing:-.02em;line-height:1.2;overflow-wrap:anywhere}
 .mm-t span{font-size:12.5px;color:rgba(255,255,255,.66);overflow-wrap:anywhere}
 .mm-top{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%}
+.news-h{margin-inline:0;padding:22px 20px 26px;border-radius:26px;align-items:flex-start;color:#fff;background:radial-gradient(110% 120% at 100% 110%,#d9f23a 0%,transparent 46%),radial-gradient(90% 90% at 0% 0%,#547a92 0%,transparent 62%),radial-gradient(70% 80% at 60% 30%,#2a2a33 0%,transparent 70%),#131316}
+.news-h h2{font-size:34px;margin:10px 0 0}
+.news-h .x{background:rgba(255,255,255,.94);color:#131315;border-color:transparent}
+.news-k{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 12px;border-radius:99px;background:rgba(255,255,255,.16);box-shadow:0 0 0 1px rgba(255,255,255,.24);font-size:12.5px}
+.news-k svg.i{width:14px;height:14px}
+.news-t{font-size:19px;letter-spacing:-.02em;line-height:1.25;text-wrap:balance}
+.news-d{margin:10px 0 0;font-size:13px;color:var(--muted);font-weight:400}
+.news-l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.news-l li{display:flex;gap:14px;align-items:flex-start;padding:12px;border-radius:20px;background:var(--raise)}
+.news-l li .si{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--soft)}
+.news-l li:first-child .si{background:var(--lime);color:var(--lime-fg)}
+.news-l li>span:last-child{display:flex;flex-direction:column;gap:2px;min-width:0;font-size:14.5px;line-height:1.45}
+.news-l li b{font-weight:500;font-size:15.5px}
+.mm-rs{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;min-width:0}
+.mm-h{position:relative;overflow:hidden;isolation:isolate}
+.mm-h.mk-pastor{background:radial-gradient(62% 62% at 50% 58%,#f7b521 0%,transparent 72%),radial-gradient(120% 100% at 105% 105%,#ef5a26 0%,transparent 58%),radial-gradient(80% 70% at 0% 0%,#b4c3cd 0%,transparent 62%),#ee8a28}
+.mm-h.mk-deacon{background:radial-gradient(120% 90% at 88% 105%,#d2ec4c 0%,transparent 52%),radial-gradient(90% 80% at 5% 0%,#2c3610 0%,transparent 62%),radial-gradient(80% 80% at 55% 45%,#708a22 0%,transparent 70%),#4b5c19}
+.mm-h.mk-trial{background:radial-gradient(90% 90% at 12% 8%,#547a92 0%,transparent 60%),radial-gradient(90% 80% at 95% 90%,#e79a48 0%,transparent 58%),#8399a7}
+.mm-h.mk-owner{background:radial-gradient(110% 120% at 100% 110%,#d9f23a 0%,transparent 46%),radial-gradient(90% 90% at 0% 0%,#3d3a52 0%,transparent 62%),radial-gradient(70% 80% at 60% 30%,#2a2a33 0%,transparent 70%),#131316}
+.mm-h.mk-full{background:radial-gradient(110% 90% at 85% 95%,#e9bba9 0%,transparent 58%),radial-gradient(90% 90% at 5% 5%,#8c463c 0%,transparent 62%),#b56d5f}
+.mm-h.mk-user{background:radial-gradient(90% 90% at 90% 100%,#5a5a64 0%,transparent 60%),#232327}
+.mm-r.pos{background:rgba(255,255,255,.94);color:#131315}
+.mm-r.acc{background:rgba(255,255,255,.2);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.3)}
 .mm-r{flex:none;font-size:12px;padding:5px 11px;border-radius:99px;background:var(--lime);color:var(--lime-fg);white-space:nowrap}
 .mm-l{display:flex;flex-direction:column;gap:2px}
 .mm-l button{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;padding:7px 14px 7px 7px;border:0;border-radius:99px;background:none;color:var(--fg);font:inherit;font-size:14.5px;text-align:left;cursor:pointer;transition:background .18s}
@@ -625,6 +669,27 @@ body.touring #nav{-webkit-mask-image:none;mask-image:none}
   .wm{display:flex;align-items:baseline;gap:10px;font-size:24px;padding:0}
   .wm small{margin:0}
 }
+/* sidebar as a floating island: light glass in the light theme, dark in the dark theme */
+:root{--isl-bg:rgba(255,255,255,.58);--isl-line:var(--glass-line);--isl-in:rgba(255,255,255,.8);--isl-sh:rgba(20,20,30,.28);--isl-act:var(--accent);--isl-act-fg:var(--accent-fg);--isl-row:var(--soft);--isl-tile:radial-gradient(90% 120% at 100% 0%,rgba(245,166,35,.55) 0%,transparent 60%),radial-gradient(90% 120% at 0% 100%,rgba(217,242,58,.6) 0%,transparent 62%),radial-gradient(70% 90% at 50% 40%,rgba(255,123,166,.22) 0%,transparent 70%),var(--soft)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--isl-bg:#151518;--isl-line:rgba(255,255,255,.09);--isl-in:rgba(255,255,255,.07);--isl-sh:rgba(0,0,0,.6);--isl-act:var(--lime);--isl-act-fg:var(--lime-fg);--isl-row:rgba(255,255,255,.06);--isl-tile:radial-gradient(120% 90% at 88% 105%,#d2ec4c 0%,transparent 52%),radial-gradient(90% 80% at 5% 0%,#2c3610 0%,transparent 62%),radial-gradient(80% 80% at 55% 45%,#708a22 0%,transparent 70%),#4b5c19}}
+:root[data-theme="dark"]{--isl-bg:#151518;--isl-line:rgba(255,255,255,.09);--isl-in:rgba(255,255,255,.07);--isl-sh:rgba(0,0,0,.6);--isl-act:var(--lime);--isl-act-fg:var(--lime-fg);--isl-row:rgba(255,255,255,.06);--isl-tile:radial-gradient(120% 90% at 88% 105%,#d2ec4c 0%,transparent 52%),radial-gradient(90% 80% at 5% 0%,#2c3610 0%,transparent 62%),radial-gradient(80% 80% at 55% 45%,#708a22 0%,transparent 70%),#4b5c19}
+@media (min-width:921px){
+.shell{grid-template-columns:272px minmax(0,1fr);gap:28px}
+.side{top:16px;height:calc(100vh - 32px);height:calc(100dvh - 32px);margin-block:16px;padding:10px;gap:8px;border-radius:40px;background:var(--isl-bg);border:1px solid var(--isl-line);-webkit-backdrop-filter:blur(28px) saturate(1.5);backdrop-filter:blur(28px) saturate(1.5);box-shadow:0 40px 90px -30px var(--isl-sh),inset 0 1px 0 var(--isl-in);overflow:hidden}
+.side-top{padding:0;display:flex;flex-direction:column;gap:14px;flex:none;overflow:hidden;border-radius:30px 30px 0 0}
+.side-top::before{content:"";display:block;height:148px;border-radius:30px;background:var(--isl-tile)}
+.side .hands{z-index:1;left:50%;top:74px;width:400px;transform:translate(-50%,-50%) rotate(-14deg);-webkit-mask-image:none;mask-image:none}
+.brand{padding:0 12px 6px}
+#nav{gap:2px;margin:0;padding:0;flex:1 1 auto;-webkit-mask-image:none;mask-image:none}
+#nav button{height:46px;background:none;padding:0 8px 0 14px}
+#nav button:hover{background:var(--isl-row)}
+#nav button[aria-current="page"],#nav button[aria-current="page"]:hover{background:var(--isl-act);color:var(--isl-act-fg)}
+#nav .cnt{background:var(--isl-row)}
+.side .me{border:0;background:var(--isl-row);height:62px;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+#sideCard{background:var(--isl-row)}
+}
+@media (min-width:921px) and (max-height:820px){.side-top::before{height:104px}.side .hands{top:52px;width:330px}#nav button{height:42px}}
+@media (min-width:921px) and (max-height:700px){.side-top::before{display:none}.side .hands{display:none}.side-top{padding-top:10px}}
 </style>
 
 <div id="pre" aria-hidden="true"><div class="pre-in"><div class="pre-l"></div><div class="pre-r"></div></div><div class="pre-w">Примирення<small>церковний облік</small></div></div>
@@ -823,7 +888,7 @@ SB.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(s)enter(s.
   /* after sign-in: find out whether this device is already subscribed and refresh its record */
   READY.then(function(){if(!P.ok||Notification.permission!=="granted")return;reg().then(function(r){return r.pushManager.getSubscription()}).then(function(s){P.on=!!s;tell();if(s)save(s).then(function(){},function(){})},function(){})})})();
 /* new version check: the page knows its own build id and compares it with version.txt on the server */
-(function(){var dir=location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/",cur="595971bc4cfe",shown=false;
+(function(){var dir=location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/",cur="ad5b226d7bf7",shown=false;
   function latest(){return fetch(dir+"version.txt?v="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(t){return String(t).trim()})}
   function busy(){if(document.querySelector("dialog[open]"))return true;var f=document.querySelectorAll("input,textarea");for(var i=0;i<f.length;i++){var e=f[i];if(e.type==="checkbox"||e.type==="radio"||e.type==="date"||e.id==="gq")continue;if(e.value&&e.value!==e.defaultValue)return true}return false}
   function reload(v){location.replace(location.pathname+"?v="+encodeURIComponent(v))}
@@ -891,16 +956,16 @@ function isPastor(id){return S.pastors.some(function(p){return p.pid===id})}
 function isDeacon(id){return S.dk.some(function(d){return d.pid===id})}
 function roleNames(){var out=DEFROLES.slice();S.customRoles.concat(Object.keys(S.min)).forEach(function(r){if(out.indexOf(r)<0)out.push(r)});return out}
 function roles(id){var r=[];if(isPastor(id))r.push("пастор");if(isDeacon(id))r.push(dkTrialP(id)?"диякон · випробувальний термін":"диякон");Object.keys(S.min).forEach(function(k){if((S.min[k]||[]).indexOf(id)>=0)r.push(k.toLowerCase())});S.groups.forEach(function(g){if(g.leader===id)r.push("лідер малої групи")});return r}
-function rtag(id){return roles(id).map(function(r){return ' <span class="pill s-role">'+esc(r)+'</span>'}).join("")}
+function rtag(id){return roles(id).map(function(r){var k=r==="пастор"?" pc r-p":r==="диякон"?" pc r-d":r.indexOf("диякон")===0?" pc r-t":"";return ' <span class="pill s-role'+k+'">'+esc(r)+'</span>'}).join("")}
 function groupsOf(id){return S.groups.filter(function(g){return g.leader===id||(g.members||[]).indexOf(id)>=0})}
 function gMembers(g){var ids=(g.members||[]).slice();if(g.leader&&ids.indexOf(g.leader)<0)ids.unshift(g.leader);return ids.map(function(id){var p=person(id);return p?{p:p,d:derive(p),a:age(p.birth),n:fio(p)}:null}).filter(Boolean).sort(function(a,b){return a.n.localeCompare(b.n,"uk")})}
 function memberOpts(skip){return act().filter(function(x){return !skip||!skip(x)}).map(function(x){return '<option value="'+esc(x.p.id)+'">'+esc(x.n)+'</option>'}).join("")}
 function opts(list,sel,blank){return (blank!=null?'<option value="">'+esc(blank)+'</option>':"")+list.map(function(v){return '<option'+(v===sel?" selected":"")+'>'+esc(v)+'</option>'}).join("")}
 function pill(st,p){return '<span class="pill s-'+st+'">'+esc(st==="none"&&p&&p.kind?p.kind:ST[st])+'</span>'}
 function lastContact(p){var m="";(p.contacts||[]).forEach(function(c){if(c.date>m)m=c.date});return m}
-function ntag(p){return (p.needs||[]).map(function(n){return ' <span class="pill s-note">'+esc(n)+'</span>'}).join("")}
+function ntag(p){return (p.needs||[]).map(function(n){var i=NEEDS.indexOf(n);return ' <span class="pill s-note pc n'+(i<0?9:i)+'">'+esc(n)+'</span>'}).join("")}
 function invRel(t,sex){var f=sex==="ж";if(t==="чоловік"||t==="дружина")return f?"дружина":"чоловік";if(t==="батько"||t==="мати")return f?"донька":"син";if(t==="син"||t==="донька")return f?"мати":"батько";if(t==="брат"||t==="сестра")return f?"сестра":"брат";return "інший родич"}
-function evDetail(e){return [e.until?"термін до "+fd(e.until):"",e.how,e.deacon?"диякон: "+canon(e.deacon):"",e.note].filter(Boolean).join(" · ")}
+function evDetail(e){return [e.until?"термін до "+fd(e.until):"",e.how,e.deacon?careWord(canon(e.deacon))+": "+canon(e.deacon):"",e.note].filter(Boolean).join(" · ")}
 function who(x){return '<div class="who"><span class="av">'+esc(ini(x.p))+'</span><span>'+esc(x.n)+rtag(x.p.id)+ntag(x.p)+'</span></div>'}
 function plink(x,extra){return '<button class="link" data-act="open" data-id="'+esc(x.p.id)+'">'+esc(x.n)+'</button>'+(extra?' <span class="muted small">'+esc(extra)+'</span>':"")}
 function hbars(rows,act_){var mx=Math.max.apply(null,rows.map(function(r){return r[1]}).concat([1]));
@@ -1181,7 +1246,7 @@ function renderDlg0(){
   var h="";
   if(S.mode==="new"){h='<div class="dlg"><div class="dlg-head"><h2>Нова людина</h2><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>'+personForm(null,true)+'<div class="bar"><button class="btn primary" data-act="saveNew">Зберегти картку</button></div></div>'}
   else{var p=person(S.card);if(!p){if(dlg.open)dlg.close();return}var d=derive(p),a=age(p.birth),E=evs(p).reverse();
-    h='<div class="dlg"><div class="dlg-head hero-head '+({member:"g-olive",note:"g-sun",excluded:"g-rose",none:"g-steel"}[d.st]||"g-ink")+'"><span class="av big">'+esc(ini(p))+'</span><div><h2>'+esc(fio(p))+'</h2><div class="small muted">'+pill(d.st,p)+rtag(p.id)+' '+(d.deacon?(d.active?"диякон: ":"останній диякон: ")+esc(d.deacon):"без диякона")+'</div></div><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>';
+    h='<div class="dlg"><div class="dlg-head hero-head '+heroCls(p,d)+'">'+avFig(p,"big")+'<div><h2>'+esc(fio(p))+'</h2><div class="small muted">'+pill(d.st,p)+rtag(p.id)+' '+(d.deacon?(d.active?careWord(d.deacon)+": ":"останній "+careWord(d.deacon)+": ")+esc(d.deacon):"ні за ким не закріплено")+'</div></div><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>';
     if(S.mode==="edit")h+=personForm(p,false)+'<div class="bar"><button class="btn primary" data-act="saveEdit">Зберегти зміни</button><button class="btn" data-act="mode" data-m="">Скасувати</button></div>';
     else{
       h+='<dl class="facts">'+[["Вік",a==null?"":a+" р. ("+fd(p.birth)+")"],["Стать",p.sex==="ч"?"чоловік":p.sex==="ж"?"жінка":""],["Телефон",p.phone],["Адреса",[p.place,p.address].filter(Boolean).join(", ")],["Сім\'я",p.family],["Сімейний стан",p.marital],["Шлюб",fd(p.wedding)],["Мала група",groupsOf(p.id).map(function(g){return g.name}).join(", ")],["Хрещення",fd(p.baptism)],["У церкві з",fd(d.joined)],["Вибув",d.left==="?"?"дата невідома":fd(d.left)],["Примітки",p.notes]].filter(function(r){return r[1]}).map(function(r){return '<div><dt>'+r[0]+'</dt><dd>'+(r[0]==="Телефон"?tel(r[1]):esc(r[1]))+'</dd></div>'}).join("")+'</dl>';
@@ -1244,7 +1309,7 @@ function tel(ph){if(!ph)return "";var d=String(ph).split(/[,;]/)[0].replace(/[^\
 function daysSince(iso){return iso?Math.round((new Date(today()+"T00:00:00")-new Date(iso+"T00:00:00"))/864e5):null}
 function homeTop(){var h="";if(!S.roleKnown)return h;
   if(S.uid&&S.canWrite&&!person(myPid()))h+='<div class="box"><div class="small"><b>Хто ви у списку?</b> Виберіть себе один раз — тоді ваші записи підписуватимуться вашим ім\'ям, а диякон бачитиме своїх людей одразу.</div><div class="bar"><select id="meSel" class="grow" aria-label="Хто ви"><option value="">вибрати себе зі списку членів…</option>'+memberOpts()+'</select><button class="btn" data-act="linkMe">Це я</button></div></div>';
-  var md=myDeacon();if(md){var n=act().filter(function(x){return x.d.deacon===md}).length;h+='<div class="box"><div class="bar"><span class="grow"><b>Ваші люди: '+n+'</b><br><span class="small muted">закріплені за вами як за дияконом</span></span><button class="btn primary" data-act="myList">Відкрити мій список</button></div></div>'}
+  var md=myDeacon();if(md){var n=act().filter(function(x){return x.d.deacon===md}).length;h+='<div class="box"><div class="bar"><span class="grow"><b>Ваші люди: '+n+'</b><br><span class="small muted">закріплені за вами як за '+(careWord(myDeacon())==="пастор"?"пастором":"дияконом")+'</span></span><button class="btn primary" data-act="myList">Відкрити мій список</button></div></div>'}
   if(S.canWrite&&!lim()){var ds=daysSince(S.cfg.lastBackup);if(ds==null||ds>7)h+='<div class="box"><div class="bar"><span class="grow small">'+(ds==null?"Резервну копію даних ще не робили.":"Останню резервну копію зроблено "+ds+" дн. тому ("+fd(S.cfg.lastBackup)+").")+' Збережіть файл у себе — це страховка на випадок помилки.</span><button class="btn" data-act="backup">Зберегти резервну копію</button></div></div>'}
   return h}
 function dlFile(name,data,ok){var use=window.claude&&window.claude.use?window.claude.use.bind(window.claude):null;if(!use)return toast("Завантаження недоступне в цьому перегляді");
@@ -1282,10 +1347,10 @@ function more(a,t,v){
   if(a==="saveGM"){var g=curGroup(),gd=val("gm_date");if(!g)return true;if(!gd){toast("Вкажіть дату зустрічі");return true}var pres=[];Array.prototype.forEach.call(document.querySelectorAll("input[data-gm]"),function(c){if(c.checked)pres.push(c.dataset.gm)});
     db.collection("gmeet").doc(g.id+"_"+gd).set({gid:g.id,date:gd,present:pres,note:val("gm_note")}).then(function(){toast("Зустріч записано")},function(){toast("Не вдалося зберегти")});return true}
   if(a==="delGM"){if(S.confirm!=="g"+v){S.confirm="g"+v;render();return true}S.confirm=-1;db.collection("gmeet").doc(v).delete().then(function(){toast("Зустріч видалено")},function(){toast("Не вдалося видалити")});return true}
-  if(a==="prDeacon"){var xs=act().filter(function(x){return x.d.deacon===S.dView});printDoc("Диякон "+S.dView+" — список на "+fd(today()),'<div class="m">Усього: '+xs.length+'</div>'+ptable(["№","ПІБ","Вік","Телефон","Адреса","Останній контакт","Позначки"],xs.map(function(x,i){return [i+1,x.n,x.a==null?"":x.a,x.p.phone,[x.p.place,x.p.address].filter(Boolean).join(", "),fd(lastContact(x.p)),(x.p.needs||[]).concat(x.d.st==="note"?["на замітці"]:[]).join(", ")]})));return true}
+  if(a==="prDeacon"){var xs=act().filter(function(x){return x.d.deacon===S.dView});printDoc(careWord(S.dView,1)+" "+S.dView+" — список на "+fd(today()),'<div class="m">Усього: '+xs.length+'</div>'+ptable(["№","ПІБ","Вік","Телефон","Адреса","Останній контакт","Позначки"],xs.map(function(x,i){return [i+1,x.n,x.a==null?"":x.a,x.p.phone,[x.p.place,x.p.address].filter(Boolean).join(", "),fd(lastContact(x.p)),(x.p.needs||[]).concat(x.d.st==="note"?["на замітці"]:[]).join(", ")]})));return true}
   if(a==="prVote"){var A=act(),n=A.length;printDoc("Список членів церкви для зібрання",'<div class="m">Дата зібрання: ____________________ &nbsp; Членів за списком: '+n+' &nbsp; Дві третини: '+Math.ceil(n*2/3)+' &nbsp; Більшість (50% + 1): '+(Math.floor(n/2)+1)+' &nbsp; Присутніх: ________</div>'+ptable(["№","ПІБ","Диякон / пастор","Підпис"],A.map(function(x,i){return [i+1,x.n,x.d.deacon,""]})).replace("<th>Підпис</th>",'<th style="width:28%">Підпис</th>'));return true}
   if(a==="prCard"){var p=person(S.card);if(!p)return true;var d=derive(p),ag=age(p.birth);
-    printDoc(fio(p),'<div class="m">'+esc(d.st==="none"&&p.kind?p.kind:ST[d.st])+(d.deacon?" · диякон: "+esc(d.deacon):"")+" · станом на "+fd(today())+'</div>'+ptable(["Поле","Значення"],[["Дата народження",fd(p.birth)+(ag==null?"":" ("+ag+" р.)")],["Телефон",p.phone],["Адреса",[p.place,p.address].filter(Boolean).join(", ")],["Сім'я",p.family],["Сімейний стан",p.marital],["Хрещення",fd(p.baptism)],["У церкві з",fd(d.joined)],["Служіння",roles(p.id).join(", ")],["Малі групи",groupsOf(p.id).map(function(g){return g.name}).join(", ")],["Потреби",(p.needs||[]).join(", ")],["Примітки",p.notes]].filter(function(r){return r[1]}))+
+    printDoc(fio(p),'<div class="m">'+esc(d.st==="none"&&p.kind?p.kind:ST[d.st])+(d.deacon?" · "+careWord(d.deacon)+": "+esc(d.deacon):"")+" · станом на "+fd(today())+'</div>'+ptable(["Поле","Значення"],[["Дата народження",fd(p.birth)+(ag==null?"":" ("+ag+" р.)")],["Телефон",p.phone],["Адреса",[p.place,p.address].filter(Boolean).join(", ")],["Сім'я",p.family],["Сімейний стан",p.marital],["Хрещення",fd(p.baptism)],["У церкві з",fd(d.joined)],["Служіння",roles(p.id).join(", ")],["Малі групи",groupsOf(p.id).map(function(g){return g.name}).join(", ")],["Потреби",(p.needs||[]).join(", ")],["Примітки",p.notes]].filter(function(r){return r[1]}))+
       '<h2>Історія</h2>'+ptable(["Дата","Подія","Деталі"],evs(p).map(function(e){return [fdE(e.date),EV[e.type]?EV[e.type].label:e.type,evDetail(e)]}))+((p.contacts||[]).length?'<h2>Відвідини і контакти</h2>'+ptable(["Дата","Що","Хто","Що з'ясували"],(p.contacts||[]).slice().sort(function(a,b){return a.date<b.date?1:-1}).map(function(c){return [fd(c.date),c.kind,c.by,c.note]})):""));return true}
   if(a==="prRep"){var ro=document.getElementById("repOut");if(!ro||!ro.children.length){toast("Спершу виберіть звіти");return true}var c=ro.cloneNode(true);Array.prototype.forEach.call(c.querySelectorAll(".bar,.box,input,select"),function(el){el.remove()});
     printDoc("Звіти за "+(S.rYear||CY)+" рік",c.innerHTML.replace(/<\/?button[^>]*>/g,"").replace(/ style="[^"]*"/g,""));return true}
@@ -1410,7 +1475,7 @@ document.addEventListener("click",function(e){
   else if(a==="unfixYear"){db.collection("archive").doc(String(v)).delete().then(function(){toast("Фіксацію знято")},function(){toast("Не вдалося")})}
   else if(a==="xlsAll")exportAll();
   else if(a==="xlsRep")exportRep();
-  else if(a==="xlsDeacon"){saveXlsx("Диякон "+S.dView+".xlsx",[{name:S.dView,rows:peopleRows(act().filter(function(x){return x.d.deacon===S.dView}))}])}
+  else if(a==="xlsDeacon"){saveXlsx(careWord(S.dView,1)+" "+S.dView+".xlsx",[{name:S.dView,rows:peopleRows(act().filter(function(x){return x.d.deacon===S.dView}))}])}
   else if(a==="needT"){var pn=person(S.card),bn=body(pn),ar=(bn.needs||[]).slice(),ixn=ar.indexOf(v);if(ixn>=0)ar.splice(ixn,1);else ar.push(v);bn.needs=ar;save(pn.id,bn).then(function(){},function(){})}
   else if(a==="saveContact"){var pc=person(S.card),bc=body(pc),by=val("c_by");try{localStorage.setItem("me",by)}catch(e){}bc.contacts=(bc.contacts||[]).concat([{date:val("c_date")||today(),kind:val("c_kind"),by:by,note:val("c_note")}]);save(pc.id,bc).then(function(){S.mode="";toast("Контакт записано");renderDlg()},function(){})}
   else if(a==="delContact"){var ci=+t.dataset.i;if(S.confirm!==1000+ci){S.confirm=1000+ci;return renderDlg()}var pd=person(S.card),bd2=body(pd);bd2.contacts.splice(ci,1);S.confirm=-1;save(pd.id,bd2).then(function(){toast("Контакт видалено")},function(){})}
@@ -1515,12 +1580,12 @@ function setHead(){
   aiSync()}
 var T0=Date.now(),PRE=false;
 function preDone(){if(PRE)return;PRE=true;var el=document.getElementById("pre");if(!el)return;setTimeout(function(){el.classList.add("out");setTimeout(function(){el.remove()},900)},Math.max(0,3000-(Date.now()-T0)))}
-setTimeout(preDone,6500);setTimeout(function(){tourMaybe()},4300);setTimeout(function(){tourMaybe()},8000);
+setTimeout(preDone,6500);setTimeout(function(){tourMaybe()},4300);setTimeout(function(){tourMaybe()},8000);setTimeout(function(){newsMaybe()},5600);setTimeout(function(){newsMaybe()},11000);
 
 function homeTop(){var h="";if(!S.roleKnown)return h;
   if(!window.__SITE&&S.uid&&S.canWrite&&!person(myPid()))h+='<div class="notice"><span class="si">'+ico("users")+'</span><span class="nt"><b>Хто ви у списку?</b><span class="muted small">Виберіть себе один раз — ваші записи підписуватимуться вашим ім\'ям.</span></span><select id="meSel" aria-label="Хто ви"><option value="">вибрати себе…</option>'+memberOpts(function(x){return !S.isAdmin&&isOffice(x.p.id)})+'</select><button class="btn primary" data-act="linkMe">Це я</button></div>';
   var yc=ytChan(S.cfg.youtube);if(yc&&on("yt"))h+='<div class="notice"><span class="si t-bad">'+ico("play")+'</span><span class="nt"><b>Трансляція богослужіння</b><span class="muted small">відкриває поточний ефір каналу церкви</span></span>'+ytA(yc+"/streams","btn","Усі трансляції")+ytA(yc+"/live","btn primary",ico("play")+" Дивитися наживо")+'</div>';
-  var md=myDeacon();if(md){var n=act().filter(function(x){return x.d.deacon===md}).length;h+='<div class="notice"><span class="si t-lime">'+ico("shield")+'</span><span class="nt"><b>Ваші люди: '+n+'</b><span class="muted small">закріплені за вами як за дияконом</span></span><button class="btn primary" data-act="myList">Відкрити мій список</button></div>'}
+  var md=myDeacon();if(md){var n=act().filter(function(x){return x.d.deacon===md}).length;h+='<div class="notice"><span class="si t-lime">'+ico("shield")+'</span><span class="nt"><b>Ваші люди: '+n+'</b><span class="muted small">закріплені за вами як за '+(careWord(myDeacon())==="пастор"?"пастором":"дияконом")+'</span></span><button class="btn primary" data-act="myList">Відкрити мій список</button></div>'}
   return h}
 
 ICO.sliders='<path d="M4 6h10M4 12h2M10 12h10M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>';
@@ -1701,10 +1766,10 @@ function personForm(p,isNew){p=p||{};function f(l,id,v,type,cls){return '<label'
 /* ---------- participation state: active, long absent, serving in the army, moving to another church, custom ---------- */
 var PART=["активний","давно не відвідує","служить у ЗСУ","за кордоном","у процесі переходу до іншої церкви"];FL.part="Стан у церкві";S.fPart="";
 function partList(){var o=PART.concat(S.cfg.customParts||[]);S.people.forEach(function(p){if(p.part&&o.indexOf(p.part)<0)o.push(p.part)});return o.filter(function(n,i){return o.indexOf(n)===i})}
-function ptag(p){return p.part&&p.part!==PART[0]?' <span class="pill s-part">'+esc(p.part)+'</span>':""}
+function ptag(p){var i=PART.indexOf(p.part);return p.part&&p.part!==PART[0]?' <span class="pill s-part'+(i>0?" pc p"+i:"")+'">'+esc(p.part)+'</span>':""}
 function partBlock(p,W){if(!W&&!p.part)return "";
   return '<div class="blk"><h3>Стан у церкві</h3>'+(W?'<div class="chips">'+partList().map(function(n){return '<button class="chip" aria-pressed="'+(p.part===n)+'" data-act="partSet" data-v="'+esc(n)+'">'+esc(n)+'</button>'}).join("")+'</div><div class="composer"><input id="pt_new" placeholder="Свій стан: навчається в іншому місті, доглядає рідних…" aria-label="Свій стан"><button class="btn" data-act="partAdd">'+ico("plus")+' Додати</button></div>':'<div><span class="pill s-part">'+esc(p.part)+'</span></div>')+'</div>'}
-function who(x){return '<div class="who"><span class="av '+avc(x.n)+'">'+esc(ini(x.p))+'</span><span class="wn"><span class="nm">'+esc(x.n)+'</span>'+rtag(x.p.id)+ptag(x.p)+ntag(x.p)+'</span></div>'}
+function who(x){return '<div class="who">'+avFig(x.p,avc(x.n))+'<span class="wn"><span class="nm">'+esc(x.n)+'</span>'+rtag(x.p.id)+ptag(x.p)+ntag(x.p)+'</span></div>'}
 function filtered(){var r=filtered0();if(!S.fPart)return r;return r.filter(function(x){return S.fPart==="-"?!x.p.part:x.p.part===S.fPart})}
 function hay(x){if(x.h)return x.h;var h=hay0(x);if(x.p.part)x.h=h+" \u0001 "+String(x.p.part).toLowerCase();return x.h}
 document.addEventListener("change",function(e){if(e.target&&e.target.id==="fPart"){S.fPart=e.target.value;render()}});
@@ -1724,6 +1789,9 @@ function rolesBlock(p,W){var rs=cardRoles(p.id),lead=S.groups.filter(function(g)
 function extra(a,t,v){
   if(a==="dview"){S.dView=v;S.card=null;S.mode="care";renderDlg();return true}
   if(S.mode==="care"&&(a==="toDeacon"||a==="delDeacon"||a==="delPastor")){S.mode="";if(dlg.open)dlg.close()}
+  if(a==="news"){meClose();S.card=null;S.mode="news";S.newsAll=false;renderDlg();newsSeen();return true}
+  if(a==="newsAll"){S.newsAll=true;renderDlg();return true}
+  if(a==="newsTour"){dlg.close();tourStart();return true}
   if(a==="ages"){S.mode="ages";S.card=null;S.ageG=-1;renderDlg();return true}
   if(a==="ageG"){S.ageG=S.ageG===+v?-1:+v;renderDlg();return true}
   if(a==="addCare"){if(lim()){toast("Для цього потрібні повні права");return true}var cp0=person(val("newCare")),cr=val("newCareRole");if(!cp0){toast("Виберіть людину зі списку");return true}var cn=[cp0.last,cp0.first].filter(Boolean).join(" ");
@@ -1796,24 +1864,26 @@ document.addEventListener("change",function(e){var t=e.target,d=t.dataset||{};if
   st.updateStaff(d.srole||d.sperson,d.srole?{role:t.value}:{person_id:t.value}).then(function(){toast("Збережено")},function(){toast("Не вдалося зберегти. Можливо, бракує прав.")})});
 function lim(){if(window.__site)return window.__site.role==="deacon";if(!(S.canWrite&&S.roleKnown)||S.isAdmin)return false;if((S.cfg.fullUsers||[]).indexOf(S.uid)>=0)return false;return !isOffice(myPid())}
 function ownOnly(p){if(!p||!lim())return false;var md=myDeacon();return !(md&&derive(p).deacon===md)}
-function renderDlg(){if(S.mode==="care"){dlg.innerHTML=careDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="ages"){dlg.innerHTML=agesDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
+function renderDlg(){if(S.mode==="news"){dlg.innerHTML=newsDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="care"){dlg.innerHTML=careDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="ages"){dlg.innerHTML=agesDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
   Array.prototype.forEach.call(dlg.querySelectorAll(".facts dd"),function(d){if(d.textContent.length>34)d.parentNode.classList.add("wide")});
-  if(p&&ownOnly(p)&&dlg.open){var d=dlg.querySelector(".dlg-head");if(d)d.insertAdjacentHTML("afterend",'<div class="box small" style="margin-inline:12px">Ця людина закріплена за іншим дияконом, тому картка відкрита лише для перегляду. Зміни вносить її диякон, пастор або секретар.</div>')}
+  if(p&&ownOnly(p)&&dlg.open){var d=dlg.querySelector(".dlg-head");if(d)d.insertAdjacentHTML("afterend",'<div class="box small" style="margin-inline:12px">Ця людина закріплена за іншим служителем, тому картка відкрита лише для перегляду. Зміни вносить її диякон, пастор або секретар.</div>')}
   strip(dlg)}
 /* ---------- first-run tour ---------- */
 var TOUR=null;
 function tourSteps(){var full=S.canWrite&&!lim(),s=[
   {tab:"home",ic:"spark",t:"Вітаємо в обліку «Примирення»",x:"Це робочий інструмент служителів: люди, служіння, малі групи, зібрання й нагадування в одному місці. Покажу головне за хвилину."},
-  {tab:"home",ic:"grid",sel:".stats,.features",t:"Огляд",x:"Головні цифри церкви на сьогодні. Натисніть на будь-яку картку, щоб перейти до списку. Унизу сторінки є «Налаштувати огляд»: там ви вибираєте, які блоки бачити саме вам."},
-  {tab:"people",ic:"users",sel:".toolbar,.tools",t:"Люди",x:"Усі картки. Угорі — пошук по всьому: прізвище, телефон, адреса, примітки. Фільтри показують чинних, тих, хто на замітці, і вибулих. Натисніть на людину, щоб відкрити картку."},
-  {tab:"people",ic:"heart",sel:"#app>.panel",one:1,t:"Картка людини",x:full?"У картці ви записуєте відвідини й дзвінки, ставите потреби, призначаєте служіння, додаєте родичів. Кнопки вгорі картки: прийняти в члени, перевести до диякона, взяти на замітку. Дату прийняття вказуйте фактичну, а не сьогоднішню.":"У картках своїх людей ви записуєте відвідини й дзвінки, оновлюєте телефон та адресу, ставите потреби. Картки людей інших дияконів відкриваються лише для перегляду."},
-  {tab:"reminders",ic:"bell",sel:"#app>.panel",one:1,t:"Нагадування",x:"Додайте своє нагадування з датою: подзвонити, відвідати, привітати. Сюди ж самі потрапляють ті, у кого минув термін замітки, і ті, хто потребує опіки."},
-  {tab:"deacons",ic:"shield",sel:"#app>.panel,.dcards",t:"Служителі та малі групи",x:"Пастори, диякони з їхніми списками та інші служіння. У розділі «Малі групи» — склад, лідер і відвідуваність зустрічей."},
+  {tab:"home",ic:"grid",sel:".side-top,#nav button,.me",t:"Меню",x:"Усі розділи зібрані в одній панелі: на комп'ютері вона ліворуч, на телефоні — внизу екрана, решта розділів під кнопкою «Ще». Під меню — ваш акаунт: там підказки, «Що нового» і налаштування огляду."},
+  {tab:"home",ic:"book",sel:".verse,.stats,.features",t:"Огляд",x:"Угорі — слово на сьогодні. Нижче головні цифри церкви: натисніть на картку, щоб перейти до списку. Картка «Медіанний вік» відкриває статистику за віком і віковими групами. Які блоки показувати, ви вибираєте в «Налаштувати огляд»."},
+  {tab:"people",ic:"users",sel:".toolbar,.tools",t:"Люди",x:"Усі картки. Угорі — пошук по всьому: прізвище, телефон, адреса, примітки. Фільтри показують чинних, тих, хто на замітці, і вибулих, а також людей конкретного диякона чи пастора."},
+  {tab:"people",ic:"heart",sel:"#app>.panel",one:1,t:"Картка людини",x:full?"У картці ви записуєте відвідини, дзвінки й переписку, ставите потреби, призначаєте служіння, додаєте родичів. Кнопки вгорі: прийняти в члени, закріпити за дияконом або пастором, взяти на замітку. Дату прийняття вказуйте фактичну, а не сьогоднішню.":"У картках своїх людей ви записуєте відвідини, дзвінки й переписку, оновлюєте телефон та адресу, ставите потреби. Картки людей інших служителів відкриваються лише для перегляду."},
+  {tab:"reminders",ic:"bell",sel:"#app>.panel",one:1,t:"Нагадування",x:"Додайте своє нагадування з датою: подзвонити, відвідати, привітати. Сюди ж самі потрапляють ті, у кого минув термін замітки, і ті, хто потребує опіки. Увімкніть сповіщення вгорі розділу — нагадування приходитимуть на телефон або комп'ютер, як у звичайному застосунку."},
+  {tab:"deacons",ic:"shield",sel:".dcards,#app>.sh",t:"Пастори і диякони",x:"Вони в одному списку, а колір картки показує, хто є хто: помаранчева — пастор, зелена — диякон, сіро-блакитна — диякон на випробувальному терміні. Натисніть на картку — відкриється список закріплених людей з копіюванням, Excel і друком."},
+  {tab:"deacons",ic:"sliders",sel:"#app>.panel",t:"Інші служіння і малі групи",x:"Нижче — решта служінь: призначайте людей і редагуйте сам список служінь під свою церкву. У розділі «Малі групи» — склад, лідер і відвідуваність зустрічей."},
   {tab:"meetings",ic:"calendar",sel:"#app>.panel",one:1,t:"Зібрання і трансляція",x:"Членські зібрання з рішеннями щодо людей. Кнопка «Дивитися наживо» відкриває поточну трансляцію на YouTube."}];
   if(full)s.push({tab:"reports",ic:"chart",sel:"#app>.panel",one:1,t:"Звіти",x:"Річний підсумок, прийняті й вибулі, звіт ЄХБ, вік і стать. Усе вивантажується в Excel. Раз на тиждень зберігайте резервну копію."});
   if(S.isAdmin)s.push({tab:"log",ic:"history",sel:"#app>.panel",one:1,t:"Журнал і користувачі",x:"Тут видно, хто й що змінив, і будь-яку зміну можна повернути. Тут же ви підтверджуєте нових користувачів і задаєте їм права."});
   s.push({tab:"home",ic:"spark",sel:"#aiFab,#aiBtnM",t:"Помічник",x:"Кругла кольорова кнопка: на комп'ютері внизу праворуч, на телефоні — вгорі біля пошуку. Пишіть коротко: «знайди Бурлаку», «нагадай у суботу подзвонити Вадиму», «запиши: сьогодні відвідав Вадима», «познач Вадима як служить у ЗСУ» — він знайде або запише сам. Напишіть «що ти вмієш», щоб побачити всі команди."});
-  s.push({tab:"home",ic:"check",sel:".me,#app>.bar:last-child",t:"Готово",x:"Ці підказки можна відкрити знову у меню під вашим іменем (унизу ліворуч, на телефоні — кружечок угорі) або кнопкою внизу огляду."});
+  s.push({tab:"home",ic:"check",sel:".me,#meBtnM",t:"Готово",x:"Ці підказки і список останніх оновлень завжди є в меню під вашим іменем (на телефоні — кружечок угорі). Коли виходить оновлення, застосунок сам покаже, що змінилось."});
   return s}
 function tourHl(tab){Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){b.classList.toggle("tour-hl",!!tab&&b.dataset.tab===tab)});var m=document.getElementById("navMore");if(m)m.classList.toggle("tour-hl",!!tab&&!!document.querySelector("#navX button.tour-hl"))}
 function tourMark(scroll){document.body.classList.toggle("touring",!!TOUR);Array.prototype.forEach.call(document.querySelectorAll(".tour-on"),function(e){e.classList.remove("tour-on")});if(!TOUR)return;
@@ -1825,7 +1895,7 @@ function tourShow(){var el=document.getElementById("tour");if(!TOUR){if(el)el.re
   if(!el){el=document.createElement("div");el.id="tour";el.setAttribute("role","dialog");el.setAttribute("aria-label","Знайомство із застосунком");document.body.appendChild(el)}
   el.innerHTML='<span class="si t-lime">'+ico(st.ic)+'</span><div class="tr-b"><div class="tr-n">Крок '+(TOUR.i+1)+' з '+TOUR.s.length+'</div><b>'+esc(st.t)+'</b><p>'+esc(st.x)+'</p><div class="bar"><button class="link small" data-act="tourEnd">Пропустити</button><span class="grow"></span>'+(TOUR.i?'<button class="btn small" data-act="tourPrev">Назад</button>':"")+'<button class="btn small primary" data-act="tourNext">'+(TOUR.i===TOUR.s.length-1?"Почати роботу":"Далі")+'</button></div></div>'}
 function tourStart(){if(dlg.open)dlg.close();if(AI.open){AI.open=false;aiRender()}S.dashEdit=false;TOUR={i:0,s:tourSteps()};tourShow()}
-function tourEnd(){TOUR=null;tourShow();if(!S.tourDone){S.tourDone=true;dashSave()}go("home")}
+function tourEnd(){TOUR=null;tourShow();if(!S.tourDone){S.tourDone=true;dashSave()}newsSeen();go("home")}
 function tourMaybe(){if(TOUR||S.tourDone||!S.ready||!S.roleKnown||!S.prefsOK||Date.now()-T0<3900)return;tourStart()}
 /* ---------- assistant ---------- */
 var AI={fn:null,open:false,busy:false,turns:[],log:[],ctl:null,tools:true,off:false,status:""};
@@ -1836,7 +1906,7 @@ function aiFull(p){var d=derive(p);return {id:p.id,name:fio(p),sex:p.sex==="ч"?
   history:evs(p).map(function(e){return {date:e.date||"",event:EV[e.type]?EV[e.type].label:e.type,details:evDetail(e)}}),
   contacts:(p.contacts||[]).slice().sort(function(a,b){return a.date<b.date?1:-1}).slice(0,30)}}
 function aiNeed(id){var p=person(String(id||""));if(!p)throw new Error("Людини з таким id немає. Спершу знайди її через find_people.");return p}
-function aiMine(id){var p=aiNeed(id);if(ownOnly(p))throw new Error("Ця людина закріплена за іншим дияконом. Змінювати її картку може лише її диякон, пастор або секретар.");return p}
+function aiMine(id){var p=aiNeed(id);if(ownOnly(p))throw new Error("Ця людина закріплена за іншим служителем. Змінювати її картку може лише її диякон, пастор або секретар.");return p}
 function aiNote(t,id){AI.log.push({r:"act",t:t,id:id||""});aiRender()}
 function aiTools(){
   return [
@@ -1881,7 +1951,7 @@ function aiRun(acts){var i=0,ok=0;function next(){if(i>=acts.length||i>=12)retur
     return pr.then(function(r){ok++;AI.log.push({r:"act",t:r.t,id:r.id||""})},function(e){AI.log.push({r:"act",bad:true,t:"Не виконано: "+(e&&e.message||"помилка збереження")})}).then(next)}
   return next()}
 function aiRules(){var A=all(),me=S.me&&S.me.name||"",wd=["неділя","понеділок","вівторок","середа","четвер","п'ятниця","субота"][new Date().getDay()];
-  var roster=A.length<=350?A.map(function(x){return x.p.id+" | "+x.n+" | "+(x.d.st==="none"&&x.p.kind?x.p.kind:ST[x.d.st])+(x.d.deacon?" | диякон "+x.d.deacon:"")+(x.p.part?" | стан: "+x.p.part:"")}).join("\n"):"(список завеликий — шукай через find_people)";
+  var roster=A.length<=350?A.map(function(x){return x.p.id+" | "+x.n+" | "+(x.d.st==="none"&&x.p.kind?x.p.kind:ST[x.d.st])+(x.d.deacon?" | "+careWord(x.d.deacon)+" "+x.d.deacon:"")+(x.p.part?" | стан: "+x.p.part:"")}).join("\n"):"(список завеликий — шукай через find_people)";
   var rems=(S.rem||[]).map(function(r){return r.id+" | "+(r.date||"без дати")+" | "+r.text+(r.pid?" | "+pn(r.pid):"")}).join("\n")||"(немає)";
   var full=S.canWrite&&!lim();
   return "Ти помічник у застосунку «Церковний облік» церкви «Примирення». Відповідай українською, коротко і по суті, звичайним текстом без Markdown, зірочок і таблиць. Сьогодні "+today()+" ("+wd+"). З тобою говорить "+(me||"служитель")+".\n"+
@@ -2064,7 +2134,7 @@ function aiLocal(q){var s=lcN(q).replace(/\s+/g," ").trim(),T=lcTok(q),P,x,d,v,m
   /* deacon's people */
   if(/диякон|підопічн/.test(s)&&!/хто диякон|який диякон|чий диякон/.test(s)){var D=deaconList(),bd="",bs=0;
     D.forEach(function(n){var sc=0;lcN(n).split(/\s+/).forEach(function(w){T.forEach(function(k){if(!LC_STOP.test(k.n))sc+=lcNameHit(k.n,w)})});if(sc>bs){bs=sc;bd=n}});
-    if(bd){A=act().filter(function(z){return z.d.deacon===bd});return lcList("Люди диякона "+bd,A)}
+    if(bd){A=act().filter(function(z){return z.d.deacon===bd});return lcList("Люди, закріплені за: "+bd+" ("+careWord(bd)+")",A)}
     if(!P.length)return {kind:"info",say:D.length?"Диякони:\n"+D.map(function(n){return "• "+n+" — "+act().filter(function(z){return z.d.deacon===n}).length}).join("\n"):"Дияконів ще не додано."}}
   if(/пастор/.test(s)&&!P.length)return {kind:"info",say:S.pastors.length?"Пастори: "+S.pastors.map(function(p){return p.name}).join(", ")+".":"Пасторів ще не вказано."};
   /* own reminders */
@@ -2121,17 +2191,18 @@ function aiRender(){var el=document.getElementById("aiPanel");if(!el)return;aiSy
 /* ---------- account menu ---------- */
 function meIni(n){return String(n||"?").trim().split(/\s+/).map(function(w){return w.charAt(0)}).slice(0,2).join("").toUpperCase()||"?"}
 function meRoleT(){var w=document.getElementById("who"),r=w?(w.textContent.split(" \u00b7 ")[1]||""):"";return r?r.charAt(0).toUpperCase()+r.slice(1):""}
-function meAvH(c){var n=S.me&&S.me.name||"";return S.me&&S.me.avatarUrl?'<img class="'+c+'" src="'+esc(S.me.avatarUrl)+'" alt="">':'<span class="'+c+'">'+esc(meIni(n))+'</span>'}
+function meKind(){var id=myPid();if(id&&isPastor(id))return ["pastor","Пастор"];if(id&&isDeacon(id))return dkTrialP(id)?["trial","Диякон · випробувальний"]:["deacon","Диякон"];return [S.isOwner?"owner":S.isAdmin?"full":"user",""]}
+function meAvH(c){var n=S.me&&S.me.name||"",mp=!(S.me&&S.me.avatarUrl)&&person(myPid());if(mp&&avOk(mp))return '<span class="'+c+' fig">'+avOf(mp)+'</span>';return S.me&&S.me.avatarUrl?'<img class="'+c+'" src="'+esc(S.me.avatarUrl)+'" alt="">':'<span class="'+c+'">'+esc(meIni(n))+'</span>'}
 function meSync(){var b=document.getElementById("meBtn"),m=document.getElementById("meBtnM");if(!b)return;var has=!!S.me;b.hidden=!has;if(m)m.hidden=!has;if(!has)return;
   var nm=S.me.name||"Без імені",ini=document.getElementById("meIn");document.getElementById("meName").textContent=nm;document.getElementById("meRole").textContent=meRoleT();
-  ini.hidden=!!S.me.avatarUrl;ini.textContent=meIni(nm);
+  ini.hidden=!!S.me.avatarUrl;var mp=person(myPid()),mfig=mp&&avOk(mp),mk0=mfig?"f"+mp.id+"|"+mp.sex+"|"+mp.birth+"|"+avRole(mp.id):"t"+nm;if(ini.dataset.k!==mk0){ini.dataset.k=mk0;ini.classList.toggle("fig",!!mfig);if(mfig)ini.innerHTML=avOf(mp);else ini.textContent=meIni(nm)}
   if(m){var k=(S.me.avatarUrl||"")+"|"+nm;if(m.dataset.k!==k){m.dataset.k=k;m.innerHTML=S.me.avatarUrl?'<img src="'+esc(S.me.avatarUrl)+'" alt="">':esc(meIni(nm))}}}
 function meClose(){var el=document.getElementById("meMenu");if(el)el.remove();var b=document.getElementById("meBtn");if(b)b.setAttribute("aria-expanded","false")}
 function meItem(act,ic,label,id){return '<button type="button" role="menuitem"'+(id?' id="'+id+'"':' data-act="'+act+'"')+'><span class="si">'+ico(ic)+'</span><span class="grow">'+label+'</span>'+(id?"":'<span class="go">'+ico("arrow")+'</span>')+'</button>'}
 function meMenu(src){if(document.getElementById("meMenu")){meClose();return}if(!S.me)return;
   var el=document.createElement("div"),nm=S.me.name||"Без імені",role=meRoleT(),nl=document.getElementById("navLog"),users=nl&&!nl.hidden;el.id="meMenu";el.setAttribute("role","menu");el.setAttribute("aria-label","Обліковий запис");
-  el.innerHTML='<div class="mm-h g-ink"><div class="mm-top">'+meAvH("mm-av")+(role?'<span class="mm-r">'+esc(role)+'</span>':"")+'</div><div class="mm-t"><b>'+esc(nm)+'</b>'+(S.me.email?'<span>'+esc(S.me.email)+'</span>':"")+'</div></div>'+
-    '<div class="mm-l">'+meItem("tourStart","help","Як користуватись")+meItem("meDash","sliders","Налаштувати огляд")+(users?meItem("meUsers","users",window.__SITE?"Користувачі й доступ":"Журнал і користувачі"):"")+(window.__push&&window.__push.state()==="on"?meItem("pushOff","bell","Вимкнути сповіщення"):window.__push&&window.__push.state()==="off"?meItem("pushOn","bell","Увімкнути сповіщення"):"")+'</div>'+
+  var mk=meKind();el.innerHTML='<div class="mm-h mk-'+mk[0]+'"><div class="mm-top">'+meAvH("mm-av")+'<span class="mm-rs">'+(mk[1]?'<span class="mm-r pos">'+esc(mk[1])+'</span>':"")+(role?'<span class="mm-r'+(mk[1]?" acc":"")+'">'+esc(role)+'</span>':"")+'</span></div><div class="mm-t"><b>'+esc(nm)+'</b>'+(S.me.email?'<span>'+esc(S.me.email)+'</span>':"")+'</div></div>'+
+    '<div class="mm-l">'+meItem("tourStart","help","Як користуватись")+meItem("news","spark","Що нового")+meItem("meDash","sliders","Налаштувати огляд")+(users?meItem("meUsers","users",window.__SITE?"Користувачі й доступ":"Журнал і користувачі"):"")+(window.__push&&window.__push.state()==="on"?meItem("pushOff","bell","Вимкнути сповіщення"):window.__push&&window.__push.state()==="off"?meItem("pushOn","bell","Увімкнути сповіщення"):"")+'</div>'+
     (window.__SITE?'<div class="mm-l mm-out">'+meItem("","out","Вийти","siteOut")+'</div>':"");
   document.body.appendChild(el);var r=src.getBoundingClientRect(),vw=window.innerWidth,vh=window.innerHeight;
   if(src.id==="meBtnM"){var w=Math.min(320,vw-32);el.style.width=w+"px";el.style.top=(r.bottom+10)+"px";el.style.left=Math.max(16,Math.min(vw-16-w,r.right-w))+"px";el.style.transformOrigin="top right"}
@@ -2216,6 +2287,93 @@ function agesDlg(){var A=act(),K=A.filter(function(x){return x.a!=null}),ages=K.
     h+='<div class="box"><div><b>'+esc(AGEG[S.ageG][0])+'</b> <span class="muted small">'+L.length+' · '+m+' чол. · '+w+' жін. · '+Math.round(L.length/ages.length*100)+'% від усіх</span></div>'+(L.length?'<ul class="list rem">'+L.map(function(x){return '<li><span class="grow">'+plink(x,x.a+" р.")+'</span></li>'}).join("")+'</ul>':'<div class="muted small">У цій групі нікого немає.</div>')+'</div>'}
   else h+='<div class="muted small">Натисніть на групу, щоб побачити людей.</div>';
   return h+'</div>'}
+
+/* who a person is assigned to may be a pastor or a deacon: name the role as it really is */
+function careWord(name,cap){var p=S.pastors.some(function(x){return x&&x.name===name}),w=p?"пастор":"диякон";return cap?w.charAt(0).toUpperCase()+w.slice(1):w}
+
+/* ---------- what's new: shown once after an update, and always available in the account menu ---------- */
+var NEWS=[
+ {id:"2026-10-07-2",d:"7 жовтня 2026",t:"У кожного свій чоловічок, у кожного статусу свій колір",items:[
+  ["users","Аватарки замість ініціалів","Застосунок сам малює чоловічка за даними картки: стать, вік і служіння. У пастора посох і помаранчевий фон, у диякона стрічка й зелений, в інших служителів лаймовий пояс."],
+  ["heart","Щоб чоловічок з'явився","Вкажіть у картці стать, а для точнішого вигляду ще й дату народження. Доки стать не вказана, лишається кружечок з ініціалами."],
+  ["grid","Колір картки за статусом","Шапка картки людини тепер показує, хто це: член — зелена, пастор — помаранчева, диякон — оливкова, на випробувальному — сіро-блакитна, на замітці — золота, служить у ЗСУ — хакі, за кордоном або перейшов — синя, у процесі переходу — фіолетова, давно не відвідує — сіро-бежева, самоусунувся — теракотова, вилучений — червона, помер — чорна, не член — пісочна."],
+  ["sliders","Кольорові мітки","Мітки статусу, стану в церкві, потреб і служінь у списку людей теж мають свої кольори."]]},
+ {id:"2026-10-07",d:"7 жовтня 2026",t:"Нове меню, пастори з дияконами і статистика віку",items:[
+  ["grid","Меню-острів","Меню стало окремою панеллю з логотипом. У світлій темі воно світле, у темній — темне."],
+  ["shield","Пастори і диякони разом","Один список із кольоровими картками: помаранчева — пастор, зелена — диякон, сіро-блакитна — диякон на випробувальному терміні. Натисніть на картку, щоб побачити закріплених людей."],
+  ["clock","Випробувальний термін","Диякона можна додати на випробувальний термін, а згодом затвердити однією кнопкою."],
+  ["users","За ким закріплена людина","За людиною можна закріпити і пастора. У картках, списках і звітах тепер пишеться, хто це насправді: пастор чи диякон."],
+  ["chart","Статистика віку","Картка «Медіанний вік» на огляді відкриває вік за групами: натисніть на групу, щоб побачити людей."],
+  ["book","Слово на сьогодні","Щодня новий вірш із Біблії вгорі огляду, у сучасному перекладі."],
+  ["bell","Сповіщення","Нагадування можуть приходити на телефон або комп'ютер. Увімкніть їх у розділі «Нагадування»."],
+  ["sliders","Дрібніше","Список служінь можна редагувати. У «як прийшов» з'явилось «невідомо», у контактах — «переписка». Дані у формі більше не зникають під час заповнення."]]}
+];
+function newsLast(){try{return localStorage.getItem("newsSeen")||""}catch(e){return NEWS[0].id}}
+function newsSeen(){if(S.newsFrom==null)S.newsFrom=newsLast();try{localStorage.setItem("newsSeen",NEWS[0].id)}catch(e){}}
+function newsIsNew(){try{return localStorage.getItem("newsSeen")!==NEWS[0].id}catch(e){return false}}
+var NEWS_T=0;
+function newsMaybe(){if(NEWS_T||!S.ready||!S.roleKnown||!S.tourDone||TOUR||dlg.open||(typeof AI!=="undefined"&&AI.open)||document.getElementById("meMenu"))return;if(!newsIsNew()){NEWS_T=1;return}
+  var a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))return;NEWS_T=1;S.card=null;S.mode="news";S.newsAll=false;renderDlg();newsSeen()}
+function newsDlg(){var from=S.newsFrom==null?newsLast():S.newsFrom,cut=-1;NEWS.forEach(function(n,i){if(cut<0&&n.id===from)cut=i});var L=S.newsAll||cut<0?NEWS:NEWS.filter(function(n,i){return i<Math.max(1,cut)||n.d===NEWS[0].d});
+  return '<div class="dlg news"><div class="dlg-head news-h"><div><span class="news-k">'+ico("spark")+' Оновлення · '+esc(NEWS[0].d)+'</span><h2>Що нового</h2></div><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>'+
+    L.map(function(n,i){return (i&&n.d!==NEWS[0].d?'<h3 class="news-d">Раніше · '+esc(n.d)+'</h3>':"")+'<div class="news-t">'+esc(n.t)+'</div><ul class="news-l">'+n.items.map(function(x){return '<li><span class="si">'+ico(x[0])+'</span><span><b>'+esc(x[1])+'</b><span class="muted">'+esc(x[2])+'</span></span></li>'}).join("")+'</ul>'}).join("")+
+    '<div class="bar">'+(L.length<NEWS.length?'<button class="btn" data-act="newsAll">Попередні оновлення</button>':"")+'<button class="btn" data-act="newsTour">'+ico("help")+' Пройти підказки заново</button><span class="grow"></span><button class="btn primary" data-act="close">Зрозуміло</button></div></div>'}
+
+/* ---------- generated avatars: a little figure drawn from the card (sex, age, ministry) ---------- */
+/* little biblical-style figures, drawn from what the card says about a person: sex, age, ministry. Same person -> same figure. */
+var AVP={skin:["#f0c9a6","#e3b48c","#d19f76","#b9835a","#f5d8bf"],hair:["#1d1a18","#2a211c","#4a3324","#6a4a30","#a67a48"],
+  bg:{sun:["#ee8a28","#f7b521","#ef5a26","#b4c3cd"],olive:["#4b5c19","#708a22","#d2ec4c","#2c3610"],steel:["#8399a7","#8fa6b3","#e79a48","#547a92"],rose:["#b56d5f","#c07a6b","#e9bba9","#8c463c"],ink:["#232327","#2c2c31","#5a5a64","#131316"],sand:["#c2ab7c","#d1bc8e","#f0e2bb","#94783f"],plum:["#6d5c8a","#7d6c9b","#cdbbe8","#40355a"],teal:["#3f7470","#4f8782","#bfe3c9","#234946"]},any:["rose","ink","sand","plum","teal","steel","olive","sun"]};
+function avHash(s){var h=2166136261;s=String(s||"");for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function avShade(hex,k){var n=parseInt(hex.slice(1),16),r=n>>16,g=n>>8&255,b=n&255;function f(v){return Math.max(0,Math.min(255,Math.round(k<0?v*(1+k):v+(255-v)*k)))}return "#"+((1<<24)+(f(r)<<16)+(f(g)<<8)+f(b)).toString(16).slice(1)}
+function avatarSvg(o){o=o||{};var h=avHash(o.id||o.name||"x"),pick=function(a,sh){return a[(h>>>sh)%a.length]};
+  var sex=o.sex==="ч"?"m":o.sex==="ж"?"f":"",age=o.age==null?null:+o.age,kid=age!=null&&age<13,teen=age!=null&&age>=13&&age<20,old=age!=null&&age>=60,mid=age!=null&&age>=40&&age<60;
+  var skin=pick(AVP.skin,0),hair=old?(age>=72?"#f1eee8":"#cfcac2"):mid&&(h>>>9)%3===0?"#8a8079":pick(AVP.hair,3),ink="#17171a";
+  var bk=o.role==="pastor"?"sun":o.role==="deacon"?"olive":o.role==="trial"?"steel":AVP.any[(h>>>14)%5],B=AVP.bg[bk],dark=(h>>>6)%3===0&&bk!=="ink",robe=dark?"#17171a":"#f7f6f2",cloth=dark?"#f7f6f2":(h>>>10)%2?"#f7f6f2":avShade(B[2],.55),acc="#d9f23a",gid="avg"+h+bk;if(o.role==="trial")o=Object.assign({},o,{role:"deacon"});
+  var role=o.role||"",cy=kid?31:28,r=kid?12.5:12,ey=cy+(kid?1:0),s="";
+  s+='<rect width="64" height="64" fill="'+B[0]+'"/><rect width="64" height="64" fill="url(#'+gid+'a)"/><rect width="64" height="64" fill="url(#'+gid+'b)"/><rect width="64" height="64" fill="url(#'+gid+'c)"/>';
+  /* veil behind the body for women */
+  var veil=sex==="f"&&!kid&&(!teen||(h>>>17)%2===0);
+  if(veil)s+='<path d="M32 '+(cy-17)+'C21.500 '+(cy-17)+' 16 '+(cy-9)+' 16 '+(cy+2)+'C16 42 13 52 9 64H55C51 52 48 42 48 '+(cy+2)+'C48 '+(cy-9)+' 42.500 '+(cy-17)+' 32 '+(cy-17)+'Z" fill="'+cloth+'"/>';
+  /* robe */
+  s+='<path d="M'+(kid?14:10)+' 64C'+(kid?14:10)+' '+(kid?54:50)+' 21 '+(kid?47:44)+' 32 '+(kid?47:44)+'C43 '+(kid?47:44)+' '+(kid?50:54)+' '+(kid?54:50)+' '+(kid?50:54)+' 64Z" fill="'+robe+'"/>';
+  var ny=kid?47:44;
+  s+='<path d="M26.500 '+(ny+.4)+'Q32 '+(ny+7.5)+' 37.500 '+(ny+.4)+'Z" fill="'+avShade(skin,-.1)+'"/>';
+  if(role==="pastor")s+='<path d="M24.500 '+(ny+1.5)+'L21.500 64H27.500L29.200 '+(ny+4.5)+'Z" fill="'+acc+'"/><path d="M39.500 '+(ny+1.5)+'L42.500 64H36.500L34.800 '+(ny+4.5)+'Z" fill="'+acc+'"/>';
+  else if(role==="deacon")s+='<path d="M21 '+(ny+2.5)+'L41 64H48.500L25.500 '+(ny+.8)+'Z" fill="'+acc+'"/>';
+  else if(role==="serve")s+='<path d="M17 59.500Q32 62.500 47 59.500" fill="none" stroke="'+acc+'" stroke-width="2.400" stroke-linecap="round"/>';
+  /* neck + head */
+  s+='<rect x="28.500" y="'+(cy+r-3)+'" width="7" height="6" rx="2.500" fill="'+avShade(skin,-.1)+'"/>';
+  s+='<circle cx="32" cy="'+cy+'" r="'+r+'" fill="'+skin+'"/>';
+  /* ears for men/boys without veil */
+  if(!veil)s+='<circle cx="'+(32-r+.3)+'" cy="'+(cy+1.5)+'" r="2" fill="'+skin+'"/><circle cx="'+(32+r-.3)+'" cy="'+(cy+1.5)+'" r="2" fill="'+skin+'"/>';
+  var headcloth=sex==="m"&&!kid&&((h>>>24)%3===0||role==="pastor"&&(h>>>24)%2===0);
+  var beard=sex==="m"&&age!=null&&age>=24&&((h>>>20)%5!==0||age>=45||headcloth),longB=beard&&(old||(age>=45&&(h>>>22)%2===0));
+  if(beard)s+='<path d="M'+(32-r+.4)+' '+(cy+1)+'C'+(32-r+.2)+' '+(cy+(longB?15:11))+' 26 '+(cy+(longB?23:15.500))+' 32 '+(cy+(longB?23:15.500))+'C38 '+(cy+(longB?23:15.500))+' '+(32+r-.2)+' '+(cy+(longB?15:11))+' '+(32+r-.4)+' '+(cy+1)+'C'+(32+r-2)+' '+(cy+5)+' 37.500 '+(cy+5.800)+' 32 '+(cy+5.800)+'C26.500 '+(cy+5.800)+' '+(32-r+2)+' '+(cy+5)+' '+(32-r+.4)+' '+(cy+1)+'Z" fill="'+hair+'"/>';
+  /* hair / head cloth */
+  if(veil){s+='<path d="M'+(32-r+.6)+' '+(cy-1)+'C'+(32-r+1)+' '+(cy-8)+' 27 '+(cy-10.500)+' 32 '+(cy-10.500)+'C37 '+(cy-10.500)+' '+(32+r-1)+' '+(cy-8)+' '+(32+r-.6)+' '+(cy-1)+'C'+(32+r-3.500)+' '+(cy-5.500)+' 36 '+(cy-6.800)+' 32 '+(cy-6.800)+'C28 '+(cy-6.800)+' '+(32-r+3.500)+' '+(cy-5.500)+' '+(32-r+.6)+' '+(cy-1)+'Z" fill="'+hair+'"/>';
+    s+='<path d="M32 '+(cy-17)+'C22 '+(cy-17)+' 16.500 '+(cy-9.500)+' 16 '+(cy+2)+'C16 '+(cy+8)+' 15.600 '+(cy+12)+' 15 '+(cy+16)+'C18.500 '+(cy+13)+' 20 '+(cy+8)+' 20.200 '+(cy+1)+'C20.600 '+(cy-7)+' 25.500 '+(cy-12.200)+' 32 '+(cy-12.200)+'C38.500 '+(cy-12.200)+' 43.400 '+(cy-7)+' 43.800 '+(cy+1)+'C44 '+(cy+8)+' 45.500 '+(cy+13)+' 49 '+(cy+16)+'C48.400 '+(cy+12)+' 48 '+(cy+8)+' 48 '+(cy+2)+'C47.500 '+(cy-9.500)+' 42 '+(cy-17)+' 32 '+(cy-17)+'Z" fill="'+cloth+'"/>'}
+  else if(headcloth){s+='<path d="M32 '+(cy-15)+'C23.500 '+(cy-15)+' 18.500 '+(cy-9.500)+' 18.500 '+(cy-1)+'C18.500 '+(cy+6)+' 18 '+(cy+11)+' 16.500 '+(cy+15)+'C20 '+(cy+12)+' 21 '+(cy+6)+' 21 '+(cy-1)+'C22.500 '+(cy-6.500)+' 26.500 '+(cy-8.800)+' 32 '+(cy-8.800)+'C37.500 '+(cy-8.800)+' 41.500 '+(cy-6.500)+' 43 '+(cy-1)+'C43 '+(cy+6)+' 44 '+(cy+12)+' 47.500 '+(cy+15)+'C46 '+(cy+11)+' 45.500 '+(cy+6)+' 45.500 '+(cy-1)+'C45.500 '+(cy-9.500)+' 40.500 '+(cy-15)+' 32 '+(cy-15)+'Z" fill="'+cloth+'"/><path d="M19.600 '+(cy-7.200)+'Q32 '+(cy-13.500)+' 44.400 '+(cy-7.200)+'" fill="none" stroke="'+(role?acc:ink)+'" stroke-width="2.400" stroke-linecap="round"/>'}
+  else if(sex==="f"){/* girl / young woman without veil: long hair */
+    s+='<path d="M32 '+(cy-r-2.500)+'C23 '+(cy-r-2.500)+' '+(32-r-2.500)+' '+(cy-6)+' '+(32-r-2.500)+' '+(cy+2)+'C'+(32-r-2.500)+' '+(cy+9)+' '+(32-r-3.500)+' '+(cy+14)+' '+(32-r-1)+' '+(cy+17)+'C'+(32-r+1.500)+' '+(cy+12)+' '+(32-r+1.500)+' '+(cy+5)+' '+(32-r+1.200)+' '+(cy-.5)+'C'+(32-r+5)+' '+(cy-3)+' 28 '+(cy-6)+' 30 '+(cy-9)+'C33 '+(cy-5)+' 39 '+(cy-2.500)+' '+(32+r-1.200)+' '+(cy-.5)+'C'+(32+r-1.500)+' '+(cy+5)+' '+(32+r-1.500)+' '+(cy+12)+' '+(32+r+1)+' '+(cy+17)+'C'+(32+r+3.500)+' '+(cy+14)+' '+(32+r+2.500)+' '+(cy+9)+' '+(32+r+2.500)+' '+(cy+2)+'C'+(32+r+2.500)+' '+(cy-6)+' 41 '+(cy-r-2.500)+' 32 '+(cy-r-2.500)+'Z" fill="'+hair+'"/>';
+    if(kid||(h>>>19)%2)s+='<path d="M'+(32-r+1.500)+' '+(cy-7.500)+'Q32 '+(cy-13.500)+' '+(32+r-1.500)+' '+(cy-7.500)+'" fill="none" stroke="'+cloth+'" stroke-width="2.200" stroke-linecap="round"/>'}
+  else{var bald=sex==="m"&&age!=null&&age>=50&&(h>>>26)%3===0;
+    if(bald)s+='<path d="M'+(32-r+.3)+' '+(cy-.5)+'C'+(32-r-.2)+' '+(cy-5)+' '+(32-r+1.500)+' '+(cy-7)+' '+(32-r+3)+' '+(cy-8)+'C'+(32-r+2.500)+' '+(cy-5)+' '+(32-r+2)+' '+(cy-2.500)+' '+(32-r+.3)+' '+(cy-.5)+'ZM'+(32+r-.3)+' '+(cy-.5)+'C'+(32+r+.2)+' '+(cy-5)+' '+(32+r-1.500)+' '+(cy-7)+' '+(32+r-3)+' '+(cy-8)+'C'+(32+r-2.500)+' '+(cy-5)+' '+(32+r-2)+' '+(cy-2.500)+' '+(32+r-.3)+' '+(cy-.5)+'Z" fill="'+hair+'"/>';
+    else if((h>>>27)%2||kid)s+='<path d="M'+(32-r+.2)+' '+(cy-.5)+'C'+(32-r-1.500)+' '+(cy-9)+' 25 '+(cy-r-2.200)+' 32 '+(cy-r-2.200)+'C39 '+(cy-r-2.200)+' '+(32+r+1.500)+' '+(cy-9)+' '+(32+r-.2)+' '+(cy-.5)+'C'+(32+r-2)+' '+(cy-4.500)+' 40 '+(cy-6.500)+' 37 '+(cy-7)+'C33 '+(cy-5)+' 26 '+(cy-5)+' '+(32-r+.2)+' '+(cy-.5)+'Z" fill="'+hair+'"/>';
+    else s+='<path d="M'+(32-r+.2)+' '+(cy-.5)+'C'+(32-r-1.800)+' '+(cy-10)+' 25 '+(cy-r-2.800)+' 32 '+(cy-r-2.800)+'C39 '+(cy-r-2.800)+' '+(32+r+1.800)+' '+(cy-10)+' '+(32+r-.2)+' '+(cy-.5)+'C'+(32+r-2.500)+' '+(cy-5.500)+' 37 '+(cy-7.500)+' 32 '+(cy-7.500)+'C27 '+(cy-7.500)+' '+(32-r+2.500)+' '+(cy-5.500)+' '+(32-r+.2)+' '+(cy-.5)+'Z" fill="'+hair+'"/>'}
+  /* face */
+  var er=kid?1.900:1.600,ex=kid?4.800:4.500;
+  s+='<circle cx="'+(32-ex)+'" cy="'+(ey+.5)+'" r="'+er+'" fill="'+ink+'"/><circle cx="'+(32+ex)+'" cy="'+(ey+.5)+'" r="'+er+'" fill="'+ink+'"/>';
+  /* shepherd's staff for a pastor */
+  if(role==="pastor")s+='<path d="M54.500 64V35C54.500 28.500 62 28.500 62 35" fill="none" stroke="#fff" stroke-width="2.800" stroke-linecap="round"/>';
+  return '<svg class="avf" viewBox="0 0 64 64" role="img" aria-label="'+(o.label||"")+'"><defs><clipPath id="avc'+h+'"><circle cx="32" cy="32" r="32"/></clipPath><radialGradient id="'+gid+'a" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="'+B[1]+'"/><stop offset="1" stop-color="'+B[1]+'" stop-opacity="0"/></radialGradient><radialGradient id="'+gid+'b" cx=".95" cy="1" r=".75"><stop offset="0" stop-color="'+B[2]+'"/><stop offset="1" stop-color="'+B[2]+'" stop-opacity="0"/></radialGradient><radialGradient id="'+gid+'c" cx=".05" cy="0" r=".7"><stop offset="0" stop-color="'+B[3]+'"/><stop offset="1" stop-color="'+B[3]+'" stop-opacity="0"/></radialGradient></defs><g clip-path="url(#avc'+h+')">'+s+'</g></svg>'}
+function avRole(id){return isPastor(id)?"pastor":isDeacon(id)?(dkTrialP(id)?"trial":"deacon"):Object.keys(S.min).some(function(k){return (S.min[k]||[]).indexOf(id)>=0})?"serve":""}
+function avOk(p){return !!p&&(p.sex==="ч"||p.sex==="ж")}
+function avOf(p){return avatarSvg({id:p.id,sex:p.sex,age:age(p.birth),role:avRole(p.id)})}
+function avFig(p,cls){return avOk(p)?'<span class="av fig'+(cls&&cls.indexOf("big")>=0?" big":"")+'">'+avOf(p)+'</span>':'<span class="av '+(cls||"")+'">'+esc(ini(p))+'</span>'}
+/* colour of the card header: what matters most about the person wins */
+function heroCls(p,d){var st=d.st;if(st==="excluded")return "g-red";if(st==="left")return "g-clay";if(st==="moved")return "g-blue";if(st==="died")return "g-ink";if(st==="none")return "g-sand";if(st==="note")return "g-gold";
+  var i=PART.indexOf(p.part);if(i===1)return "g-dust";if(i===2)return "g-khaki";if(i===3)return "g-blue";if(i===4)return "g-violet";
+  if(isPastor(p.id))return "g-sun";if(isDeacon(p.id))return dkTrialP(p.id)?"g-steel":"g-olive";return "g-green"}
 
 start();
 })();

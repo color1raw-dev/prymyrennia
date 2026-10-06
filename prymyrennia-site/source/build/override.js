@@ -46,7 +46,7 @@ function setHead(){
   aiSync()}
 var T0=Date.now(),PRE=false;
 function preDone(){if(PRE)return;PRE=true;var el=document.getElementById("pre");if(!el)return;setTimeout(function(){el.classList.add("out");setTimeout(function(){el.remove()},900)},Math.max(0,3000-(Date.now()-T0)))}
-setTimeout(preDone,6500);setTimeout(function(){tourMaybe()},4300);setTimeout(function(){tourMaybe()},8000);
+setTimeout(preDone,6500);setTimeout(function(){tourMaybe()},4300);setTimeout(function(){tourMaybe()},8000);setTimeout(function(){newsMaybe()},5600);setTimeout(function(){newsMaybe()},11000);
 
 function homeTop(){var h="";if(!S.roleKnown)return h;
   if(!window.__SITE&&S.uid&&S.canWrite&&!person(myPid()))h+='<div class="notice"><span class="si">'+ico("users")+'</span><span class="nt"><b>Хто ви у списку?</b><span class="muted small">Виберіть себе один раз — ваші записи підписуватимуться вашим ім\'ям.</span></span><select id="meSel" aria-label="Хто ви"><option value="">вибрати себе…</option>'+memberOpts(function(x){return !S.isAdmin&&isOffice(x.p.id)})+'</select><button class="btn primary" data-act="linkMe">Це я</button></div>';
@@ -232,10 +232,10 @@ function personForm(p,isNew){p=p||{};function f(l,id,v,type,cls){return '<label'
 /* ---------- participation state: active, long absent, serving in the army, moving to another church, custom ---------- */
 var PART=["активний","давно не відвідує","служить у ЗСУ","за кордоном","у процесі переходу до іншої церкви"];FL.part="Стан у церкві";S.fPart="";
 function partList(){var o=PART.concat(S.cfg.customParts||[]);S.people.forEach(function(p){if(p.part&&o.indexOf(p.part)<0)o.push(p.part)});return o.filter(function(n,i){return o.indexOf(n)===i})}
-function ptag(p){return p.part&&p.part!==PART[0]?' <span class="pill s-part">'+esc(p.part)+'</span>':""}
+function ptag(p){var i=PART.indexOf(p.part);return p.part&&p.part!==PART[0]?' <span class="pill s-part'+(i>0?" pc p"+i:"")+'">'+esc(p.part)+'</span>':""}
 function partBlock(p,W){if(!W&&!p.part)return "";
   return '<div class="blk"><h3>Стан у церкві</h3>'+(W?'<div class="chips">'+partList().map(function(n){return '<button class="chip" aria-pressed="'+(p.part===n)+'" data-act="partSet" data-v="'+esc(n)+'">'+esc(n)+'</button>'}).join("")+'</div><div class="composer"><input id="pt_new" placeholder="Свій стан: навчається в іншому місті, доглядає рідних…" aria-label="Свій стан"><button class="btn" data-act="partAdd">'+ico("plus")+' Додати</button></div>':'<div><span class="pill s-part">'+esc(p.part)+'</span></div>')+'</div>'}
-function who(x){return '<div class="who"><span class="av '+avc(x.n)+'">'+esc(ini(x.p))+'</span><span class="wn"><span class="nm">'+esc(x.n)+'</span>'+rtag(x.p.id)+ptag(x.p)+ntag(x.p)+'</span></div>'}
+function who(x){return '<div class="who">'+avFig(x.p,avc(x.n))+'<span class="wn"><span class="nm">'+esc(x.n)+'</span>'+rtag(x.p.id)+ptag(x.p)+ntag(x.p)+'</span></div>'}
 function filtered(){var r=filtered0();if(!S.fPart)return r;return r.filter(function(x){return S.fPart==="-"?!x.p.part:x.p.part===S.fPart})}
 function hay(x){if(x.h)return x.h;var h=hay0(x);if(x.p.part)x.h=h+" \u0001 "+String(x.p.part).toLowerCase();return x.h}
 document.addEventListener("change",function(e){if(e.target&&e.target.id==="fPart"){S.fPart=e.target.value;render()}});
@@ -255,6 +255,9 @@ function rolesBlock(p,W){var rs=cardRoles(p.id),lead=S.groups.filter(function(g)
 function extra(a,t,v){
   if(a==="dview"){S.dView=v;S.card=null;S.mode="care";renderDlg();return true}
   if(S.mode==="care"&&(a==="toDeacon"||a==="delDeacon"||a==="delPastor")){S.mode="";if(dlg.open)dlg.close()}
+  if(a==="news"){meClose();S.card=null;S.mode="news";S.newsAll=false;renderDlg();newsSeen();return true}
+  if(a==="newsAll"){S.newsAll=true;renderDlg();return true}
+  if(a==="newsTour"){dlg.close();tourStart();return true}
   if(a==="ages"){S.mode="ages";S.card=null;S.ageG=-1;renderDlg();return true}
   if(a==="ageG"){S.ageG=S.ageG===+v?-1:+v;renderDlg();return true}
   if(a==="addCare"){if(lim()){toast("Для цього потрібні повні права");return true}var cp0=person(val("newCare")),cr=val("newCareRole");if(!cp0){toast("Виберіть людину зі списку");return true}var cn=[cp0.last,cp0.first].filter(Boolean).join(" ");
@@ -327,7 +330,7 @@ document.addEventListener("change",function(e){var t=e.target,d=t.dataset||{};if
   st.updateStaff(d.srole||d.sperson,d.srole?{role:t.value}:{person_id:t.value}).then(function(){toast("Збережено")},function(){toast("Не вдалося зберегти. Можливо, бракує прав.")})});
 function lim(){if(window.__site)return window.__site.role==="deacon";if(!(S.canWrite&&S.roleKnown)||S.isAdmin)return false;if((S.cfg.fullUsers||[]).indexOf(S.uid)>=0)return false;return !isOffice(myPid())}
 function ownOnly(p){if(!p||!lim())return false;var md=myDeacon();return !(md&&derive(p).deacon===md)}
-function renderDlg(){if(S.mode==="care"){dlg.innerHTML=careDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="ages"){dlg.innerHTML=agesDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
+function renderDlg(){if(S.mode==="news"){dlg.innerHTML=newsDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="care"){dlg.innerHTML=careDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="ages"){dlg.innerHTML=agesDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
   Array.prototype.forEach.call(dlg.querySelectorAll(".facts dd"),function(d){if(d.textContent.length>34)d.parentNode.classList.add("wide")});
   if(p&&ownOnly(p)&&dlg.open){var d=dlg.querySelector(".dlg-head");if(d)d.insertAdjacentHTML("afterend",'<div class="box small" style="margin-inline:12px">Ця людина закріплена за іншим дияконом, тому картка відкрита лише для перегляду. Зміни вносить її диякон, пастор або секретар.</div>')}
   strip(dlg)}
@@ -335,16 +338,18 @@ function renderDlg(){if(S.mode==="care"){dlg.innerHTML=careDlg();if(!dlg.open)dl
 var TOUR=null;
 function tourSteps(){var full=S.canWrite&&!lim(),s=[
   {tab:"home",ic:"spark",t:"Вітаємо в обліку «Примирення»",x:"Це робочий інструмент служителів: люди, служіння, малі групи, зібрання й нагадування в одному місці. Покажу головне за хвилину."},
-  {tab:"home",ic:"grid",sel:".stats,.features",t:"Огляд",x:"Головні цифри церкви на сьогодні. Натисніть на будь-яку картку, щоб перейти до списку. Унизу сторінки є «Налаштувати огляд»: там ви вибираєте, які блоки бачити саме вам."},
-  {tab:"people",ic:"users",sel:".toolbar,.tools",t:"Люди",x:"Усі картки. Угорі — пошук по всьому: прізвище, телефон, адреса, примітки. Фільтри показують чинних, тих, хто на замітці, і вибулих. Натисніть на людину, щоб відкрити картку."},
-  {tab:"people",ic:"heart",sel:"#app>.panel",one:1,t:"Картка людини",x:full?"У картці ви записуєте відвідини й дзвінки, ставите потреби, призначаєте служіння, додаєте родичів. Кнопки вгорі картки: прийняти в члени, перевести до диякона, взяти на замітку. Дату прийняття вказуйте фактичну, а не сьогоднішню.":"У картках своїх людей ви записуєте відвідини й дзвінки, оновлюєте телефон та адресу, ставите потреби. Картки людей інших дияконів відкриваються лише для перегляду."},
-  {tab:"reminders",ic:"bell",sel:"#app>.panel",one:1,t:"Нагадування",x:"Додайте своє нагадування з датою: подзвонити, відвідати, привітати. Сюди ж самі потрапляють ті, у кого минув термін замітки, і ті, хто потребує опіки."},
-  {tab:"deacons",ic:"shield",sel:"#app>.panel,.dcards",t:"Служителі та малі групи",x:"Пастори, диякони з їхніми списками та інші служіння. У розділі «Малі групи» — склад, лідер і відвідуваність зустрічей."},
+  {tab:"home",ic:"grid",sel:".side-top,#nav button,.me",t:"Меню",x:"Усі розділи зібрані в одній панелі: на комп'ютері вона ліворуч, на телефоні — внизу екрана, решта розділів під кнопкою «Ще». Під меню — ваш акаунт: там підказки, «Що нового» і налаштування огляду."},
+  {tab:"home",ic:"book",sel:".verse,.stats,.features",t:"Огляд",x:"Угорі — слово на сьогодні. Нижче головні цифри церкви: натисніть на картку, щоб перейти до списку. Картка «Медіанний вік» відкриває статистику за віком і віковими групами. Які блоки показувати, ви вибираєте в «Налаштувати огляд»."},
+  {tab:"people",ic:"users",sel:".toolbar,.tools",t:"Люди",x:"Усі картки. Угорі — пошук по всьому: прізвище, телефон, адреса, примітки. Фільтри показують чинних, тих, хто на замітці, і вибулих, а також людей конкретного диякона чи пастора."},
+  {tab:"people",ic:"heart",sel:"#app>.panel",one:1,t:"Картка людини",x:full?"У картці ви записуєте відвідини, дзвінки й переписку, ставите потреби, призначаєте служіння, додаєте родичів. Кнопки вгорі: прийняти в члени, закріпити за дияконом або пастором, взяти на замітку. Дату прийняття вказуйте фактичну, а не сьогоднішню.":"У картках своїх людей ви записуєте відвідини, дзвінки й переписку, оновлюєте телефон та адресу, ставите потреби. Картки людей інших служителів відкриваються лише для перегляду."},
+  {tab:"reminders",ic:"bell",sel:"#app>.panel",one:1,t:"Нагадування",x:"Додайте своє нагадування з датою: подзвонити, відвідати, привітати. Сюди ж самі потрапляють ті, у кого минув термін замітки, і ті, хто потребує опіки. Увімкніть сповіщення вгорі розділу — нагадування приходитимуть на телефон або комп'ютер, як у звичайному застосунку."},
+  {tab:"deacons",ic:"shield",sel:".dcards,#app>.sh",t:"Пастори і диякони",x:"Вони в одному списку, а колір картки показує, хто є хто: помаранчева — пастор, зелена — диякон, сіро-блакитна — диякон на випробувальному терміні. Натисніть на картку — відкриється список закріплених людей з копіюванням, Excel і друком."},
+  {tab:"deacons",ic:"sliders",sel:"#app>.panel",t:"Інші служіння і малі групи",x:"Нижче — решта служінь: призначайте людей і редагуйте сам список служінь під свою церкву. У розділі «Малі групи» — склад, лідер і відвідуваність зустрічей."},
   {tab:"meetings",ic:"calendar",sel:"#app>.panel",one:1,t:"Зібрання і трансляція",x:"Членські зібрання з рішеннями щодо людей. Кнопка «Дивитися наживо» відкриває поточну трансляцію на YouTube."}];
   if(full)s.push({tab:"reports",ic:"chart",sel:"#app>.panel",one:1,t:"Звіти",x:"Річний підсумок, прийняті й вибулі, звіт ЄХБ, вік і стать. Усе вивантажується в Excel. Раз на тиждень зберігайте резервну копію."});
   if(S.isAdmin)s.push({tab:"log",ic:"history",sel:"#app>.panel",one:1,t:"Журнал і користувачі",x:"Тут видно, хто й що змінив, і будь-яку зміну можна повернути. Тут же ви підтверджуєте нових користувачів і задаєте їм права."});
   s.push({tab:"home",ic:"spark",sel:"#aiFab,#aiBtnM",t:"Помічник",x:"Кругла кольорова кнопка: на комп'ютері внизу праворуч, на телефоні — вгорі біля пошуку. Пишіть коротко: «знайди Бурлаку», «нагадай у суботу подзвонити Вадиму», «запиши: сьогодні відвідав Вадима», «познач Вадима як служить у ЗСУ» — він знайде або запише сам. Напишіть «що ти вмієш», щоб побачити всі команди."});
-  s.push({tab:"home",ic:"check",sel:".me,#app>.bar:last-child",t:"Готово",x:"Ці підказки можна відкрити знову у меню під вашим іменем (унизу ліворуч, на телефоні — кружечок угорі) або кнопкою внизу огляду."});
+  s.push({tab:"home",ic:"check",sel:".me,#meBtnM",t:"Готово",x:"Ці підказки і список останніх оновлень завжди є в меню під вашим іменем (на телефоні — кружечок угорі). Коли виходить оновлення, застосунок сам покаже, що змінилось."});
   return s}
 function tourHl(tab){Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){b.classList.toggle("tour-hl",!!tab&&b.dataset.tab===tab)});var m=document.getElementById("navMore");if(m)m.classList.toggle("tour-hl",!!tab&&!!document.querySelector("#navX button.tour-hl"))}
 function tourMark(scroll){document.body.classList.toggle("touring",!!TOUR);Array.prototype.forEach.call(document.querySelectorAll(".tour-on"),function(e){e.classList.remove("tour-on")});if(!TOUR)return;
@@ -356,7 +361,7 @@ function tourShow(){var el=document.getElementById("tour");if(!TOUR){if(el)el.re
   if(!el){el=document.createElement("div");el.id="tour";el.setAttribute("role","dialog");el.setAttribute("aria-label","Знайомство із застосунком");document.body.appendChild(el)}
   el.innerHTML='<span class="si t-lime">'+ico(st.ic)+'</span><div class="tr-b"><div class="tr-n">Крок '+(TOUR.i+1)+' з '+TOUR.s.length+'</div><b>'+esc(st.t)+'</b><p>'+esc(st.x)+'</p><div class="bar"><button class="link small" data-act="tourEnd">Пропустити</button><span class="grow"></span>'+(TOUR.i?'<button class="btn small" data-act="tourPrev">Назад</button>':"")+'<button class="btn small primary" data-act="tourNext">'+(TOUR.i===TOUR.s.length-1?"Почати роботу":"Далі")+'</button></div></div>'}
 function tourStart(){if(dlg.open)dlg.close();if(AI.open){AI.open=false;aiRender()}S.dashEdit=false;TOUR={i:0,s:tourSteps()};tourShow()}
-function tourEnd(){TOUR=null;tourShow();if(!S.tourDone){S.tourDone=true;dashSave()}go("home")}
+function tourEnd(){TOUR=null;tourShow();if(!S.tourDone){S.tourDone=true;dashSave()}newsSeen();go("home")}
 function tourMaybe(){if(TOUR||S.tourDone||!S.ready||!S.roleKnown||!S.prefsOK||Date.now()-T0<3900)return;tourStart()}
 /* ---------- assistant ---------- */
 var AI={fn:null,open:false,busy:false,turns:[],log:[],ctl:null,tools:true,off:false,status:""};
