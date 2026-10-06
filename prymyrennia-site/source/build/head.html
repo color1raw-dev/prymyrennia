@@ -37,7 +37,7 @@ b{font-weight:500}
 
 /* shell */
 .shell{position:relative;display:grid;grid-template-columns:244px minmax(0,1fr);gap:32px;min-height:100%;max-width:1500px;margin:0 auto;padding-inline:clamp(16px,2.2vw,32px)}
-body{overflow-x:clip}
+html,body{overflow-x:hidden;overflow-x:clip;max-width:100%}
 .bgfx{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
 .bgfx i{position:absolute;width:74vmax;height:74vmax;border-radius:50%;opacity:var(--fx-o);will-change:transform,opacity;
   background:radial-gradient(closest-side,var(--c) 0%,color-mix(in srgb,var(--c) 55%,transparent) 38%,color-mix(in srgb,var(--c) 16%,transparent) 68%,transparent 100%)}
@@ -445,6 +445,20 @@ a.btn{text-decoration:none}
 .me-m img{width:100%;height:100%;object-fit:cover;display:block}
 @media (max-width:920px){.me{display:none}.me-m{display:grid}}
 .me[hidden],.me-m[hidden]{display:none}
+@media (max-width:920px){
+  .shell{overflow-x:hidden;overflow-x:clip}
+  .panel:has(>table){overflow-x:auto}
+  table.logt,table.logt tbody{display:block;width:100%}
+  table.logt thead{display:none}
+  table.logt tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:16px;border-top:1px solid var(--line)}
+  table.logt td{display:block;padding:0;border:0;min-width:0;overflow-wrap:anywhere}
+  table.logt td:nth-child(1){grid-column:1;font-size:12.5px;color:var(--muted);white-space:normal!important}
+  table.logt td:nth-child(2){grid-column:2;font-size:12.5px;color:var(--muted);text-align:right}
+  table.logt td:nth-child(3){grid-column:1/-1;font-size:15.5px}
+  table.logt td:nth-child(4){grid-column:1/-1;color:var(--muted);line-height:1.5}
+  table.logt td:nth-child(5){grid-column:1/-1;margin-top:4px}
+  table.logt td:nth-child(5):empty{display:none}
+}
 #meMenu{position:fixed;z-index:46;box-sizing:border-box;padding:8px;border-radius:30px;background:var(--raise);box-shadow:0 30px 90px rgba(0,0,0,.28),0 0 0 1px var(--line);display:flex;flex-direction:column;gap:8px;animation:mmIn .24s cubic-bezier(.2,.9,.3,1.08)}
 @keyframes mmIn{from{opacity:0;transform:translateY(10px) scale(.97)}}
 @media (prefers-reduced-motion:reduce){#meMenu{animation:none}}

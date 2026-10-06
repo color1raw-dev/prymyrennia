@@ -27,6 +27,7 @@ js=js[:i]+"h+=needsBlock(p,W)+rolesBlock(p,W);"+js[j:]
 i=js.index("var h='<div class=\"panel pad\"><div class=\"bar\"><label class=\"bar\" style=\"font-weight:600\">Рік"); e='<div id="repOut" style="display:flex;flex-direction:column;gap:18px">\';'; j=js.index(e,i)+len(e)
 js=js[:i]+open('build/rephead.js',encoding='utf8').read().strip()+js[j:]
 rep('<div><h3 style="margin-bottom:8px">Родина</h3>','<div class="blk"><h3>Родина</h3>',0) if False else None
+rep('function logRows(L){return \'<table><thead>','function logRows(L){return \'<table class="logt"><thead>')
 k=js.rindex('start();'); js=js[:k]+open('build/override.js',encoding='utf8').read()+'\n'+open('build/ailocal.js',encoding='utf8').read()+'\n'+open('build/memenu.js',encoding='utf8').read()+'\n'+js[k:]
 rep('set({date:cm.date,type:cm.type,note:val("m_edit")})','set({date:cm.date,type:cm.type,note:val("m_edit"),video:cm.video||""})')
 rep('else if(col==="meetings")o=scal(a,b,["date","type","note"]);','else if(col==="meetings")o=scal(a,b,["date","type","note","video"]);')
@@ -47,7 +48,7 @@ rep('["non","Не члени церкви",0]','["part","Стан у церкв�
 rep('  var any=false;REPORTS.forEach','  R.part=function(){var o={};A.forEach(function(x){var k=x.p.part||"не вказано";o[k]=(o[k]||0)+1});var rows=A.filter(function(x){return x.p.part&&x.p.part!==PART[0]}).map(function(x){return [pl(x.p),esc(x.p.part),esc(x.d.deacon),esc(x.p.phone||"")]});sec("part","Стан у церкві",\'<div>\'+hbars(srt(o))+\'</div>\'+tbl([["Людина"],["Стан"],["Диякон"],["Телефон"]],rows,"Усі чинні члени активні або стан не вказано."))};\n  var any=false;REPORTS.forEach')
 for ch in '✕✓↑↓': assert ch not in js, ch
 import base64
-hd=open('build/head.html',encoding='utf8').read().replace('{{HANDS}}','data:image/webp;base64,'+base64.b64encode(open('logo/hands2.webp','rb').read()).decode())
+hd=open('build/head.html',encoding='utf8').read().replace('{{HANDS}}','data:image/webp;base64,'+open('logo/hands2.b64.txt').read().strip())
 out=hd+'\n<script>'+js+'</script>\n'
 
 open('build/page.html','w',encoding='utf8').write(out)

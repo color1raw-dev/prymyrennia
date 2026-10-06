@@ -108,4 +108,13 @@ function enter(user){UID=user.id;EMAIL=user.email||"";var tries=0;
 
   },function(e){note=tr(e&&e.message);noteOk=false;showLogin()})})()}
 SB.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(s)enter(s.user);else showLogin()},function(){showLogin()});
+/* new version check: compares the published file's ETag with the one seen at start */
+(function(){var url=(location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/")+"index.html",seen=null,shown=false;
+  function tag(){return fetch(url+"?v="+Date.now(),{method:"HEAD",cache:"no-store"}).then(function(r){return r.ok?(r.headers.get("etag")||r.headers.get("last-modified")||""):""})}
+  function offer(){if(shown)return;shown=true;var b=document.createElement("button");b.type="button";b.id="updBtn";
+    b.style.cssText="position:fixed;z-index:60;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translateX(-50%);display:flex;align-items:center;gap:10px;height:48px;padding:0 20px 0 16px;border:0;border-radius:99px;background:#131315;color:#fff;font:inherit;font-size:14.5px;cursor:pointer;box-shadow:0 14px 44px rgba(0,0,0,.3);white-space:nowrap";
+    b.innerHTML='<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#d9f23a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg><span>Є нова версія — оновити</span>';
+    b.onclick=function(){location.replace(location.pathname+"?v="+Date.now())};document.body.appendChild(b)}
+  function check(){if(shown||document.hidden)return;tag().then(function(t){if(!t)return;if(seen===null)seen=t;else if(t!==seen)offer()},function(){})}
+  if(/^https?:$/.test(location.protocol)){check();setInterval(check,180000);document.addEventListener("visibilitychange",check)}})();
 })();
