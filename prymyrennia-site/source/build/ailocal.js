@@ -104,9 +104,9 @@ function aiLocal(q){var s=lcN(q).replace(/\s+/g," ").trim(),T=lcTok(q),P,x,d,v,m
   if(v&&verb&&!/(відвідав|відвідала|подзвонив|подзвонила|дзвінок|розмов)/.test(s)){if(!P.length)return lcNoOne();if(!x)return lcAsk(P);return {kind:"act",who:x.p.id,acts:[{"do":"update_person",id:x.p.id,fields:{part:v}}]}}
   if(v&&!P.length){A=all().filter(function(z){return z.p.part===v});return lcList("Стан «"+v+"»",A,function(z){return [lcSt(z),z.p.phone].filter(Boolean).join(" · ")})}
   /* contact */
-  if(/(відвідав|відвідала|відвідали|відвідини|провідав|провідала|провідали|подзвонив|подзвонила|подзвонили|дзвонив|дзвонила|дзвонили|зателефонував|зателефонувала|телефонував|телефонувала|дзвінок|розмовляв|розмовляла|розмовляли|поговорив|поговорила|поговорили|розмову|зустрівся|зустрілась|зустрілася|зустрілися|зустрілись|допоміг|допомогла|допомогли)/.test(s)&&!/^(хто|кого|коли|скільки|чи)\s/.test(s)){
+  if(/(відвідав|відвідала|відвідали|відвідини|провідав|провідала|провідали|подзвонив|подзвонила|подзвонили|дзвонив|дзвонила|дзвонили|зателефонував|зателефонувала|телефонував|телефонувала|дзвінок|розмовляв|розмовляла|розмовляли|поговорив|поговорила|поговорили|розмову|зустрівся|зустрілась|зустрілася|зустрілися|зустрілись|допоміг|допомогла|допомогли|написав|написала|написали|переписка|переписку|листувався|листувалась|списався|списалась|списалися)/.test(s)&&!/^(хто|кого|коли|скільки|чи)\s/.test(s)){
     if(!P.length)return lcNoOne();if(!x)return lcAsk(P);d=lcDate(T,true)||today();
-    v=/відвід|провід/.test(s)?CKIND[0]:/дзв|телефон/.test(s)?CKIND[1]:/допом/.test(s)?CKIND[3]:CKIND[2];var k1=q.indexOf(":"),k2=q.indexOf(":",k1+1),note=k2>=0?q.slice(k2+1).trim():(k1>=0&&k1>12?q.slice(k1+1).trim():"");
+    v=/відвід|провід/.test(s)?CKIND[0]:/дзв|телефон/.test(s)?CKIND[1]:/допом/.test(s)?CKIND[3]:/написа|переписк|листува|списа/.test(s)?CKIND[4]:CKIND[2];var k1=q.indexOf(":"),k2=q.indexOf(":",k1+1),note=k2>=0?q.slice(k2+1).trim():(k1>=0&&k1>12?q.slice(k1+1).trim():"");
     return {kind:"act",who:x.p.id,acts:[{"do":"add_contact",id:x.p.id,kind:v,date:d,note:note}]}}
   /* card fields */
   if(/телефон|номер/.test(s)&&(m=q.match(/\+?\d[\d\s()\-]{7,}\d/))){if(!P.length)return lcNoOne();if(!x)return lcAsk(P);return {kind:"act",who:x.p.id,acts:[{"do":"update_person",id:x.p.id,fields:{phone:m[0].trim()}}]}}

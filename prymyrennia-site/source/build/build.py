@@ -30,6 +30,9 @@ rep('<div><h3 style="margin-bottom:8px">Родина</h3>','<div class="blk"><h3
 rep('function logRows(L){return \'<table><thead>','function logRows(L){return \'<table class="logt"><thead>')
 rep('var b=e.target.closest("button");if(b)go(b.dataset.tab)','var b=e.target.closest("button");if(b&&b.dataset.tab)go(b.dataset.tab)')
 rep('function render(){','function render0(){')
+rep('opts(deaconList().filter(function(n){return n!==d.deacon}))','opts(careList().filter(function(n){return n!==d.deacon}))')
+rep('opts(deaconList(),S.deacons.indexOf(d.deacon)>=0?d.deacon:""','opts(careList(),careList().indexOf(d.deacon)>=0?d.deacon:""')
+rep('<label>До якого диякона<select id="e_deacon">','<label>До кого (диякон або пастор)<select id="e_deacon">')
 k=js.rindex('start();'); js=js[:k]+open('build/override.js',encoding='utf8').read()+'\n'+open('build/ailocal.js',encoding='utf8').read()+'\n'+open('build/memenu.js',encoding='utf8').read()+'\n'+js[k:]
 rep('set({date:cm.date,type:cm.type,note:val("m_edit")})','set({date:cm.date,type:cm.type,note:val("m_edit"),video:cm.video||""})')
 rep('else if(col==="meetings")o=scal(a,b,["date","type","note"]);','else if(col==="meetings")o=scal(a,b,["date","type","note","video"]);')

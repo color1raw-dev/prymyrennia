@@ -8,7 +8,17 @@ const cors = {
   "Access-Control-Allow-Headers": "authorization, content-type, apikey, x-client-info, x-cron-key",
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
 };
-const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
+function secretKey(): string {
+  const direct = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || Deno.env.get("SUPABASE_SECRET_KEY");
+  if (direct) return direct;
+  try {
+    const m = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEYS") || "{}");
+    const v = m.default || Object.values(m)[0];
+    if (typeof v === "string") return v;
+  } catch (_e) { /* fall through */ }
+  return "";
+}
+const admin = createClient(Deno.env.get("SUPABASE_URL")!, secretKey(), { auth: { persistSession: false } });
 const J = (o: unknown, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { ...cors, "Content-Type": "application/json" } });
 const SUBJECT = "https://color1raw-dev.github.io/prymyrennia/";
 
@@ -90,7 +100,7 @@ Deno.serve(async (req) => {
     const url = new URL(req.url);
     if (req.method === "GET") {
       if (url.searchParams.get("op") === "key") return J({ publicKey: (await keys()).pub });
-      return J({ ok: true });
+      return J({ ok: true, env: Object.keys(Deno.env.toObject()).filter((k) => k.indexOf("SUPABASE_") === 0), key: secretKey() ? "present" : "missing" });
     }
     const b = await req.json().catch(() => ({}));
     if (b.op === "run") {

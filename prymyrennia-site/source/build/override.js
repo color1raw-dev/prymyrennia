@@ -12,7 +12,7 @@ ICO.heart='<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 1
 ICO.spark='<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.100L5 10l5.1-1.9z"/><path d="M19 15l.8 2.200L22 18l-2.200.8L19 21l-.8-2.200L16 18l2.200-.8z"/>';
 ICO.send='<path d="M12 19V5M5 12l7-7 7 7"/>';
 ICO.stop='<rect x="7" y="7" width="10" height="10" rx="2"/>';
-DEFROLES.push("Керівник кафе");
+DEFROLES.push("Керівник кафе");HOW.push("невідомо");CKIND.push("переписка");
 ICO.play='<path d="M7 5l12 7-12 7z"/>';FL.video="Запис трансляції";LIMF.saveYt=1;LIMF.saveMVideo=1;
 function ytOk(u){return /^https:\/\/(www\.|m\.)?(youtube\.com|youtu\.be)\/[^\s"'<>]+$/.test(String(u||""))?String(u):""}
 function ytChan(v){v=String(v||"").trim();if(!v)return "";var m=v.match(/^@[\w.\-]+$/);if(m)return "https://www.youtube.com/"+v;
@@ -161,7 +161,7 @@ function vDeacons(){
     (w?'<div class="composer"><select id="minRole" aria-label="Служіння">'+opts(rn,"")+'</select><select id="minPerson" aria-label="Людина"><option value="">вибрати зі списку членів…</option>'+memberOpts()+'</select><button class="btn primary" data-act="addMin">Призначити</button></div>'+
        '<div class="composer"><input id="newRole" placeholder="Нове служіння, якого немає у списку: кафе, парковка, переклад…"><button class="btn" data-act="addRole">'+ico("plus")+' Додати служіння</button></div>':"")+
     (filled.length?'<ul class="list rem">'+filled.map(function(r){return '<li><span class="rn">'+esc(r)+'</span><span class="grow chips">'+S.min[r].map(function(id){var p=person(id);return p?'<span class="chip"><button class="link" data-act="open" data-id="'+esc(id)+'">'+esc(short(p))+'</button>'+(w?'<button class="link" title="Прибрати" aria-label="Прибрати" data-act="delMin" data-r="'+esc(r)+'" data-id="'+esc(id)+'" style="color:var(--bad)">'+ico("x")+'</button>':"")+'</span>':""}).join("")+'</span></li>'}).join("")+'</ul>':'<div class="muted">Ще нікого не призначено.</div>')+
-    (emptyR.length?'<div class="muted small">Без призначених: '+esc(emptyR.join(", "))+'</div>':"")+'</div>';
+    rolesEdit(rn,emptyR,w)+'</div>';
   return h}
 
 function gmPanel(g,M){var SS=gmOf(g),w=S.canWrite,last=SS.slice(0,6).reverse(),h='<div class="panel pad">'+sh("Зустрічі і відвідуваність",SS.length);
@@ -225,7 +225,7 @@ function personForm(p,isNew){p=p||{};function f(l,id,v,type,cls){return '<label'
     (ai>=0?dt("Дата прийняття в члени церкви","f_joined",p.events[ai].date):"")+
     f("Телефон","f_phone",p.phone)+f("Населений пункт","f_place",p.place)+f("Адреса","f_address",p.address,"text","wide")+f("Сім\'я (спільна назва для родини)","f_family",p.family,"text","wide")+'<label>Сімейний стан<select id="f_marital">'+opts(MARITAL,p.marital,"—")+'</select></label>'+f("Дата шлюбу","f_wedding",p.wedding,"date")+
     (isNew||derive(p).st==="none"?'<label>Хто це<select id="f_kind">'+(isNew?'<option value="">член церкви</option>':'<option value="">не вказано</option>')+opts(KINDS,p.kind)+'</select></label>':"")+
-    (isNew?f("Дата прийняття в члени церкви","f_adate","","date")+'<label>Як прийшов<select id="f_how">'+opts(HOW,HOW[0])+'</select></label><label>Диякон<select id="f_deacon">'+opts(deaconList(),"","не закріплений")+'</select></label><div class="wide small muted">Дата прийняття — це день, коли людину прийняли в члени церкви, а не сьогоднішня дата. Якщо не знаєте — лишіть порожньою, допишете пізніше через «Редагувати дані».</div>':"")+
+    (isNew?f("Дата прийняття в члени церкви","f_adate","","date")+'<label>Як прийшов<select id="f_how">'+opts(HOW,HOW[0])+'</select></label><label>Закріплений за (диякон або пастор)<select id="f_deacon">'+opts(careList(),"","не закріплений")+'</select></label><div class="wide small muted">Дата прийняття — це день, коли людину прийняли в члени церкви, а не сьогоднішня дата. Якщо не знаєте — лишіть порожньою, допишете пізніше через «Редагувати дані».</div>':"")+
     '<label class="wide">Примітки<textarea id="f_notes">'+esc(p.notes||"")+'</textarea></label></div>'}
 /* ---------- participation state: active, long absent, serving in the army, moving to another church, custom ---------- */
 var PART=["активний","давно не відвідує","служить у ЗСУ","за кордоном","у процесі переходу до іншої церкви"];FL.part="Стан у церкві";S.fPart="";
@@ -251,6 +251,14 @@ function rolesBlock(p,W){var rs=cardRoles(p.id),lead=S.groups.filter(function(g)
     (can&&act_?'<div class="composer"><select id="p_role" aria-label="Служіння">'+options.map(function(o){return '<option value="'+esc(o[0])+'">'+esc(o[1])+'</option>'}).join("")+'</select><button class="btn primary" data-act="roleAdd">Призначити</button></div>'+
       '<div class="composer"><input id="p_newRole" placeholder="Нове служіння: керівник кафе, парковка…" aria-label="Нове служіння"><button class="btn" data-act="roleNew">'+ico("plus")+' Створити і призначити</button></div>':"")+'</div>'}
 function extra(a,t,v){
+  if(a==="roleEdit"){S.roleEdit=!S.roleEdit;S.roleAsk="";render();return true}
+  if(a==="roleRestore"){if(lim())return true;saveCfg({hiddenRoles:[]}).then(function(){toast("Стандартні служіння повернуто")},function(){});return true}
+  if(a==="roleRm"){if(lim()||!S.canWrite)return true;var rr0=t.dataset.r,n0=(S.min[rr0]||[]).length;
+    if(n0&&S.roleAsk!==rr0){S.roleAsk=rr0;render();return true}
+    var pt={};if(S.customRoles.indexOf(rr0)>=0)pt.customRoles=S.customRoles.filter(function(x){return x!==rr0});
+    if(DEFROLES.indexOf(rr0)>=0)pt.hiddenRoles=(S.cfg.hiddenRoles||[]).filter(function(x){return x!==rr0}).concat([rr0]);
+    if(n0){var nm0=Object.assign({},S.min);delete nm0[rr0];pt.ministries=nm0}
+    S.roleAsk="";saveCfg(pt).then(function(){toast("Служіння «"+rr0+"» прибрано зі списку")},function(){});return true}
   if(a==="pushOn"){pushOn();return true}
   if(a==="pushOff"){meClose();window.__push&&window.__push.disable().then(function(){toast("Сповіщення на цьому пристрої вимкнено.")});return true}
   if(a==="navMore"){var nv=document.getElementById("nav"),on=!nv.classList.contains("more");nv.classList.toggle("more",on);t.setAttribute("aria-expanded",on?"true":"false");return true}
@@ -375,7 +383,7 @@ var AIDO={
     var ref=db.collection("people").doc();return save(ref.id,b).then(function(){return {t:"Створено картку: "+b.last+" "+b.first+(i.member?" (член церкви)":" ("+b.kind+")"),id:ref.id}})},
   membership_event:function(i){if(lim())throw new Error("події членства записує пастор або секретар");var p=aiNeed(i.id),b=body(p),ty=String(i.type),d=isoD(i.date);if(!EV[ty])throw new Error("невідомий тип події");if(!d)throw new Error("потрібна дата події у форматі РРРР-ММ-ДД");var st=derive(p),ev={date:d,type:ty};
     if(ty==="accepted"){if(st.active)throw new Error("людина вже є чинним членом");ev.how=HOW.indexOf(String(i.how))>=0?String(i.how):""}else if(!st.active)throw new Error("ця подія можлива лише для чинного члена");
-    if(i.deacon){var dn=deaconList().filter(function(x){return x.toLowerCase()===String(i.deacon).toLowerCase()})[0];if(!dn)throw new Error("такого диякона немає у списку");ev.deacon=dn}
+    if(i.deacon){var dn=careList().filter(function(x){return x.toLowerCase()===String(i.deacon).toLowerCase()})[0];if(!dn)throw new Error("такого диякона чи пастора немає у списку");ev.deacon=dn}
     if(ty==="deacon"&&!ev.deacon)throw new Error("не вказано диякона");
     if(ty==="note_on"&&Number(i.months)>0)ev.until=addMonths(d,Math.min(36,Math.round(Number(i.months))));
     if(i.note)ev.note=String(i.note).slice(0,1000);b.events=(b.events||[]).concat([ev]);return save(p.id,b).then(function(){return {t:EV[ty].label+" ("+fd(d)+"): "+fio(p),id:p.id}})},

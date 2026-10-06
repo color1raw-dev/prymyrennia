@@ -51,3 +51,11 @@ function fieldsBack(o){if(!o||o.k!==S.tab+"|"+(S.card||"")+"|"+(S.mode||"")+"|"+
   if(o.sc!=null&&dlg.open)dlg.scrollTop=o.sc;
   if(o.f){var el=document.getElementById(o.f.id);if(el&&document.activeElement!==el){try{el.focus({preventScroll:true});if(o.f.s!=null&&el.setSelectionRange)el.setSelectionRange(o.f.s,o.f.e)}catch(x){}}}}
 function render(){var keep=null;try{keep=fieldsKeep()}catch(e){}render0();try{fieldsBack(keep)}catch(e){}}
+/* ---------- pastors can be chosen as the person someone is assigned to; the list of ministries is editable ---------- */
+function careList(){var out=deaconList().slice();S.pastors.forEach(function(p){if(p&&p.name&&out.indexOf(p.name)<0)out.push(p.name)});return out}
+function roleNames(){var hid=S.cfg.hiddenRoles||[],out=DEFROLES.filter(function(r){return hid.indexOf(r)<0});S.customRoles.concat(Object.keys(S.min)).forEach(function(r){if(out.indexOf(r)<0)out.push(r)});return out}
+function rolesEdit(rn,emptyR,w){var can=w&&!lim(),hid=(S.cfg.hiddenRoles||[]).length;
+  if(!S.roleEdit)return (emptyR.length?'<div class="muted small">Без призначених: '+esc(emptyR.join(", "))+'</div>':"")+(can?'<div class="bar"><button class="btn" data-act="roleEdit">'+ico("sliders")+' Редагувати список служінь</button></div>':"");
+  return '<div class="blk"><h3>Список служінь</h3><div class="muted small hint">Натисніть хрестик, щоб прибрати служіння зі списку варіантів. Якщо у служінні є люди, застосунок перепитає — призначення теж знімуться.</div><div class="chips">'+rn.map(function(r){var n=(S.min[r]||[]).length,ask=S.roleAsk===r;
+      return '<span class="chip'+(ask?" warn":"")+'">'+esc(r)+(n?' <span class="muted small">· '+n+'</span>':"")+'<button class="link" data-act="roleRm" data-r="'+esc(r)+'" aria-label="Прибрати служіння '+esc(r)+'" title="Прибрати" style="color:var(--bad)">'+(ask?"точно прибрати?":ico("x"))+'</button></span>'}).join("")+'</div>'+
+    '<div class="bar"><button class="btn primary" data-act="roleEdit">'+ico("check")+' Готово</button>'+(hid?'<button class="btn" data-act="roleRestore">Повернути стандартні ('+hid+')</button>':"")+'</div></div>'}
