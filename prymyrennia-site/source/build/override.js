@@ -108,7 +108,7 @@ function remRow(r,w){var p=person(r.pid);return '<li><span class="grow">'+esc(r.
 function addRem(text,date,pid){text=String(text||"").trim().slice(0,500);if(!text)return Promise.reject(new Error("Порожній текст нагадування"));date=/^\d{4}-\d\d-\d\d$/.test(String(date||""))?String(date):"";var ref=db.collection("reminders").doc();
   return ref.set({text:text,date:date,pid:pid&&person(pid)?pid:"",by:S.uid||"",byName:myName()||(S.me&&S.me.name)||"",created:today()}).then(function(){return ref.id})}
 function vReminders(){
-  var R=reminders(),h="",w=S.canWrite;
+  var R=reminders(),h=pushCard(),w=S.canWrite;
   if(w)h+='<div class="panel pad">'+sh("Нове нагадування")+'<div class="form"><label class="wide">Про що нагадати<input id="rm_text" placeholder="Подзвонити, відвідати, привітати, підготувати…"></label><label>Коли<input id="rm_date" type="date" value="'+today()+'"></label><label>Кого стосується<select id="rm_pid"><option value="">нікого конкретно</option>'+all().map(function(x){return '<option value="'+esc(x.p.id)+'">'+esc(x.n)+'</option>'}).join("")+'</select></label></div><div class="bar"><button class="btn primary" data-act="remAdd">'+ico("plus")+' Додати нагадування</button></div></div>';
   if(R.due.length)h+='<div class="panel pad">'+sh('<span class="si t-bad">'+ico("bell")+'</span>На сьогодні та прострочені',R.due.length)+'<ul class="list rem">'+R.due.map(function(r){return remRow(r,w)}).join("")+'</ul></div>';
   if(R.later.length)h+='<div class="panel pad">'+sh('<span class="si">'+ico("calendar")+'</span>Заплановані',R.later.length)+'<ul class="list rem">'+R.later.map(function(r){return remRow(r,w)}).join("")+'</ul></div>';
@@ -251,6 +251,8 @@ function rolesBlock(p,W){var rs=cardRoles(p.id),lead=S.groups.filter(function(g)
     (can&&act_?'<div class="composer"><select id="p_role" aria-label="Служіння">'+options.map(function(o){return '<option value="'+esc(o[0])+'">'+esc(o[1])+'</option>'}).join("")+'</select><button class="btn primary" data-act="roleAdd">Призначити</button></div>'+
       '<div class="composer"><input id="p_newRole" placeholder="Нове служіння: керівник кафе, парковка…" aria-label="Нове служіння"><button class="btn" data-act="roleNew">'+ico("plus")+' Створити і призначити</button></div>':"")+'</div>'}
 function extra(a,t,v){
+  if(a==="pushOn"){pushOn();return true}
+  if(a==="pushOff"){meClose();window.__push&&window.__push.disable().then(function(){toast("Сповіщення на цьому пристрої вимкнено.")});return true}
   if(a==="navMore"){var nv=document.getElementById("nav"),on=!nv.classList.contains("more");nv.classList.toggle("more",on);t.setAttribute("aria-expanded",on?"true":"false");return true}
   if(a==="meMenu"){meMenu(t);return true}
   if(a==="meDash"){meClose();go("home");S.dashEdit=true;render();window.scrollTo(0,0);return true}

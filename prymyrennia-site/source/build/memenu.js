@@ -11,7 +11,7 @@ function meItem(act,ic,label,id){return '<button type="button" role="menuitem"'+
 function meMenu(src){if(document.getElementById("meMenu")){meClose();return}if(!S.me)return;
   var el=document.createElement("div"),nm=S.me.name||"Без імені",role=meRoleT(),nl=document.getElementById("navLog"),users=nl&&!nl.hidden;el.id="meMenu";el.setAttribute("role","menu");el.setAttribute("aria-label","Обліковий запис");
   el.innerHTML='<div class="mm-h g-ink"><div class="mm-top">'+meAvH("mm-av")+(role?'<span class="mm-r">'+esc(role)+'</span>':"")+'</div><div class="mm-t"><b>'+esc(nm)+'</b>'+(S.me.email?'<span>'+esc(S.me.email)+'</span>':"")+'</div></div>'+
-    '<div class="mm-l">'+meItem("tourStart","help","Як користуватись")+meItem("meDash","sliders","Налаштувати огляд")+(users?meItem("meUsers","users",window.__SITE?"Користувачі й доступ":"Журнал і користувачі"):"")+'</div>'+
+    '<div class="mm-l">'+meItem("tourStart","help","Як користуватись")+meItem("meDash","sliders","Налаштувати огляд")+(users?meItem("meUsers","users",window.__SITE?"Користувачі й доступ":"Журнал і користувачі"):"")+(window.__push&&window.__push.state()==="on"?meItem("pushOff","bell","Вимкнути сповіщення"):window.__push&&window.__push.state()==="off"?meItem("pushOn","bell","Увімкнути сповіщення"):"")+'</div>'+
     (window.__SITE?'<div class="mm-l mm-out">'+meItem("","out","Вийти","siteOut")+'</div>':"");
   document.body.appendChild(el);var r=src.getBoundingClientRect(),vw=window.innerWidth,vh=window.innerHeight;
   if(src.id==="meBtnM"){var w=Math.min(320,vw-32);el.style.width=w+"px";el.style.top=(r.bottom+10)+"px";el.style.left=Math.max(16,Math.min(vw-16-w,r.right-w))+"px";el.style.transformOrigin="top right"}
@@ -32,3 +32,22 @@ document.addEventListener("click",function(e){var nv=document.getElementById("na
 function aiSync(){var f=document.getElementById("aiFab");if(f)f.hidden=!S.ready||AI.open;var m=document.getElementById("aiBtnM");if(m)m.hidden=!S.ready}
 (function(){var m=document.getElementById("aiBtnM");if(m)m.innerHTML=ico("spark")})();
 (function(){var g=document.getElementById("gq"),mq=window.matchMedia("(max-width:920px)");function f(){if(g)g.placeholder=mq.matches?"Пошук…":"Пошук по всьому…"}f();if(mq.addEventListener)mq.addEventListener("change",f)})();
+/* ---------- push notifications UI (standalone site only) ---------- */
+function pushOn(){var p=window.__push;if(!p)return;meClose();p.enable().then(function(x){toast(x&&x.sent?"Сповіщення увімкнено — надіслав пробне.":"Сповіщення увімкнено.")},function(e){var m=e&&e.message;toast(m==="denied"?"Сповіщення заборонені. Дозвольте їх для цього сайту в налаштуваннях.":"Не вдалося увімкнути сповіщення. Спробуйте ще раз.")})}
+function pushCard(){var p=window.__push;if(!p)return "";var st=p.state();if(st==="on")return "";
+  var t=st==="home"?"На iPhone спершу додайте застосунок на головний екран: «Поділитися» → «На початковий екран», і відкрийте його звідти. Тоді тут з'явиться кнопка.":st==="denied"?"Сповіщення для цього сайту заборонені. Дозвольте їх у налаштуваннях браузера або телефона і поверніться сюди.":st==="none"?"Цей браузер не підтримує сповіщення. Спробуйте Chrome або Safari.":"У день нагадування прийде звичайне сповіщення на цей пристрій, навіть коли застосунок закритий.";
+  return '<div class="notice"><span class="si t-lime">'+ico("bell")+'</span><span class="nt"><b>Сповіщення про нагадування</b><span class="muted small">'+esc(t)+'</span></span>'+(st==="off"?'<button class="btn primary" data-act="pushOn"'+(p.busy()?" disabled":"")+'>'+(p.busy()?"Вмикаю…":"Увімкнути")+'</button>':"")+'</div>'}
+window.addEventListener("pushstate",function(){if(S.ready&&S.tab==="reminders")render()});
+/* ---------- keep what the person is typing when the screen redraws because someone else's data arrived ---------- */
+var UACT=0;
+["pointerdown","submit","keydown","change"].forEach(function(ev){document.addEventListener(ev,function(e){if(ev==="keydown"&&e.key!=="Enter")return;if(ev==="change"&&!/^(SELECT)$/.test(e.target.tagName)&&e.target.type!=="checkbox")return;UACT=Date.now()},true)});
+function fieldsKeep(){var remote=window.__SITE?!!window.__remote:Date.now()-UACT>4000;if(!remote)return null;
+  var o={k:S.tab+"|"+(S.card||"")+"|"+(S.mode||"")+"|"+(dlg.open?1:0),v:{},n:0},a=document.activeElement;
+  Array.prototype.forEach.call(document.querySelectorAll("#app input[id],#app textarea[id],#app select[id],dialog[open] input[id],dialog[open] textarea[id],dialog[open] select[id]"),function(e){if(e.type==="file")return;o.v[e.id]=e.type==="checkbox"||e.type==="radio"?{c:e.checked}:{t:e.value};o.n++});
+  o.f=a&&a.id&&o.v[a.id]?{id:a.id,s:a.selectionStart,e:a.selectionEnd}:null;o.sc=dlg.open?dlg.scrollTop:null;return o.n?o:null}
+function fieldsBack(o){if(!o||o.k!==S.tab+"|"+(S.card||"")+"|"+(S.mode||"")+"|"+(dlg.open?1:0))return;
+  Object.keys(o.v).forEach(function(id){var e=document.getElementById(id),x=o.v[id];if(!e)return;if("c" in x){e.checked=x.c;return}
+    if(e.tagName==="SELECT"){for(var i=0;i<e.options.length;i++)if(e.options[i].value===x.t){e.value=x.t;break}}else e.value=x.t});
+  if(o.sc!=null&&dlg.open)dlg.scrollTop=o.sc;
+  if(o.f){var el=document.getElementById(o.f.id);if(el&&document.activeElement!==el){try{el.focus({preventScroll:true});if(o.f.s!=null&&el.setSelectionRange)el.setSelectionRange(o.f.s,o.f.e)}catch(x){}}}}
+function render(){var keep=null;try{keep=fieldsKeep()}catch(e){}render0();try{fieldsBack(keep)}catch(e){}}

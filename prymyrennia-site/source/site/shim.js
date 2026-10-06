@@ -18,7 +18,7 @@ function cfgView(d){d=Object.assign({},d||{});var ul={},un={},fu=[];STAFF.forEac
 function view(col,rows){return rows.map(function(r){return {id:r.id,exists:true,data:(function(d){return function(){return d}})(col==="config"?cfgView(r.data):r.data)}})}
 function notify(col){var rows=cache[col]||[];(subs[col]||[]).forEach(function(s){try{if(s.doc){var r=rows.filter(function(x){return x.id===s.doc})[0];s.cb(r?view(col,[r])[0]:{id:s.doc,exists:false,data:function(){return undefined}})}else s.cb({docs:view(col,rows)})}catch(e){console.error(e)}})}
 var timers={};
-function refresh(col){clearTimeout(timers[col]);timers[col]=setTimeout(function(){fetchCol(col).then(function(rows){cache[col]=rows;notify(col)},function(e){(subs[col]||[]).forEach(function(s){if(s.err&&!cache[col])s.err(perr(e))})})},60)}
+function refresh(col){clearTimeout(timers[col]);timers[col]=setTimeout(function(){fetchCol(col).then(function(rows){var same=!!cache[col]&&JSON.stringify(cache[col])===JSON.stringify(rows);cache[col]=rows;if(same)return;window.__remote=true;try{notify(col)}finally{window.__remote=false}},function(e){(subs[col]||[]).forEach(function(s){if(s.err&&!cache[col])s.err(perr(e))})})},60)}
 function subscribe(col,s){(subs[col]=subs[col]||[]).push(s);if(cache[col])setTimeout(function(){notify(col)},0);else refresh(col);return function(){subs[col]=(subs[col]||[]).filter(function(x){return x!==s})}}
 function putLocal(col,id,data){var rows=(cache[col]||[]).slice(),i=-1;rows.forEach(function(r,k){if(r.id===id)i=k});if(data===null){if(i>=0)rows.splice(i,1)}else if(i>=0)rows[i]={id:id,data:data};else rows.push({id:id,data:data});cache[col]=rows;notify(col)}
 function writeDoc(col,id,body){var data=JSON.parse(JSON.stringify(body||{}));if(col==="config"){delete data.userLinks;delete data.userNames;delete data.fullUsers}
@@ -55,7 +55,7 @@ var DB={
   doc:function(path){var p=path.split("/");if(p[0]==="log")return noop;if(p[0]==="data"&&p[1]==="users")return prefsRef();return docRef(p[0],p.slice(1).join("_"))}};
 
 function live(){SB.channel("app").on("postgres_changes",{event:"*",schema:"public",table:"docs"},function(p){var col=(p.new&&p.new.col)||(p.old&&p.old.col);if(col&&subs[col])refresh(col)})
-  .on("postgres_changes",{event:"*",schema:"public",table:"staff"},function(){var was=ME&&ME.role;fetchStaff().then(function(){if(ME&&ME.role!==was){location.reload();return}notify("config");userSubs.forEach(function(s){s.emit()})},function(){})})
+  .on("postgres_changes",{event:"*",schema:"public",table:"staff"},function(){var was=ME&&ME.role;fetchStaff().then(function(){if(ME&&ME.role!==was){location.reload();return}window.__remote=true;try{notify("config");userSubs.forEach(function(s){s.emit()})}finally{window.__remote=false}},function(){})})
   .on("postgres_changes",{event:"INSERT",schema:"public",table:"log"},function(p){var u=p.new&&p.new.user_id;(logSubs[u]||[]).forEach(function(s){logFetch(u,s)})}).subscribe();
   polls=setInterval(function(){if(document.hidden)return;Object.keys(subs).forEach(function(c){if((subs[c]||[]).length)refresh(c)})},90000)}
 
@@ -108,10 +108,33 @@ function enter(user){UID=user.id;EMAIL=user.email||"";var tries=0,errs=0;
 
   },function(e){if(errs++<8){setTimeout(load,2500);return}note="Немає з'єднання із сервером. Перевірте інтернет і оновіть сторінку — входити заново не потрібно.";noteOk=false;showLogin()})})()}
 SB.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(s)enter(s.user);else showLogin()},function(){showLogin()});
+/* ---------- push notifications for reminders ---------- */
+(function(){var FN="__SB_URL__/functions/v1/push",ua=navigator.userAgent||"",ios=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1),alone=!!navigator.standalone||(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches);
+  var P={ok:("serviceWorker" in navigator)&&("PushManager" in window)&&("Notification" in window)&&/^https:$/.test(location.protocol),on:false,busy:false,reg:null};
+  function base(){return location.pathname.indexOf("/prymyrennia-site")>=0?"../":""}
+  function b64(s){s=(s+"===".slice((s.length+3)%4)).replace(/-/g,"+").replace(/_/g,"/");var r=atob(s),a=new Uint8Array(r.length);for(var i=0;i<r.length;i++)a[i]=r.charCodeAt(i);return a}
+  function reg(){if(P.reg)return Promise.resolve(P.reg);return navigator.serviceWorker.register(base()+"sw.js").then(null,function(){return navigator.serviceWorker.register(base()+"prymyrennia-site/sw.js")}).then(function(r){P.reg=r;return new Promise(function(res){if(r.active)return res(r);var w=r.installing||r.waiting;if(!w)return res(r);w.addEventListener("statechange",function(){if(w.state==="activated")res(r)});setTimeout(function(){res(r)},8000)})})}
+  function call(body){return SB.auth.getSession().then(function(r){var t=r.data&&r.data.session&&r.data.session.access_token||"";return fetch(FN,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+t},body:JSON.stringify(body)})}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j&&j.error||"push");return j})})}
+  function tell(){try{window.dispatchEvent(new Event("pushstate"))}catch(e){}}
+  function save(s){var j=s.toJSON();return call({op:"sub",endpoint:j.endpoint,p256dh:j.keys.p256dh,auth:j.keys.auth,ua:ua.slice(0,180)})}
+  window.__push={
+    /* on | off | denied | home (iPhone: add to the home screen first) | none (browser cannot do it) */
+    state:function(){if(!P.ok)return ios&&!alone?"home":"none";if(Notification.permission==="denied")return "denied";return P.on?"on":"off"},
+    busy:function(){return P.busy},
+    enable:function(){if(!P.ok)return Promise.reject(new Error("unsupported"));P.busy=true;tell();
+      return Promise.resolve(Notification.requestPermission()).then(function(p){if(p!=="granted")throw new Error("denied");return reg()})
+        .then(function(r){return r.pushManager.getSubscription().then(function(s){if(s)return s;return fetch(FN+"?op=key").then(function(x){return x.json()}).then(function(j){if(!j.publicKey)throw new Error("no key");return r.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64(j.publicKey)})})})})
+        .then(save).then(function(){P.on=true;return call({op:"test"})})
+        .then(function(x){P.busy=false;tell();return x},function(e){P.busy=false;tell();throw e})},
+    disable:function(){if(!P.ok)return Promise.resolve();P.busy=true;tell();
+      return reg().then(function(r){return r.pushManager.getSubscription()}).then(function(s){if(!s)return;return call({op:"unsub",endpoint:s.endpoint}).then(function(){},function(){}).then(function(){return s.unsubscribe()})})
+        .then(function(){P.on=false;P.busy=false;tell()},function(){P.busy=false;tell()})}};
+  /* after sign-in: find out whether this device is already subscribed and refresh its record */
+  READY.then(function(){if(!P.ok||Notification.permission!=="granted")return;reg().then(function(r){return r.pushManager.getSubscription()}).then(function(s){P.on=!!s;tell();if(s)save(s).then(function(){},function(){})},function(){})})})();
 /* new version check: the page knows its own build id and compares it with version.txt on the server */
 (function(){var dir=location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/",cur="__BUILD__",shown=false;
   function latest(){return fetch(dir+"version.txt?v="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(t){return String(t).trim()})}
-  function busy(){var a=document.activeElement;return !!document.querySelector("dialog[open]")||!!(a&&/^(INPUT|TEXTAREA)$/.test(a.tagName)&&a.value)}
+  function busy(){if(document.querySelector("dialog[open]"))return true;var f=document.querySelectorAll("input,textarea");for(var i=0;i<f.length;i++){var e=f[i];if(e.type==="checkbox"||e.type==="radio"||e.type==="date"||e.id==="gq")continue;if(e.value&&e.value!==e.defaultValue)return true}return false}
   function reload(v){location.replace(location.pathname+"?v="+encodeURIComponent(v))}
   function offer(v){if(shown)return;shown=true;var b=document.createElement("button");b.type="button";b.id="updBtn";
     b.style.cssText="position:fixed;z-index:60;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translateX(-50%);display:flex;align-items:center;gap:10px;height:48px;padding:0 20px 0 16px;border:0;border-radius:99px;background:#131315;color:#fff;font:inherit;font-size:14.5px;cursor:pointer;box-shadow:0 14px 44px rgba(0,0,0,.3);white-space:nowrap";
