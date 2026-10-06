@@ -28,7 +28,8 @@ css='''<style>
 '''
 doc='''<!doctype html>
 <html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#e5e5e8"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Примирення">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#e5e5e8"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Примирення"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+<script>(function(){var b=location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/";document.write('<link rel="icon" type="image/png" href="'+b+'favicon.png"><link rel="apple-touch-icon" sizes="180x180" href="'+b+'apple-touch-icon.png"><link rel="manifest" href="'+b+'manifest.webmanifest">')})()</script>
 <style>:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head><body>
 '''+markup.replace('<title>Церковний облік</title>','<title>Примирення · церковний облік</title>')+css+'<script>'+lib+'</script>\n<script>'+shim+'</script>\n'+app+'\n</body></html>\n'

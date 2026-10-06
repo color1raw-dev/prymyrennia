@@ -445,7 +445,24 @@ a.btn{text-decoration:none}
 .me-m img{width:100%;height:100%;object-fit:cover;display:block}
 @media (max-width:920px){.me{display:none}.me-m{display:grid}}
 .me[hidden],.me-m[hidden]{display:none}
+span[data-ic]{display:inline-grid;place-items:center;line-height:0;flex:none}
+#navMore{display:none}
+.nav-x{display:contents}
 @media (max-width:920px){
+  #nav{position:fixed;top:auto;left:12px;right:12px;bottom:max(12px,calc(env(safe-area-inset-bottom,0px) - 6px));z-index:30;margin:0;padding:6px;gap:2px;height:68px;box-sizing:border-box;align-items:stretch;overflow:visible;border-radius:34px;background:color-mix(in srgb,var(--raise) 88%,transparent);box-shadow:0 14px 44px var(--shade),0 0 0 1px var(--glass-line)}
+  #nav>button{flex:1 1 0;min-width:0;height:auto;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:0 1px;border-radius:28px;font-size:10px;letter-spacing:-.02em;line-height:1.1;position:relative;text-align:center}
+  #navMore{display:flex}
+  #nav>button svg.i{width:21px;height:21px;opacity:1}
+  #nav>button .nl{flex:none;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+  #nav>button .badge{position:absolute;top:5px;left:calc(50% + 5px);min-width:18px;height:18px;padding:0 5px;font-size:10.5px;box-shadow:0 0 0 2px var(--bg)}
+  #nav:has(.nav-x [aria-current="page"]) #navMore,#nav.more #navMore{background:var(--accent);color:var(--accent-fg)}
+  .nav-x{display:none;position:absolute;right:0;bottom:calc(100% + 10px);width:min(264px,calc(100vw - 24px));box-sizing:border-box;flex-direction:column;gap:2px;padding:8px;border-radius:30px;background:var(--raise);box-shadow:0 30px 90px rgba(0,0,0,.28),0 0 0 1px var(--line)}
+  #nav.more .nav-x{display:flex;animation:mmIn .22s cubic-bezier(.2,.9,.3,1.08);transform-origin:bottom right}
+  .nav-x button{height:52px;padding:0 16px;gap:14px;font-size:15px;border-radius:99px}
+  .nav-x button svg.i{width:19px;height:19px;opacity:1}
+  .content{padding-bottom:calc(124px + env(safe-area-inset-bottom,0px))}
+  body.touring #nav button.tour-hl{filter:none!important;opacity:1!important}
+  body:has(#nav.more) #aiFab{opacity:0;pointer-events:none}
   .shell{overflow-x:hidden;overflow-x:clip}
   .panel:has(>table){overflow-x:auto}
   table.logt,table.logt tbody{display:block;width:100%}
@@ -536,6 +553,15 @@ body.touring #nav{-webkit-mask-image:none;mask-image:none}
 .ai-f input{flex:1;height:48px;border-color:var(--line)}
 .iconbtn.inv{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);width:48px;height:48px}
 @media (max-width:920px){
+  #aiFab{bottom:calc(94px + env(safe-area-inset-bottom,0px))}
+  #toast,#tour{bottom:calc(98px + env(safe-area-inset-bottom,0px))}
+  #aiPanel{left:0;right:0;top:0;bottom:auto;width:100%;height:100%;height:100dvh;box-sizing:border-box;border:0;border-radius:0;box-shadow:none;z-index:45;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+  #aiPanel .ai-h{padding:14px 16px 12px}
+  #aiPanel .ai-f{padding:10px 14px 14px}
+  #aiPanel .ai-f input{font-size:16px;height:52px}
+  #aiPanel .ai-f .iconbtn{width:52px;height:52px}
+  #aiPanel .ai-b{font-size:15.5px;max-width:86%}
+  body.ai-full{overflow:hidden}
   .wm{display:flex;align-items:baseline;gap:10px;font-size:24px;padding:0}
   .wm small{margin:0}
 }
@@ -551,11 +577,14 @@ body.touring #nav{-webkit-mask-image:none;mask-image:none}
       <button data-tab="reminders" data-ic="bell"><span class="nl">Нагадування</span><span class="badge" id="c_rem" hidden></span></button>
       <button data-tab="people" data-ic="users"><span class="nl">Люди</span><span class="cnt" id="c_people"></span></button>
       <button data-tab="deacons" data-ic="shield"><span class="nl">Служителі</span><span class="cnt" id="c_deacons"></span></button>
+      <div class="nav-x" id="navX">
       <button data-tab="groups" data-ic="circles"><span class="nl">Малі групи</span><span class="cnt" id="c_groups"></span></button>
       <button data-tab="meetings" data-ic="calendar"><span class="nl">Зібрання</span><span class="cnt" id="c_meet"></span></button>
       <button data-tab="journal" data-ic="swap"><span class="nl">Рух членства</span></button>
       <button data-tab="reports" data-ic="chart"><span class="nl">Звіти</span></button>
       <button data-tab="log" id="navLog" data-ic="history" hidden><span class="nl">Журнал змін</span></button>
+      </div>
+      <button id="navMore" type="button" data-act="navMore" data-ic="dots" aria-haspopup="menu" aria-expanded="false"><span class="nl">Ще</span></button>
     </nav>
     <div id="sideCard" hidden></div>
     <button class="me" id="meBtn" type="button" data-act="meMenu" aria-haspopup="menu" aria-expanded="false" hidden><img id="meAv" alt="" hidden><span class="me-in" id="meIn" hidden></span><span class="me-t"><b id="meName"></b><span id="meRole"></span></span><span class="me-ch" data-ic="updown"></span><span id="who" hidden></span></button>

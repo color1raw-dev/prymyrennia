@@ -21,3 +21,11 @@ document.addEventListener("click",function(e){var m=document.getElementById("meM
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&document.getElementById("meMenu")){meClose();var b=document.getElementById("meBtn");if(b&&b.offsetParent)b.focus()}});
 window.addEventListener("resize",meClose);
 (function(){var w=document.getElementById("who");if(w&&window.MutationObserver)new MutationObserver(meSync).observe(w,{childList:true,characterData:true,subtree:true});setInterval(meSync,1500);meSync()})();
+/* mobile "more" sheet closes on any tap outside its toggle */
+document.addEventListener("click",function(e){var nv=document.getElementById("nav");if(!nv||!nv.classList.contains("more"))return;if(e.target.closest&&e.target.closest("#navMore"))return;nv.classList.remove("more");var m=document.getElementById("navMore");if(m)m.setAttribute("aria-expanded","false")});
+/* phone: the assistant takes the whole screen and follows the on-screen keyboard */
+(function(){var p=document.getElementById("aiPanel");if(!p)return;var mq=window.matchMedia("(max-width:920px)"),vv=window.visualViewport;
+  function fit(){var on=!p.hidden&&mq.matches;document.body.classList.toggle("ai-full",on);
+    if(on&&vv){p.style.height=vv.height+"px";p.style.top=vv.offsetTop+"px";var m=document.getElementById("aiMsgs");if(m)m.scrollTop=m.scrollHeight}else{p.style.height="";p.style.top=""}}
+  if(window.MutationObserver)new MutationObserver(fit).observe(p,{attributes:true,attributeFilter:["hidden"]});
+  if(vv){vv.addEventListener("resize",fit);vv.addEventListener("scroll",fit)}window.addEventListener("resize",fit);fit()})();

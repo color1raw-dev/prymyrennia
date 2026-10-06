@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#e5e5e8"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Примирення">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#e5e5e8"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Примирення"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+<script>(function(){var b=location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/";document.write('<link rel="icon" type="image/png" href="'+b+'favicon.png"><link rel="apple-touch-icon" sizes="180x180" href="'+b+'apple-touch-icon.png"><link rel="manifest" href="'+b+'manifest.webmanifest">')})()</script>
 <style>:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head><body>
 <title>Примирення · церковний облік</title>
@@ -450,7 +451,24 @@ a.btn{text-decoration:none}
 .me-m img{width:100%;height:100%;object-fit:cover;display:block}
 @media (max-width:920px){.me{display:none}.me-m{display:grid}}
 .me[hidden],.me-m[hidden]{display:none}
+span[data-ic]{display:inline-grid;place-items:center;line-height:0;flex:none}
+#navMore{display:none}
+.nav-x{display:contents}
 @media (max-width:920px){
+  #nav{position:fixed;top:auto;left:12px;right:12px;bottom:max(12px,calc(env(safe-area-inset-bottom,0px) - 6px));z-index:30;margin:0;padding:6px;gap:2px;height:68px;box-sizing:border-box;align-items:stretch;overflow:visible;border-radius:34px;background:color-mix(in srgb,var(--raise) 88%,transparent);box-shadow:0 14px 44px var(--shade),0 0 0 1px var(--glass-line)}
+  #nav>button{flex:1 1 0;min-width:0;height:auto;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:0 1px;border-radius:28px;font-size:10px;letter-spacing:-.02em;line-height:1.1;position:relative;text-align:center}
+  #navMore{display:flex}
+  #nav>button svg.i{width:21px;height:21px;opacity:1}
+  #nav>button .nl{flex:none;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+  #nav>button .badge{position:absolute;top:5px;left:calc(50% + 5px);min-width:18px;height:18px;padding:0 5px;font-size:10.5px;box-shadow:0 0 0 2px var(--bg)}
+  #nav:has(.nav-x [aria-current="page"]) #navMore,#nav.more #navMore{background:var(--accent);color:var(--accent-fg)}
+  .nav-x{display:none;position:absolute;right:0;bottom:calc(100% + 10px);width:min(264px,calc(100vw - 24px));box-sizing:border-box;flex-direction:column;gap:2px;padding:8px;border-radius:30px;background:var(--raise);box-shadow:0 30px 90px rgba(0,0,0,.28),0 0 0 1px var(--line)}
+  #nav.more .nav-x{display:flex;animation:mmIn .22s cubic-bezier(.2,.9,.3,1.08);transform-origin:bottom right}
+  .nav-x button{height:52px;padding:0 16px;gap:14px;font-size:15px;border-radius:99px}
+  .nav-x button svg.i{width:19px;height:19px;opacity:1}
+  .content{padding-bottom:calc(124px + env(safe-area-inset-bottom,0px))}
+  body.touring #nav button.tour-hl{filter:none!important;opacity:1!important}
+  body:has(#nav.more) #aiFab{opacity:0;pointer-events:none}
   .shell{overflow-x:hidden;overflow-x:clip}
   .panel:has(>table){overflow-x:auto}
   table.logt,table.logt tbody{display:block;width:100%}
@@ -541,6 +559,15 @@ body.touring #nav{-webkit-mask-image:none;mask-image:none}
 .ai-f input{flex:1;height:48px;border-color:var(--line)}
 .iconbtn.inv{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);width:48px;height:48px}
 @media (max-width:920px){
+  #aiFab{bottom:calc(94px + env(safe-area-inset-bottom,0px))}
+  #toast,#tour{bottom:calc(98px + env(safe-area-inset-bottom,0px))}
+  #aiPanel{left:0;right:0;top:0;bottom:auto;width:100%;height:100%;height:100dvh;box-sizing:border-box;border:0;border-radius:0;box-shadow:none;z-index:45;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+  #aiPanel .ai-h{padding:14px 16px 12px}
+  #aiPanel .ai-f{padding:10px 14px 14px}
+  #aiPanel .ai-f input{font-size:16px;height:52px}
+  #aiPanel .ai-f .iconbtn{width:52px;height:52px}
+  #aiPanel .ai-b{font-size:15.5px;max-width:86%}
+  body.ai-full{overflow:hidden}
   .wm{display:flex;align-items:baseline;gap:10px;font-size:24px;padding:0}
   .wm small{margin:0}
 }
@@ -556,11 +583,14 @@ body.touring #nav{-webkit-mask-image:none;mask-image:none}
       <button data-tab="reminders" data-ic="bell"><span class="nl">Нагадування</span><span class="badge" id="c_rem" hidden></span></button>
       <button data-tab="people" data-ic="users"><span class="nl">Люди</span><span class="cnt" id="c_people"></span></button>
       <button data-tab="deacons" data-ic="shield"><span class="nl">Служителі</span><span class="cnt" id="c_deacons"></span></button>
+      <div class="nav-x" id="navX">
       <button data-tab="groups" data-ic="circles"><span class="nl">Малі групи</span><span class="cnt" id="c_groups"></span></button>
       <button data-tab="meetings" data-ic="calendar"><span class="nl">Зібрання</span><span class="cnt" id="c_meet"></span></button>
       <button data-tab="journal" data-ic="swap"><span class="nl">Рух членства</span></button>
       <button data-tab="reports" data-ic="chart"><span class="nl">Звіти</span></button>
       <button data-tab="log" id="navLog" data-ic="history" hidden><span class="nl">Журнал змін</span></button>
+      </div>
+      <button id="navMore" type="button" data-act="navMore" data-ic="dots" aria-haspopup="menu" aria-expanded="false"><span class="nl">Ще</span></button>
     </nav>
     <div id="sideCard" hidden></div>
     <button class="me" id="meBtn" type="button" data-act="meMenu" aria-haspopup="menu" aria-expanded="false" hidden><img id="meAv" alt="" hidden><span class="me-in" id="meIn" hidden></span><span class="me-t"><b id="meName"></b><span id="meRole"></span></span><span class="me-ch" data-ic="updown"></span><span id="who" hidden></span></button>
@@ -706,14 +736,14 @@ document.addEventListener("submit",function(e){if(e.target.id!=="auForm")return;
     if(r.data&&r.data.session){enter(r.data.session.user);return}
     note="Ми надіслали лист на "+em+". Відкрийте його й підтвердіть пошту, потім увійдіть.";noteOk=true;mode="in";showLogin()},function(e){busy=false;note=tr(e&&e.message);noteOk=false;showLogin()})});
 var waitT=null;
-function enter(user){UID=user.id;EMAIL=user.email||"";var tries=0;
+function enter(user){UID=user.id;EMAIL=user.email||"";var tries=0,errs=0;
   (function load(){fetchStaff().then(function(){
     if(!ME&&tries++<4){setTimeout(load,700);return}
     if(!ME||ME.role==="pending"||ME.role==="blocked"){showWait();clearTimeout(waitT);waitT=setTimeout(load,7000);return}
     clearTimeout(waitT);var el=document.getElementById("auth");if(el)el.remove();
     window.__site={role:ME.role,uid:UID,email:EMAIL};live();readyRes();
 
-  },function(e){note=tr(e&&e.message);noteOk=false;showLogin()})})()}
+  },function(e){if(errs++<8){setTimeout(load,2500);return}note="Немає з'єднання із сервером. Перевірте інтернет і оновіть сторінку — входити заново не потрібно.";noteOk=false;showLogin()})})()}
 SB.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(s)enter(s.user);else showLogin()},function(){showLogin()});
 /* new version check: compares the published file's ETag with the one seen at start */
 (function(){var url=(location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/")+"index.html",seen=null,shown=false;
@@ -818,6 +848,7 @@ var ICO={grid:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3"
   userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/>',
   userminus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11h-6"/>',
   flag:'<path d="M4 22V4"/><path d="M4 4h13l-2 4 2 4H4"/>',
+  dots:'<circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/>',
   updown:'<path d="M8 9l4-4 4 4"/><path d="M8 15l4 4 4-4"/>',
   out:'<path d="M10 21H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/>',
   help:'<circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2 1-1.2 1.8"/><path d="M12 17h.01"/>',
@@ -1253,7 +1284,7 @@ function render(){
   if(keep){var q=document.getElementById("q");if(q){q.focus();q.setSelectionRange(pos,pos)}}
   if(dlg.open)renderDlg();if(TOUR)tourMark()}
 
-document.getElementById("nav").addEventListener("click",function(e){var b=e.target.closest("button");if(b)go(b.dataset.tab)});
+document.getElementById("nav").addEventListener("click",function(e){var b=e.target.closest("button");if(b&&b.dataset.tab)go(b.dataset.tab)});
 document.getElementById("gq").addEventListener("input",function(e){S.q=e.target.value;if(S.tab!=="people"){S.fStatus="all";S.fDeacon="";S.fSpecial="";S.tab="people"}render()});
 app.addEventListener("input",function(e){if(e.target.id==="q"){S.q=e.target.value;render()}if(e.target.id==="lq"){S.lq=e.target.value;var ps=e.target.selectionStart;render();var n=document.getElementById("lq");if(n){n.focus();n.setSelectionRange(ps,ps)}}});
 app.addEventListener("change",function(e){var t=e.target;if(t.id==="fDeacon"){S.fDeacon=t.value;render()}if(t.id==="jYear"){S.jYear=t.value;render()}if(t.id==="jType"){S.jType=t.value;render()}if(t.id==="rYear"){S.rYear=+t.value;render()}if(t.id==="lUser"){S.lUser=t.value;render()}if(t.id==="lAct"){S.lAct=t.value;render()}});
@@ -1606,6 +1637,7 @@ function rolesBlock(p,W){var rs=cardRoles(p.id),lead=S.groups.filter(function(g)
     (can&&act_?'<div class="composer"><select id="p_role" aria-label="Служіння">'+options.map(function(o){return '<option value="'+esc(o[0])+'">'+esc(o[1])+'</option>'}).join("")+'</select><button class="btn primary" data-act="roleAdd">Призначити</button></div>'+
       '<div class="composer"><input id="p_newRole" placeholder="Нове служіння: керівник кафе, парковка…" aria-label="Нове служіння"><button class="btn" data-act="roleNew">'+ico("plus")+' Створити і призначити</button></div>':"")+'</div>'}
 function extra(a,t,v){
+  if(a==="navMore"){var nv=document.getElementById("nav"),on=!nv.classList.contains("more");nv.classList.toggle("more",on);t.setAttribute("aria-expanded",on?"true":"false");return true}
   if(a==="meMenu"){meMenu(t);return true}
   if(a==="meDash"){meClose();go("home");S.dashEdit=true;render();window.scrollTo(0,0);return true}
   if(a==="meUsers"){meClose();go("log");return true}
@@ -1676,7 +1708,7 @@ function tourSteps(){var full=S.canWrite&&!lim(),s=[
   s.push({tab:"home",ic:"spark",sel:"#aiFab",t:"Помічник",x:"Кругла кнопка внизу праворуч. Пишіть коротко: «знайди Бурлаку», «нагадай у суботу подзвонити Вадиму», «запиши: сьогодні відвідав Вадима», «познач Вадима як служить у ЗСУ» — він знайде або запише сам. Напишіть «що ти вмієш», щоб побачити всі команди."});
   s.push({tab:"home",ic:"check",sel:".me,#app>.bar:last-child",t:"Готово",x:"Ці підказки можна відкрити знову у меню під вашим іменем (унизу ліворуч, на телефоні — кружечок угорі) або кнопкою внизу огляду."});
   return s}
-function tourHl(tab){Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){b.classList.toggle("tour-hl",!!tab&&b.dataset.tab===tab)})}
+function tourHl(tab){Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){b.classList.toggle("tour-hl",!!tab&&b.dataset.tab===tab)});var m=document.getElementById("navMore");if(m)m.classList.toggle("tour-hl",!!tab&&!!document.querySelector("#navX button.tour-hl"))}
 function tourMark(scroll){document.body.classList.toggle("touring",!!TOUR);Array.prototype.forEach.call(document.querySelectorAll(".tour-on"),function(e){e.classList.remove("tour-on")});if(!TOUR)return;
   var st=TOUR.s[TOUR.i],els=[];if(TOUR.i>0){var nb=document.querySelector('#nav button[data-tab="'+st.tab+'"]');if(nb){els.push(nb);if(scroll&&nb.scrollIntoView)try{nb.scrollIntoView({block:"nearest",inline:"center"})}catch(e){}}}
   if(st.sel){try{var found=st.one?[document.querySelector(st.sel)]:Array.prototype.slice.call(document.querySelectorAll(st.sel));found.forEach(function(e){if(e)els.push(e)});if(scroll&&found[0]&&found[0].closest("#app"))found[0].scrollIntoView({block:"center",behavior:"smooth"})}catch(e){}}
@@ -2002,6 +2034,14 @@ document.addEventListener("click",function(e){var m=document.getElementById("meM
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&document.getElementById("meMenu")){meClose();var b=document.getElementById("meBtn");if(b&&b.offsetParent)b.focus()}});
 window.addEventListener("resize",meClose);
 (function(){var w=document.getElementById("who");if(w&&window.MutationObserver)new MutationObserver(meSync).observe(w,{childList:true,characterData:true,subtree:true});setInterval(meSync,1500);meSync()})();
+/* mobile "more" sheet closes on any tap outside its toggle */
+document.addEventListener("click",function(e){var nv=document.getElementById("nav");if(!nv||!nv.classList.contains("more"))return;if(e.target.closest&&e.target.closest("#navMore"))return;nv.classList.remove("more");var m=document.getElementById("navMore");if(m)m.setAttribute("aria-expanded","false")});
+/* phone: the assistant takes the whole screen and follows the on-screen keyboard */
+(function(){var p=document.getElementById("aiPanel");if(!p)return;var mq=window.matchMedia("(max-width:920px)"),vv=window.visualViewport;
+  function fit(){var on=!p.hidden&&mq.matches;document.body.classList.toggle("ai-full",on);
+    if(on&&vv){p.style.height=vv.height+"px";p.style.top=vv.offsetTop+"px";var m=document.getElementById("aiMsgs");if(m)m.scrollTop=m.scrollHeight}else{p.style.height="";p.style.top=""}}
+  if(window.MutationObserver)new MutationObserver(fit).observe(p,{attributes:true,attributeFilter:["hidden"]});
+  if(vv){vv.addEventListener("resize",fit);vv.addEventListener("scroll",fit)}window.addEventListener("resize",fit);fit()})();
 
 start();
 })();

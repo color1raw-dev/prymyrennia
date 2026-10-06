@@ -28,6 +28,7 @@ i=js.index("var h='<div class=\"panel pad\"><div class=\"bar\"><label class=\"ba
 js=js[:i]+open('build/rephead.js',encoding='utf8').read().strip()+js[j:]
 rep('<div><h3 style="margin-bottom:8px">Родина</h3>','<div class="blk"><h3>Родина</h3>',0) if False else None
 rep('function logRows(L){return \'<table><thead>','function logRows(L){return \'<table class="logt"><thead>')
+rep('var b=e.target.closest("button");if(b)go(b.dataset.tab)','var b=e.target.closest("button");if(b&&b.dataset.tab)go(b.dataset.tab)')
 k=js.rindex('start();'); js=js[:k]+open('build/override.js',encoding='utf8').read()+'\n'+open('build/ailocal.js',encoding='utf8').read()+'\n'+open('build/memenu.js',encoding='utf8').read()+'\n'+js[k:]
 rep('set({date:cm.date,type:cm.type,note:val("m_edit")})','set({date:cm.date,type:cm.type,note:val("m_edit"),video:cm.video||""})')
 rep('else if(col==="meetings")o=scal(a,b,["date","type","note"]);','else if(col==="meetings")o=scal(a,b,["date","type","note","video"]);')

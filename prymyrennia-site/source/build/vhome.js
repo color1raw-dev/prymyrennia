@@ -18,6 +18,7 @@ var ICO={grid:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3"
   userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/>',
   userminus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11h-6"/>',
   flag:'<path d="M4 22V4"/><path d="M4 4h13l-2 4 2 4H4"/>',
+  dots:'<circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/>',
   updown:'<path d="M8 9l4-4 4 4"/><path d="M8 15l4 4 4-4"/>',
   out:'<path d="M10 21H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/>',
   help:'<circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2 1-1.2 1.8"/><path d="M12 17h.01"/>',

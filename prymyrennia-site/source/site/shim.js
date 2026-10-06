@@ -99,14 +99,14 @@ document.addEventListener("submit",function(e){if(e.target.id!=="auForm")return;
     if(r.data&&r.data.session){enter(r.data.session.user);return}
     note="Ми надіслали лист на "+em+". Відкрийте його й підтвердіть пошту, потім увійдіть.";noteOk=true;mode="in";showLogin()},function(e){busy=false;note=tr(e&&e.message);noteOk=false;showLogin()})});
 var waitT=null;
-function enter(user){UID=user.id;EMAIL=user.email||"";var tries=0;
+function enter(user){UID=user.id;EMAIL=user.email||"";var tries=0,errs=0;
   (function load(){fetchStaff().then(function(){
     if(!ME&&tries++<4){setTimeout(load,700);return}
     if(!ME||ME.role==="pending"||ME.role==="blocked"){showWait();clearTimeout(waitT);waitT=setTimeout(load,7000);return}
     clearTimeout(waitT);var el=document.getElementById("auth");if(el)el.remove();
     window.__site={role:ME.role,uid:UID,email:EMAIL};live();readyRes();
 
-  },function(e){note=tr(e&&e.message);noteOk=false;showLogin()})})()}
+  },function(e){if(errs++<8){setTimeout(load,2500);return}note="Немає з'єднання із сервером. Перевірте інтернет і оновіть сторінку — входити заново не потрібно.";noteOk=false;showLogin()})})()}
 SB.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(s)enter(s.user);else showLogin()},function(){showLogin()});
 /* new version check: compares the published file's ETag with the one seen at start */
 (function(){var url=(location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/")+"index.html",seen=null,shown=false;

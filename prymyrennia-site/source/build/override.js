@@ -251,6 +251,7 @@ function rolesBlock(p,W){var rs=cardRoles(p.id),lead=S.groups.filter(function(g)
     (can&&act_?'<div class="composer"><select id="p_role" aria-label="Служіння">'+options.map(function(o){return '<option value="'+esc(o[0])+'">'+esc(o[1])+'</option>'}).join("")+'</select><button class="btn primary" data-act="roleAdd">Призначити</button></div>'+
       '<div class="composer"><input id="p_newRole" placeholder="Нове служіння: керівник кафе, парковка…" aria-label="Нове служіння"><button class="btn" data-act="roleNew">'+ico("plus")+' Створити і призначити</button></div>':"")+'</div>'}
 function extra(a,t,v){
+  if(a==="navMore"){var nv=document.getElementById("nav"),on=!nv.classList.contains("more");nv.classList.toggle("more",on);t.setAttribute("aria-expanded",on?"true":"false");return true}
   if(a==="meMenu"){meMenu(t);return true}
   if(a==="meDash"){meClose();go("home");S.dashEdit=true;render();window.scrollTo(0,0);return true}
   if(a==="meUsers"){meClose();go("log");return true}
@@ -321,7 +322,7 @@ function tourSteps(){var full=S.canWrite&&!lim(),s=[
   s.push({tab:"home",ic:"spark",sel:"#aiFab",t:"Помічник",x:"Кругла кнопка внизу праворуч. Пишіть коротко: «знайди Бурлаку», «нагадай у суботу подзвонити Вадиму», «запиши: сьогодні відвідав Вадима», «познач Вадима як служить у ЗСУ» — він знайде або запише сам. Напишіть «що ти вмієш», щоб побачити всі команди."});
   s.push({tab:"home",ic:"check",sel:".me,#app>.bar:last-child",t:"Готово",x:"Ці підказки можна відкрити знову у меню під вашим іменем (унизу ліворуч, на телефоні — кружечок угорі) або кнопкою внизу огляду."});
   return s}
-function tourHl(tab){Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){b.classList.toggle("tour-hl",!!tab&&b.dataset.tab===tab)})}
+function tourHl(tab){Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){b.classList.toggle("tour-hl",!!tab&&b.dataset.tab===tab)});var m=document.getElementById("navMore");if(m)m.classList.toggle("tour-hl",!!tab&&!!document.querySelector("#navX button.tour-hl"))}
 function tourMark(scroll){document.body.classList.toggle("touring",!!TOUR);Array.prototype.forEach.call(document.querySelectorAll(".tour-on"),function(e){e.classList.remove("tour-on")});if(!TOUR)return;
   var st=TOUR.s[TOUR.i],els=[];if(TOUR.i>0){var nb=document.querySelector('#nav button[data-tab="'+st.tab+'"]');if(nb){els.push(nb);if(scroll&&nb.scrollIntoView)try{nb.scrollIntoView({block:"nearest",inline:"center"})}catch(e){}}}
   if(st.sel){try{var found=st.one?[document.querySelector(st.sel)]:Array.prototype.slice.call(document.querySelectorAll(st.sel));found.forEach(function(e){if(e)els.push(e)});if(scroll&&found[0]&&found[0].closest("#app"))found[0].scrollIntoView({block:"center",behavior:"smooth"})}catch(e){}}
