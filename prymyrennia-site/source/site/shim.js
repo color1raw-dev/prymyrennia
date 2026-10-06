@@ -89,7 +89,7 @@ function showWait(){var el=authEl(),blocked=ME&&ME.role==="blocked";
   el.innerHTML='<div class="au-hands"></div><div class="au-card"><div class="au-t">'+(blocked?"Доступ закрито":"Майже готово")+'<small>'+esc(EMAIL)+'</small></div><div class="au-f" style="text-align:left;font-size:15px;color:inherit">'+(blocked?"Ваш обліковий запис заблоковано. Зверніться до пастора або секретаря.":"Вас зареєстровано. Тепер пастор або секретар має підтвердити ваш доступ у розділі «Журнал змін → Користувачі». Напишіть йому, що ви зареєструвалися — сторінка відкриється сама, щойно доступ підтвердять.")+'</div><button class="btn" type="button" id="auOut">Вийти</button></div>'}
 function tr(m){m=String(m||"");if(/Invalid login/i.test(m))return "Невірна пошта або пароль.";if(/already registered|already been registered/i.test(m))return "Така пошта вже зареєстрована — оберіть «Вхід».";if(/not confirmed/i.test(m))return "Пошту ще не підтверджено. Відкрийте лист-підтвердження у своїй скриньці.";if(/at least 6|should be at least/i.test(m))return "Пароль має містити щонайменше 6 символів.";if(/valid email|invalid format|is invalid/i.test(m))return "Перевірте адресу пошти.";if(/rate limit|too many/i.test(m))return "Забагато спроб. Зачекайте кілька хвилин.";if(/fetch|network/i.test(m))return "Немає з'єднання. Перевірте інтернет.";return "Не вдалося: "+m}
 document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest("[data-m]");if(t&&t.closest("#auth")){mode=t.dataset.m;note="";showLogin();return}
-  if(e.target.id==="auOut"||e.target.id==="siteOut"){window.__siteApi.signOut()}});
+  if(e.target.closest&&e.target.closest("#auOut,#siteOut")){window.__siteApi.signOut()}});
 document.addEventListener("submit",function(e){if(e.target.id!=="auForm")return;e.preventDefault();if(busy)return;
   var em=(document.getElementById("au_email").value||"").trim(),pw=document.getElementById("au_pass").value||"",nm=mode==="up"?(document.getElementById("au_name").value||"").trim():"";
   if(!em||!pw||(mode==="up"&&!nm)){note=mode==="up"?"Заповніть ім'я, пошту і пароль.":"Введіть пошту і пароль.";noteOk=false;showLogin();return}
@@ -105,7 +105,7 @@ function enter(user){UID=user.id;EMAIL=user.email||"";var tries=0;
     if(!ME||ME.role==="pending"||ME.role==="blocked"){showWait();clearTimeout(waitT);waitT=setTimeout(load,7000);return}
     clearTimeout(waitT);var el=document.getElementById("auth");if(el)el.remove();
     window.__site={role:ME.role,uid:UID,email:EMAIL};live();readyRes();
-    var me=document.querySelector(".me");if(me&&!document.getElementById("siteOut")){var b=document.createElement("button");b.id="siteOut";b.className="link small";b.type="button";b.textContent="Вийти";me.appendChild(b)}
+
   },function(e){note=tr(e&&e.message);noteOk=false;showLogin()})})()}
 SB.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(s)enter(s.user);else showLogin()},function(){showLogin()});
 })();

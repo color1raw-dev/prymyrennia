@@ -251,6 +251,9 @@ function rolesBlock(p,W){var rs=cardRoles(p.id),lead=S.groups.filter(function(g)
     (can&&act_?'<div class="composer"><select id="p_role" aria-label="Служіння">'+options.map(function(o){return '<option value="'+esc(o[0])+'">'+esc(o[1])+'</option>'}).join("")+'</select><button class="btn primary" data-act="roleAdd">Призначити</button></div>'+
       '<div class="composer"><input id="p_newRole" placeholder="Нове служіння: керівник кафе, парковка…" aria-label="Нове служіння"><button class="btn" data-act="roleNew">'+ico("plus")+' Створити і призначити</button></div>':"")+'</div>'}
 function extra(a,t,v){
+  if(a==="meMenu"){meMenu(t);return true}
+  if(a==="meDash"){meClose();go("home");S.dashEdit=true;render();window.scrollTo(0,0);return true}
+  if(a==="meUsers"){meClose();go("log");return true}
   if(a==="nav"){go(v);return true}
   if(a==="fpart"){S.q="";S.fStatus="active";S.fDeacon="";S.fSpecial="";S.fPart=v;go("people");return true}
   if(a==="partSet"||a==="partAdd"){var pp=person(S.card);if(!pp)return true;var nv2=a==="partAdd"?val("pt_new"):v;if(!nv2){toast("Напишіть стан");return true}var bp=body(pp);bp.part=(a==="partSet"&&pp.part===nv2)?"":nv2;
@@ -316,7 +319,7 @@ function tourSteps(){var full=S.canWrite&&!lim(),s=[
   if(full)s.push({tab:"reports",ic:"chart",sel:"#app>.panel",one:1,t:"Звіти",x:"Річний підсумок, прийняті й вибулі, звіт ЄХБ, вік і стать. Усе вивантажується в Excel. Раз на тиждень зберігайте резервну копію."});
   if(S.isAdmin)s.push({tab:"log",ic:"history",sel:"#app>.panel",one:1,t:"Журнал і користувачі",x:"Тут видно, хто й що змінив, і будь-яку зміну можна повернути. Тут же ви підтверджуєте нових користувачів і задаєте їм права."});
   s.push({tab:"home",ic:"spark",sel:"#aiFab",t:"Помічник",x:"Кругла кнопка внизу праворуч. Пишіть коротко: «знайди Бурлаку», «нагадай у суботу подзвонити Вадиму», «запиши: сьогодні відвідав Вадима», «познач Вадима як служить у ЗСУ» — він знайде або запише сам. Напишіть «що ти вмієш», щоб побачити всі команди."});
-  s.push({tab:"home",ic:"check",sel:".me,#app>.bar:last-child",t:"Готово",x:"Ці підказки можна відкрити знову кнопкою «Як користуватись» унизу меню або внизу огляду."});
+  s.push({tab:"home",ic:"check",sel:".me,#app>.bar:last-child",t:"Готово",x:"Ці підказки можна відкрити знову у меню під вашим іменем (унизу ліворуч, на телефоні — кружечок угорі) або кнопкою внизу огляду."});
   return s}
 function tourHl(tab){Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){b.classList.toggle("tour-hl",!!tab&&b.dataset.tab===tab)})}
 function tourMark(scroll){document.body.classList.toggle("touring",!!TOUR);Array.prototype.forEach.call(document.querySelectorAll(".tour-on"),function(e){e.classList.remove("tour-on")});if(!TOUR)return;

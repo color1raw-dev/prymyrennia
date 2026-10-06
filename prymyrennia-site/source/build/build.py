@@ -27,7 +27,7 @@ js=js[:i]+"h+=needsBlock(p,W)+rolesBlock(p,W);"+js[j:]
 i=js.index("var h='<div class=\"panel pad\"><div class=\"bar\"><label class=\"bar\" style=\"font-weight:600\">Рік"); e='<div id="repOut" style="display:flex;flex-direction:column;gap:18px">\';'; j=js.index(e,i)+len(e)
 js=js[:i]+open('build/rephead.js',encoding='utf8').read().strip()+js[j:]
 rep('<div><h3 style="margin-bottom:8px">Родина</h3>','<div class="blk"><h3>Родина</h3>',0) if False else None
-k=js.rindex('start();'); js=js[:k]+open('build/override.js',encoding='utf8').read()+'\n'+open('build/ailocal.js',encoding='utf8').read()+'\n'+js[k:]
+k=js.rindex('start();'); js=js[:k]+open('build/override.js',encoding='utf8').read()+'\n'+open('build/ailocal.js',encoding='utf8').read()+'\n'+open('build/memenu.js',encoding='utf8').read()+'\n'+js[k:]
 rep('set({date:cm.date,type:cm.type,note:val("m_edit")})','set({date:cm.date,type:cm.type,note:val("m_edit"),video:cm.video||""})')
 rep('else if(col==="meetings")o=scal(a,b,["date","type","note"]);','else if(col==="meetings")o=scal(a,b,["date","type","note","video"]);')
 rep('db.collection("groups").limit(500).onSnapshot(','db.collection("reminders").limit(500).onSnapshot(function(snap){S.rem=snap.docs.map(function(d){return Object.assign({id:d.id},d.data())});if(S.ready)render()},function(){});\n    db.collection("groups").limit(500).onSnapshot(')

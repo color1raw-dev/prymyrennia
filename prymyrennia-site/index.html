@@ -436,10 +436,42 @@ a.btn{text-decoration:none}
 #tour p{margin:0 0 8px;color:var(--muted);font-size:14.5px;line-height:1.5}
 #nav button.tour-hl{box-shadow:0 0 0 3px var(--lime)}
 #tour{box-shadow:0 30px 100px rgba(0,0,0,.34),0 0 0 1px var(--line)}
-.me{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 12px;align-items:center}
-.me #meAv{grid-row:1/span 2}
-.me #who{grid-column:2}
-.me .link{grid-column:2;justify-self:start;white-space:nowrap}
+.me{display:flex;align-items:center;gap:12px;width:100%;min-width:0;height:60px;flex:none;padding:0 16px 0 10px;border:1px solid var(--glass-line);border-radius:99px;background:var(--glass);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);color:var(--fg);font:inherit;text-align:left;cursor:pointer;transition:background .2s,box-shadow .2s}
+.me:hover,.me[aria-expanded="true"]{background:var(--raise);box-shadow:0 10px 34px var(--shade)}
+.me[hidden],.me-m[hidden]{display:none}
+.me-in,.mm-av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--accent);color:var(--accent-fg);font-size:13px;font-weight:500;letter-spacing:.03em;object-fit:cover}
+.me-in[hidden]{display:none}
+.me-t{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:1px;line-height:1.25}
+.me-t b{font-weight:500;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.me-t span{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.me-ch{flex:none;display:grid;place-items:center}
+.me-ch svg.i{width:16px;height:16px;color:var(--muted);vertical-align:0}
+.me-m{display:none;width:var(--h);height:var(--h);flex:none;padding:0;border:0;border-radius:50%;overflow:hidden;background:var(--accent);color:var(--accent-fg);font:inherit;font-size:13px;font-weight:500;cursor:pointer;place-items:center}
+.me-m img{width:100%;height:100%;object-fit:cover;display:block}
+@media (max-width:920px){.me{display:none}.me-m{display:grid}}
+.me[hidden],.me-m[hidden]{display:none}
+#meMenu{position:fixed;z-index:46;box-sizing:border-box;padding:8px;border-radius:30px;background:var(--raise);box-shadow:0 30px 90px rgba(0,0,0,.28),0 0 0 1px var(--line);display:flex;flex-direction:column;gap:8px;animation:mmIn .24s cubic-bezier(.2,.9,.3,1.08)}
+@keyframes mmIn{from{opacity:0;transform:translateY(10px) scale(.97)}}
+@media (prefers-reduced-motion:reduce){#meMenu{animation:none}}
+.mm-h{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:16px;border-radius:24px;color:#fff;min-width:0}
+.mm-h .mm-av{width:52px;height:52px;font-size:16px;background:rgba(255,255,255,.16);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.22)}
+.mm-t{display:flex;flex-direction:column;gap:3px;min-width:0;max-width:100%}
+.mm-t b{font-size:19px;font-weight:400;letter-spacing:-.02em;line-height:1.2;overflow-wrap:anywhere}
+.mm-t span{font-size:12.5px;color:rgba(255,255,255,.66);overflow-wrap:anywhere}
+.mm-top{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%}
+.mm-r{flex:none;font-size:12px;padding:5px 11px;border-radius:99px;background:var(--lime);color:var(--lime-fg);white-space:nowrap}
+.mm-l{display:flex;flex-direction:column;gap:2px}
+.mm-l button{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;padding:7px 14px 7px 7px;border:0;border-radius:99px;background:none;color:var(--fg);font:inherit;font-size:14.5px;text-align:left;cursor:pointer;transition:background .18s}
+.mm-l button:hover,.mm-l button:focus-visible{background:var(--soft)}
+.mm-l .si{background:var(--soft)}
+.mm-l button:hover .si,.mm-l button:focus-visible .si{background:var(--surface)}
+.mm-l .si svg.i{width:17px;height:17px;vertical-align:0}
+.mm-l .grow{flex:1 1 auto;min-width:0}
+.mm-l .go svg.i{width:15px;height:15px;color:var(--muted);vertical-align:0}
+.mm-out{border-top:1px solid var(--line);padding-top:8px}
+.mm-out button{color:var(--bad)}
+.mm-out .si{background:var(--bad-bg);color:var(--bad)}
+.mm-out button:hover .si,.mm-out button:focus-visible .si{background:var(--bad-bg)}
 body.touring .side-top,body.touring .me,body.touring #sideCard,body.touring .head,body.touring .tools,body.touring #app>*,body.touring #nav button,body.touring #aiFab{filter:blur(7px);opacity:.45;pointer-events:none;transition:filter .35s ease,opacity .35s ease}
 body.touring .tour-on{filter:none!important;opacity:1!important}
 body.touring #nav{-webkit-mask-image:none;mask-image:none}
@@ -517,12 +549,12 @@ body.touring #nav{-webkit-mask-image:none;mask-image:none}
       <button data-tab="log" id="navLog" data-ic="history" hidden><span class="nl">Журнал змін</span></button>
     </nav>
     <div id="sideCard" hidden></div>
-    <div class="me"><img id="meAv" alt="" hidden><div id="who"></div><button class="link small" data-act="tourStart">Як користуватись</button></div>
+    <button class="me" id="meBtn" type="button" data-act="meMenu" aria-haspopup="menu" aria-expanded="false" hidden><img id="meAv" alt="" hidden><span class="me-in" id="meIn" hidden></span><span class="me-t"><b id="meName"></b><span id="meRole"></span></span><span class="me-ch" data-ic="updown"></span><span id="who" hidden></span></button>
   </aside>
   <div class="content">
     <div class="topbar">
       <div class="head"><h2 id="title">Огляд</h2><p id="sub">Стан церкви на сьогодні</p></div>
-      <div class="tools"><label class="search"><span data-ic="search"></span><input id="gq" type="search" placeholder="Пошук по всьому…" aria-label="Знайти людину"></label><button class="btn primary" id="addBtn" data-act="add" aria-label="Додати людину"><span data-ic="plus"></span><span class="lbl">Додати людину</span></button></div>
+      <div class="tools"><label class="search"><span data-ic="search"></span><input id="gq" type="search" placeholder="Пошук по всьому…" aria-label="Знайти людину"></label><button class="btn primary" id="addBtn" data-act="add" aria-label="Додати людину"><span data-ic="plus"></span><span class="lbl">Додати людину</span></button><button class="me-m" id="meBtnM" type="button" data-act="meMenu" aria-haspopup="menu" aria-label="Мій обліковий запис" hidden></button></div>
     </div>
     <main id="app"><div class="panel empty"><b>Завантаження даних…</b></div></main>
   </div>
@@ -650,7 +682,7 @@ function showWait(){var el=authEl(),blocked=ME&&ME.role==="blocked";
   el.innerHTML='<div class="au-hands"></div><div class="au-card"><div class="au-t">'+(blocked?"Доступ закрито":"Майже готово")+'<small>'+esc(EMAIL)+'</small></div><div class="au-f" style="text-align:left;font-size:15px;color:inherit">'+(blocked?"Ваш обліковий запис заблоковано. Зверніться до пастора або секретаря.":"Вас зареєстровано. Тепер пастор або секретар має підтвердити ваш доступ у розділі «Журнал змін → Користувачі». Напишіть йому, що ви зареєструвалися — сторінка відкриється сама, щойно доступ підтвердять.")+'</div><button class="btn" type="button" id="auOut">Вийти</button></div>'}
 function tr(m){m=String(m||"");if(/Invalid login/i.test(m))return "Невірна пошта або пароль.";if(/already registered|already been registered/i.test(m))return "Така пошта вже зареєстрована — оберіть «Вхід».";if(/not confirmed/i.test(m))return "Пошту ще не підтверджено. Відкрийте лист-підтвердження у своїй скриньці.";if(/at least 6|should be at least/i.test(m))return "Пароль має містити щонайменше 6 символів.";if(/valid email|invalid format|is invalid/i.test(m))return "Перевірте адресу пошти.";if(/rate limit|too many/i.test(m))return "Забагато спроб. Зачекайте кілька хвилин.";if(/fetch|network/i.test(m))return "Немає з'єднання. Перевірте інтернет.";return "Не вдалося: "+m}
 document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest("[data-m]");if(t&&t.closest("#auth")){mode=t.dataset.m;note="";showLogin();return}
-  if(e.target.id==="auOut"||e.target.id==="siteOut"){window.__siteApi.signOut()}});
+  if(e.target.closest&&e.target.closest("#auOut,#siteOut")){window.__siteApi.signOut()}});
 document.addEventListener("submit",function(e){if(e.target.id!=="auForm")return;e.preventDefault();if(busy)return;
   var em=(document.getElementById("au_email").value||"").trim(),pw=document.getElementById("au_pass").value||"",nm=mode==="up"?(document.getElementById("au_name").value||"").trim():"";
   if(!em||!pw||(mode==="up"&&!nm)){note=mode==="up"?"Заповніть ім'я, пошту і пароль.":"Введіть пошту і пароль.";noteOk=false;showLogin();return}
@@ -666,7 +698,7 @@ function enter(user){UID=user.id;EMAIL=user.email||"";var tries=0;
     if(!ME||ME.role==="pending"||ME.role==="blocked"){showWait();clearTimeout(waitT);waitT=setTimeout(load,7000);return}
     clearTimeout(waitT);var el=document.getElementById("auth");if(el)el.remove();
     window.__site={role:ME.role,uid:UID,email:EMAIL};live();readyRes();
-    var me=document.querySelector(".me");if(me&&!document.getElementById("siteOut")){var b=document.createElement("button");b.id="siteOut";b.className="link small";b.type="button";b.textContent="Вийти";me.appendChild(b)}
+
   },function(e){note=tr(e&&e.message);noteOk=false;showLogin()})})()}
 SB.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(s)enter(s.user);else showLogin()},function(){showLogin()});
 })();
@@ -763,6 +795,9 @@ var ICO={grid:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3"
   userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/>',
   userminus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11h-6"/>',
   flag:'<path d="M4 22V4"/><path d="M4 4h13l-2 4 2 4H4"/>',
+  updown:'<path d="M8 9l4-4 4 4"/><path d="M8 15l4 4 4-4"/>',
+  out:'<path d="M10 21H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/>',
+  help:'<circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2 1-1.2 1.8"/><path d="M12 17h.01"/>',
   book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.500z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>'};
 function ico(n){return '<svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+(ICO[n]||"")+'</svg>'}
 Array.prototype.forEach.call(document.querySelectorAll("[data-ic]"),function(el){el.insertAdjacentHTML("afterbegin",ico(el.dataset.ic))});
@@ -1548,6 +1583,9 @@ function rolesBlock(p,W){var rs=cardRoles(p.id),lead=S.groups.filter(function(g)
     (can&&act_?'<div class="composer"><select id="p_role" aria-label="Служіння">'+options.map(function(o){return '<option value="'+esc(o[0])+'">'+esc(o[1])+'</option>'}).join("")+'</select><button class="btn primary" data-act="roleAdd">Призначити</button></div>'+
       '<div class="composer"><input id="p_newRole" placeholder="Нове служіння: керівник кафе, парковка…" aria-label="Нове служіння"><button class="btn" data-act="roleNew">'+ico("plus")+' Створити і призначити</button></div>':"")+'</div>'}
 function extra(a,t,v){
+  if(a==="meMenu"){meMenu(t);return true}
+  if(a==="meDash"){meClose();go("home");S.dashEdit=true;render();window.scrollTo(0,0);return true}
+  if(a==="meUsers"){meClose();go("log");return true}
   if(a==="nav"){go(v);return true}
   if(a==="fpart"){S.q="";S.fStatus="active";S.fDeacon="";S.fSpecial="";S.fPart=v;go("people");return true}
   if(a==="partSet"||a==="partAdd"){var pp=person(S.card);if(!pp)return true;var nv2=a==="partAdd"?val("pt_new"):v;if(!nv2){toast("Напишіть стан");return true}var bp=body(pp);bp.part=(a==="partSet"&&pp.part===nv2)?"":nv2;
@@ -1613,7 +1651,7 @@ function tourSteps(){var full=S.canWrite&&!lim(),s=[
   if(full)s.push({tab:"reports",ic:"chart",sel:"#app>.panel",one:1,t:"Звіти",x:"Річний підсумок, прийняті й вибулі, звіт ЄХБ, вік і стать. Усе вивантажується в Excel. Раз на тиждень зберігайте резервну копію."});
   if(S.isAdmin)s.push({tab:"log",ic:"history",sel:"#app>.panel",one:1,t:"Журнал і користувачі",x:"Тут видно, хто й що змінив, і будь-яку зміну можна повернути. Тут же ви підтверджуєте нових користувачів і задаєте їм права."});
   s.push({tab:"home",ic:"spark",sel:"#aiFab",t:"Помічник",x:"Кругла кнопка внизу праворуч. Пишіть коротко: «знайди Бурлаку», «нагадай у суботу подзвонити Вадиму», «запиши: сьогодні відвідав Вадима», «познач Вадима як служить у ЗСУ» — він знайде або запише сам. Напишіть «що ти вмієш», щоб побачити всі команди."});
-  s.push({tab:"home",ic:"check",sel:".me,#app>.bar:last-child",t:"Готово",x:"Ці підказки можна відкрити знову кнопкою «Як користуватись» унизу меню або внизу огляду."});
+  s.push({tab:"home",ic:"check",sel:".me,#app>.bar:last-child",t:"Готово",x:"Ці підказки можна відкрити знову у меню під вашим іменем (унизу ліворуч, на телефоні — кружечок угорі) або кнопкою внизу огляду."});
   return s}
 function tourHl(tab){Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){b.classList.toggle("tour-hl",!!tab&&b.dataset.tab===tab)})}
 function tourMark(scroll){document.body.classList.toggle("touring",!!TOUR);Array.prototype.forEach.call(document.querySelectorAll(".tour-on"),function(e){e.classList.remove("tour-on")});if(!TOUR)return;
@@ -1917,6 +1955,30 @@ function aiRender(){var el=document.getElementById("aiPanel");if(!el)return;aiSy
       '<div class="ai-e"><b>'+(loc?"Напишіть, кого знайти або що записати":"Запитайте про будь-кого або попросіть записати")+'</b><span class="muted small">Наприклад: «знайди Бурлаку», «нагадай у суботу подзвонити Вадиму», «запиши: сьогодні відвідав Вадима».</span><div class="chips">'+sug.map(function(s0){return '<button class="chip" data-act="aiSug">'+esc(s0)+'</button>'}).join("")+'</div></div>')+'</div>'+
     '<form class="ai-f" id="aiForm"><input id="aiIn" placeholder="'+(loc?"Команда або запитання…":"Ваше запитання…")+'" aria-label="Запитання до помічника" autocomplete="off"'+(AI.busy?" disabled":"")+'>'+(AI.busy&&AI.ctl?'<button type="button" class="iconbtn inv" data-act="aiStop" aria-label="Зупинити">'+ico("stop")+'</button>':'<button type="submit" class="iconbtn inv" aria-label="Надіслати">'+ico("send")+'</button>')+'</form>';
   var ni=document.getElementById("aiIn");if(!AI.busy){ni.value=kv;if(foc)ni.focus()}var ms=document.getElementById("aiMsgs");ms.scrollTop=ms.scrollHeight}
+
+/* ---------- account menu ---------- */
+function meIni(n){return String(n||"?").trim().split(/\s+/).map(function(w){return w.charAt(0)}).slice(0,2).join("").toUpperCase()||"?"}
+function meRoleT(){var w=document.getElementById("who"),r=w?(w.textContent.split(" \u00b7 ")[1]||""):"";return r?r.charAt(0).toUpperCase()+r.slice(1):""}
+function meAvH(c){var n=S.me&&S.me.name||"";return S.me&&S.me.avatarUrl?'<img class="'+c+'" src="'+esc(S.me.avatarUrl)+'" alt="">':'<span class="'+c+'">'+esc(meIni(n))+'</span>'}
+function meSync(){var b=document.getElementById("meBtn"),m=document.getElementById("meBtnM");if(!b)return;var has=!!S.me;b.hidden=!has;if(m)m.hidden=!has;if(!has)return;
+  var nm=S.me.name||"Без імені",ini=document.getElementById("meIn");document.getElementById("meName").textContent=nm;document.getElementById("meRole").textContent=meRoleT();
+  ini.hidden=!!S.me.avatarUrl;ini.textContent=meIni(nm);
+  if(m){var k=(S.me.avatarUrl||"")+"|"+nm;if(m.dataset.k!==k){m.dataset.k=k;m.innerHTML=S.me.avatarUrl?'<img src="'+esc(S.me.avatarUrl)+'" alt="">':esc(meIni(nm))}}}
+function meClose(){var el=document.getElementById("meMenu");if(el)el.remove();var b=document.getElementById("meBtn");if(b)b.setAttribute("aria-expanded","false")}
+function meItem(act,ic,label,id){return '<button type="button" role="menuitem"'+(id?' id="'+id+'"':' data-act="'+act+'"')+'><span class="si">'+ico(ic)+'</span><span class="grow">'+label+'</span>'+(id?"":'<span class="go">'+ico("arrow")+'</span>')+'</button>'}
+function meMenu(src){if(document.getElementById("meMenu")){meClose();return}if(!S.me)return;
+  var el=document.createElement("div"),nm=S.me.name||"Без імені",role=meRoleT(),nl=document.getElementById("navLog"),users=nl&&!nl.hidden;el.id="meMenu";el.setAttribute("role","menu");el.setAttribute("aria-label","Обліковий запис");
+  el.innerHTML='<div class="mm-h g-ink"><div class="mm-top">'+meAvH("mm-av")+(role?'<span class="mm-r">'+esc(role)+'</span>':"")+'</div><div class="mm-t"><b>'+esc(nm)+'</b>'+(S.me.email?'<span>'+esc(S.me.email)+'</span>':"")+'</div></div>'+
+    '<div class="mm-l">'+meItem("tourStart","help","Як користуватись")+meItem("meDash","sliders","Налаштувати огляд")+(users?meItem("meUsers","users",window.__SITE?"Користувачі й доступ":"Журнал і користувачі"):"")+'</div>'+
+    (window.__SITE?'<div class="mm-l mm-out">'+meItem("","out","Вийти","siteOut")+'</div>':"");
+  document.body.appendChild(el);var r=src.getBoundingClientRect(),vw=window.innerWidth,vh=window.innerHeight;
+  if(src.id==="meBtnM"){var w=Math.min(320,vw-32);el.style.width=w+"px";el.style.top=(r.bottom+10)+"px";el.style.left=Math.max(16,Math.min(vw-16-w,r.right-w))+"px";el.style.transformOrigin="top right"}
+  else{el.style.width=Math.max(r.width,292)+"px";el.style.left=r.left+"px";el.style.bottom=(vh-r.top+10)+"px";el.style.transformOrigin="bottom left";src.setAttribute("aria-expanded","true")}
+  var f=el.querySelector(".mm-l button");if(f)f.focus({preventScroll:true})}
+document.addEventListener("click",function(e){var m=document.getElementById("meMenu");if(!m)return;var t=e.target;if(t.closest("#meBtn,#meBtnM"))return;if(!m.contains(t)||t.closest("button"))setTimeout(meClose,0)});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&document.getElementById("meMenu")){meClose();var b=document.getElementById("meBtn");if(b&&b.offsetParent)b.focus()}});
+window.addEventListener("resize",meClose);
+(function(){var w=document.getElementById("who");if(w&&window.MutationObserver)new MutationObserver(meSync).observe(w,{childList:true,characterData:true,subtree:true});setInterval(meSync,1500);meSync()})();
 
 start();
 })();
