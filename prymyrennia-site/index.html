@@ -172,7 +172,8 @@ h3{font-size:16px;margin:0;font-weight:500;letter-spacing:-.01em}
 .split>*{min-width:0}
 
 /* home */
-.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.ages-s{margin-block:4px 2px}.ages-s .stat{cursor:default;flex-direction:column;gap:6px}.ages-b .hbar[data-act]{width:100%}
 .stat{display:flex;align-items:flex-start;gap:10px;min-width:0;background:none;border:0;font:inherit;color:inherit;cursor:pointer;padding:4px 2px;text-align:left;border-radius:16px}
 .dn{font-family:var(--dot);font-weight:700;font-size:44px;line-height:.9;font-variant-numeric:tabular-nums;letter-spacing:.01em}
 .strip{display:flex;align-items:stretch;gap:4px;background:var(--glass);border:1px solid var(--glass-line);border-radius:36px;padding:7px;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
@@ -285,6 +286,14 @@ tr.sum td{font-weight:500}
 .panel .chip,dialog .chip{border-color:var(--line)}
 .chip:hover{border-color:var(--fg)}
 .chip.warn{background:var(--bad-bg);color:var(--bad)}
+.dcard .dtag{align-self:flex-start;font-size:11.5px;line-height:1;padding:5px 10px;border-radius:99px;background:rgba(255,255,255,.92);color:#131315;margin-top:-2px}
+.verse{display:flex;gap:18px;align-items:flex-start;padding:24px 28px 22px 22px;border-radius:32px;background:var(--glass);border:1px solid var(--glass-line);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.verse .vs-b{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:14px}
+.verse blockquote{margin:0;font-size:clamp(19px,1.75vw,25px);font-weight:300;line-height:1.34;letter-spacing:-.02em;text-wrap:pretty;max-width:38em}
+.verse .vs-ref{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:13px;color:var(--muted)}
+.verse .vs-ref b{font-weight:500;color:var(--fg);font-size:14px}
+.verse .vs-ref span{padding:4px 10px;border-radius:99px;background:var(--raise);font-size:12px}
+@media (max-width:920px){.verse{flex-direction:column;gap:14px;padding:20px 20px 18px}}
 .chip[aria-pressed="true"],label.chip:has(input:checked){background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
 .chip svg.i{width:14px;height:14px;vertical-align:0}
 .chip .cn{min-width:0;height:auto;padding:0;background:none;color:inherit;opacity:.55}
@@ -315,7 +324,12 @@ span.chip{cursor:default}
 .dcard .dt b{font-size:16px;line-height:1.25;padding-top:8px;overflow-wrap:anywhere}
 .dcard .go{background:var(--on-g-glass);color:var(--on-g);border:1px solid var(--on-g-line)}
 .dcard[aria-pressed="true"] .go{background:#fff;color:#131315;border-color:#fff}
-.dcard[aria-pressed="true"]{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--fg)}
+.dcard{opacity:.8}
+.dcard:hover,.dcard[aria-pressed="true"]{opacity:1}
+.dcard[aria-pressed="true"]{box-shadow:0 18px 40px -14px rgba(20,20,30,.45)}
+.dcards>.dcard.k-deacon{background:radial-gradient(120% 90% at 88% 105%,#d2ec4c 0%,transparent 52%),radial-gradient(90% 80% at 5% 0%,#2c3610 0%,transparent 62%),radial-gradient(80% 80% at 55% 45%,#708a22 0%,transparent 70%),#4b5c19}
+.dcards>.dcard.k-pastor{background:radial-gradient(62% 62% at 50% 58%,#f7b521 0%,transparent 72%),radial-gradient(120% 100% at 105% 105%,#ef5a26 0%,transparent 58%),radial-gradient(80% 70% at 0% 0%,#b4c3cd 0%,transparent 62%),#ee8a28}
+.dcards>.dcard.k-trial{background:radial-gradient(90% 90% at 12% 8%,#547a92 0%,transparent 60%),radial-gradient(90% 80% at 95% 90%,#e79a48 0%,transparent 58%),#8399a7}
 .dcard .v{font-family:var(--dot);font-weight:900;font-size:50px;line-height:1;font-variant-numeric:tabular-nums}
 .dcard .ds{font-size:12.5px;color:var(--on-g-soft)}
 .fam{padding:16px 0;border-bottom:1px solid var(--line)} .fam:first-child{padding-top:0} .fam:last-child{border-bottom:0;padding-bottom:0}
@@ -392,7 +406,7 @@ ol.tl .d{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
   #sideCard,.me{display:none}
   .content{padding-top:20px;gap:20px}
   .tools{flex:1 1 100%}
-  .stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 8px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 8px}
   .hide-s{display:none}
   .rn{flex:1 1 100%}
 }
@@ -431,6 +445,7 @@ span.chip:hover{border-color:var(--line)}
 .form input,.form select{width:100%}
 #repOut .panel>h3{font-size:20px;font-weight:400;letter-spacing:-.025em}
 @media (min-width:921px){#nav{flex:1 1 auto}}
+@media (min-width:1541px){.hands{-webkit-mask-image:linear-gradient(90deg,transparent 2%,rgba(0,0,0,.35) 14%,#000 30%);mask-image:linear-gradient(90deg,transparent 2%,rgba(0,0,0,.35) 14%,#000 30%)}}
 @media (min-width:921px) and (max-height:940px){#sideCard{display:none}#nav button{height:42px}.side{gap:16px;padding-block:0 18px}.side-top{padding-top:190px}.hands{top:84px;width:540px}}
 a.btn{text-decoration:none}
 .rowbtn svg.i{width:14px;height:14px;vertical-align:0;opacity:.7}
@@ -810,7 +825,7 @@ SB.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(s)enter(s.
   /* after sign-in: find out whether this device is already subscribed and refresh its record */
   READY.then(function(){if(!P.ok||Notification.permission!=="granted")return;reg().then(function(r){return r.pushManager.getSubscription()}).then(function(s){P.on=!!s;tell();if(s)save(s).then(function(){},function(){})},function(){})})})();
 /* new version check: the page knows its own build id and compares it with version.txt on the server */
-(function(){var dir=location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/",cur="31fba8f7a3d1",shown=false;
+(function(){var dir=location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/",cur="3c32d9b2e708",shown=false;
   function latest(){return fetch(dir+"version.txt?v="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(t){return String(t).trim()})}
   function busy(){if(document.querySelector("dialog[open]"))return true;var f=document.querySelectorAll("input,textarea");for(var i=0;i<f.length;i++){var e=f[i];if(e.type==="checkbox"||e.type==="radio"||e.type==="date"||e.id==="gq")continue;if(e.value&&e.value!==e.defaultValue)return true}return false}
   function reload(v){location.replace(location.pathname+"?v="+encodeURIComponent(v))}
@@ -877,7 +892,7 @@ function deaconList(){var set={},out=S.deacons.slice();out.forEach(function(d){s
 function isPastor(id){return S.pastors.some(function(p){return p.pid===id})}
 function isDeacon(id){return S.dk.some(function(d){return d.pid===id})}
 function roleNames(){var out=DEFROLES.slice();S.customRoles.concat(Object.keys(S.min)).forEach(function(r){if(out.indexOf(r)<0)out.push(r)});return out}
-function roles(id){var r=[];if(isPastor(id))r.push("пастор");if(isDeacon(id))r.push("диякон");Object.keys(S.min).forEach(function(k){if((S.min[k]||[]).indexOf(id)>=0)r.push(k.toLowerCase())});S.groups.forEach(function(g){if(g.leader===id)r.push("лідер малої групи")});return r}
+function roles(id){var r=[];if(isPastor(id))r.push("пастор");if(isDeacon(id))r.push(dkTrialP(id)?"диякон · випробувальний термін":"диякон");Object.keys(S.min).forEach(function(k){if((S.min[k]||[]).indexOf(id)>=0)r.push(k.toLowerCase())});S.groups.forEach(function(g){if(g.leader===id)r.push("лідер малої групи")});return r}
 function rtag(id){return roles(id).map(function(r){return ' <span class="pill s-role">'+esc(r)+'</span>'}).join("")}
 function groupsOf(id){return S.groups.filter(function(g){return g.leader===id||(g.members||[]).indexOf(id)>=0})}
 function gMembers(g){var ids=(g.members||[]).slice();if(g.leader&&ids.indexOf(g.leader)<0)ids.unshift(g.leader);return ids.map(function(id){var p=person(id);return p?{p:p,d:derive(p),a:age(p.birth),n:fio(p)}:null}).filter(Boolean).sort(function(a,b){return a.n.localeCompare(b.n,"uk")})}
@@ -1028,7 +1043,7 @@ function vJournal(){
   return h}
 
 var REPORTS=[["sum","Підсумок року",1],["annual","Річний звіт ЄХБ",1],["acc","Прийняті",1],["out","Вибулі та вилучені",1],["note","Замітки",1],["tr","Переведення між дияконами",1],["mon","Рух по місяцях",1],["jub","Ювілеї",1],["cont","Відвідини і контакти",1],
-  ["deac","За дияконами",0],["years","Рух за роками",0],["age","Вік і стать",0],["geo","Географія",0],["how","Як прийшли",0],["gone","Вибулі за весь час",0],["min","Служителі",0],["grp","Малі групи",0],["fam","Сімейний стан",0],["cal","Дати цього місяця",0],["part","Стан у церкві",0],["non","Не члени церкви",0],["gaps","Неповні дані",0],["chk","Перевірка даних",0]];
+  ["deac","За дияконами і пасторами",0],["years","Рух за роками",0],["age","Вік і стать",0],["geo","Географія",0],["how","Як прийшли",0],["gone","Вибулі за весь час",0],["min","Служителі",0],["grp","Малі групи",0],["fam","Сімейний стан",0],["cal","Дати цього місяця",0],["part","Стан у церкві",0],["non","Не члени церкви",0],["gaps","Неповні дані",0],["chk","Перевірка даних",0]];
 function calcYear(y){var Y=yearStats(),r=Y[y]||{h:[0,0,0,0,0],moved:0,left:0,excluded:0,died:0},o={year:y,st:0,en:0,inn:0,out:0,h:r.h.slice(),excluded:r.excluded,left:r.left,moved:r.moved,died:r.died,notes:evOf(["note_on"],y).length,transfers:evOf(["deacon"],y).length,men:0,women:0,deacons:{}};
   S.people.forEach(function(p){var b=activeAtEnd(p,y-1),a=activeAtEnd(p,y);if(b)o.st++;if(a){o.en++;if(p.sex==="ч")o.men++;if(p.sex==="ж")o.women++}if(!b&&a)o.inn++;if(b&&!a)o.out++});return o}
 function activeAtEnd(p,y){var st="none";evs(p).forEach(function(e){if(yr(e.k)<=y){var s=EV[e.type]&&EV[e.type].st;if(s)st=s}});return st==="member"||st==="note"}
@@ -1050,7 +1065,7 @@ function vReports(){
       '<div class="kpis">'+[["На початок року",c.st],["Прийшло",c.inn],["Вибуло",c.out],["На кінець"+(y===CY&&!snap?" (зараз)":" року"),c.en],["Приріст",(c.en-c.st>0?"+":"")+(c.en-c.st)]].map(function(k){return '<div class="kpi"><div class="l">'+k[0]+'</div><div class="v">'+k[1]+'</div></div>'}).join("")+'</div>'+
       tbl([["Подія за рік"],["Кількість",1]],[["Хрещення (світ)",c.h[0]],["Хрещення (ДВР)",c.h[1]],["Прийняті з іншої церкви",c.h[2]],["Прийняті після відлучення",c.h[3]],["Прийняті, спосіб не вказано",c.h[4]],["Вилучені",c.excluded],["Самоусунулись",c.left],["Перейшли до іншої церкви",c.moved],["Перейшли у вічність",c.died],["Взято на замітку",c.notes],["Переведено до іншого диякона",c.transfers]])+
       '<div class="muted small">«Прийшло» і «вибуло» рахують людей, чий статус змінився за рік; таблиця рахує події, тому той, кого прийняли й вилучили того самого року, є в таблиці, але не у верхніх цифрах.</div>')};
-  R.acc=function(){sec("acc","Прийняті у "+y,tbl([["Дата"],["Людина"],["Як прийшов"],["Диякон"],["Примітка"]],evOf(["accepted"],y).map(function(j){return [fdE(j.e.date),pl(j.p),esc(j.e.how||"—"),esc(j.e.deacon?canon(j.e.deacon):derive(j.p).deacon),'<span class="small muted">'+esc(j.e.note||"")+'</span>']}),"Цього року нікого не прийнято."))};
+  R.acc=function(){sec("acc","Прийняті у "+y,tbl([["Дата"],["Людина"],["Як прийшов"],["Диякон / пастор"],["Примітка"]],evOf(["accepted"],y).map(function(j){return [fdE(j.e.date),pl(j.p),esc(j.e.how||"—"),esc(j.e.deacon?canon(j.e.deacon):derive(j.p).deacon),'<span class="small muted">'+esc(j.e.note||"")+'</span>']}),"Цього року нікого не прийнято."))};
   R.out=function(){sec("out","Вибулі та вилучені у "+y,tbl([["Дата"],["Людина"],["Що сталося"],["Причина / куди"]],evOf(["excluded","left","moved","died"],y).map(function(j){return [fdE(j.e.date),pl(j.p),esc(EV[j.e.type].label),'<span class="small">'+esc(j.e.note||"")+'</span>']}),"Цього року ніхто не вибув."))};
   R.note=function(){sec("note","Замітки у "+y,tbl([["Дата"],["Людина"],["Подія"],["Термін до"],["За що"]],evOf(["note_on","note_off"],y).map(function(j){return [fdE(j.e.date),pl(j.p),esc(EV[j.e.type].label),fd(j.e.until),'<span class="small">'+esc(j.e.note||"")+'</span>']}),"Цього року заміток не було."))};
   R.tr=function(){sec("tr","Переведення між дияконами у "+y,tbl([["Дата"],["Людина"],["До диякона"],["Коментар"]],evOf(["deacon"],y).map(function(j){return [fdE(j.e.date),pl(j.p),esc(canon(j.e.deacon)),'<span class="small muted">'+esc(j.e.note||"")+'</span>']}),"Цього року переведень не було."))};
@@ -1059,12 +1074,12 @@ function vReports(){
     var rows=M.map(function(m,i){return [m,I[i],O[i],(I[i]-O[i]>0?"+":"")+(I[i]-O[i])]});if(ni||no)rows.push(["місяць не вказано",ni,no,""]);var t=["Разом",I.reduce(function(a,b){return a+b},0)+ni,O.reduce(function(a,b){return a+b},0)+no,""];t.sum=1;rows.push(t);
     sec("mon","Рух по місяцях, "+y,tbl([["Місяць"],["Прийнято",1],["Вибуло",1],["Різниця",1]],rows))};
   R.jub=function(){var rows=A.filter(function(x){var by=yr(x.p.birth),t=y-by;return by&&t>=50&&t%5===0}).sort(function(a,b){return String(a.p.birth).slice(5)<String(b.p.birth).slice(5)?-1:1}).map(function(x){return [x.p.birth.length===10?fd(x.p.birth).slice(0,5):"дата невідома",pl(x.p),y-yr(x.p.birth),esc(x.d.deacon)]});
-    sec("jub","Ювілеї у "+y+" (50 років і далі кожні 5)",tbl([["День"],["Людина"],["Виповнюється",1],["Диякон"]],rows,"Ювілярів цього року немає."))};
-  R.deac=function(){function line(name,xs){var s=dStat(xs);return [esc(name),s.n,s.m,s.w,s.med,s.old,s.nop,s.note]}var rows=deaconList().map(function(d){return line(d,A.filter(function(x){return x.d.deacon===d}))});rows.push(line("Не закріплені",A.filter(function(x){return !x.d.deacon})));var t=line("Разом",A);t.sum=1;rows.push(t);
-    sec("deac","За дияконами",tbl([["Диякон"],["Членів",1],["Чол.",1],["Жін.",1],["Медіанний вік",1],["75+",1],["Без телефону",1],["На замітці",1]],rows))};
+    sec("jub","Ювілеї у "+y+" (50 років і далі кожні 5)",tbl([["День"],["Людина"],["Виповнюється",1],["Диякон / пастор"]],rows,"Ювілярів цього року немає."))};
+  R.deac=function(){function line(name,xs){var s=dStat(xs);return [esc(name),s.n,s.m,s.w,s.med,s.nop,s.note]}var rows=deaconList().map(function(d){return line(d,A.filter(function(x){return x.d.deacon===d}))});rows.push(line("Не закріплені",A.filter(function(x){return !x.d.deacon})));var t=line("Разом",A);t.sum=1;rows.push(t);
+    sec("deac","За дияконами і пасторами",tbl([["Диякон / пастор"],["Членів",1],["Чол.",1],["Жін.",1],["Медіанний вік",1],["Без телефону",1],["На замітці",1]],rows))};
   R.years=function(){var ys=Object.keys(Y).map(Number).sort(function(a,b){return b-a}).slice(0,15),und=0;S.people.forEach(function(p){(p.events||[]).forEach(function(e){if(!yr(e.date))und++})});
     sec("years","Рух членства за роками",(und?'<div class="muted small">Подій без дати: '+und+' — вони в цю таблицю не потрапили.</div>':"")+tbl([["Рік"],["Хрещ. (світ)",1],["Хрещ. (ДВР)",1],["З іншої церкви",1],["Після відлучення",1],["Інше",1],["Прийнято",1],["Вилучені",1],["Самоусунулись",1],["Перейшли",1],["Померли",1],["Вибуло",1],["Приріст",1]],ys.map(function(k){var r=Y[k];return [k].concat(r.h,['<b>'+r.inn+'</b>',r.excluded,r.left,r.moved,r.died,'<b>'+r.out+'</b>','<b>'+(r.inn-r.out>0?"+":"")+(r.inn-r.out)+'</b>'])})))};
-  R.age=function(){var G=[["до 18",0,17],["18–35",18,35],["36–60",36,60],["61–74",61,74],["75+",75,200]];function c(f){return A.filter(f).length}
+  R.age=function(){var G=[["до 18",0,17],["18–35",18,35],["36–60",36,60],["61+",61,200]];function c(f){return A.filter(f).length}
     var rows=G.map(function(g){function inG(x){return x.a!=null&&x.a>=g[1]&&x.a<=g[2]}return [g[0],c(function(x){return inG(x)&&x.p.sex==="ч"}),c(function(x){return inG(x)&&x.p.sex==="ж"}),c(inG)]});rows.push(["вік невідомий",c(function(x){return x.a==null&&x.p.sex==="ч"}),c(function(x){return x.a==null&&x.p.sex==="ж"}),c(function(x){return x.a==null})]);var t=["Разом",c(function(x){return x.p.sex==="ч"}),c(function(x){return x.p.sex==="ж"}),A.length];t.sum=1;rows.push(t);
     sec("age","Вік і стать чинних членів",tbl([["Вік"],["Чоловіків",1],["Жінок",1],["Разом",1]],rows))};
   function srt(o){return Object.keys(o).sort(function(a,b){return o[b]-o[a]}).map(function(k){return [k,o[k]]})}
@@ -1078,19 +1093,19 @@ function vReports(){
   R.gaps=function(){sec("gaps","Неповні дані",'<ul class="list">'+[["nophone",function(x){return !x.p.phone}],["noaddr",function(x){return !x.p.address&&!x.p.place}],["nobirth",function(x){return !x.p.birth}],["nobapt",function(x){return !x.p.baptism}]].map(function(r){return '<li><button class="link" data-act="special" data-v="'+r[0]+'">'+SPECIAL[r[0]]+'</button><b>'+A.filter(r[1]).length+'</b></li>'}).join("")+'</ul>')};
   R.cont=function(){var J=[];S.people.forEach(function(p){(p.contacts||[]).forEach(function(c){if(yr(c.date)===y)J.push({p:p,c:c})})});J.sort(function(a,b){return a.c.date<b.c.date?-1:1});
     var rows=deaconList().map(function(d){var xs=A.filter(function(x){return x.d.deacon===d});return [esc(d),xs.length,xs.filter(function(x){return (x.p.contacts||[]).some(function(c){return yr(c.date)===y})}).length,xs.filter(function(x){return lastContact(x.p)<addMonths(today(),-3)}).length]});
-    sec("cont","Відвідини і контакти у "+y,tbl([["Диякон"],["Людей",1],["З контактом у "+y,1],["Без контакту понад 3 міс.",1]],rows)+tbl([["Дата"],["Людина"],["Що це було"],["Хто"],["Що з\'ясували"]],J.map(function(j){return [fd(j.c.date),pl(j.p),esc(j.c.kind||""),esc(j.c.by||""),'<span class="small">'+esc(j.c.note||"")+'</span>']}),"Цього року контактів не записано."))};
+    sec("cont","Відвідини і контакти у "+y,tbl([["Диякон / пастор"],["Людей",1],["З контактом у "+y,1],["Без контакту понад 3 міс.",1]],rows)+tbl([["Дата"],["Людина"],["Що це було"],["Хто"],["Що з\'ясували"]],J.map(function(j){return [fd(j.c.date),pl(j.p),esc(j.c.kind||""),esc(j.c.by||""),'<span class="small">'+esc(j.c.note||"")+'</span>']}),"Цього року контактів не записано."))};
   R.fam=function(){var o={};A.forEach(function(x){var k=x.p.marital||"не вказано";o[k]=(o[k]||0)+1});var sp=0,fm={};A.forEach(function(x){(x.p.rel||[]).forEach(function(r){if(r.type==="чоловік"||r.type==="дружина")sp++});if(x.p.family)fm[x.p.family]=1});
     sec("fam","Сімейний стан чинних членів",tbl([["Стан"],["Кількість",1]],srt(o))+'<div class="muted small">Подружніх пар, де записано зв\'язок: '+Math.floor(sp/2)+' · сімей за спільною назвою: '+Object.keys(fm).length+'</div>')};
   R.cal=function(){var m=today().slice(5,7),rows=[];A.forEach(function(x){[["birth","день народження"],["baptism","річниця хрещення"],["wedding","річниця шлюбу"]].forEach(function(k){var v=x.p[k[0]];if(v&&String(v).length===10&&v.slice(5,7)===m)rows.push([v.slice(8),pl(x.p),k[1],CY-yr(v),esc(x.d.deacon)])})});rows.sort(function(a,b){return a[0]<b[0]?-1:1});
-    sec("cal","Дати цього місяця",tbl([["День"],["Людина"],["Подія"],["Років",1],["Диякон"]],rows,"Цього місяця дат немає."))};
-  R.non=function(){sec("non","Не члени церкви",tbl([["Людина"],["Хто"],["Вік",1],["Диякон"],["Телефон"]],all().filter(function(x){return x.d.st==="none"}).map(function(x){return [pl(x.p),esc(x.p.kind||"не вказано"),x.a==null?"":x.a,esc(x.d.deacon),esc(x.p.phone||"")]}),"Відвідувачів, кандидатів і дітей ще не записано."))};
+    sec("cal","Дати цього місяця",tbl([["День"],["Людина"],["Подія"],["Років",1],["Диякон / пастор"]],rows,"Цього місяця дат немає."))};
+  R.non=function(){sec("non","Не члени церкви",tbl([["Людина"],["Хто"],["Вік",1],["Диякон / пастор"],["Телефон"]],all().filter(function(x){return x.d.st==="none"}).map(function(x){return [pl(x.p),esc(x.p.kind||"не вказано"),x.a==null?"":x.a,esc(x.d.deacon),esc(x.p.phone||"")]}),"Відвідувачів, кандидатів і дітей ще не записано."))};
   R.chk=function(){var rows=[],t=today(),seen={},seenB={};function add(pr,p,d){rows.push([pr,p?pl(p):"",'<span class="small">'+esc(d||"")+'</span>'])}
     all().forEach(function(x){var p=x.p,k=x.n.toLowerCase().replace(/\s+/g," ");if(seen[k])add("Дві картки з однаковим ім\'ям",p,"ще одна: "+fio(seen[k]));else seen[k]=p;
       var kb=(p.last+" "+p.first).toLowerCase()+"|"+p.birth;if(p.birth&&seenB[kb]&&seenB[kb]!==seen[k]&&fio(seenB[kb])!==fio(p))add("Однакові прізвище, ім\'я і дата народження",p,"ще одна: "+fio(seenB[kb]));else if(p.birth)seenB[kb]=p;
       if(p.birth&&p.baptism&&String(p.baptism).slice(0,4)<String(p.birth).slice(0,4))add("Хрещення раніше за народження",p,"народження "+fd(p.birth)+", хрещення "+fd(p.baptism));
       if(p.birth&&fullDate(p.birth)>t)add("Дата народження в майбутньому",p,fd(p.birth));if(x.a!=null&&x.a>105)add("Вік понад 105 років",p,x.a+" р.");
       var E=evs(p),acc=E.filter(function(e){return e.type==="accepted"});
-      E.forEach(function(e){if(e.date&&fullDate(e.date)>t&&e.date.length===10)add("Подія з датою в майбутньому",p,EV[e.type].label+" "+fd(e.date));if(e.deacon&&x.d.active&&S.deacons.indexOf(canon(e.deacon))<0&&canon(e.deacon)===x.d.deacon)add("Закріплений за дияконом, якого немає у списку",p,canon(e.deacon))});
+      E.forEach(function(e){if(e.date&&fullDate(e.date)>t&&e.date.length===10)add("Подія з датою в майбутньому",p,EV[e.type].label+" "+fd(e.date));if(e.deacon&&x.d.active&&careList().indexOf(canon(e.deacon))<0&&canon(e.deacon)===x.d.deacon)add("Закріплений за тим, кого немає серед дияконів і пасторів",p,canon(e.deacon))});
       if(x.d.active&&acc.length&&!acc.some(function(e){return e.date}))add("Чинний член без дати прийняття",p,"");
       if(x.d.active&&!x.d.deacon)add("Чинний член без диякона",p,"");
       if(p.birth&&acc[0]&&acc[0].date&&String(acc[0].date).slice(0,4)<String(p.birth).slice(0,4))add("Прийнятий раніше, ніж народився",p,"народження "+fd(p.birth)+", прийняття "+fd(acc[0].date));
@@ -1116,7 +1131,7 @@ function vReports(){
     if(S.canWrite&&!lim()){body='<div class="bar"><span class="grow muted small">Рух членів рахується з обліку сам. Решту показників заповніть вручну — вони зберігаються окремо для кожного року.</span><button class="btn small" data-act="annEdit">'+(S.annEdit?"Сховати форму":"Заповнити показники")+'</button></div>'+
       (S.annEdit?'<div class="box"><div class="form">'+AN.map(function(f){return '<label>'+esc(f[1])+'<input id="an_'+f[0]+'" value="'+esc(m[f[0]]==null?"":m[f[0]])+'"'+(f[3]?"":' inputmode="numeric"')+'></label>'}).join("")+'</div><div class="bar"><button class="btn primary" data-act="saveAnnual">Зберегти показники за '+y+'</button></div></div>':"")+body}
     sec("annual","Річний звіт ЄХБ за "+y+" рік",body)};
-  R.part=function(){var o={};A.forEach(function(x){var k=x.p.part||"не вказано";o[k]=(o[k]||0)+1});var rows=A.filter(function(x){return x.p.part&&x.p.part!==PART[0]}).map(function(x){return [pl(x.p),esc(x.p.part),esc(x.d.deacon),esc(x.p.phone||"")]});sec("part","Стан у церкві",'<div>'+hbars(srt(o))+'</div>'+tbl([["Людина"],["Стан"],["Диякон"],["Телефон"]],rows,"Усі чинні члени активні або стан не вказано."))};
+  R.part=function(){var o={};A.forEach(function(x){var k=x.p.part||"не вказано";o[k]=(o[k]||0)+1});var rows=A.filter(function(x){return x.p.part&&x.p.part!==PART[0]}).map(function(x){return [pl(x.p),esc(x.p.part),esc(x.d.deacon),esc(x.p.phone||"")]});sec("part","Стан у церкві",'<div>'+hbars(srt(o))+'</div>'+tbl([["Людина"],["Стан"],["Диякон / пастор"],["Телефон"]],rows,"Усі чинні члени активні або стан не вказано."))};
   var any=false;REPORTS.forEach(function(r){if(sel.indexOf(r[0])>=0){any=true;R[r[0]]()}});
   if(!any)h+='<div class="panel empty">Виберіть один або кілька звітів угорі.</div>';
   return h+'</div>'}
@@ -1270,7 +1285,7 @@ function more(a,t,v){
     db.collection("gmeet").doc(g.id+"_"+gd).set({gid:g.id,date:gd,present:pres,note:val("gm_note")}).then(function(){toast("Зустріч записано")},function(){toast("Не вдалося зберегти")});return true}
   if(a==="delGM"){if(S.confirm!=="g"+v){S.confirm="g"+v;render();return true}S.confirm=-1;db.collection("gmeet").doc(v).delete().then(function(){toast("Зустріч видалено")},function(){toast("Не вдалося видалити")});return true}
   if(a==="prDeacon"){var xs=act().filter(function(x){return x.d.deacon===S.dView});printDoc("Диякон "+S.dView+" — список на "+fd(today()),'<div class="m">Усього: '+xs.length+'</div>'+ptable(["№","ПІБ","Вік","Телефон","Адреса","Останній контакт","Позначки"],xs.map(function(x,i){return [i+1,x.n,x.a==null?"":x.a,x.p.phone,[x.p.place,x.p.address].filter(Boolean).join(", "),fd(lastContact(x.p)),(x.p.needs||[]).concat(x.d.st==="note"?["на замітці"]:[]).join(", ")]})));return true}
-  if(a==="prVote"){var A=act(),n=A.length;printDoc("Список членів церкви для зібрання",'<div class="m">Дата зібрання: ____________________ &nbsp; Членів за списком: '+n+' &nbsp; Дві третини: '+Math.ceil(n*2/3)+' &nbsp; Більшість (50% + 1): '+(Math.floor(n/2)+1)+' &nbsp; Присутніх: ________</div>'+ptable(["№","ПІБ","Диякон","Підпис"],A.map(function(x,i){return [i+1,x.n,x.d.deacon,""]})).replace("<th>Підпис</th>",'<th style="width:28%">Підпис</th>'));return true}
+  if(a==="prVote"){var A=act(),n=A.length;printDoc("Список членів церкви для зібрання",'<div class="m">Дата зібрання: ____________________ &nbsp; Членів за списком: '+n+' &nbsp; Дві третини: '+Math.ceil(n*2/3)+' &nbsp; Більшість (50% + 1): '+(Math.floor(n/2)+1)+' &nbsp; Присутніх: ________</div>'+ptable(["№","ПІБ","Диякон / пастор","Підпис"],A.map(function(x,i){return [i+1,x.n,x.d.deacon,""]})).replace("<th>Підпис</th>",'<th style="width:28%">Підпис</th>'));return true}
   if(a==="prCard"){var p=person(S.card);if(!p)return true;var d=derive(p),ag=age(p.birth);
     printDoc(fio(p),'<div class="m">'+esc(d.st==="none"&&p.kind?p.kind:ST[d.st])+(d.deacon?" · диякон: "+esc(d.deacon):"")+" · станом на "+fd(today())+'</div>'+ptable(["Поле","Значення"],[["Дата народження",fd(p.birth)+(ag==null?"":" ("+ag+" р.)")],["Телефон",p.phone],["Адреса",[p.place,p.address].filter(Boolean).join(", ")],["Сім'я",p.family],["Сімейний стан",p.marital],["Хрещення",fd(p.baptism)],["У церкві з",fd(d.joined)],["Служіння",roles(p.id).join(", ")],["Малі групи",groupsOf(p.id).map(function(g){return g.name}).join(", ")],["Потреби",(p.needs||[]).join(", ")],["Примітки",p.notes]].filter(function(r){return r[1]}))+
       '<h2>Історія</h2>'+ptable(["Дата","Подія","Деталі"],evs(p).map(function(e){return [fdE(e.date),EV[e.type]?EV[e.type].label:e.type,evDetail(e)]}))+((p.contacts||[]).length?'<h2>Відвідини і контакти</h2>'+ptable(["Дата","Що","Хто","Що з'ясували"],(p.contacts||[]).slice().sort(function(a,b){return a.date<b.date?1:-1}).map(function(c){return [fd(c.date),c.kind,c.by,c.note]})):""));return true}
@@ -1451,7 +1466,7 @@ function start(){
     db.collection("annual").limit(200).onSnapshot(function(snap){S.annual={};snap.docs.forEach(function(d){S.annual[d.id]=d.data()});if(S.ready)render()},function(){});
     db.collection("gmeet").limit(1000).onSnapshot(function(snap){S.gmeet=snap.docs.map(function(d){return Object.assign({id:d.id},d.data())});if(S.ready)render()},function(){});
     db.collection("archive").limit(200).onSnapshot(function(snap){S.archive={};snap.docs.forEach(function(d){S.archive[d.id]=d.data()});if(S.ready)render()},function(){});
-    db.doc("config/main").onSnapshot(function(s){var c=s.exists?s.data():{};S.cfg=c;S.min={};Object.keys(c.ministries||{}).forEach(function(k){if(Array.isArray(c.ministries[k])&&c.ministries[k].length)S.min[k]=c.ministries[k].slice()});S.customRoles=Array.isArray(c.customRoles)?c.customRoles.slice():[];S.dk=(Array.isArray(c.deacons)?c.deacons:[]).map(function(d){return typeof d==="string"?{pid:"",name:d,aliases:[]}:{pid:d.pid||"",name:d.name,aliases:d.aliases||[]}});ALIAS={};S.dk.forEach(function(d){d.aliases.forEach(function(a){ALIAS[a]=d.name})});S.deacons=S.dk.map(function(d){return d.name});S.pastors=Array.isArray(c.pastors)?c.pastors.slice():(c.pastor?[c.pastor]:[]);if(S.ready)render()},function(){});
+    db.doc("config/main").onSnapshot(function(s){var c=s.exists?s.data():{};S.cfg=c;S.min={};Object.keys(c.ministries||{}).forEach(function(k){if(Array.isArray(c.ministries[k])&&c.ministries[k].length)S.min[k]=c.ministries[k].slice()});S.customRoles=Array.isArray(c.customRoles)?c.customRoles.slice():[];S.dk=(Array.isArray(c.deacons)?c.deacons:[]).map(function(d){return typeof d==="string"?{pid:"",name:d,aliases:[]}:{pid:d.pid||"",name:d.name,aliases:d.aliases||[],trial:!!d.trial}});ALIAS={};S.dk.forEach(function(d){d.aliases.forEach(function(a){ALIAS[a]=d.name})});S.deacons=S.dk.map(function(d){return d.name});S.pastors=Array.isArray(c.pastors)?c.pastors.slice():(c.pastor?[c.pastor]:[]);if(S.ready)render()},function(){});
   });
 }
 
@@ -1460,7 +1475,7 @@ ICO.save='<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>';
 ICO.sheet='<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M3 15h18M9 3v18"/>';
 ICO.copy='<rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>';
 ICO.print='<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="9" rx="2.5"/><path d="M7 15h10v6H7z"/>';
-ICO.trend='<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>';
+ICO.trend='<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>';ICO.trenddown='<path d="M22 17l-8.5-8.5-5 5L2 7"/><path d="M16 17h6v-6"/>';ICO.trendflat='<path d="M3 12h18"/><path d="M16 7l5 5-5 5"/>';
 ICO.trash='<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>';
 ICO.clock='<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>';
 ICO.alert='<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/>';
@@ -1511,7 +1526,7 @@ function homeTop(){var h="";if(!S.roleKnown)return h;
   return h}
 
 ICO.sliders='<path d="M4 6h10M4 12h2M10 12h10M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>';
-var DASH=[["yt","Трансляція"],["stats","Цифри в рядок"],["strip","Приріст і вік"],["f1","Членів церкви"],["f2","Медіанний вік"],["f3","Нагадування"],["chart","Рух за роками і диякони"],["minis","Прийнято, вибуло, пастор, групи"],["l1","Потребує уваги"],["l2","Дати на 2 тижні"],["l3","Останні зміни"]];
+var DASH=[["verse","Слово на сьогодні"],["yt","Трансляція"],["stats","Цифри в рядок"],["strip","Приріст і вік"],["f1","Членів церкви"],["f2","Медіанний вік"],["f3","Нагадування"],["chart","Рух за роками і диякони"],["minis","Прийнято, вибуло, пастор, групи"],["l1","Потребує уваги"],["l2","Дати на 2 тижні"],["l3","Останні зміни"]];
 S.hide=[];try{var hs0=JSON.parse(localStorage.getItem("dashHide")||"[]");if(Array.isArray(hs0))S.hide=hs0.filter(function(k){return typeof k==="string"})}catch(e){}
 function on(k){return S.hide.indexOf(k)<0}
 S.tourDone=false;try{S.tourDone=localStorage.getItem("tourDone")==="1"}catch(e){}
@@ -1526,21 +1541,21 @@ function vHome(){
   var men=A.filter(function(x){return x.p.sex==="ч"}).length,wom=A.filter(function(x){return x.p.sex==="ж"}).length,notes=A.filter(function(x){return x.d.st==="note"});
   var RC=reminders().count,net=cy.inn-cy.out,medv=median(ages),med=num(medv),old=ages.filter(function(a){return a>=75}).length,sign=(net>0?"+":"")+net;
   function stat(k,n,tag,cls){return '<button class="stat" data-act="kpi" data-v="'+k+'"><span class="dn">'+n+'</span><span class="tag'+(cls?" "+cls:"")+'">'+tag+'</span></button>'}
-  var G=[["до 18",0,17],["18–35",18,35],["36–60",36,60],["61–74",61,74],["75+",75,200]],gc=G.map(function(g){return ages.filter(function(a){return a>=g[1]&&a<=g[2]}).length}),gm=Math.max.apply(null,gc.concat([1]));
-  var h=(S.dashEdit?dashPanel():"")+homeTop();
-  if(on("stats"))h+='<section class="stats">'+stat("all",A.length,"усього","lime")+stat("all",men,"чоловіків")+stat("all",wom,"жінок")+stat("note",notes.length,"на замітці")+stat("old",old,"75 і старші")+'</section>';
-  if(on("strip"))h+='<section class="strip"><div class="trend"><span class="si'+(net<0?" t-bad":" t-lime")+'">'+ico("trend")+'</span><span><b>Приріст '+sign+'</b><small>за '+CY+' рік</small></span></div>'+
+  var G=[["до 18",0,17],["18–35",18,35],["36–60",36,60],["61+",61,200]],gc=G.map(function(g){return ages.filter(function(a){return a>=g[1]&&a<=g[2]}).length}),gm=Math.max.apply(null,gc.concat([1]));
+  var h=(S.dashEdit?dashPanel():"")+(on("verse")?verseCard():"")+homeTop();
+  if(on("stats"))h+='<section class="stats">'+stat("all",A.length,"усього","lime")+stat("all",men,"чоловіків")+stat("all",wom,"жінок")+stat("note",notes.length,"на замітці")+'</section>';
+  if(on("strip"))h+='<section class="strip"><div class="trend"><span class="si'+(net<0?" t-bad":" t-lime")+'">'+ico(net<0?"trenddown":net>0?"trend":"trendflat")+'</span><span><b>Приріст '+sign+'</b><small>за '+CY+' рік</small></span></div>'+
     G.map(function(g,i){var n=gc[i],d="",q=n?Math.max(1,Math.round(n/gm*9)):0;for(var z=0;z<q;z++)d+="<u></u>";return '<div class="ag" data-tip="'+esc(g[0]+": "+n)+'"><span>'+g[0]+'</span><span class="dd">'+d+'</span><b>'+n+'</b></div>'}).join("")+'</section>';
   var FT=[on("f1")&&'<button class="feature f-green" data-act="kpi" data-v="all"><span class="fl">Членів церкви</span><span><span class="fv">'+A.length+'</span><span class="fs">'+(net?sign+" за рік":"без змін за рік")+'</span></span><span class="matrix"></span></button>',
-    on("f2")&&'<button class="feature f-sun" data-act="kpi" data-v="old"><span class="fl">Медіанний вік</span><span><span class="fv">'+(med||"—")+'</span><span class="fs">'+old+' осіб 75+</span></span><span class="ruler-w"><span class="ruler"></span>'+(medv!==""?'<i style="left:'+Math.min(96,Math.max(4,medv))+'%"></i>':"")+'</span></button>',
+    on("f2")&&'<button class="feature f-sun" data-act="ages"><span class="fl">Медіанний вік</span><span><span class="fv">'+(med||"—")+'</span><span class="fs">'+(ages.length?"від "+Math.min.apply(null,ages)+" до "+Math.max.apply(null,ages)+" р.":"")+'</span></span><span class="ruler-w"><span class="ruler"></span>'+(medv!==""?'<i style="left:'+Math.min(96,Math.max(4,medv))+'%"></i>':"")+'</span></button>',
     on("f3")&&'<button class="feature plain" data-act="goRem"><span class="pt"><span>'+(RC?"Нагадування чекають":"Нагадувань немає")+'</span><span class="go">'+ico("arrow")+'</span></span><span class="pv">'+RC+'<small>'+(RC?"потребують рішення":"усе опрацьовано")+'</small></span><span class="slider"><u'+(RC?' class="hot"':"")+'></u><s></s><em></em></span><span class="pn">Замітки, у яких минув термін, і вилучені, про яких час поцікавитись.</span></button>'].filter(Boolean);
   if(FT.length)h+='<section class="features n'+FT.length+'">'+FT.join("")+'</section>';
   var dl=deaconList(),drows=dl.map(function(d){return [d,A.filter(function(x){return x.d.deacon===d}).length]});
-  var nod=A.filter(function(x){return !x.d.deacon});if(nod.length)drows.push(["Без диякона",nod.length,"-"]);
+  var nod=A.filter(function(x){return !x.d.deacon});if(nod.length)drows.push(["Не закріплені",nod.length,"-"]);
   var ys=[];for(var y=CY-7;y<=CY;y++)ys.push(y);var mx=Math.max.apply(null,ys.map(function(y){var r=Y[y]||{inn:0,out:0};return Math.max(r.inn,r.out)}).concat([1]));
   if(on("chart"))h+='<section class="dark"><div>'+sh("Рух за роками",null,'<div class="legend"><span><i style="background:var(--cin)"></i>прийнято</span><span><i style="background:var(--out)"></i>вибуло</span></div>')+
     '<div><div class="vchart">'+ys.map(function(y){var r=Y[y]||{inn:0,out:0};return '<div class="vg"><div class="vb in'+(r.inn?"":" zero")+'" style="height:'+(r.inn/mx*100)+'%" data-tip="'+y+': прийнято '+r.inn+'"><span>'+(r.inn||"")+'</span></div><div class="vb out'+(r.out?"":" zero")+'" style="height:'+(r.out/mx*100)+'%" data-tip="'+y+': вибуло '+r.out+'"><span>'+(r.out||"")+'</span></div></div>'}).join("")+'</div><div class="vx">'+ys.map(function(y){return '<div>'+y+'</div>'}).join("")+'</div></div></div>'+
-    '<div>'+sh("Члени за дияконами",drows.length?null:null)+'<div>'+(drows.length?hbars(drows,"toDeacon"):'<span class="muted">Членів ще немає.</span>')+'</div></div></section>';
+    '<div>'+sh("Члени за дияконами і пасторами",drows.length?null:null)+'<div>'+(drows.length?hbars(drows,"toDeacon"):'<span class="muted">Членів ще немає.</span>')+'</div></div></section>';
   var noG=A.filter(function(x){return !groupsOf(x.p.id).length}).length;
   if(on("minis"))h+='<section class="minis">'+
     '<button class="mini" data-act="kpi" data-v="in"><span class="ml">'+ico("userplus")+'Прийнято у '+CY+'</span><span class="mv">'+cy.inn+'<small>осіб</small></span>'+mdots(["accepted"])+'</button>'+
@@ -1551,7 +1566,7 @@ function vHome(){
   var bd=upcoming(14),J=[];S.people.forEach(function(p){(p.events||[]).forEach(function(e){if(e.date&&e.date.length===10)J.push({p:p,e:e})})});J.sort(function(a,b){return a.e.date<b.e.date?1:-1});
   function cnt(k,f){var n=A.filter(f).length;return n?'<li><button class="link" data-act="special" data-v="'+k+'">'+SPECIAL[k]+'</button><b>'+n+'</b></li>':""}
   var att=(notes.length?'<li><button class="link" data-act="fnote">на замітці</button><b>'+notes.length+'</b></li>':"")+(nod.length?'<li><button class="link" data-act="toDeacon" data-v="-">без диякона</button><b>'+nod.length+'</b></li>':"")+
-      partList().slice(1).map(function(n){var c=A.filter(function(x){return x.p.part===n}).length;return c?'<li><button class="link" data-act="fpart" data-v="'+esc(n)+'">'+esc(n)+'</button><b>'+c+'</b></li>':""}).join("")+cnt("needs",function(x){return (x.p.needs||[]).length})+cnt("nocontact",function(x){return lastContact(x.p)<addMonths(today(),-3)})+cnt("nophone",function(x){return !x.p.phone})+cnt("noaddr",function(x){return !x.p.address&&!x.p.place})+cnt("nobirth",function(x){return !x.p.birth})+cnt("old",function(x){return x.a>=75});
+      partList().slice(1).map(function(n){var c=A.filter(function(x){return x.p.part===n}).length;return c?'<li><button class="link" data-act="fpart" data-v="'+esc(n)+'">'+esc(n)+'</button><b>'+c+'</b></li>':""}).join("")+cnt("needs",function(x){return (x.p.needs||[]).length})+cnt("nocontact",function(x){return lastContact(x.p)<addMonths(today(),-3)})+cnt("nophone",function(x){return !x.p.phone})+cnt("noaddr",function(x){return !x.p.address&&!x.p.place})+cnt("nobirth",function(x){return !x.p.birth});
   var L1='<div class="panel pad">'+sh("Потребує уваги")+(att?'<ul class="list">'+att+'</ul>':'<div class="muted">Усе заповнено, зауважень немає.</div>')+'</div>',
     L2='<div class="panel pad">'+sh("Дати на 2 тижні",bd.length||null)+(bd.length?'<ul class="list">'+bd.map(function(b){return '<li><span>'+plink(b.x,b.x.d.deacon)+'<br><span class="small muted">'+esc(b.label)+'</span></span><span class="tag">'+(b.diff===0?"сьогодні":b.dm)+'</span></li>'}).join("")+'</ul>':'<div class="muted">Найближчим часом дат немає.</div>')+'</div>',
     L3='<div class="panel pad">'+sh("Останні зміни")+(J.length?'<ul class="list">'+J.slice(0,6).map(function(j){return '<li><span><button class="link" data-act="open" data-id="'+esc(j.p.id)+'">'+esc(fio(j.p))+'</button><br><span class="muted small">'+esc(EV[j.e.type].label+(j.e.deacon?" · "+canon(j.e.deacon):""))+'</span></span><span class="small muted" style="white-space:nowrap">'+fd(j.e.date)+'</span></li>'}).join("")+'</ul>':'<div class="muted">Змін із точною датою ще немає.</div>')+'</div>',LL=(on("l1")?L1:"")+(on("l2")?L2:"")+(on("l3")?L3:"");
@@ -1591,26 +1606,25 @@ function vPeople(){
   var FC={active:(cntS.member||0)+(cntS.note||0),note:cntS.note||0,excluded:cntS.excluded||0,gone:(cntS.left||0)+(cntS.moved||0)+(cntS.died||0),non:cntS.none||0,all:S.people.length};
   var h='<div class="toolbar"><div class="chips grow">'+F.map(function(f){return '<button class="chip" aria-pressed="'+(S.fStatus===f[0])+'" data-act="fstatus" data-v="'+f[0]+'">'+f[1]+'<span class="cn">'+FC[f[0]]+'</span></button>'}).join("")+
     (S.fSpecial?'<button class="chip" aria-pressed="true" data-act="special" data-v="">'+SPECIAL[S.fSpecial]+' '+ico("x")+'</button>':"")+'</div>'+
-    '<select id="fDeacon" aria-label="Диякон">'+opts(deaconList(),S.fDeacon,"Усі диякони")+'<option value="-"'+(S.fDeacon==="-"?" selected":"")+'>Без диякона</option></select>'+
+    '<select id="fDeacon" aria-label="Диякон або пастор">'+opts(careList(),S.fDeacon,"Усі диякони і пастори")+'<option value="-"'+(S.fDeacon==="-"?" selected":"")+'>Не закріплені</option></select>'+
     '<select id="fPart" aria-label="Стан у церкві"><option value="">Усі стани</option>'+partList().map(function(n){return '<option'+(S.fPart===n?" selected":"")+'>'+esc(n)+'</option>'}).join("")+'<option value="-"'+(S.fPart==="-"?" selected":"")+'>стан не вказано</option></select></div>'+
     (S.fStatus==="gone"?'<div class="chips">'+SUB.map(function(f){return '<button class="chip" aria-pressed="'+(S.fSub===f[0])+'" data-act="fsub" data-v="'+f[0]+'">'+f[1]+(f[0]?'<span class="cn">'+(cntS[f[0]]||0)+'</span>':"")+'</button>'}).join("")+'</div>':"");
   if(!S.people.length)return h+emp("users","Список порожній","Натисніть «Додати людину», щоб завести першу картку.");
   if(!rows.length)return h+emp("search","Нікого не знайдено",sq?"За запитом «"+esc(S.q)+"» у цьому фільтрі нікого немає. Спробуйте фільтр «Усі».":"За цими умовами нікого немає.");
-  h+='<div class="panel"><div class="pad ph">'+sh(FT[S.fStatus]+(sq?' · «'+esc(S.q)+'»':""),rows.length)+'</div><div class="scroll"><table><thead><tr>'+th("name","ПІБ")+th("deacon","Диякон","hide-s")+th("status","Статус")+th("age","Вік","n hide-s")+'<th class="hide-s">Телефон</th>'+(why?'<th class="hide-s">Коли і чому</th>':th("place","Адреса","hide-s"))+'</tr></thead><tbody>'+
+  h+='<div class="panel"><div class="pad ph">'+sh(FT[S.fStatus]+(sq?' · «'+esc(S.q)+'»':""),rows.length)+'</div><div class="scroll"><table><thead><tr>'+th("name","ПІБ")+th("deacon","Диякон / пастор","hide-s")+th("status","Статус")+th("age","Вік","n hide-s")+'<th class="hide-s">Телефон</th>'+(why?'<th class="hide-s">Коли і чому</th>':th("place","Адреса","hide-s"))+'</tr></thead><tbody>'+
     rows.map(function(x){return '<tr class="row" tabindex="0" data-act="open" data-id="'+esc(x.p.id)+'"><td>'+who(x)+(sq&&snip(x,sq)?'<div class="small muted" style="margin-left:50px">знайдено: '+esc(snip(x,sq))+'</div>':"")+'</td><td class="hide-s">'+(esc(x.d.deacon)||'<span class="muted">—</span>')+'</td><td>'+pill(x.d.st,x.p)+'</td><td class="n hide-s">'+(x.a==null?"":x.a)+'</td><td class="hide-s" style="white-space:nowrap">'+tel(x.p.phone)+'</td><td class="small hide-s">'+esc(why?lastOut(x.p):[x.p.place,x.p.address].filter(Boolean).join(", "))+'</td></tr>'}).join("")+'</tbody></table></div></div>';
   return h}
 
 function vDeacons(){
-  var A=act(),list=deaconList(),w=S.canWrite;if(!S.dView||list.indexOf(S.dView)<0)S.dView=list[0]||"";
-  var h='<div class="panel pad">'+sh("Пастори",S.pastors.length,w?'<select id="newPastor" aria-label="Новий пастор"><option value="">вибрати зі списку членів…</option>'+memberOpts(function(x){return isPastor(x.p.id)})+'</select><button class="btn primary" data-act="setPastor">'+ico("plus")+' Додати пастора</button>':"")+
-    (S.pastors.length?'<div class="pcards">'+S.pastors.map(function(pa){var pp=person(pa.pid),nm=pp?short(pp):pa.name;return '<div class="pcard"><span class="av '+avc(nm)+'">'+esc(pp?ini(pp):(nm||"?")[0])+'</span><span class="pc-t">'+(pp?'<button class="link" data-act="open" data-id="'+esc(pa.pid)+'">'+esc(fio(pp))+'</button>':'<b>'+esc(pa.name)+'</b>')+'<span class="muted small">'+(pp&&pp.phone?esc(pp.phone):"пастор")+'</span></span>'+(w?'<button class="iconbtn" data-act="delPastor" data-id="'+esc(pa.pid)+'" aria-label="Прибрати пастора" title="Прибрати">'+ico("x")+'</button>':"")+'</div>'}).join("")+'</div>':'<div class="muted">Пасторів не вказано. Виберіть людину зі списку членів праворуч.</div>')+'</div>';
-  h+=sh("Диякони",list.length,w?'<select id="newDeacon" aria-label="Новий диякон"><option value="">вибрати зі списку членів…</option>'+memberOpts(function(x){return isDeacon(x.p.id)})+'</select><button class="btn primary" data-act="addDeacon">'+ico("plus")+' Додати диякона</button>':"");
-  if(!list.length)h+=emp("shield","Дияконів ще немає","Диякона вибирають зі списку чинних членів. Після цього за ним можна закріплювати людей.");
-  else h+='<div class="dcards">'+list.map(function(d){var s=dStat(A.filter(function(x){return x.d.deacon===d}));return '<button class="dcard" aria-pressed="'+(d===S.dView)+'" data-act="dview" data-v="'+esc(d)+'"><span class="dt"><b>'+esc(d)+'</b><span class="go">'+ico("arrow")+'</span></span><span class="v">'+s.n+'</span><span class="ds">'+s.m+' чол. · '+s.w+' жін. · вік '+(s.med||"—")+'</span><span class="ds">75+: '+s.old+' · на замітці: '+s.note+'</span></button>'}).join("")+'</div>';
+  var A=act(),w=S.canWrite,pn={},list=[];S.pastors.forEach(function(pa){if(pa&&pa.name&&!pn[pa.name]){pn[pa.name]=pa;list.push(pa.name)}});deaconList().forEach(function(d){if(list.indexOf(d)<0)list.push(d)});
+  if(!S.dView||list.indexOf(S.dView)<0)S.dView=list[0]||"";
+  var h=sh("Пастори і диякони",list.length,w?'<select id="newCare" aria-label="Людина"><option value="">вибрати зі списку членів…</option>'+memberOpts()+'</select><select id="newCareRole" aria-label="Хто це"><option value="deacon">диякон</option><option value="trial">диякон на випробувальному терміні</option><option value="pastor">пастор</option></select><button class="btn primary" data-act="addCare">'+ico("plus")+' Додати</button>':"");
+  if(!list.length)h+=emp("shield","Пасторів і дияконів ще немає","Їх вибирають зі списку чинних членів. Після цього за ними можна закріплювати людей.");
+  else h+='<div class="dcards">'+list.map(function(d){var s=dStat(A.filter(function(x){return x.d.deacon===d})),k=pn[d]?"pastor":dkTrial(d)?"trial":"deacon";return '<button class="dcard k-'+k+'" aria-pressed="'+(d===S.dView)+'" data-act="dview" data-v="'+esc(d)+'"><span class="dt"><b>'+esc(d)+'</b><span class="go">'+ico("arrow")+'</span></span><span class="dtag">'+(k==="pastor"?(S.deacons.indexOf(d)>=0?"пастор · диякон":"пастор"):k==="trial"?"диякон · випробувальний термін":"диякон")+'</span><span class="v">'+s.n+'</span><span class="ds">'+s.m+' чол. · '+s.w+' жін. · вік '+(s.med||"—")+'</span><span class="ds">на замітці: '+s.note+'</span></button>'}).join("")+'</div>';
   if(S.dView){var mine=A.filter(function(x){return x.d.deacon===S.dView}),fam={},canDel=w&&!mine.length&&S.deacons.indexOf(S.dView)>=0;
     mine.forEach(function(x){var k=x.p.family||x.p.last||"—";(fam[k]=fam[k]||[]).push(x)});
-    h+='<div class="panel pad">'+sh(esc(S.dView),mine.length,'<button class="btn primary" data-act="dtoggle" aria-expanded="'+!!S.dOpen+'">'+(S.dOpen?"Згорнути список":"Показати список")+'</button><button class="btn" data-act="copy">'+ico("copy")+' Копіювати</button><button class="btn" data-act="xlsDeacon">'+ico("sheet")+' Excel</button><button class="btn" data-act="prDeacon">'+ico("print")+' Друк</button><button class="btn" data-act="toDeacon" data-v="'+esc(S.dView)+'">'+ico("users")+' У «Люди»</button>'+(canDel?'<button class="btn danger" data-act="delDeacon">'+ico("trash")+' Прибрати</button>':""));
-    if(S.dOpen)h+=mine.length?'<div>'+Object.keys(fam).sort(function(a,b){return a.localeCompare(b,"uk")}).map(function(k){return '<div class="fam"><h4>'+esc(k)+'</h4><ul>'+fam[k].map(function(x){return '<li><span class="grow">'+plink(x,[x.a!=null?x.a+" р.":"",x.p.place,x.p.address,lastContact(x.p)?"контакт "+fd(lastContact(x.p)):"без контактів"].filter(Boolean).join(" · "))+ntag(x.p)+' '+(x.d.st==="note"?pill("note"):"")+'</span>'+(x.p.phone?tel(x.p.phone):"")+(w?'<button class="btn small" data-act="openMode" data-id="'+esc(x.p.id)+'" data-m="contact">'+ico("plus")+' контакт</button>':"")+'</li>'}).join("")+'</ul></div>'}).join("")+'</div>':'<div class="muted">За цим дияконом поки нікого не закріплено. Прибрати диякона можна лише в такому стані.</div>';
+    var isP=pn[S.dView],isD=S.deacons.indexOf(S.dView)>=0;h+='<div class="panel pad">'+sh(esc(S.dView)+' <span class="tag'+(isP?" lime":"")+'">'+(isP?"пастор":"диякон")+'</span>'+(dkTrial(S.dView)&&!isP?' <span class="tag warn">випробувальний термін</span>':""),mine.length,(w&&!lim()&&S.deacons.indexOf(S.dView)>=0?'<button class="btn" data-act="dkTrial">'+ico(dkTrial(S.dView)?"check":"clock")+(dkTrial(S.dView)?" Затвердити дияконом":" На випробувальний термін")+'</button>':"")+'<button class="btn primary" data-act="dtoggle" aria-expanded="'+!!S.dOpen+'">'+(S.dOpen?"Згорнути список":"Показати список")+'</button><button class="btn" data-act="copy">'+ico("copy")+' Копіювати</button><button class="btn" data-act="xlsDeacon">'+ico("sheet")+' Excel</button><button class="btn" data-act="prDeacon">'+ico("print")+' Друк</button><button class="btn" data-act="toDeacon" data-v="'+esc(S.dView)+'">'+ico("users")+' У «Люди»</button>'+(canDel?'<button class="btn danger" data-act="delDeacon">'+ico("trash")+' Прибрати диякона</button>':"")+(isP&&w&&!lim()?'<button class="btn danger" data-act="delPastor" data-id="'+esc(isP.pid)+'">'+ico("trash")+' Прибрати пастора</button>':""));
+    if(S.dOpen)h+=mine.length?'<div>'+Object.keys(fam).sort(function(a,b){return a.localeCompare(b,"uk")}).map(function(k){return '<div class="fam"><h4>'+esc(k)+'</h4><ul>'+fam[k].map(function(x){return '<li><span class="grow">'+plink(x,[x.a!=null?x.a+" р.":"",x.p.place,x.p.address,lastContact(x.p)?"контакт "+fd(lastContact(x.p)):"без контактів"].filter(Boolean).join(" · "))+ntag(x.p)+' '+(x.d.st==="note"?pill("note"):"")+'</span>'+(x.p.phone?tel(x.p.phone):"")+(w?'<button class="btn small" data-act="openMode" data-id="'+esc(x.p.id)+'" data-m="contact">'+ico("plus")+' контакт</button>':"")+'</li>'}).join("")+'</ul></div>'}).join("")+'</div>':'<div class="muted">За цією людиною поки нікого не закріплено. Прибрати диякона можна лише в такому стані.</div>';
     h+='</div>'}
   var rn=roleNames(),filled=rn.filter(function(r){return (S.min[r]||[]).length}),emptyR=rn.filter(function(r){return !(S.min[r]||[]).length});
   h+='<div class="panel pad">'+sh("Інші служіння",filled.length)+
@@ -1698,7 +1712,7 @@ function needList(p){var o=NEEDS.concat(S.cfg.customNeeds||[]);(p.needs||[]).for
 function needsBlock(p,W){var nd=p.needs||[];if(!W&&!nd.length)return "";
   return '<div class="blk"><h3>Потреби</h3><div class="chips">'+(W?needList(p).map(function(n){return '<button class="chip" aria-pressed="'+(nd.indexOf(n)>=0)+'" data-act="needT" data-v="'+esc(n)+'">'+esc(n)+'</button>'}).join(""):nd.map(function(n){return '<span class="pill s-note">'+esc(n)+'</span>'}).join(" "))+'</div>'+
     (W?'<div class="composer"><input id="n_new" placeholder="Своя потреба: потрібен транспорт, ліки, продукти…" aria-label="Своя потреба"><button class="btn" data-act="needAdd">'+ico("plus")+' Додати</button></div>':"")+'</div>'}
-function cardRoles(id){var r=[];if(isPastor(id))r.push(["__pastor","Пастор"]);if(isDeacon(id))r.push(["__deacon","Диякон"]);Object.keys(S.min).forEach(function(k){if((S.min[k]||[]).indexOf(id)>=0)r.push([k,k])});return r}
+function cardRoles(id){var r=[];if(isPastor(id))r.push(["__pastor","Пастор"]);if(isDeacon(id))r.push(["__deacon",dkTrialP(id)?"Диякон · випробувальний термін":"Диякон"]);Object.keys(S.min).forEach(function(k){if((S.min[k]||[]).indexOf(id)>=0)r.push([k,k])});return r}
 function rolesBlock(p,W){var rs=cardRoles(p.id),lead=S.groups.filter(function(g){return g.leader===p.id}),can=W&&!lim(),act_=derive(p).active;
   if(!rs.length&&!lead.length&&!(can&&act_))return "";
   var have={};rs.forEach(function(r){have[r[0]]=1});
@@ -1707,6 +1721,15 @@ function rolesBlock(p,W){var rs=cardRoles(p.id),lead=S.groups.filter(function(g)
     (can&&act_?'<div class="composer"><select id="p_role" aria-label="Служіння">'+options.map(function(o){return '<option value="'+esc(o[0])+'">'+esc(o[1])+'</option>'}).join("")+'</select><button class="btn primary" data-act="roleAdd">Призначити</button></div>'+
       '<div class="composer"><input id="p_newRole" placeholder="Нове служіння: керівник кафе, парковка…" aria-label="Нове служіння"><button class="btn" data-act="roleNew">'+ico("plus")+' Створити і призначити</button></div>':"")+'</div>'}
 function extra(a,t,v){
+  if(a==="ages"){S.mode="ages";S.card=null;S.ageG=-1;renderDlg();return true}
+  if(a==="ageG"){S.ageG=S.ageG===+v?-1:+v;renderDlg();return true}
+  if(a==="addCare"){if(lim()){toast("Для цього потрібні повні права");return true}var cp0=person(val("newCare")),cr=val("newCareRole");if(!cp0){toast("Виберіть людину зі списку");return true}var cn=[cp0.last,cp0.first].filter(Boolean).join(" ");
+    if(cr==="pastor"){if(isPastor(cp0.id)){toast("Цей пастор уже є у списку");return true}saveDeacons(S.dk,S.pastors.concat([{pid:cp0.id,name:cn}]).sort(function(a,b){return a.name.localeCompare(b.name,"uk")})).then(function(){S.dView=cn;toast("Пастора додано");render()},function(){});return true}
+    if(isDeacon(cp0.id)||S.deacons.indexOf(cn)>=0){toast("Такий диякон уже є");return true}
+    saveDeacons(S.dk.concat([{pid:cp0.id,name:cn,aliases:[],trial:cr==="trial"}])).then(function(){S.dView=cn;toast(cr==="trial"?"Диякона додано на випробувальний термін":"Диякона додано");render()},function(){});return true}
+  if(a==="addDeacon"){var np0=person(val("newDeacon"));if(!np0){toast("Виберіть людину зі списку");return true}var n0=[np0.last,np0.first].filter(Boolean).join(" ");if(S.deacons.indexOf(n0)>=0){toast("Такий диякон уже є");return true}
+    var tr0=!!(document.getElementById("newDeaconTrial")||{}).checked;saveDeacons(S.dk.concat([{pid:np0.id,name:n0,aliases:[],trial:tr0}])).then(function(){S.dView=n0;toast(tr0?"Диякона додано на випробувальний термін":"Диякона додано")},function(){});return true}
+  if(a==="dkTrial"){if(lim()||!S.canWrite)return true;var was=dkTrial(S.dView);saveDeacons(S.dk.map(function(x){return x.name===S.dView?Object.assign({},x,{trial:!was}):x})).then(function(){toast(was?"Затверджено дияконом":"Переведено на випробувальний термін")},function(){});return true}
   if(a==="roleEdit"){S.roleEdit=!S.roleEdit;S.roleAsk="";render();return true}
   if(a==="roleRestore"){if(lim())return true;saveCfg({hiddenRoles:[]}).then(function(){toast("Стандартні служіння повернуто")},function(){});return true}
   if(a==="roleRm"){if(lim()||!S.canWrite)return true;var rr0=t.dataset.r,n0=(S.min[rr0]||[]).length;
@@ -1770,7 +1793,7 @@ document.addEventListener("change",function(e){var t=e.target,d=t.dataset||{};if
   st.updateStaff(d.srole||d.sperson,d.srole?{role:t.value}:{person_id:t.value}).then(function(){toast("Збережено")},function(){toast("Не вдалося зберегти. Можливо, бракує прав.")})});
 function lim(){if(window.__site)return window.__site.role==="deacon";if(!(S.canWrite&&S.roleKnown)||S.isAdmin)return false;if((S.cfg.fullUsers||[]).indexOf(S.uid)>=0)return false;return !isOffice(myPid())}
 function ownOnly(p){if(!p||!lim())return false;var md=myDeacon();return !(md&&derive(p).deacon===md)}
-function renderDlg(){var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
+function renderDlg(){if(S.mode==="ages"){dlg.innerHTML=agesDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
   Array.prototype.forEach.call(dlg.querySelectorAll(".facts dd"),function(d){if(d.textContent.length>34)d.parentNode.classList.add("wide")});
   if(p&&ownOnly(p)&&dlg.open){var d=dlg.querySelector(".dlg-head");if(d)d.insertAdjacentHTML("afterend",'<div class="box small" style="margin-inline:12px">Ця людина закріплена за іншим дияконом, тому картка відкрита лише для перегляду. Зміни вносить її диякон, пастор або секретар.</div>')}
   strip(dlg)}
@@ -1969,7 +1992,7 @@ function lcNoOne(){return {kind:"ask",say:"Не зрозумів, про ког�
 function lcCard(x,lead){var p=x.p,lc=lastContact(p),L=[];if(lead)L.push(lead);
   L.push(x.n+" — "+lcSt(x)+(p.part?", "+p.part:""));
   if(p.phone)L.push("Телефон: "+p.phone);if(p.place||p.address)L.push("Адреса: "+[p.place,p.address].filter(Boolean).join(", "));
-  if(p.birth)L.push("Народження: "+fd(p.birth)+(x.a!=null?" ("+x.a+" р.)":""));if(x.d.deacon)L.push("Диякон: "+x.d.deacon);
+  if(p.birth)L.push("Народження: "+fd(p.birth)+(x.a!=null?" ("+x.a+" р.)":""));if(x.d.deacon)L.push("Закріплений за: "+x.d.deacon);
   if((p.needs||[]).length)L.push("Потреби: "+p.needs.join(", "));var rl=roles(p.id);if(rl.length)L.push("Служіння: "+rl.join(", "));
   L.push("Останній контакт: "+(lc?fd(lc):"записів немає"));return {kind:"info",say:L.join("\n"),list:[lcLine(x,"відкрити картку")],who:p.id}}
 function lcPartOf(s){var r=null;partList().forEach(function(p){if(!r&&PART.indexOf(p)<0&&s.indexOf(lcN(p))>=0)r=p});if(r)return r;
@@ -2065,7 +2088,7 @@ function aiLocal(q){var s=lcN(q).replace(/\s+/g," ").trim(),T=lcTok(q),P,x,d,v,m
     if(/груп/.test(s))return {kind:"info",say:S.groups.length?"Малі групи:\n"+S.groups.map(function(g){var l=person(g.leader);return "• "+g.name+(l?" — "+fio(l):"")+", людей: "+gMembers(g).length}).join("\n"):"Малих груп ще немає."};
     if(/скільки|статистик|цифри|кількість|загалом|членів церкви/.test(s)){r=aiStats();return {kind:"info",say:"Чинних членів: "+r.members+" (чоловіків "+r.men+", жінок "+r.women+").\nЦього року прийнято: "+r.acceptedThisYear+", вибуло: "+r.leftThisYear+".\nНа замітці: "+(r.onNote.length?r.onNote.join(", "):"нікого")+".\nДияконів: "+r.deacons.length+", малих груп: "+r.groups.length+"."}}}
   /* a person */
-  if(x){v=/телефон|номер/.test(s)?(x.p.phone?"Телефон: "+x.p.phone:"Телефону в картці немає."):/адрес|де живе|де мешкає/.test(s)?(x.p.place||x.p.address?"Адреса: "+[x.p.place,x.p.address].filter(Boolean).join(", "):"Адреси в картці немає."):/народж|скільки років|вік/.test(s)?(x.p.birth?"Народження: "+fd(x.p.birth)+(x.a!=null?", "+x.a+" р.":""):"Дати народження в картці немає."):/диякон/.test(s)?(x.d.deacon?"Диякон: "+x.d.deacon:"Диякона не закріплено."):"";return lcCard(x,v)}
+  if(x){v=/телефон|номер/.test(s)?(x.p.phone?"Телефон: "+x.p.phone:"Телефону в картці немає."):/адрес|де живе|де мешкає/.test(s)?(x.p.place||x.p.address?"Адреса: "+[x.p.place,x.p.address].filter(Boolean).join(", "):"Адреси в картці немає."):/народж|скільки років|вік/.test(s)?(x.p.birth?"Народження: "+fd(x.p.birth)+(x.a!=null?", "+x.a+" р.":""):"Дати народження в картці немає."):/диякон/.test(s)?(x.d.deacon?"Закріплений за: "+x.d.deacon:"Ні за ким не закріплений."):"";return lcCard(x,v)}
   if(P.length)return {kind:"info",say:"Знайшов "+P.length+":",list:P.slice(0,30).map(function(z){return lcLine(z)})};
   /* free text search over everything in the cards */
   lcUse(T,/^(знайди|знайти|шукай|покажи|хто|де|всіх|усіх|список)$/);var W=T.filter(function(k){return !k.u&&k.n.length>=3&&!LC_STOP.test(k.n)}).map(function(k){return k.n});
@@ -2153,6 +2176,43 @@ function rolesEdit(rn,emptyR,w){var can=w&&!lim(),hid=(S.cfg.hiddenRoles||[]).le
   return '<div class="blk"><h3>Список служінь</h3><div class="muted small hint">Натисніть хрестик, щоб прибрати служіння зі списку варіантів. Якщо у служінні є люди, застосунок перепитає — призначення теж знімуться.</div><div class="chips">'+rn.map(function(r){var n=(S.min[r]||[]).length,ask=S.roleAsk===r;
       return '<span class="chip'+(ask?" warn":"")+'">'+esc(r)+(n?' <span class="muted small">· '+n+'</span>':"")+'<button class="link" data-act="roleRm" data-r="'+esc(r)+'" aria-label="Прибрати служіння '+esc(r)+'" title="Прибрати" style="color:var(--bad)">'+(ask?"точно прибрати?":ico("x"))+'</button></span>'}).join("")+'</div>'+
     '<div class="bar"><button class="btn primary" data-act="roleEdit">'+ico("check")+' Готово</button>'+(hid?'<button class="btn" data-act="roleRestore">Повернути стандартні ('+hid+')</button>':"")+'</div></div>'}
+/* ---------- verse of the day: one reference per day for everyone; the text is read from a public Bible API ---------- */
+var VERSES=[[4,6,24,26],[5,31,6],[6,1,9],[14,7,14],[19,23,1],[19,27,1],[19,37,5],[19,91,1,2],[19,103,2],[19,119,105],[19,121,1,2],[20,3,5,6],[23,26,3],[23,40,31],[23,41,10],[24,29,11],[25,3,22,23],[33,6,8],[34,1,7],[36,3,17],[40,5,16],[40,6,33],[40,11,28],[40,28,20],[43,3,16],[43,8,12],[43,13,34,35],[43,14,6],[43,14,27],[43,15,5],[43,16,33],[44,1,8],[45,5,8],[45,8,28],[45,8,38,39],[45,12,2],[45,12,12],[45,15,13],[46,13,13],[46,16,13,14],[47,5,17],[47,12,9],[48,2,20],[48,5,22,23],[48,6,9],[49,2,8,9],[49,4,32],[50,1,6],[50,4,6,7],[50,4,13],[51,3,23],[52,5,16,18],[55,1,7],[58,11,1],[58,13,8],[59,1,5],[60,5,7],[62,1,9],[62,4,19],[66,3,20],[66,21,4]];
+var VBOOK={4:"Числа",5:"Повторення Закону",6:"Ісус Навин",14:"2 Хронік",19:"Псалом",20:"Приповісті",23:"Ісая",24:"Єремія",25:"Плач Єремії",33:"Михей",34:"Наум",36:"Софонія",40:"Від Матвія",43:"Від Івана",44:"Дії",45:"До римлян",46:"1 до коринтян",47:"2 до коринтян",48:"До галатів",49:"До ефесян",50:"До филип'ян",51:"До колоссян",52:"1 до солунян",55:"2 до Тимофія",58:"До євреїв",59:"Якова",60:"1 Петра",62:"1 Івана",66:"Об'явлення"};
+var VD={day:"",state:"",ref:"",text:""},VTR="CUV23"; /* Сучасний переклад УБТ (Турконяк), 2020–2023 */
+function versePick(){var n=Math.floor(new Date(today()+"T12:00:00").getTime()/864e5);return VERSES[(n*7+3)%VERSES.length]}
+function verseRef(r){return VBOOK[r[0]]+" "+r[1]+":"+r[2]+(r[3]?"\u2013"+r[3]:"")}
+function verseLoad(){var k=today();if(VD.day===k)return;VD={day:k,state:"load",ref:"",text:""};var r=versePick(),ck="verse:"+VTR+":"+k;
+  try{var c=JSON.parse(localStorage.getItem(ck)||"null");if(c&&c.t&&c.r){VD.state="ok";VD.text=c.t;VD.ref=c.r;return}}catch(e){}
+  if(!window.fetch)return;
+  fetch("https://bolls.life/get-text/"+VTR+"/"+r[0]+"/"+r[1]+"/").then(function(x){if(!x.ok)throw new Error("http");return x.json()}).then(function(a){
+    var t=a.filter(function(v){return v.verse>=r[2]&&v.verse<=(r[3]||r[2])}).map(function(v){return String(v.text||"").replace(/<[^>]+>/g," ")}).join(" ").replace(/[\u24b6-\u24e9]/g," ").replace(/\s+/g," ").trim();
+    if(r[0]===19&&r[2]===1)t=t.replace(/^[^.!?]{3,40}\.\s+(?=[А-ЯІЇЄҐ])/,"");t=t.replace(/[,;:]$/,".");if(!t||VD.day!==k)return;t=t.charAt(0).toUpperCase()+t.slice(1);
+    VD.state="ok";VD.text=t;VD.ref=verseRef(r);
+    try{for(var i=localStorage.length-1;i>=0;i--){var key=localStorage.key(i);if(key&&key.indexOf("verse:")===0)localStorage.removeItem(key)}localStorage.setItem(ck,JSON.stringify({t:t,r:VD.ref}))}catch(e){}
+    if(S.ready&&S.tab==="home"){var r0=window.__remote,u0=UACT;window.__remote=true;UACT=0;try{render()}finally{window.__remote=r0;UACT=u0}}},function(){VD.state="err"})}
+function verseCard(){verseLoad();if(VD.state!=="ok")return "";
+  return '<section class="verse" aria-label="Слово на сьогодні"><span class="si t-lime">'+ico("book")+'</span><div class="vs-b"><blockquote>'+esc(VD.text)+'</blockquote><div class="vs-ref"><b>'+esc(VD.ref)+'</b><span>Слово на сьогодні</span></div></div></section>'}
+/* ---------- deacons on a trial period ---------- */
+function dkTrial(name){return S.dk.some(function(d){return d.name===name&&d.trial})}
+function dkTrialP(id){return S.dk.some(function(d){return d.pid===id&&d.trial})}
+
+/* ---------- age statistics dialog ---------- */
+var AGEG=[["Діти до 12",0,12],["Підлітки 13–17",13,17],["Молодь 18–25",18,25],["26–35",26,35],["36–50",36,50],["51–60",51,60],["61 і старші",61,200]];
+function agesDlg(){var A=act(),K=A.filter(function(x){return x.a!=null}),ages=K.map(function(x){return x.a}),unk=A.length-K.length;
+  function med(xs){var m=median(xs.map(function(x){return x.a}));return m===""?"—":num(m)}
+  function box(v,t,c){return '<div class="stat"><span class="dn">'+v+'</span><span class="tag'+(c?" "+c:"")+'">'+t+'</span></div>'}
+  var avg=ages.length?Math.round(ages.reduce(function(a,b){return a+b},0)/ages.length*10)/10:"—";
+  var G=AGEG.map(function(g){return K.filter(function(x){return x.a>=g[1]&&x.a<=g[2]})});
+  var h='<div class="dlg"><div class="dlg-head"><h2>Вік членів церкви</h2><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>';
+  if(!ages.length)return h+'<div class="muted">Ще немає жодної дати народження. Вкажіть їх у картках людей, і тут з\'явиться статистика.</div></div>';
+  h+='<section class="stats ages-s">'+box(med(K),"медіанний вік","lime")+box(String(avg).replace(".",","),"середній вік")+box(Math.min.apply(null,ages),"наймолодший")+box(Math.max.apply(null,ages),"найстарший")+'</section>';
+  h+='<div class="muted small">Чоловіки: медіанний вік '+med(K.filter(function(x){return x.p.sex==="ч"}))+' · жінки: '+med(K.filter(function(x){return x.p.sex==="ж"}))+(unk?' · без дати народження: '+unk:"")+'</div>';
+  h+='<h3>За віковими групами</h3><div class="ages-b">'+hbars(AGEG.map(function(g,i){return [g[0],G[i].length,i]}),"ageG")+'</div>';
+  if(S.ageG>=0&&G[S.ageG]){var L=G[S.ageG].slice().sort(function(a,b){return a.a-b.a||a.n.localeCompare(b.n,"uk")}),m=L.filter(function(x){return x.p.sex==="ч"}).length,w=L.filter(function(x){return x.p.sex==="ж"}).length;
+    h+='<div class="box"><div><b>'+esc(AGEG[S.ageG][0])+'</b> <span class="muted small">'+L.length+' · '+m+' чол. · '+w+' жін. · '+Math.round(L.length/ages.length*100)+'% від усіх</span></div>'+(L.length?'<ul class="list rem">'+L.map(function(x){return '<li><span class="grow">'+plink(x,x.a+" р.")+'</span></li>'}).join("")+'</ul>':'<div class="muted small">У цій групі нікого немає.</div>')+'</div>'}
+  else h+='<div class="muted small">Натисніть на групу, щоб побачити людей.</div>';
+  return h+'</div>'}
 
 start();
 })();

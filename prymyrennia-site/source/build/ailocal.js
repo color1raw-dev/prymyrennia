@@ -54,7 +54,7 @@ function lcNoOne(){return {kind:"ask",say:"Не зрозумів, про ког�
 function lcCard(x,lead){var p=x.p,lc=lastContact(p),L=[];if(lead)L.push(lead);
   L.push(x.n+" — "+lcSt(x)+(p.part?", "+p.part:""));
   if(p.phone)L.push("Телефон: "+p.phone);if(p.place||p.address)L.push("Адреса: "+[p.place,p.address].filter(Boolean).join(", "));
-  if(p.birth)L.push("Народження: "+fd(p.birth)+(x.a!=null?" ("+x.a+" р.)":""));if(x.d.deacon)L.push("Диякон: "+x.d.deacon);
+  if(p.birth)L.push("Народження: "+fd(p.birth)+(x.a!=null?" ("+x.a+" р.)":""));if(x.d.deacon)L.push("Закріплений за: "+x.d.deacon);
   if((p.needs||[]).length)L.push("Потреби: "+p.needs.join(", "));var rl=roles(p.id);if(rl.length)L.push("Служіння: "+rl.join(", "));
   L.push("Останній контакт: "+(lc?fd(lc):"записів немає"));return {kind:"info",say:L.join("\n"),list:[lcLine(x,"відкрити картку")],who:p.id}}
 function lcPartOf(s){var r=null;partList().forEach(function(p){if(!r&&PART.indexOf(p)<0&&s.indexOf(lcN(p))>=0)r=p});if(r)return r;
@@ -150,7 +150,7 @@ function aiLocal(q){var s=lcN(q).replace(/\s+/g," ").trim(),T=lcTok(q),P,x,d,v,m
     if(/груп/.test(s))return {kind:"info",say:S.groups.length?"Малі групи:\n"+S.groups.map(function(g){var l=person(g.leader);return "• "+g.name+(l?" — "+fio(l):"")+", людей: "+gMembers(g).length}).join("\n"):"Малих груп ще немає."};
     if(/скільки|статистик|цифри|кількість|загалом|членів церкви/.test(s)){r=aiStats();return {kind:"info",say:"Чинних членів: "+r.members+" (чоловіків "+r.men+", жінок "+r.women+").\nЦього року прийнято: "+r.acceptedThisYear+", вибуло: "+r.leftThisYear+".\nНа замітці: "+(r.onNote.length?r.onNote.join(", "):"нікого")+".\nДияконів: "+r.deacons.length+", малих груп: "+r.groups.length+"."}}}
   /* a person */
-  if(x){v=/телефон|номер/.test(s)?(x.p.phone?"Телефон: "+x.p.phone:"Телефону в картці немає."):/адрес|де живе|де мешкає/.test(s)?(x.p.place||x.p.address?"Адреса: "+[x.p.place,x.p.address].filter(Boolean).join(", "):"Адреси в картці немає."):/народж|скільки років|вік/.test(s)?(x.p.birth?"Народження: "+fd(x.p.birth)+(x.a!=null?", "+x.a+" р.":""):"Дати народження в картці немає."):/диякон/.test(s)?(x.d.deacon?"Диякон: "+x.d.deacon:"Диякона не закріплено."):"";return lcCard(x,v)}
+  if(x){v=/телефон|номер/.test(s)?(x.p.phone?"Телефон: "+x.p.phone:"Телефону в картці немає."):/адрес|де живе|де мешкає/.test(s)?(x.p.place||x.p.address?"Адреса: "+[x.p.place,x.p.address].filter(Boolean).join(", "):"Адреси в картці немає."):/народж|скільки років|вік/.test(s)?(x.p.birth?"Народження: "+fd(x.p.birth)+(x.a!=null?", "+x.a+" р.":""):"Дати народження в картці немає."):/диякон/.test(s)?(x.d.deacon?"Закріплений за: "+x.d.deacon:"Ні за ким не закріплений."):"";return lcCard(x,v)}
   if(P.length)return {kind:"info",say:"Знайшов "+P.length+":",list:P.slice(0,30).map(function(z){return lcLine(z)})};
   /* free text search over everything in the cards */
   lcUse(T,/^(знайди|знайти|шукай|покажи|хто|де|всіх|усіх|список)$/);var W=T.filter(function(k){return !k.u&&k.n.length>=3&&!LC_STOP.test(k.n)}).map(function(k){return k.n});

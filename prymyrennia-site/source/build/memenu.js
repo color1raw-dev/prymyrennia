@@ -59,3 +59,40 @@ function rolesEdit(rn,emptyR,w){var can=w&&!lim(),hid=(S.cfg.hiddenRoles||[]).le
   return '<div class="blk"><h3>Список служінь</h3><div class="muted small hint">Натисніть хрестик, щоб прибрати служіння зі списку варіантів. Якщо у служінні є люди, застосунок перепитає — призначення теж знімуться.</div><div class="chips">'+rn.map(function(r){var n=(S.min[r]||[]).length,ask=S.roleAsk===r;
       return '<span class="chip'+(ask?" warn":"")+'">'+esc(r)+(n?' <span class="muted small">· '+n+'</span>':"")+'<button class="link" data-act="roleRm" data-r="'+esc(r)+'" aria-label="Прибрати служіння '+esc(r)+'" title="Прибрати" style="color:var(--bad)">'+(ask?"точно прибрати?":ico("x"))+'</button></span>'}).join("")+'</div>'+
     '<div class="bar"><button class="btn primary" data-act="roleEdit">'+ico("check")+' Готово</button>'+(hid?'<button class="btn" data-act="roleRestore">Повернути стандартні ('+hid+')</button>':"")+'</div></div>'}
+/* ---------- verse of the day: one reference per day for everyone; the text is read from a public Bible API ---------- */
+var VERSES=[[4,6,24,26],[5,31,6],[6,1,9],[14,7,14],[19,23,1],[19,27,1],[19,37,5],[19,91,1,2],[19,103,2],[19,119,105],[19,121,1,2],[20,3,5,6],[23,26,3],[23,40,31],[23,41,10],[24,29,11],[25,3,22,23],[33,6,8],[34,1,7],[36,3,17],[40,5,16],[40,6,33],[40,11,28],[40,28,20],[43,3,16],[43,8,12],[43,13,34,35],[43,14,6],[43,14,27],[43,15,5],[43,16,33],[44,1,8],[45,5,8],[45,8,28],[45,8,38,39],[45,12,2],[45,12,12],[45,15,13],[46,13,13],[46,16,13,14],[47,5,17],[47,12,9],[48,2,20],[48,5,22,23],[48,6,9],[49,2,8,9],[49,4,32],[50,1,6],[50,4,6,7],[50,4,13],[51,3,23],[52,5,16,18],[55,1,7],[58,11,1],[58,13,8],[59,1,5],[60,5,7],[62,1,9],[62,4,19],[66,3,20],[66,21,4]];
+var VBOOK={4:"Числа",5:"Повторення Закону",6:"Ісус Навин",14:"2 Хронік",19:"Псалом",20:"Приповісті",23:"Ісая",24:"Єремія",25:"Плач Єремії",33:"Михей",34:"Наум",36:"Софонія",40:"Від Матвія",43:"Від Івана",44:"Дії",45:"До римлян",46:"1 до коринтян",47:"2 до коринтян",48:"До галатів",49:"До ефесян",50:"До филип'ян",51:"До колоссян",52:"1 до солунян",55:"2 до Тимофія",58:"До євреїв",59:"Якова",60:"1 Петра",62:"1 Івана",66:"Об'явлення"};
+var VD={day:"",state:"",ref:"",text:""},VTR="CUV23"; /* Сучасний переклад УБТ (Турконяк), 2020–2023 */
+function versePick(){var n=Math.floor(new Date(today()+"T12:00:00").getTime()/864e5);return VERSES[(n*7+3)%VERSES.length]}
+function verseRef(r){return VBOOK[r[0]]+" "+r[1]+":"+r[2]+(r[3]?"\u2013"+r[3]:"")}
+function verseLoad(){var k=today();if(VD.day===k)return;VD={day:k,state:"load",ref:"",text:""};var r=versePick(),ck="verse:"+VTR+":"+k;
+  try{var c=JSON.parse(localStorage.getItem(ck)||"null");if(c&&c.t&&c.r){VD.state="ok";VD.text=c.t;VD.ref=c.r;return}}catch(e){}
+  if(!window.fetch)return;
+  fetch("https://bolls.life/get-text/"+VTR+"/"+r[0]+"/"+r[1]+"/").then(function(x){if(!x.ok)throw new Error("http");return x.json()}).then(function(a){
+    var t=a.filter(function(v){return v.verse>=r[2]&&v.verse<=(r[3]||r[2])}).map(function(v){return String(v.text||"").replace(/<[^>]+>/g," ")}).join(" ").replace(/[\u24b6-\u24e9]/g," ").replace(/\s+/g," ").trim();
+    if(r[0]===19&&r[2]===1)t=t.replace(/^[^.!?]{3,40}\.\s+(?=[А-ЯІЇЄҐ])/,"");t=t.replace(/[,;:]$/,".");if(!t||VD.day!==k)return;t=t.charAt(0).toUpperCase()+t.slice(1);
+    VD.state="ok";VD.text=t;VD.ref=verseRef(r);
+    try{for(var i=localStorage.length-1;i>=0;i--){var key=localStorage.key(i);if(key&&key.indexOf("verse:")===0)localStorage.removeItem(key)}localStorage.setItem(ck,JSON.stringify({t:t,r:VD.ref}))}catch(e){}
+    if(S.ready&&S.tab==="home"){var r0=window.__remote,u0=UACT;window.__remote=true;UACT=0;try{render()}finally{window.__remote=r0;UACT=u0}}},function(){VD.state="err"})}
+function verseCard(){verseLoad();if(VD.state!=="ok")return "";
+  return '<section class="verse" aria-label="Слово на сьогодні"><span class="si t-lime">'+ico("book")+'</span><div class="vs-b"><blockquote>'+esc(VD.text)+'</blockquote><div class="vs-ref"><b>'+esc(VD.ref)+'</b><span>Слово на сьогодні</span></div></div></section>'}
+/* ---------- deacons on a trial period ---------- */
+function dkTrial(name){return S.dk.some(function(d){return d.name===name&&d.trial})}
+function dkTrialP(id){return S.dk.some(function(d){return d.pid===id&&d.trial})}
+
+/* ---------- age statistics dialog ---------- */
+var AGEG=[["Діти до 12",0,12],["Підлітки 13–17",13,17],["Молодь 18–25",18,25],["26–35",26,35],["36–50",36,50],["51–60",51,60],["61 і старші",61,200]];
+function agesDlg(){var A=act(),K=A.filter(function(x){return x.a!=null}),ages=K.map(function(x){return x.a}),unk=A.length-K.length;
+  function med(xs){var m=median(xs.map(function(x){return x.a}));return m===""?"—":num(m)}
+  function box(v,t,c){return '<div class="stat"><span class="dn">'+v+'</span><span class="tag'+(c?" "+c:"")+'">'+t+'</span></div>'}
+  var avg=ages.length?Math.round(ages.reduce(function(a,b){return a+b},0)/ages.length*10)/10:"—";
+  var G=AGEG.map(function(g){return K.filter(function(x){return x.a>=g[1]&&x.a<=g[2]})});
+  var h='<div class="dlg"><div class="dlg-head"><h2>Вік членів церкви</h2><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>';
+  if(!ages.length)return h+'<div class="muted">Ще немає жодної дати народження. Вкажіть їх у картках людей, і тут з\'явиться статистика.</div></div>';
+  h+='<section class="stats ages-s">'+box(med(K),"медіанний вік","lime")+box(String(avg).replace(".",","),"середній вік")+box(Math.min.apply(null,ages),"наймолодший")+box(Math.max.apply(null,ages),"найстарший")+'</section>';
+  h+='<div class="muted small">Чоловіки: медіанний вік '+med(K.filter(function(x){return x.p.sex==="ч"}))+' · жінки: '+med(K.filter(function(x){return x.p.sex==="ж"}))+(unk?' · без дати народження: '+unk:"")+'</div>';
+  h+='<h3>За віковими групами</h3><div class="ages-b">'+hbars(AGEG.map(function(g,i){return [g[0],G[i].length,i]}),"ageG")+'</div>';
+  if(S.ageG>=0&&G[S.ageG]){var L=G[S.ageG].slice().sort(function(a,b){return a.a-b.a||a.n.localeCompare(b.n,"uk")}),m=L.filter(function(x){return x.p.sex==="ч"}).length,w=L.filter(function(x){return x.p.sex==="ж"}).length;
+    h+='<div class="box"><div><b>'+esc(AGEG[S.ageG][0])+'</b> <span class="muted small">'+L.length+' · '+m+' чол. · '+w+' жін. · '+Math.round(L.length/ages.length*100)+'% від усіх</span></div>'+(L.length?'<ul class="list rem">'+L.map(function(x){return '<li><span class="grow">'+plink(x,x.a+" р.")+'</span></li>'}).join("")+'</ul>':'<div class="muted small">У цій групі нікого немає.</div>')+'</div>'}
+  else h+='<div class="muted small">Натисніть на групу, щоб побачити людей.</div>';
+  return h+'</div>'}

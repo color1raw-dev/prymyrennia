@@ -33,6 +33,8 @@ rep('function render(){','function render0(){')
 rep('opts(deaconList().filter(function(n){return n!==d.deacon}))','opts(careList().filter(function(n){return n!==d.deacon}))')
 rep('opts(deaconList(),S.deacons.indexOf(d.deacon)>=0?d.deacon:""','opts(careList(),careList().indexOf(d.deacon)>=0?d.deacon:""')
 rep('<label>До якого диякона<select id="e_deacon">','<label>До кого (диякон або пастор)<select id="e_deacon">')
+rep('{pid:d.pid||"",name:d.name,aliases:d.aliases||[]}','{pid:d.pid||"",name:d.name,aliases:d.aliases||[],trial:!!d.trial}')
+rep('if(isDeacon(id))r.push("диякон");','if(isDeacon(id))r.push(dkTrialP(id)?"диякон · випробувальний термін":"диякон");')
 k=js.rindex('start();'); js=js[:k]+open('build/override.js',encoding='utf8').read()+'\n'+open('build/ailocal.js',encoding='utf8').read()+'\n'+open('build/memenu.js',encoding='utf8').read()+'\n'+js[k:]
 rep('set({date:cm.date,type:cm.type,note:val("m_edit")})','set({date:cm.date,type:cm.type,note:val("m_edit"),video:cm.video||""})')
 rep('else if(col==="meetings")o=scal(a,b,["date","type","note"]);','else if(col==="meetings")o=scal(a,b,["date","type","note","video"]);')
@@ -51,6 +53,13 @@ rep('"Служіння","Малі групи","Потреби"','"Служінн
 rep('groupsOf(p.id).map(function(g){return g.name}).join(", "),(p.needs||[]).join(", "),fd(lastContact(p)),p.notes]','groupsOf(p.id).map(function(g){return g.name}).join(", "),p.part||"",(p.needs||[]).join(", "),fd(lastContact(p)),p.notes]')
 rep('["non","Не члени церкви",0]','["part","Стан у церкві",0],["non","Не члени церкви",0]')
 rep('  var any=false;REPORTS.forEach','  R.part=function(){var o={};A.forEach(function(x){var k=x.p.part||"не вказано";o[k]=(o[k]||0)+1});var rows=A.filter(function(x){return x.p.part&&x.p.part!==PART[0]}).map(function(x){return [pl(x.p),esc(x.p.part),esc(x.d.deacon),esc(x.p.phone||"")]});sec("part","Стан у церкві",\'<div>\'+hbars(srt(o))+\'</div>\'+tbl([["Людина"],["Стан"],["Диякон"],["Телефон"]],rows,"Усі чинні члени активні або стан не вказано."))};\n  var any=false;REPORTS.forEach')
+rep('["Диякон"]','["Диякон / пастор"]',js.count('["Диякон"]'))
+rep('"За дияконами"','"За дияконами і пасторами"',2)
+rep('"ПІБ","Диякон","Підпис"','"ПІБ","Диякон / пастор","Підпис"')
+rep('S.deacons.indexOf(canon(e.deacon))<0&&canon(e.deacon)===x.d.deacon)add("Закріплений за дияконом, якого немає у списку"','careList().indexOf(canon(e.deacon))<0&&canon(e.deacon)===x.d.deacon)add("Закріплений за тим, кого немає серед дияконів і пасторів"')
+rep('["Медіанний вік",1],["75+",1],','["Медіанний вік",1],')
+rep('return [esc(name),s.n,s.m,s.w,s.med,s.old,s.nop,s.note]}','return [esc(name),s.n,s.m,s.w,s.med,s.nop,s.note]}')
+rep('["61–74",61,74],["75+",75,200]]','["61+",61,200]]',js.count('["61–74",61,74],["75+",75,200]]'))
 for ch in '✕✓↑↓': assert ch not in js, ch
 import base64
 hd=open('build/head.html',encoding='utf8').read().replace('{{HANDS}}','data:image/webp;base64,'+open('logo/hands2.b64.txt').read().strip())
