@@ -1,0 +1,44 @@
+# Примирення · церковний облік — вихідний код
+
+Сайт: https://color1raw-dev.github.io/prymyrennia/
+Готовий файл сайту: `prymyrennia-site/index.html` (його віддає GitHub Pages через `index.html` у корені).
+
+## Як зібрати
+
+Потрібен лише Python 3. З папки `source`:
+
+    python3 build/build.py x        # збирає застосунок у build/page.html
+    python3 site/build_site.py      # додає вхід через Supabase і пише ../index.html
+
+Після цього закомітити `prymyrennia-site/index.html` — сайт оновиться сам за хвилину.
+
+## Що де лежить
+
+- `src/body.html` — початковий застосунок (модель даних, базові екрани).
+- `build/head.html` — усі стилі та каркас сторінки.
+- `build/override.js` — перероблені екрани, ролі, навчання, помічник.
+- `build/ailocal.js` — помічник за командами (без ШІ).
+- `build/memenu.js` — меню облікового запису (кнопка з іменем унизу ліворуч).
+- `build/vhome.js`, `build/rephead.js` — іконки та шапка звітів.
+- `build/build.py` — склеює все в одну сторінку.
+- `site/shim.js` — вхід, реєстрація і збереження даних у Supabase.
+- `site/schema.sql` — таблиці та правила доступу бази (вже виконано в Supabase).
+- `site/lib/supabase.js` — бібліотека Supabase, вбудовується у файл сайту.
+- `logo/hands2.b64.txt` — зображення рук (WebP у base64; файл `hands2.webp`, якщо лишився в репозиторії, не використовується).
+
+## Ролі
+
+owner (власник), full (повні права), deacon (бачить усіх, змінює своїх), pending (очікує), blocked.
+Перший зареєстрований стає власником; власник може призначити власником іншого в розділі «Журнал змін» → «Користувачі».
+
+## Іконки
+
+`apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `favicon.png` і `manifest.webmanifest` лежать поруч із `index.html` у `prymyrennia-site/` — це іконка для головного екрана телефона й вкладки браузера.
+
+## Сповіщення про нагадування (push)
+
+- `site/sw.js` — service worker; має лежати в корені репозиторію поруч із кореневим `index.html` (не в `prymyrennia-site/`).
+- `site/push.sql` — таблиці й щогодинний розклад; виконати один раз у Supabase → SQL Editor.
+- `site/push/index.ts` — Edge Function `push` у Supabase; розгортати з вимкненою перевіркою JWT (функція сама перевіряє користувача й ключ розкладу).
+- Ключі VAPID функція створює сама при першому зверненні й зберігає в таблиці `push_config`.
+- Розсилка: щогодини о :05, після 8:00 за Києвом, нагадування з сьогоднішньою датою — авторові нагадування.
