@@ -55,13 +55,39 @@ function homeTop(){var h="";if(!S.roleKnown)return h;
   return h}
 
 ICO.sliders='<path d="M4 6h10M4 12h2M10 12h10M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>';
-var DASH=[["verse","Слово на сьогодні"],["yt","Трансляція"],["stats","Цифри в рядок"],["strip","Приріст і вік"],["f1","Членів церкви"],["f2","Медіанний вік"],["f3","Нагадування"],["chart","Рух за роками і диякони"],["minis","Прийнято, вибуло, пастор, групи"],["serve","Служіння"],["l1","Потребує уваги"],["l2","Дати на 2 тижні"],["l3","Останні зміни"]];
-S.hide=[];try{var hs0=JSON.parse(localStorage.getItem("dashHide")||"[]");if(Array.isArray(hs0))S.hide=hs0.filter(function(k){return typeof k==="string"})}catch(e){}
+var DASH=[["verse","Слово на сьогодні"],["yt","Трансляція"],["stats","Цифри в рядок"],["strip","Приріст і вік"],["f1","Членів церкви"],["f2","Медіанний вік"],["f3","Нагадування"],["chart","Рух за роками"],["dk","Члени за дияконами і пасторами"],["m1","Прийнято за рік"],["m2","Вибуло за рік"],["m3","Пастори"],["m4","Малі групи"],["serve","Служіння"],["l1","Потребує уваги"],["l2","Дати на 2 тижні"],["l3","Останні зміни"]];
+function hideNorm(a){var o=a.filter(function(k){return typeof k==="string"});if(o.indexOf("minis")>=0){o=o.filter(function(k){return k!=="minis"}).concat(["m1","m2","m3","m4"])}return o.filter(function(k,i,x){return x.indexOf(k)===i})}
+S.hide=[];try{var hs0=JSON.parse(localStorage.getItem("dashHide")||"[]");if(Array.isArray(hs0))S.hide=hideNorm(hs0)}catch(e){}
 function on(k){return S.hide.indexOf(k)<0}
 S.tourDone=false;try{S.tourDone=localStorage.getItem("tourDone")==="1"}catch(e){}
-function dashSave(){try{localStorage.setItem("dashHide",JSON.stringify(S.hide));if(S.tourDone)localStorage.setItem("tourDone","1")}catch(e){}if(rdb&&S.uid)rdb.doc("data/users/"+S.uid+"/prefs").set({hide:S.hide,tour:S.tourDone?1:0}).catch(function(){})}
-function dashLoad(){if(S.dashLoaded)return;if(!rdb||!S.uid){if(S.roleKnown)S.prefsOK=true;return}S.dashLoaded=true;rdb.doc("data/users/"+S.uid+"/prefs").get().then(function(d){var v=d.exists&&d.data();if(v){if(Array.isArray(v.hide))S.hide=v.hide.filter(function(k){return typeof k==="string"});if(v.tour)S.tourDone=true}S.prefsOK=true;if(S.ready)render()},function(){S.prefsOK=true})}
-function dashPanel(){return '<div class="panel pad">'+sh('<span class="si">'+ico("sliders")+'</span>Що показувати на огляді',null,'<button class="btn primary" data-act="dashEdit">'+ico("check")+' Готово</button>')+'<div class="muted small hint">Натисніть на елемент, щоб показати або сховати його. Налаштування лише ваші — в інших служителів огляд не зміниться.</div><div class="chips">'+DASH.map(function(d){return '<button class="chip" aria-pressed="'+on(d[0])+'" data-act="dashT" data-v="'+d[0]+'">'+d[1]+'</button>'}).join("")+'</div></div>'}
+function dashSave(){try{localStorage.setItem("dashHide",JSON.stringify(S.hide));if(S.tourDone)localStorage.setItem("tourDone","1")}catch(e){}if(rdb&&S.uid)rdb.doc("data/users/"+S.uid+"/prefs").set({hide:S.hide,tour:S.tourDone?1:0,nav:S.nav||[],lay:S.lay}).catch(function(){})}
+function dashLoad(){if(S.dashLoaded)return;if(!rdb||!S.uid){if(S.roleKnown)S.prefsOK=true;return}S.dashLoaded=true;rdb.doc("data/users/"+S.uid+"/prefs").get().then(function(d){var v=d.exists&&d.data();if(v){if(Array.isArray(v.hide))S.hide=hideNorm(v.hide);if(v.lay&&typeof v.lay==="object"){S.lay=wgNorm(v.lay);try{localStorage.setItem("dashLayout",JSON.stringify(S.lay))}catch(e){}}if(v.tour)S.tourDone=true;if(Array.isArray(v.nav)&&v.nav.length){S.nav=v.nav.filter(function(k){return typeof k==="string"});try{localStorage.setItem("navOrder",JSON.stringify(S.nav))}catch(e){}navApply()}}S.prefsOK=true;if(S.ready)render()},function(){S.prefsOK=true})}
+/* own order of the menu: kept per user, applied with CSS order so the markup stays as it is */
+var NAVDEF=["home","people","deacons","groups","meetings","journal","stats","reports","log"];
+S.nav=[];try{var nv0=JSON.parse(localStorage.getItem("navOrder")||"[]");if(Array.isArray(nv0))S.nav=nv0.filter(function(k){return typeof k==="string"})}catch(e){}
+function navOrder(){var o=(S.nav||[]).filter(function(k,i,a){return NAVDEF.indexOf(k)>=0&&a.indexOf(k)===i});NAVDEF.forEach(function(k){if(o.indexOf(k)<0)o.push(k)});return o}
+function navApply(){var o=navOrder();Array.prototype.forEach.call(document.querySelectorAll("#nav button[data-tab]"),function(b){b.style.order=o.indexOf(b.dataset.tab)})}
+function navSave(o){S.nav=o;try{localStorage.setItem("navOrder",JSON.stringify(o))}catch(e){}navApply();dashSave()}
+function navVisible(){return navOrder().filter(function(k){var b=document.querySelector('#nav button[data-tab="'+k+'"]');return b&&!b.hidden})}
+ICO.grip='<circle cx="9" cy="6" r="1.4"/><circle cx="15" cy="6" r="1.4"/><circle cx="9" cy="12" r="1.4"/><circle cx="15" cy="12" r="1.4"/><circle cx="9" cy="18" r="1.4"/><circle cx="15" cy="18" r="1.4"/>';
+function navDlg(){var V=navVisible(),def=navOrder().join()===NAVDEF.join();
+  return '<div class="dlg navd"><div class="dlg-head"><div><h2>Порядок меню</h2><div class="muted small">Затисніть рядок і перетягніть його на потрібне місце (з клавіатури — стрілки вгору і вниз). Це лише ваше меню — в інших служителів нічого не зміниться.</div></div><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>'+
+    '<ol class="nv-l" id="nvList">'+V.map(function(k,i){var b=document.querySelector('#nav button[data-tab="'+k+'"]');return '<li data-k="'+k+'" tabindex="0" aria-label="'+esc(TITLES[k]||k)+', місце '+(i+1)+'"><span class="nv-i">'+(i+1)+'</span><span class="si">'+ico(b.dataset.ic)+'</span><b>'+esc(TITLES[k]||k)+'</b><span class="nv-g" aria-hidden="true">'+ico("grip")+'</span></li>'}).join("")+'</ol>'+
+    '<div class="bar"><button class="btn" data-act="navReset"'+(def?" disabled":"")+'>Як було спочатку</button><span class="grow"></span><button class="btn primary" data-act="close">'+ico("check")+' Готово</button></div></div>'}
+function navCommit(V2){var nA=navOrder(),V=navVisible(),slots=V.map(function(k){return nA.indexOf(k)});V2.forEach(function(k,i){nA[slots[i]]=k});navSave(nA)}
+(function(){var D=null;
+  function rows(){return Array.prototype.slice.call(document.querySelectorAll("#nvList>li"))}
+  document.addEventListener("pointerdown",function(e){var li=e.target.closest&&e.target.closest("#nvList>li");if(!li||e.button>0||D)return;var R=rows(),r=li.getBoundingClientRect(),nx=R[1]?R[1].getBoundingClientRect().top-R[0].getBoundingClientRect().top:r.height+6;
+    D={li:li,y0:e.clientY,i:R.indexOf(li),j:R.indexOf(li),step:nx,R:R,on:false};try{li.setPointerCapture(e.pointerId)}catch(x){}});
+  document.addEventListener("pointermove",function(e){if(!D)return;var dy=e.clientY-D.y0;if(!D.on){if(Math.abs(dy)<4)return;D.on=true;D.li.classList.add("lift")}
+    var max=(D.R.length-1-D.i)*D.step,min=-D.i*D.step;dy=Math.max(min-10,Math.min(max+10,dy));D.li.style.transform="translateY("+dy+"px) scale(1.02)";
+    var j=Math.max(0,Math.min(D.R.length-1,D.i+Math.round(dy/D.step)));if(j===D.j)return;D.j=j;
+    D.R.forEach(function(x,k){if(x===D.li)return;var s=0;if(D.i<j&&k>D.i&&k<=j)s=-D.step;else if(D.i>j&&k>=j&&k<D.i)s=D.step;x.style.transform=s?"translateY("+s+"px)":""})});
+  function end(){if(!D)return;var d=D;D=null;if(!d.on)return;d.li.classList.remove("lift");d.li.classList.add("settle");d.li.style.transform="translateY("+((d.j-d.i)*d.step)+"px)";
+    setTimeout(function(){if(d.j!==d.i){var V=navVisible(),k=V.splice(d.i,1)[0];V.splice(d.j,0,k);navCommit(V)}if(S.mode==="nav"&&dlg.open)renderDlg()},d.j!==d.i?290:200)}
+  document.addEventListener("pointerup",end);document.addEventListener("pointercancel",end);
+  document.addEventListener("keydown",function(e){var li=e.target.closest&&e.target.closest("#nvList>li");if(!li||(e.key!=="ArrowUp"&&e.key!=="ArrowDown"))return;e.preventDefault();var V=navVisible(),i=V.indexOf(li.dataset.k),j=i+(e.key==="ArrowUp"?-1:1);if(i<0||j<0||j>=V.length)return;var k=V.splice(i,1)[0];V.splice(j,0,k);navCommit(V);renderDlg();var f=document.querySelector('#nvList>li[data-k="'+k+'"]');if(f)f.focus()})})();
+function dashPanel(){return '<div class="panel pad">'+sh('<span class="si">'+ico("sliders")+'</span>Що показувати на огляді',null,'<button class="btn primary" data-act="dashEdit">'+ico("check")+' Готово</button>')+'<div class="muted small hint">Натисніть на елемент, щоб показати або сховати його. На комп\'ютері блоки можна перетягувати мишкою на інше місце і розтягувати за правий нижній кут. Налаштування лише ваші — в інших служителів огляд не зміниться.</div><div class="chips">'+DASH.map(function(d){return '<button class="chip" aria-pressed="'+on(d[0])+'" data-act="dashT" data-v="'+d[0]+'">'+d[1]+'</button>'}).join("")+'</div>'+(S.lay.r.length||Object.keys(S.lay.w).length||Object.keys(S.lay.h).length?'<div class="bar"><button class="btn small" data-act="dashReset">Повернути початкове розташування</button></div>':"")+'</div>'}
 function mdots(types,cls){var c=[],k;for(k=0;k<12;k++)c[k]=0;evOf(types,CY).forEach(function(j){if(j.e.date&&j.e.date.length===10)c[+j.e.date.slice(5,7)-1]++});
   return '<span class="md'+(cls?" "+cls:"")+'">'+c.map(function(n,i){return '<u'+(n?' class="on"':"")+' data-tip="'+MON[i]+": "+n+'"></u>'}).join("")+'</span>'}
 
@@ -71,37 +97,134 @@ function vHome(){
   var RC=reminders().count,net=cy.inn-cy.out,medv=median(ages),med=num(medv),old=ages.filter(function(a){return a>=75}).length,sign=(net>0?"+":"")+net;
   function stat(k,n,tag,cls){return '<button class="stat" data-act="kpi" data-v="'+k+'"><span class="dn">'+n+'</span><span class="tag'+(cls?" "+cls:"")+'">'+tag+'</span></button>'}
   var G=[["до 18",0,17],["18–35",18,35],["36–60",36,60],["61+",61,200]],gc=G.map(function(g){return ages.filter(function(a){return a>=g[1]&&a<=g[2]}).length}),gm=Math.max.apply(null,gc.concat([1]));
-  var h=(S.dashEdit?dashPanel():"")+(on("verse")?verseCard():"")+homeTop();
-  if(on("stats"))h+='<section class="stats">'+stat("all",A.length,"усього","lime")+stat("all",men,"чоловіків")+stat("all",wom,"жінок")+stat("note",notes.length,"на замітці")+'</section>';
-  if(on("strip"))h+='<section class="strip"><div class="trend"><span class="si'+(net<0?" t-bad":" t-lime")+'">'+ico(net<0?"trenddown":net>0?"trend":"trendflat")+'</span><span><b>Приріст '+sign+'</b><small>за '+CY+' рік</small></span></div>'+
+  var W={},h=(S.dashEdit?dashPanel():""),tp=homeTop();W.verse=verseCard();if(tp)W.top='<div class="wg-stack">'+tp+'</div>';
+  W.stats='<section class="stats">'+stat("all",A.length,"усього","lime")+stat("all",men,"чоловіків")+stat("all",wom,"жінок")+stat("note",notes.length,"на замітці")+'</section>';
+  W.strip='<section class="strip"><div class="trend"><span class="si'+(net<0?" t-bad":" t-lime")+'">'+ico(net<0?"trenddown":net>0?"trend":"trendflat")+'</span><span><b>Приріст '+sign+'</b><small>за '+CY+' рік</small></span></div>'+
     G.map(function(g,i){var n=gc[i],d="",q=n?Math.max(1,Math.round(n/gm*9)):0;for(var z=0;z<q;z++)d+="<u></u>";return '<div class="ag" data-tip="'+esc(g[0]+": "+n)+'"><span>'+g[0]+'</span><span class="dd">'+d+'</span><b>'+n+'</b></div>'}).join("")+'</section>';
-  var FT=[on("f1")&&'<button class="feature f-green" data-act="kpi" data-v="all"><span class="fl">Членів церкви</span><span><span class="fv">'+A.length+'</span><span class="fs">'+(net?sign+" за рік":"без змін за рік")+'</span></span><span class="matrix"></span></button>',
-    on("f2")&&'<button class="feature f-sun" data-act="ages"><span class="fl">Медіанний вік</span><span><span class="fv">'+(med||"—")+'</span><span class="fs">'+(ages.length?"від "+Math.min.apply(null,ages)+" до "+Math.max.apply(null,ages)+" р.":"")+'</span></span><span class="ruler-w"><span class="ruler"></span>'+(medv!==""?'<i style="left:'+Math.min(96,Math.max(4,medv))+'%"></i>':"")+'</span></button>',
-    on("f3")&&'<button class="feature plain" data-act="goRem"><span class="pt"><span>'+(RC?"Нагадування чекають":"Нагадувань немає")+'</span><span class="go">'+ico("arrow")+'</span></span><span class="pv">'+RC+'<small>'+(RC?"потребують рішення":"усе опрацьовано")+'</small></span><span class="slider"><u'+(RC?' class="hot"':"")+'></u><s></s><em></em></span><span class="pn">Замітки, у яких минув термін, і вилучені, про яких час поцікавитись.</span></button>'].filter(Boolean);
-  if(FT.length)h+='<section class="features n'+FT.length+'">'+FT.join("")+'</section>';
+  var FT=['<button class="feature f-green" data-act="kpi" data-v="all"><span class="fl">Членів церкви</span><span><span class="fv">'+A.length+'</span><span class="fs">'+(net?sign+" за рік":"без змін за рік")+'</span></span><span class="matrix"></span></button>',
+    '<button class="feature f-sun" data-act="ages"><span class="fl">Медіанний вік</span><span><span class="fv">'+(med||"—")+'</span><span class="fs">'+(ages.length?"від "+Math.min.apply(null,ages)+" до "+Math.max.apply(null,ages)+" р.":"")+'</span></span><span class="ruler-w"><span class="ruler"></span>'+(medv!==""?'<i style="left:'+Math.min(96,Math.max(4,medv))+'%"></i>':"")+'</span></button>',
+    '<button class="feature plain" data-act="goRem"><span class="pt"><span>'+(RC?"Нагадування чекають":"Нагадувань немає")+'</span><span class="go">'+ico("arrow")+'</span></span><span class="pv">'+RC+'<small>'+(RC?"потребують рішення":"усе опрацьовано")+'</small></span><span class="slider"><u'+(RC?' class="hot"':"")+'></u><s></s><em></em></span><span class="pn">Замітки, у яких минув термін, і вилучені, про яких час поцікавитись.</span></button>'];W.f1=FT[0];W.f2=FT[1];W.f3=FT[2];
   var dl=deaconList(),drows=dl.map(function(d){return [d,A.filter(function(x){return x.d.deacon===d}).length]});
   var nod=A.filter(function(x){return !x.d.deacon});if(nod.length)drows.push(["Не закріплені",nod.length,"-"]);
   var ys=[];for(var y=CY-7;y<=CY;y++)ys.push(y);var mx=Math.max.apply(null,ys.map(function(y){var r=Y[y]||{inn:0,out:0};return Math.max(r.inn,r.out)}).concat([1]));
-  if(on("chart"))h+='<section class="dark"><div>'+sh("Рух за роками",null,'<div class="legend"><span><i style="background:var(--cin)"></i>прийнято</span><span><i style="background:var(--out)"></i>вибуло</span></div>')+
-    '<div><div class="vchart">'+ys.map(function(y){var r=Y[y]||{inn:0,out:0};return '<div class="vg"><div class="vb in'+(r.inn?"":" zero")+'" style="height:'+(r.inn/mx*100)+'%" data-tip="'+y+': прийнято '+r.inn+'"><span>'+(r.inn||"")+'</span></div><div class="vb out'+(r.out?"":" zero")+'" style="height:'+(r.out/mx*100)+'%" data-tip="'+y+': вибуло '+r.out+'"><span>'+(r.out||"")+'</span></div></div>'}).join("")+'</div><div class="vx">'+ys.map(function(y){return '<div>'+y+'</div>'}).join("")+'</div></div></div>'+
-    '<div>'+sh("Члени за дияконами і пасторами",drows.length?null:null)+'<div>'+(drows.length?hbars(drows,"toDeacon"):'<span class="muted">Членів ще немає.</span>')+'</div></div></section>';
+  W.chart='<section class="dark one"><div>'+sh("Рух за роками",null,'<div class="legend"><span><i style="background:var(--cin)"></i>прийнято</span><span><i style="background:var(--out)"></i>вибуло</span></div>')+
+    '<div><div class="vchart">'+ys.map(function(y){var r=Y[y]||{inn:0,out:0};return '<div class="vg"><div class="vb in'+(r.inn?"":" zero")+'" style="height:'+(r.inn/mx*100)+'%" data-tip="'+y+': прийнято '+r.inn+'"><span>'+(r.inn||"")+'</span></div><div class="vb out'+(r.out?"":" zero")+'" style="height:'+(r.out/mx*100)+'%" data-tip="'+y+': вибуло '+r.out+'"><span>'+(r.out||"")+'</span></div></div>'}).join("")+'</div><div class="vx">'+ys.map(function(y){return '<div>'+y+'</div>'}).join("")+'</div></div></div></section>';
+  W.dk='<section class="dark one"><div>'+sh("Члени за дияконами і пасторами",drows.length?null:null)+'<div>'+(drows.length?hbars(drows,"toDeacon"):'<span class="muted">Членів ще немає.</span>')+'</div></div></section>';
   var noG=A.filter(function(x){return !groupsOf(x.p.id).length}).length;
-  if(on("minis"))h+='<section class="minis">'+
-    '<button class="mini" data-act="kpi" data-v="in"><span class="ml">'+ico("userplus")+'Прийнято у '+CY+'</span><span class="mv">'+cy.inn+'<small>осіб</small></span>'+mdots(["accepted"])+'</button>'+
-    '<button class="mini" data-act="kpi" data-v="out"><span class="ml">'+ico("userminus")+'Вибуло у '+CY+'</span><span class="mv">'+cy.out+'<small>осіб</small></span>'+mdots(["excluded","left","moved","died"],"o")+'</button>'+
-    '<button class="mini" data-act="kpi" data-v="min"><span class="ml">'+ico("book")+(S.pastors.length>1?"Пастори":"Пастор")+'</span><span class="mv txt">'+(esc(S.pastors.map(function(p){return p.name}).join(", "))||"не вказано")+'</span><span class="ms">дияконів: '+S.deacons.length+'</span></button>'+
-    '<button class="mini" data-act="nav" data-v="groups"><span class="ml">'+ico("circles")+'Малі групи</span><span class="mv">'+S.groups.length+'<small>груп</small></span><span class="ms">поза групами: '+noG+'</span></button>'+
-    '</section>';
+  W.m1='<button class="mini" data-act="kpi" data-v="in"><span class="ml">'+ico("userplus")+'Прийнято у '+CY+'</span><span class="mv">'+cy.inn+'<small>осіб</small></span>'+mdots(["accepted"])+'</button>';
+  W.m2='<button class="mini" data-act="kpi" data-v="out"><span class="ml">'+ico("userminus")+'Вибуло у '+CY+'</span><span class="mv">'+cy.out+'<small>осіб</small></span>'+mdots(["excluded","left","moved","died"],"o")+'</button>';
+  W.m3='<button class="mini" data-act="kpi" data-v="min"><span class="ml">'+ico("book")+(S.pastors.length>1?"Пастори":"Пастор")+'</span><span class="mv txt">'+(esc(S.pastors.map(function(p){return p.name}).join(", "))||"не вказано")+'</span><span class="ms">дияконів: '+S.deacons.length+'</span></button>';
+  W.m4='<button class="mini" data-act="nav" data-v="groups"><span class="ml">'+ico("circles")+'Малі групи</span><span class="mv">'+S.groups.length+'<small>груп</small></span><span class="ms">поза групами: '+noG+'</span></button>';
   var bd=upcoming(14),J=[];S.people.forEach(function(p){(p.events||[]).forEach(function(e){if(e.date&&e.date.length===10)J.push({p:p,e:e})})});J.sort(function(a,b){return a.e.date<b.e.date?1:-1});
   function cnt(k,f){var n=A.filter(f).length;return n?'<li><button class="link" data-act="special" data-v="'+k+'">'+SPECIAL[k]+'</button><b>'+n+'</b></li>':""}
   var att=(notes.length?'<li><button class="link" data-act="fnote">на замітці</button><b>'+notes.length+'</b></li>':"")+(nod.length?'<li><button class="link" data-act="toDeacon" data-v="-">без диякона</button><b>'+nod.length+'</b></li>':"")+
       partList().slice(1).map(function(n){var c=A.filter(function(x){return x.p.part===n}).length;return c?'<li><button class="link" data-act="fpart" data-v="'+esc(n)+'">'+esc(n)+'</button><b>'+c+'</b></li>':""}).join("")+cnt("needs",function(x){return (x.p.needs||[]).length})+cnt("nocontact",function(x){return lastContact(x.p)<addMonths(today(),-3)})+cnt("nophone",function(x){return !x.p.phone})+cnt("noaddr",function(x){return !x.p.address&&!x.p.place})+cnt("nobirth",function(x){return !x.p.birth})+cnt("nochat",function(x){return x.p.chat!=="так"});
   var L1='<div class="panel pad">'+sh("Потребує уваги")+(att?'<ul class="list">'+att+'</ul>':'<div class="muted">Усе заповнено, зауважень немає.</div>')+'</div>',
     L2='<div class="panel pad">'+sh("Дати на 2 тижні",bd.length||null)+(bd.length?'<ul class="list">'+bd.map(function(b){return '<li><span>'+plink(b.x,b.x.d.deacon)+'<br><span class="small muted">'+esc(b.label)+'</span></span><span class="tag">'+(b.diff===0?"сьогодні":b.dm)+'</span></li>'}).join("")+'</ul>':'<div class="muted">Найближчим часом дат немає.</div>')+'</div>',
-    LA=lastActs(8),L3='<div id="hLast" class="panel pad'+(LA&&on("serve")&&on("l1")&&on("l2")?" full":"")+'">'+(LA?sh("Останні зміни")+LA:sh("Останні події членства")+(J.length?'<ul class="list">'+J.slice(0,6).map(function(j){return '<li><span><button class="link" data-act="open" data-id="'+esc(j.p.id)+'">'+esc(fio(j.p))+'</button><br><span class="muted small">'+esc(EV[j.e.type].label+(j.e.deacon?" · "+canon(j.e.deacon):""))+'</span></span><span class="small muted" style="white-space:nowrap">'+fd(j.e.date)+'</span></li>'}).join("")+'</ul>':'<div class="muted">Подій із точною датою ще немає.</div>'))+'</div>',LL=(on("serve")?servePanel(1):"")+(on("l1")?L1:"")+(on("l2")?L2:"")+(on("l3")?L3:"");
-  if(LL)h+='<div class="cols">'+LL+'</div>';
+    LA=lastActs(8),L3='<div id="hLast" class="panel pad'+""+'">'+(LA?sh("Останні зміни")+LA:sh("Останні події членства")+(J.length?'<ul class="list">'+J.slice(0,6).map(function(j){return '<li><span><button class="link" data-act="open" data-id="'+esc(j.p.id)+'">'+esc(fio(j.p))+'</button><br><span class="muted small">'+esc(EV[j.e.type].label+(j.e.deacon?" · "+canon(j.e.deacon):""))+'</span></span><span class="small muted" style="white-space:nowrap">'+fd(j.e.date)+'</span></li>'}).join("")+'</ul>':'<div class="muted">Подій із точною датою ще немає.</div>'))+'</div>',LL="";W.serve=servePanel(1);W.l1=L1;W.l2=L2;W.l3=L3;h+=wgGrid(W);
   if(!S.dashEdit)h+='<div class="bar" style="justify-content:center"><button class="btn" data-act="dashEdit">'+ico("sliders")+' Налаштувати огляд</button><button class="btn" data-act="tourStart">'+ico("spark")+' Як користуватись</button></div>';
   return h}
+
+/* ---------- the dashboard is a grid of widgets kept in ROWS. Every row always fills all 12 columns: stretch one card and its neighbours give way, shrink it and they take the freed room. On a computer a card can be dragged into another row, between two cards or onto a row of its own; the layout is kept per user ---------- */
+var WGD={verse:[12,6],top:[12,6],stats:[12,5],strip:[12,7],f1:[4,3],f2:[4,3],f3:[4,3],chart:[7,4],dk:[5,3],m1:[3,2],m2:[3,2],m3:[3,2],m4:[3,2],serve:[4,3],l1:[4,3],l2:[4,3],l3:[12,4]};
+var WGK=Object.keys(WGD),WGROWS=[["verse"],["top"],["stats"],["strip"],["f1","f2","f3"],["chart","dk"],["m1","m2","m3","m4"],["serve","l1","l2"],["l3"]];
+S.lay={r:[],w:{},h:{}};try{var ly0=JSON.parse(localStorage.getItem("dashLayout")||"null");if(ly0&&typeof ly0==="object")S.lay=wgNorm(ly0)}catch(e){}
+function wgNorm(v){var o={r:[],w:{},h:{}},seen={};WGK.forEach(function(k){var w=v&&v.w&&+v.w[k],h=v&&v.h&&+v.h[k];if(w>=WGD[k][1]&&w<=12)o.w[k]=Math.round(w);if(h>=1&&h<=30)o.h[k]=Math.round(h)});
+  if(v&&Array.isArray(v.r))v.r.forEach(function(r){if(!Array.isArray(r))return;var q=r.filter(function(k){if(!WGD[k]||seen[k])return false;seen[k]=1;return true});if(q.length)o.r.push(q)});
+  else if(v&&Array.isArray(v.o)&&v.o.length){var row=[],sum=0;v.o.forEach(function(k){if(!WGD[k]||seen[k])return;seen[k]=1;var p=o.w[k]||WGD[k][0];if(sum+p>12&&row.length){o.r.push(row);row=[];sum=0}row.push(k);sum+=p});if(row.length)o.r.push(row)}
+  return o}
+function wgSpan(k){return S.lay.w[k]||WGD[k][0]}
+function wgSave(){try{localStorage.setItem("dashLayout",JSON.stringify(S.lay))}catch(e){}dashSave()}
+function wgDesk(){try{return window.matchMedia("(min-width:921px)").matches}catch(e){return false}}
+function wgCopy(R){return R.map(function(r){return r.slice()})}
+/* all rows with every known card in them (also the hidden ones); a card the saved layout does not know yet goes next to its neighbours from the default layout */
+function wgRows(){var R=wgCopy(S.lay.r&&S.lay.r.length?S.lay.r:WGROWS),has={};R.forEach(function(r){r.forEach(function(k){has[k]=1})});
+  WGROWS.forEach(function(dr,di){dr.forEach(function(k,ki){if(has[k])return;has[k]=1;var mate=dr.filter(function(x){return x!==k&&has[x]})[0],ri=-1;if(mate)R.forEach(function(r,i){if(r.indexOf(mate)>=0)ri=i});
+    if(ri>=0){var prev=dr.slice(0,ki).reverse().filter(function(x){return R[ri].indexOf(x)>=0})[0];R[ri].splice(prev?R[ri].indexOf(prev)+1:0,0,k);return}
+    var before=[].concat.apply([],WGROWS.slice(0,di)),at=0;R.forEach(function(r,i){if(r.some(function(x){return before.indexOf(x)>=0}))at=i+1});R.splice(at,0,[k])})});
+  return R.filter(function(r){return r.length})}
+function wgMinSum(r){return r.reduce(function(a,k){return a+WGD[k][1]},0)}
+/* widths of the visible cards: vis(k) says whether a card is on the screen; pin — the card being stretched right now, with the width ov */
+function wgCalc(R,vis,pin,ov){var res={},out=[];R.forEach(function(r0){var r=r0.filter(vis);if(!r.length)return;
+    while(wgMinSum(r)>12&&r.length>1){out.push([r.pop()])}
+    var w={},sum=0;r.forEach(function(k){w[k]=Math.max(WGD[k][1],Math.min(12,k===pin?ov:wgSpan(k)));sum+=w[k]});
+    if(pin!=null&&w[pin]!=null){var mx=12-(wgMinSum(r)-WGD[pin][1]);if(w[pin]>mx){sum-=w[pin]-mx;w[pin]=mx}}
+    function own(k){return S.lay.w[k]!=null}
+    var adj=r.filter(function(k){return k!==pin}),guard=0;if(!adj.length)adj=r.slice();
+    while(sum<12&&guard++<200){var c=adj.filter(function(k){return !own(k)});if(!c.length)c=adj;var k1=c.slice().sort(function(a,b){return w[a]/wgSpan(a)-w[b]/wgSpan(b)})[0];w[k1]++;sum++}
+    while(sum>12&&guard++<400){var c2=adj.filter(function(k){return w[k]>WGD[k][1]}),c3=c2.filter(function(k){return !own(k)});if(!c2.length)break;if(!c3.length)c3=c2;var k2=c3.slice().sort(function(a,b){return (w[b]-WGD[b][1])-(w[a]-WGD[a][1])||w[b]/wgSpan(b)-w[a]/wgSpan(a)})[0];w[k2]--;sum--}
+    r.forEach(function(k){res[k]=w[k]});out.push(r)});
+  out.forEach(function(r){if(r.length===1&&res[r[0]]==null)res[r[0]]=12});
+  return {w:res,order:[].concat.apply([],out)}}
+function wgGrid(W){var R=wgRows(),vis=function(k){return !!W[k]&&(k==="top"||on(k))},L=wgCalc(R,vis),h='<div class="wgrid'+(S.dashEdit?" editing":"")+'" id="wgrid">';
+  L.order.forEach(function(k,i){var mh=S.lay.h[k];
+    h+='<div class="wg w-'+k+'" data-w="'+k+'" style="--w:'+L.w[k]+';order:'+i+(mh?";--mh:"+(mh*40)+"px":"")+'">'+W[k]+(k!=="top"?'<button type="button" class="wg-x" data-act="dashT" data-v="'+k+'" aria-label="Сховати цей блок" title="Сховати">'+ico("x")+'</button>':"")+'<span class="wg-rs" title="Потягніть, щоб змінити розмір" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M33 9A24 24 0 0 1 9 33"/><circle cx="33" cy="9" r="2.6"/><circle cx="9" cy="33" r="2.6"/></svg></span></div>'});
+  return h+'</div>'}
+var WG={d:null};window.__wgBusy=false;
+function wgItems(){return Array.prototype.slice.call(document.querySelectorAll("#wgrid>.wg"))}
+function wgFlip(mut,skip){var E=wgItems(),R=E.map(function(e){return e.getBoundingClientRect()});mut();
+  E.forEach(function(e,i){if(e===skip||!e.animate)return;var r=e.getBoundingClientRect(),dx=R[i].left-r.left,dy=R[i].top-r.top,sx=r.width?R[i].width/r.width:1,sy=r.height?R[i].height/r.height:1,sz=Math.abs(sx-1)>.01||Math.abs(sy-1)>.01;if(Math.abs(dx)<1&&Math.abs(dy)<1&&!sz)return;
+    e.animate([{transformOrigin:"0 0",transform:"translate("+dx+"px,"+dy+"px)"+(sz?" scale("+sx+","+sy+")":"")},{transformOrigin:"0 0",transform:"none"}],{duration:sz?340:380,easing:"cubic-bezier(.2,.85,.25,1)"})})}
+/* shows the given rows: order and widths of all cards change in one animated step */
+function wgSet(R,pin,ov,skip,mut){var E=wgItems(),here={};E.forEach(function(e){here[e.dataset.w]=1});var L=wgCalc(R||wgRows(),function(k){return !!here[k]},pin,ov);
+  wgFlip(function(){E.forEach(function(e){var k=e.dataset.w;e.style.order=L.order.indexOf(k);if(L.w[k])e.style.setProperty("--w",L.w[k])});if(mut)mut()},skip);return L}
+/* where the dragged card k would land if dropped on card t at this point: a copy of the rows, or null when nothing changes */
+function wgDropRows(R0,k,t,tr,x,y,here){var R=wgCopy(R0).map(function(r){return r.filter(function(q){return q!==k})}).filter(function(r){return r.length}),ri=-1;R.forEach(function(r,i){if(r.indexOf(t)>=0)ri=i});if(ri<0)return null;
+  var row=R[ri],visRow=row.filter(function(q){return here[q]}),fx=(x-tr.left)/tr.width,fy=(y-tr.top)/tr.height,solo=visRow.length===1&&tr.width>window.innerWidth*.5,fits=wgMinSum(visRow)+WGD[k][1]<=12;
+  if(solo?(fx>.16&&fx<.84||!fits):(fy<.2||fy>.8||!fits)){R.splice(fy<.5?ri:ri+1,0,[k]);return R}
+  row.splice(row.indexOf(t)+(fx>.5?1:0),0,k);return R}
+function wgDown(e){if(!wgDesk()||e.button!==0||S.tab!=="home"||WG.d||(typeof TOUR!=="undefined"&&TOUR))return;var t=e.target,g=t.closest&&t.closest("#wgrid>.wg");if(!g)return;
+  if(t.closest(".wg-rs")){e.preventDefault();wgResizeStart(g,e);return}
+  if(t.closest("input,select,textarea,.wg-x,a[href]"))return;
+  WG.d={el:g,k:g.dataset.w,x0:e.clientX,y0:e.clientY,on:false,pid:e.pointerId}}
+function wgMove(e){var d=WG.d;if(!d||d.demo)return;if(d.rs){wgResizeMove(e);return}
+  if(!d.on){if(Math.abs(e.clientX-d.x0)+Math.abs(e.clientY-d.y0)<9)return;var r=d.el.getBoundingClientRect();d.on=true;d.gx=d.x0-r.left;d.gy=d.y0-r.top;d.w0=r.width;d.R=wgRows();d.last=0;window.__wgBusy=true;
+    try{window.getSelection().removeAllRanges()}catch(x){}document.body.classList.add("wg-drag");d.el.classList.add("lift");var gr=document.getElementById("wgrid");if(gr)gr.classList.add("dragging")}
+  d.cx=e.clientX;d.cy=e.clientY;wgPlace();
+  if(e.clientY<70)window.scrollBy(0,-14);else if(e.clientY>window.innerHeight-70)window.scrollBy(0,14);
+  var now=Date.now();if(now-d.last<190)return;d.el.style.pointerEvents="none";var u=document.elementFromPoint(e.clientX,e.clientY);d.el.style.pointerEvents="";var tg=u&&u.closest&&u.closest("#wgrid>.wg");if(!tg||tg===d.el)return;
+  var here={};wgItems().forEach(function(x){here[x.dataset.w]=1});var R=wgDropRows(d.R,d.k,tg.dataset.w,tg.getBoundingClientRect(),e.clientX,e.clientY,here);
+  if(!R||JSON.stringify(R)===JSON.stringify(d.R))return;d.R=R;d.last=now;wgSet(R,null,null,d.el);wgPlace()}
+function wgPlace(){var d=WG.d;if(!d||!d.on)return;d.el.style.transform="none";var r=d.el.getBoundingClientRect();d.el.style.transform="translate("+(d.cx-d.gx*(r.width/(d.w0||r.width))-r.left)+"px,"+(d.cy-d.gy-r.top)+"px) scale(1.025) rotate(-.6deg)"}
+function wgUp(e){var d=WG.d;if(!d||d.demo)return;WG.d=null;if(d.rs){wgResizeEnd(d);return}if(!d.on)return;
+  var el=d.el,from=el.style.transform;el.style.transform="";el.classList.remove("lift");el.classList.add("drop");document.body.classList.remove("wg-drag");var gr=document.getElementById("wgrid");if(gr)gr.classList.remove("dragging");
+  var done=function(){el.classList.remove("drop");window.__wgBusy=false;S.lay.r=d.R;wgSave();if(window.__wgPending){window.__wgPending=0;render()}};
+  if(el.animate){var a=el.animate([{transform:from},{transform:"none"}],{duration:300,easing:"cubic-bezier(.2,.9,.3,1.15)"});a.onfinish=done;a.oncancel=done}else done();
+  var stop=function(ev){ev.stopPropagation();ev.preventDefault();document.removeEventListener("click",stop,true)};document.addEventListener("click",stop,true);setTimeout(function(){document.removeEventListener("click",stop,true)},60)}
+function wgResizeStart(g,e){var gr=document.getElementById("wgrid"),cs=getComputedStyle(gr),gap=parseFloat(cs.columnGap)||16,col=(gr.getBoundingClientRect().width+gap)/12,r=g.getBoundingClientRect(),k=g.dataset.w;
+  g.style.setProperty("--mh","0px");var nat=g.getBoundingClientRect().height;if(S.lay.h[k])g.style.setProperty("--mh",S.lay.h[k]*40+"px");else g.style.removeProperty("--mh");
+  WG.d={rs:true,el:g,k:k,col:col,gap:gap,left:r.left,top:r.top,w:+g.style.getPropertyValue("--w")||wgSpan(k),h:S.lay.h[k]||0,nat:nat,R:wgRows(),pid:e.pointerId};window.__wgBusy=true;document.body.classList.add("wg-rsz");g.classList.add("sizing")}
+function wgResizeMove(e){var d=WG.d,w=Math.max(WGD[d.k][1],Math.min(12,Math.round((e.clientX-d.left+d.gap)/d.col))),hh=Math.max(0,Math.round((e.clientY-d.top)/40));if(hh*40<=d.nat+12)hh=0;if(hh>30)hh=30;
+  if(w===d.want&&hh===d.h)return;d.want=w;d.h=hh;var L=wgSet(d.R,d.k,w,null,function(){if(hh)d.el.style.setProperty("--mh",hh*40+"px");else d.el.style.removeProperty("--mh")});d.w=L.w[d.k];d.L=L}
+function wgResizeEnd(d){document.body.classList.remove("wg-rsz");d.el.classList.remove("sizing");window.__wgBusy=false;if(d.want!=null&&d.L){d.R.forEach(function(r){if(r.indexOf(d.k)>=0)r.forEach(function(q){if(d.L.w[q])S.lay.w[q]=d.L.w[q]})})}if(d.h)S.lay.h[d.k]=d.h;else delete S.lay.h[d.k];wgSave();if(window.__wgPending){window.__wgPending=0;render()}}
+/* live demo for the tutorial: a drawn cursor really drags one card to another place, stretches it by the corner and puts everything back; nothing is saved */
+var WGDM=null;
+function wgDemoKeys(){var V=wgRows().map(function(r){return r.filter(function(k){return k!=="top"&&on(k)})}).filter(function(r){return r.length>=2}),f=V.filter(function(r){return /^f\d/.test(r[0])})[0]||V[0];return f?f.slice(0,3):null}
+function wgDemoStop(){var m=WGDM;if(!m)return;WGDM=null;m.dead=true;if(m.cur)m.cur.remove();if(WG.d&&WG.d.demo)WG.d=null;var g=document.getElementById("wgrid");if(g)g.classList.remove("dragging");
+  wgItems().forEach(function(e){e.classList.remove("lift");e.classList.remove("drop");e.classList.remove("sizing");e.style.transform="";if(e.getAnimations)e.getAnimations().forEach(function(a){a.cancel()})});window.__wgBusy=false;window.__wgPending=0;if(S.tab==="home")render()}
+function wgDemoStart(keys){wgDemoStop();if(!wgDesk()||S.tab!=="home"||!keys||keys.length<2)return;var m=WGDM={dead:false,x:null,y:null},grid=document.getElementById("wgrid");if(!grid)return;
+  var cur=m.cur=document.createElement("div");cur.className="wg-cur";cur.setAttribute("aria-hidden","true");cur.innerHTML='<svg viewBox="0 0 24 24"><path d="M5.5 3.2l13 7.6-5.6 1.5-2.5 5.9z"/></svg>';document.body.appendChild(cur);window.__wgBusy=true;
+  function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
+  function el(k){return document.querySelector("#wgrid>.wg.w-"+k)}
+  function put(){cur.style.transform="translate("+m.x+"px,"+m.y+"px)"}
+  function glide(x1,y1,ms,fr){return new Promise(function(res){var x0=m.x,y0=m.y,t0=performance.now();(function f(t){if(m.dead)return res();var p=Math.max(0,Math.min(1,(t-t0)/ms)),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;m.x=x0+(x1-x0)*e;m.y=y0+(y1-y0)*e;put();if(fr)fr(p);if(p<1)requestAnimationFrame(f);else res()})(t0)})}
+  (async function(){try{await wait(1000);
+    while(!m.dead){var A=el(keys[keys.length-1]),B=el(keys[0]);if(!A||!B)break;var R0=wgRows(),k=A.dataset.w,ra=A.getBoundingClientRect(),rb=B.getBoundingClientRect();
+      if(m.x==null){m.x=ra.left+ra.width/2+140;m.y=ra.top+ra.height+40;put();await wait(30);cur.classList.add("on")}
+      await glide(ra.left+ra.width/2,ra.top+ra.height*.42,750);if(m.dead)break;cur.classList.add("down");await wait(260);if(m.dead)break;
+      WG.d={demo:true,el:A,k:k,on:true,gx:m.x-ra.left,gy:m.y-ra.top,w0:ra.width,cx:m.x,cy:m.y};A.classList.add("lift");grid.classList.add("dragging");
+      var moved=false,R1=wgCopy(R0).map(function(r){return r.filter(function(q){return q!==k})});R1.forEach(function(r){var i=r.indexOf(B.dataset.w);if(i>=0)r.splice(i,0,k)});
+      await glide(rb.left+rb.width*.42,rb.top+rb.height*.45,1250,function(p){var d=WG.d;if(!d)return;d.cx=m.x;d.cy=m.y;if(!moved&&p>.6){moved=true;wgSet(R1,null,null,A)}wgPlace()});if(m.dead)break;await wait(260);if(m.dead)break;
+      var from=A.style.transform;A.style.transform="";A.classList.remove("lift");WG.d=null;grid.classList.remove("dragging");cur.classList.remove("down");if(A.animate)A.animate([{transform:from},{transform:"none"}],{duration:320,easing:"cubic-bezier(.2,.9,.3,1.15)"});
+      await wait(1100);if(m.dead)break;
+      var r=A.getBoundingClientRect(),gap=parseFloat(getComputedStyle(grid).columnGap)||16,col=(grid.getBoundingClientRect().width+gap)/12,w0=+A.style.getPropertyValue("--w")||wgSpan(k),w1=w0+2,cw=w0;
+      await glide(r.right-13,r.bottom-13,700);if(m.dead)break;cur.classList.add("down");A.classList.add("sizing");await wait(260);if(m.dead)break;
+      function size(a,b){return function(p){var w=Math.round(a+(b-a)*p);if(w!==cw){cw=w;wgSet(R1,k,w)}}}
+      await glide(m.x+(w1-w0)*col,m.y+26,950,size(w0,w1));if(m.dead)break;await wait(900);if(m.dead)break;
+      await glide(m.x-(w1-w0)*col,m.y-26,850,size(w1,w0));if(m.dead)break;cur.classList.remove("down");A.classList.remove("sizing");await wait(700);if(m.dead)break;
+      wgSet(R0);await glide(m.x+90,m.y+70,700);await wait(900)}}catch(e){}})()}
+document.addEventListener("pointerdown",wgDown);document.addEventListener("pointermove",wgMove);document.addEventListener("pointerup",wgUp);document.addEventListener("pointercancel",wgUp);
+document.addEventListener("dragstart",function(e){if(WG.d)e.preventDefault()});
 
 function reminders(){var R=reminders0(),t=today();R.mine=(S.rem||[]).slice().sort(function(a,b){return (a.date||"9")<(b.date||"9")?-1:1});R.due=R.mine.filter(function(r){return r.date&&r.date<=t});R.later=R.mine.filter(function(r){return !r.date||r.date>t});R.count+=R.due.length;return R}
 function remRow(r,w){var p=person(r.pid);return '<li><span class="grow">'+esc(r.text||"")+'<br><span class="small muted">'+[r.date?fd(r.date):"без дати",p?"":"",r.byName||""].filter(Boolean).join(" · ")+(p?' · <button class="link" data-act="open" data-id="'+esc(p.id)+'">'+esc(fio(p))+'</button>':"")+'</span></span>'+(w?'<button class="btn small primary" data-act="remDone" data-v="'+esc(r.id)+'">'+ico("check")+' Виконано</button>':"")+'</li>'}
@@ -162,7 +285,9 @@ function vDeacons(){
   h+='<div class="panel pad">'+sh("Інші служіння",filled.length)+
     (w?'<div class="composer"><select id="minRole" aria-label="Служіння">'+opts(rn,"")+'</select><select id="minPerson" aria-label="Людина"><option value="">вибрати зі списку членів…</option>'+memberOpts()+'</select><button class="btn primary" data-act="addMin">Призначити</button></div>'+
        '<div class="composer"><input id="newRole" placeholder="Нове служіння, якого немає у списку: кафе, парковка, переклад…"><button class="btn" data-act="addRole">'+ico("plus")+' Додати служіння</button></div>':"")+
-    (filled.length?'<ul class="list rem">'+filled.map(function(r){return '<li><span class="rn">'+esc(r)+'</span><span class="grow chips">'+S.min[r].map(function(id){var p=person(id);return p?'<span class="chip"><button class="link" data-act="open" data-id="'+esc(id)+'">'+esc(short(p))+'</button>'+(w?'<button class="link" title="Прибрати" aria-label="Прибрати" data-act="delMin" data-r="'+esc(r)+'" data-id="'+esc(id)+'" style="color:var(--bad)">'+ico("x")+'</button>':"")+'</span>':""}).join("")+'</span></li>'}).join("")+'</ul>':'<div class="muted">Ще нікого не призначено.</div>')+
+    (filled.length?'<div class="mins">'+filled.map(function(r){var ids=S.min[r].filter(function(id){return person(id)});return '<div class="mn"><div class="mn-h"><b>'+esc(r)+'</b><span class="cn">'+ids.length+'</span></div><div class="mn-c">'+ids.map(function(id){var p=person(id),ck="m|"+r+"|"+id;
+      if(w&&S.confirm===ck)return '<span class="chip ask"><span>Прибрати '+esc(short(p))+'?</span><button class="btn small danger" data-act="delMin" data-r="'+esc(r)+'" data-id="'+esc(id)+'">Так, прибрати</button><button class="btn small" data-act="delMinNo">Ні</button></span>';
+      return '<span class="chip"><button class="link" data-act="open" data-id="'+esc(id)+'">'+esc(short(p))+'</button>'+(w?'<button class="mn-x" title="Прибрати зі служіння" aria-label="Прибрати '+esc(short(p))+' зі служіння" data-act="delMin" data-r="'+esc(r)+'" data-id="'+esc(id)+'">'+ico("x")+'</button>':"")+'</span>'}).join("")+'</div></div>'}).join("")+'</div>':'<div class="muted">Ще нікого не призначено.</div>')+
     rolesEdit(rn,emptyR,w)+'</div>';
   return h}
 
@@ -254,6 +379,11 @@ function rolesBlock(p,W){var rs=cardRoles(p.id),lead=S.groups.filter(function(g)
       '<div class="composer"><input id="p_newRole" placeholder="Нове служіння: керівник кафе, парковка…" aria-label="Нове служіння"><button class="btn" data-act="roleNew">'+ico("plus")+' Створити і призначити</button></div>':"")+'</div>'}
 function extra(a,t,v){
   if(a==="mode"||a==="openMode"||a==="open"||a==="add"||a==="close"||a==="saveEdit"||a==="saveNew")S.kidKey=null;
+  if(a==="delMin"){var mck="m|"+t.dataset.r+"|"+t.dataset.id;if(S.confirm!==mck){S.confirm=mck;render();return true}S.confirm=-1;return false}
+  if(a==="delMinNo"){S.confirm=-1;render();return true}
+  if(a==="dashReset"){S.lay={r:[],w:{},h:{}};wgSave();render();toast("Розташування повернуто");return true}
+  if(a==="navEdit"){meClose();S.card=null;S.mode="nav";renderDlg();return true}
+  if(a==="navReset"){navSave(NAVDEF.slice());renderDlg();return true}
   if(a==="mapD"){S.mapSel=v;S.mode="dist";S.card=null;renderDlg();return true}
   if(a==="stGo"){var sg=document.getElementById(v);if(sg)try{sg.scrollIntoView({behavior:"smooth",block:"center"})}catch(e){sg.scrollIntoView()}return true}
 if(a==="kidAdd"){var kb=document.getElementById("kidRows");if(kb){S.kidN=(S.kidN||0)+1;kb.insertAdjacentHTML("beforeend",kidRow(kb.querySelectorAll(".kid").length+Date.now()%1000*100,{}));var ni=kb.lastElementChild.querySelector("input");if(ni)ni.focus()}return true}
@@ -337,7 +467,7 @@ document.addEventListener("change",function(e){var t=e.target,d=t.dataset||{};if
   st.updateStaff(d.srole||d.sperson,d.srole?{role:t.value}:{person_id:t.value}).then(function(){toast("Збережено")},function(){toast("Не вдалося зберегти. Можливо, бракує прав.")})});
 function lim(){if(window.__site)return window.__site.role==="deacon";if(!(S.canWrite&&S.roleKnown)||S.isAdmin)return false;if((S.cfg.fullUsers||[]).indexOf(S.uid)>=0)return false;return !isOffice(myPid())}
 function ownOnly(p){if(!p||!lim())return false;var md=myDeacon();return !(md&&derive(p).deacon===md)}
-function renderDlg(){if(S.mode==="rems"){var sc=dlg.open?dlg.scrollTop:0;dlg.innerHTML='<div class="dlg rems"><div class="dlg-head"><h2>Нагадування</h2><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>'+vReminders()+'</div>';if(!dlg.open)dlg.showModal();dlg.scrollTop=sc;strip(dlg);return}if(S.mode==="news"){dlg.innerHTML=newsDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="care"){dlg.innerHTML=careDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="ages"){dlg.innerHTML=agesDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="dist"){dlg.innerHTML=distDlg();if(!dlg.open)dlg.showModal();dlg.scrollTop=0;strip(dlg);try{var dae=document.activeElement;if(dae&&dae.blur&&dlg.contains(dae))dae.blur()}catch(e){}return}var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
+function renderDlg(){if(S.mode==="rems"){var sc=dlg.open?dlg.scrollTop:0;dlg.innerHTML='<div class="dlg rems"><div class="dlg-head"><h2>Нагадування</h2><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>'+vReminders()+'</div>';if(!dlg.open)dlg.showModal();dlg.scrollTop=sc;strip(dlg);return}if(S.mode==="news"){dlg.innerHTML=newsDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="care"){dlg.innerHTML=careDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="ages"){dlg.innerHTML=agesDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="nav"){dlg.innerHTML=navDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="dist"){dlg.innerHTML=distDlg();if(!dlg.open)dlg.showModal();dlg.scrollTop=0;strip(dlg);try{var dae=document.activeElement;if(dae&&dae.blur&&dlg.contains(dae))dae.blur()}catch(e){}return}var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
   Array.prototype.forEach.call(dlg.querySelectorAll(".facts dd"),function(d){if(d.textContent.length>34)d.parentNode.classList.add("wide")});
   if(p&&ownOnly(p)&&dlg.open){var d=dlg.querySelector(".dlg-head");if(d)d.insertAdjacentHTML("afterend",'<div class="box small" style="margin-inline:12px">Ця людина закріплена за іншим дияконом, тому картка відкрита лише для перегляду. Зміни вносить її диякон, пастор або секретар.</div>')}
   strip(dlg)}
@@ -345,13 +475,14 @@ function renderDlg(){if(S.mode==="rems"){var sc=dlg.open?dlg.scrollTop:0;dlg.inn
 var TOUR=null;
 function tourSteps(){var full=S.canWrite&&!lim(),s=[
   {tab:"home",ic:"spark",t:"Вітаємо в обліку «Примирення»",x:"Це робочий інструмент служителів: люди, служіння, малі групи, зібрання й нагадування в одному місці. Покажу головне за хвилину."},
-  {tab:"home",ic:"grid",sel:".side-top,#nav button,.me",t:"Меню",x:"Усі розділи зібрані в одній панелі: на комп'ютері вона ліворуч, на телефоні — внизу екрана, гортається вбік. Під меню — ваш акаунт: там підказки, «Що нового» і налаштування огляду."},
-  {tab:"home",ic:"book",sel:".verse,.stats,.features",t:"Огляд",x:"Угорі — слово на сьогодні. Нижче головні цифри церкви: натисніть на картку, щоб перейти до списку. Картка «Медіанний вік» відкриває статистику за віком і віковими групами. Ще нижче — блок «Служіння» і «Останні зміни»: хто і що змінив. Які блоки показувати, ви вибираєте в «Налаштувати огляд»."},
+  {tab:"home",ic:"grid",sel:".side-top,#nav button,.me",t:"Меню",x:"Усі розділи зібрані в одній панелі: на комп'ютері вона ліворуч, на телефоні — внизу екрана, гортається вбік. Під меню — ваш акаунт: там підказки, «Що нового», налаштування огляду і «Порядок меню» — розділи можна перетягнути в зручному вам порядку."},
+  {tab:"home",ic:"book",sel:".w-verse,.w-stats,.w-f1,.w-f2,.w-f3",t:"Огляд",x:"Угорі — слово на сьогодні. Нижче головні цифри церкви: натисніть на картку, щоб перейти до списку. Картка «Медіанний вік» відкриває статистику за віком і віковими групами. Ще нижче — блок «Служіння» і «Останні зміни»: хто і що змінив. Які блоки показувати, ви вибираєте в «Налаштувати огляд». На комп'ютері блоки можна перетягувати мишкою і розтягувати за правий нижній кут — як віджети на телефоні."},
+  wgStep(),
   {tab:"people",ic:"users",sel:".toolbar,.tools",t:"Люди",x:"Усі картки. Угорі — пошук по всьому: прізвище, телефон, адреса, примітки. Фільтри показують чинних, тих, хто на замітці, і вибулих, а також людей конкретного диякона чи пастора."},
   {tab:"people",ic:"heart",sel:"#app>.panel",one:1,t:"Картка людини",x:full?"У картці ви записуєте відвідини, дзвінки й переписку, ставите потреби, призначаєте служіння, додаєте родичів. Кнопки вгорі: прийняти в члени, закріпити за дияконом або пастором, взяти на замітку. Дату прийняття вказуйте фактичну, а не сьогоднішню.":"У картках своїх людей ви записуєте відвідини, дзвінки й переписку, оновлюєте телефон та адресу, ставите потреби. Картки людей інших служителів відкриваються лише для перегляду."},
   {tab:"home",ic:"bell",sel:".side-top",t:"Нагадування",x:"Дзвіночок біля назви, цифра на ньому — скільки справ на сьогодні. Натисніть, щоб додати своє нагадування з датою: подзвонити, відвідати, привітати. Туди ж самі потрапляють ті, у кого минув термін замітки, і ті, хто потребує опіки. Там же вмикаються сповіщення на телефон або комп'ютер."},
   {tab:"deacons",ic:"shield",sel:".dcards,#app>.sh",t:"Пастори і диякони",x:"Вони в одному списку, а колір картки показує, хто є хто: помаранчева — пастор, зелена — диякон, сіро-блакитна — диякон на випробувальному терміні. Натисніть на картку — відкриється список закріплених людей з копіюванням, Excel і друком."},
-  {tab:"deacons",ic:"sliders",sel:"#app>.panel",t:"Інші служіння і малі групи",x:"Нижче — решта служінь: призначайте людей і редагуйте сам список служінь під свою церкву. У розділі «Малі групи» — склад, лідер і відвідуваність зустрічей."},
+  {tab:"deacons",ic:"sliders",sel:"#app>.panel",t:"Інші служіння і малі групи",x:"Нижче — решта служінь, кожне у своїй картці: призначайте людей і редагуйте сам список служінь під свою церкву. Хрестик біля імені прибирає людину зі служіння — застосунок спершу перепитає. У розділі «Малі групи» — склад, лідер і відвідуваність зустрічей."},
   {tab:"meetings",ic:"calendar",sel:"#app>.panel",one:1,t:"Зібрання і трансляція",x:"Членські зібрання з рішеннями щодо людей. Кнопка «Дивитися наживо» відкриває поточну трансляцію на YouTube."}];
   s.push({tab:"stats",ic:"pie",sel:"#app>.st-bento",t:"Статистика",x:"Уся церква в цифрах на одній сторінці. Угорі кольорові картки: скільки членів (кожна крапка — людина, на неї можна натиснути), медіанний вік, хто має служіння, сім'ї та діти до 18 років. Нижче — вік і стать, рух за роками, диякони, служіння."});
   s.push({tab:"stats",ic:"pin",sel:"#app>.mapc",t:"Мапа Чернівців",x:"Справжні обриси міста з районами. Цифра біля району — скільки там живе членів церкви. Натисніть на район — відкриється вікно з його статистикою і людьми. Район вибирається в картці людини або береться з адреси."});
@@ -359,29 +490,37 @@ function tourSteps(){var full=S.canWrite&&!lim(),s=[
   if(S.isAdmin)s.push({tab:"log",ic:"history",sel:"#app>.panel",one:1,t:"Журнал і користувачі",x:"Тут видно, хто й що змінив, і будь-яку зміну можна повернути. Тут же ви підтверджуєте нових користувачів і задаєте їм права."});
   s.push({tab:"home",ic:"spark",sel:"#aiFab,#aiBtnM",t:"Помічник",x:"Кругла кольорова кнопка: на комп'ютері внизу праворуч, на телефоні — вгорі біля пошуку. Пишіть коротко: «знайди Бурлаку», «нагадай у суботу подзвонити Вадиму», «запиши: сьогодні відвідав Вадима», «познач Вадима як служить у ЗСУ» — він знайде або запише сам. Напишіть «що ти вмієш», щоб побачити всі команди."});
   s.push({tab:"home",ic:"check",sel:".me,#meBtnM",t:"Готово",x:"Ці підказки і список останніх оновлень завжди є в меню під вашим іменем (на телефоні — кружечок угорі). Коли виходить оновлення, застосунок сам покаже, що змінилось."});
-  return s}
+  return s.filter(Boolean)}
 function tourHl(tab){Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){b.classList.toggle("tour-hl",!!tab&&b.dataset.tab===tab)});var m=document.getElementById("navMore");if(m)m.classList.toggle("tour-hl",!!tab&&!!document.querySelector("#navX button.tour-hl"))}
-function tourMark(scroll){document.body.classList.toggle("touring",!!TOUR);Array.prototype.forEach.call(document.querySelectorAll(".tour-on"),function(e){e.classList.remove("tour-on")});if(!TOUR)return;
+function tourMark(scroll){document.body.classList.toggle("touring",!!TOUR);Array.prototype.forEach.call(document.querySelectorAll(".tour-on,.tour-in"),function(e){e.classList.remove("tour-on");e.classList.remove("tour-in")});if(!TOUR)return;
   var st=TOUR.s[TOUR.i],els=[];if(TOUR.i>0){var nb=document.querySelector('#nav button[data-tab="'+st.tab+'"]');if(nb){els.push(nb);if(scroll&&nb.scrollIntoView)try{nb.scrollIntoView({block:"nearest",inline:"center"})}catch(e){}}}
-  if(st.sel){try{var found=st.one?[document.querySelector(st.sel)]:Array.prototype.slice.call(document.querySelectorAll(st.sel));found.forEach(function(e){if(e)els.push(e)});if(scroll&&found[0]&&found[0].closest("#app"))found[0].scrollIntoView({block:"center",behavior:"smooth"})}catch(e){}}
-  els.forEach(function(e){e.classList.add("tour-on")})}
-function tourShow(){var el=document.getElementById("tour");if(!TOUR){if(el)el.remove();tourHl(null);tourMark();return}
+  if(st.sel){try{var found=st.one?[document.querySelector(st.sel)]:Array.prototype.slice.call(document.querySelectorAll(st.sel));found.forEach(function(e){if(e)els.push(e)});if(scroll&&found[0]&&found[0].closest("#app"))found[0].scrollIntoView({block:"center",behavior:"smooth"});
+    else if(scroll){var fv=found.filter(function(e){return e&&e.getBoundingClientRect().width>0})[0],fr=fv&&fv.getBoundingClientRect();if(fr&&(fr.bottom<8||fr.top>window.innerHeight-8))fv.scrollIntoView({block:"center",behavior:"smooth"})}}catch(e){}}
+  /* a highlighted block may sit inside a wrapper that is blurred itself (a deeper level of #app, the page head on phones): un-blur such wrappers, their other children get blurred instead */
+  var ap=document.getElementById("app"),BL=".side-top,.me,#sideCard,.head,.tools,#aiFab";els.forEach(function(e){e.classList.add("tour-on");var q=e.parentNode;while(q&&q!==document.body&&q.classList){if((ap&&ap.contains(q)&&q!==ap)||(q.matches&&q.matches(BL)))q.classList.add("tour-in");q=q.parentNode}})}
+function tourShow(){var el=document.getElementById("tour");wgDemoStop();if(!TOUR){if(el)el.remove();tourHl(null);tourMark();return}
   var st=TOUR.s[TOUR.i];if(S.tab!==st.tab)go(st.tab);tourHl(TOUR.i?st.tab:null);tourMark(true);
   if(!el){el=document.createElement("div");el.id="tour";el.setAttribute("role","dialog");el.setAttribute("aria-label","Підказки");document.body.appendChild(el)}
-  el.innerHTML='<span class="si t-lime">'+ico(st.ic)+'</span><div class="tr-b"><div class="tr-n">'+(TOUR.kind==="new"?"Нове · ":"")+'Крок '+(TOUR.i+1)+' з '+TOUR.s.length+'</div><b>'+esc(st.t)+'</b><p>'+esc(st.x)+'</p><div class="bar"><button class="link small" data-act="tourEnd">Пропустити</button><span class="grow"></span>'+(TOUR.i?'<button class="btn small" data-act="tourPrev">Назад</button>':"")+'<button class="btn small primary" data-act="tourNext">'+(TOUR.i===TOUR.s.length-1?(TOUR.kind==="new"?"Що нового":"Почати роботу"):"Далі")+'</button></div></div>'}
+  if(st.demo&&wgDesk())setTimeout(function(){if(TOUR&&TOUR.s[TOUR.i]===st&&S.tab==="home")wgDemoStart(st.demo)},700);
+  el.dataset.sel=st.sel||"";
+  el.innerHTML='<span class="si t-lime">'+ico(st.ic)+'</span><div class="tr-b"><div class="tr-n">'+(TOUR.kind==="new"?"Нове · ":"")+'Крок '+(TOUR.i+1)+' з '+TOUR.s.length+'</div><b>'+esc(st.t)+'</b><p>'+esc(st.x)+'</p>'+(st.art==="nav"?'<div class="tr-art" aria-hidden="true"><i></i><i class="a"></i><i class="b"></i><i class="mv"></i><i></i><u></u></div>':"")+(st.demo&&wgDesk()?'<div class="tr-live">'+ico("play")+' Дивіться на картки вище — показую, як це працює</div>':"")+'<div class="bar"><button class="link small" data-act="tourEnd">Пропустити</button><span class="grow"></span>'+(TOUR.i?'<button class="btn small" data-act="tourPrev">Назад</button>':"")+'<button class="btn small primary" data-act="tourNext">'+(TOUR.i===TOUR.s.length-1?(TOUR.kind==="new"?"Що нового":"Почати роботу"):"Далі")+'</button></div></div>'}
 function tourStart(){if(dlg.open)dlg.close();if(AI.open){AI.open=false;aiRender()}S.dashEdit=false;TOUR={i:0,s:tourSteps()};tourShow()}
 /* short tour for people who already know the app: only what the latest update brought. Rewrite these steps together with every new NEWS entry and keep TOURNEW_ID equal to its id. */
 var TOURNEW_ID="2026-10-09";
 function tourNewSteps(){if(typeof NEWS==="undefined"||NEWS[0].id!==TOURNEW_ID)return [];var full=S.canWrite&&!lim(),s=[
-  {tab:"stats",ic:"spark",t:"Вийшло оновлення",x:"Покажу тільки нове, це пів хвилини: вкладка «Статистика», мапа Чернівців, діти й недільна школа, нові блоки на головній."},
+  {tab:"stats",ic:"spark",t:"Вийшло оновлення",x:"Покажу тільки нове, це хвилина: вкладка «Статистика», мапа Чернівців, діти й недільна школа, служіння картками, головна сторінка з блоками, які можна перетягувати, і свій порядок меню."},
   {tab:"stats",ic:"pie",sel:"#app>.st-bento",t:"Нова вкладка «Статистика»",x:"Уся церква в цифрах. Кожна крапка у зеленій картці — член церкви, на неї можна натиснути. Поруч — медіанний вік, хто має служіння, сім'ї та діти до 18 років."},
   {tab:"stats",ic:"chart",sel:"#app>.st-dark",t:"Вік, стать і рух за роками",x:"Ліворуч — скільки чоловіків і жінок у кожній віковій групі, праворуч — скільки людей прийнято і скільки вибуло за останні роки."},
   {tab:"stats",ic:"pin",sel:"#app>.mapc",t:"Мапа Чернівців",x:"Цифра біля району — скільки там живе членів церкви. Натисніть на район — відкриється вікно з його власною статистикою і списком людей."},
   {tab:"stats",ic:"heart",sel:"#stFam,#stKids",t:"Сім'ї та діти до 18 років",x:"Скільки сімей з дітьми і без, і окремо діти, які ще не є членами церкви: кожна дитина — крапка, зелена означає, що ходить у недільну школу."},
   {tab:"people",ic:"users",sel:"#app>.panel",one:1,t:"Нове в картці людини",x:full?"У «Редагувати дані» з'явились: «Район Чернівців», «Як прийшов у церкву» і галочка «нед. школа» біля кожної дитини. Заповніть їх — і статистика та мапа стануть точними.":"У картках своїх людей у «Редагувати дані» з'явились: «Район Чернівців», «Як прийшов у церкву» і галочка «нед. школа» біля кожної дитини."},
+  {tab:"deacons",ic:"sliders",sel:"#app>.panel",one:1,t:"Служіння окремими картками",x:"Кожне служіння тепер у своїй картці з кількістю людей. Хрестик біля імені прибирає людину зі служіння — але застосунок спершу перепитає, щоб не видалити випадково."},
   {tab:"home",ic:"shield",sel:"#hServe,#hLast",t:"Нове на головній",x:"Блок «Служіння» показує, скільки людей у кожному служінні."+(S.isAdmin?" А «Останні зміни» тепер показують справжні останні дії: хто, що і коли змінив.":"")},
+  wgStep(),
+  {tab:"home",ic:"swap",sel:"#nav button",art:"nav",t:"Свій порядок меню",x:"Розділи меню теж можна розставити під себе: меню під вашим іменем → «Порядок меню», там просто затисніть рядок і перетягніть. В інших служителів нічого не зміниться."},
   {tab:"home",ic:"check",sel:".me,#meBtnM",t:"Це все нове",x:"Зараз відкриється повний список змін. Він і всі підказки завжди є в меню під вашим іменем → «Що нового»."}];
-  return s}
+  return s.filter(Boolean)}
+function wgStep(){var k=wgDemoKeys();if(!wgDesk()||!k)return null;return {tab:"home",ic:"grid",sel:k.map(function(x){return ".w-"+x}).join(","),demo:k,t:"Огляд можна зібрати під себе",x:"Затисніть будь-який блок мишкою і перетягніть на інше місце — решта самі посунуться. За правий нижній кут блок можна зробити ширшим, вужчим або вищим — сусідні блоки самі підлаштуються, щоб не лишалось порожнього місця. Усе це лише ваше; повернути як було — у «Налаштувати огляд»."}}
 function tourNewStart(){var s=tourNewSteps();if(!s.length)return false;if(dlg.open)dlg.close();if(AI.open){AI.open=false;aiRender()}S.dashEdit=false;TOUR={i:0,s:s,kind:"new"};tourShow();return true}
 function tourEnd(){if(TOUR&&TOUR.kind==="new"){TOUR=null;tourShow();go("home");S.card=null;S.mode="news";S.newsAll=false;renderDlg();newsSeen();return}TOUR=null;tourShow();if(!S.tourDone){S.tourDone=true;dashSave()}newsSeen();go("home")}
 function tourMaybe(){if(TOUR||S.tourDone||!S.ready||!S.roleKnown||!S.prefsOK||Date.now()-T0<3900)return;tourStart()}
