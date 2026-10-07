@@ -1,3 +1,5 @@
+# church landing: python3 landing/build.py && python3 landing/standalone.py ../landing/index.html  (run from the source folder)
+# landing/people.json holds the placeholder portraits for the polaroid wall; replace them with real photos (as <img> data URIs) when available
 import base64,re
 head=open('build/head.html',encoding='utf8').read().split('\n')
 tokens='\n'.join(head[4:30])
@@ -9,7 +11,7 @@ for n,l in enumerate(head):
             k+=1;bgl.append(head[k])
 bg='\n'.join(bgl)
 grad='\n'.join(l for l in head if re.match(r'\.g-(olive|sun|rose|steel|ink)\{',l))
-hands='data:image/webp;base64,'+base64.b64encode(open('logo/hands2.webp','rb').read()).decode()
+hands='data:image/webp;base64,'+open('logo/hands2.b64.txt').read().strip()
 I=lambda d:'<svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+d+'</svg>'
 IC=dict(
  arrow=I('<path d="M7 17L17 7"/><path d="M8 7h9v9"/>'),
@@ -34,6 +36,12 @@ YT='https://www.youtube.com/@PrymyrennyaChurch'
 html=open('landing/body.html',encoding='utf8').read()
 for k,v in IC.items(): html=html.replace('{{i:'+k+'}}',v)
 html=html.replace('{{YT}}',YT).replace('{{TOKENS}}',tokens).replace('{{BGFX}}',bg).replace('{{GRAD}}',grad).replace('{{HANDS}}',hands)
+def du(f,mime): return 'data:'+mime+';base64,'+open(f+'.b64.txt').read().strip()
+html=html.replace('{{SKY}}',du('landing/tex/sky.jpg','image/jpeg')).replace('{{SAND}}',du('landing/tex/sand.jpg','image/jpeg')).replace('{{GRAIN}}',du('landing/tex/grain.png','image/png'))
+import json
+PL=[(2,10,-7,.9),(20,34,5,.5),(38,4,-3,1.2),(56,30,7,.7),(76,6,-5,1),(8,54,4,1.1),(30,58,-8,.6),(50,62,3,.9),(69,50,-4,1.3),(84,44,8,.5)]
+ppl=json.load(open('landing/people.json',encoding='utf8'))
+html=html.replace('{{PEOPLE}}',''.join('<figure class="pol" style="--x:%d%%;--y:%d%%;--r:%ddeg;--d:%s"><i class="tape" aria-hidden="true"></i><div class="ph">%s</div><figcaption class="scrp">%s</figcaption></figure>'%(PL[i][0],PL[i][1],PL[i][2],PL[i][3],q['svg'],q['cap']) for i,q in enumerate(ppl)))
 assert '{{' not in html, re.findall(r'\{\{[^}]*\}\}',html)[:5]
 open('landing/landing.html','w',encoding='utf8').write(html)
 print(len(html))
