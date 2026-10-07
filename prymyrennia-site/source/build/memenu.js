@@ -105,7 +105,7 @@ function careWord(name,cap){var p=S.pastors.some(function(x){return x&&x.name===
 /* ---------- what's new: shown once after an update, and always available in the account menu ---------- */
 var NEWS=[
  {id:"2026-10-09",d:"8 жовтня 2026",t:"Нова вкладка «Статистика» і мапа Чернівців",items:[
-  ["pie","Вкладка «Статистика»","Усі цифри церкви тепер на одній сторінці, з кольоровими картками і діаграмами; кожен член церкви — крапка, на яку можна натиснути. Усередині: вік і стать, диякони і пастори, служіння, сім'ї, діти, як люди прийшли в церкву, чат. Шукайте її в меню перед «Звітами»."],
+  ["pie","Вкладка «Статистика»","Усі цифри церкви тепер на одній сторінці, з кольоровими картками і діаграмами; кожен член церкви — крапка, на яку можна натиснути. Усередині: вік і стать, диякони і пастори, служіння, сім'ї, діти, як люди прийшли в церкву, чат. Шукайте її в меню перед «Звітами». Картки складаються щільно: коротка не розтягується під сусідню довгу, а наступна піднімається на вільне місце."],
   ["shield","Статистика служінь","Скільки людей у кожному служінні і скільки членів церкви служать загалом. Цей блок є й на головній сторінці — його можна сховати в «Налаштувати огляд»."],
   ["users","Сім'ї","Скільки в церкві сімей, скільки з дітьми, скільки без дітей і скільки з дітьми до 18 років."],
   ["heart","Діти до 18 років і недільна школа","Окрема статистика дітей, які не є членами церкви: скільки їх і якого віку. У картці батьків біля кожної дитини з'явилась галочка «нед. школа»."],
@@ -342,8 +342,8 @@ function vStats(){var A=act(),Y=yearStats(),cy=Y[CY]||{inn:0,out:0},ages=A.map(f
   var dl=deaconList(),drows=dl.map(function(d){return [d,A.filter(function(x){return x.d.deacon===d}).length]}),nod=A.filter(function(x){return !x.d.deacon}).length;if(nod)drows.push(["Не закріплені",nod,"-"]);
   var chY=A.filter(function(x){return x.p.chat==="так"}).length,chN=A.filter(function(x){return x.p.chat==="ні"}).length,cs=[["у чаті",chY,"c1"],["не в чаті",chN,"c2"],["не вказано",A.length-chY-chN,"c3"]];
   h+='<div class="cols">'+pan("За дияконами і пасторами",drows.length?'<div>'+hbars(drows,"toDeacon")+'</div>':'<div class="muted">Членів ще немає.</div>',null,"shield","b-green")+servePanel().replace('class="panel pad"','class="panel pad st-bars b-sky"')+
-    pan("Як прийшли в церкву",'<div>'+hbars(cntBy(function(x){var e=evs(x.p).filter(function(e){return e.type==="accepted"})[0];return e&&e.how}))+'</div>',null,"swap","b-sun")+'</div>';
-  h+='<div class="cols">'+pan("У чаті «Примирення»",'<div class="st-fam">'+stDonut(cs,pc(chY)+"%","у чаті")+stLegend(cs)+'</div>')+
+    pan("Як прийшли в церкву",'<div>'+hbars(cntBy(function(x){var e=evs(x.p).filter(function(e){return e.type==="accepted"})[0];return e&&e.how}))+'</div>',null,"swap","b-sun")+
+    pan("У чаті «Примирення»",'<div class="st-fam">'+stDonut(cs,pc(chY)+"%","у чаті")+stLegend(cs)+'</div>')+
     pan("Стан у церкві",'<div>'+hbars(cntBy(function(x){return x.p.part||partList()[0]}).concat([["на замітці",A.filter(function(x){return x.d.st==="note"}).length]]))+'</div>',null,null,"b-plum")+
     pan("Сімейний стан",'<div>'+hbars(cntBy(function(x){return x.p.marital}))+'</div>',null,null,"b-rose")+'</div>';
   return h+'<div class="bar" style="justify-content:center"><button class="btn" data-act="nav" data-v="reports">'+ico("chart")+' Звіти за рік і Excel</button></div>'}
@@ -357,3 +357,12 @@ navApply();
   dlg.showModal=function(){if(!dlg.open)y0=window.scrollY||document.documentElement.scrollTop||0;sm();fix();setTimeout(fix,0)};
   dlg.addEventListener("close",function(){var y=y0;setTimeout(function(){if(!dlg.open&&S.tab===dlg._tab&&Math.abs((window.scrollY||0)-y)>1)window.scrollTo(0,y)},0)});
   var sm2=dlg.showModal;dlg.showModal=function(){dlg._tab=S.tab;sm2()}})();
+/* panels in columns (.cols) are packed like bricks: a card is as tall as its content, and the next card rises into the first free place instead of waiting for the tallest neighbour. The grid has thin 4px rows; every card spans as many of them as its height needs */
+(function(){var RO=null,raf=0,app=document.getElementById("app");
+  function lay(c){var kids=Array.prototype.slice.call(c.children);if(kids.length<2){c.classList.remove("mas-on");return}c.classList.add("mas-on");var gap=16;kids.forEach(function(k){var h=k.getBoundingClientRect().height,n=Math.max(1,Math.ceil((h+gap)/4));if(k.style.getPropertyValue("--rs")!==String(n))k.style.setProperty("--rs",n)})}
+  function all(){raf=0;Array.prototype.forEach.call(document.querySelectorAll(".cols"),lay)}
+  function ask(){if(!raf)raf=requestAnimationFrame(all)}
+  function watch(){all();if(!window.ResizeObserver)return;if(RO)RO.disconnect();RO=new ResizeObserver(ask);Array.prototype.forEach.call(document.querySelectorAll(".cols>*"),function(k){RO.observe(k)})}
+  window.masAll=watch;window.addEventListener("resize",ask);
+  if(window.MutationObserver){var mo=new MutationObserver(function(){watch()});if(app)mo.observe(app,{childList:true});mo.observe(dlg,{childList:true})}
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(ask);watch()})();
