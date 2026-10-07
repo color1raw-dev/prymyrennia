@@ -30,6 +30,11 @@ var P={
  a22:{last:"Шевчук",first:"Максим",mid:"Олександрович",sex:"ч",birth:Y(9,4,12),place:"Чернівці",kind:"дитина",family:"Савчук",events:[]},
  a23:{last:"Петренко",first:"Аліна",sex:"ж",birth:Y(26,8,30),phone:"098 700 80 23",place:"Чернівці",kind:"гість",notes:"Прийшла з подругою, відвідує вже місяць. Цікавиться хрещенням.",events:[],contacts:[{date:D(-12),kind:"дзвінок",by:PA,note:"Запросили на малу групу."}]}
 };
+/* DEMO_D: spread the invented people over districts, add a few children and families so the statistics tab has something to show */
+(function(){var D=["Роша","Центр","Садгора","Проспект","Калічанка","Клокучка","Гравітон","Центр","Роша","Бульвар","Гореча","Проспект","Ленківці","Центр"],i=0,y=new Date().getFullYear();
+ Object.keys(P).forEach(function(k){var p=P[k];if(!(p.events||[]).length)return;if(!p.place||/чернівц/i.test(p.place))p.district=D[i%D.length];
+  if(i%4===0){p.hasKids="так";p.marital=p.marital||"у шлюбі";p.kids=[{name:"Марко",by:y-5-i%6,ss:1},{name:"Соломія",by:y-9-i%5,ss:i%8===0?1:0}].slice(0,1+i%2)}else if(i%4===1){p.hasKids="ні";p.marital=p.marital||"у шлюбі"}
+  i++})})();
 var cols={people:P,
  groups:{g1:{name:"Центр",leader:"a05",members:["a05","a06","a07","a12","a16","a17","a23"],info:"середа, 19:00, у Савчуків"},g2:{name:"Садгора",leader:"a03",members:["a03","a04","a09","a15","a19"],info:"четвер, 18:30"},g3:{name:"Молодь",leader:"a07",members:["a07","a12","a16","a17"],info:"п'ятниця, 19:00"}},
  gmeet:{},

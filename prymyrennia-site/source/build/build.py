@@ -88,6 +88,11 @@ rep('"remindOff","part","chat"])','"remindOff","part","chat","hasKids"])')
 rep(',"родинний зв\'язок"))}',',"родинний зв\'язок"),arrDiff(a.kids,b.kids,kidFmt,"дитина"))}')
 rep('"У чаті","Статус","Диякон"','"У чаті","Діти","Статус","Диякон"')
 rep('p.chat||"",d.st==="none"','p.chat||"",kidsText(p,1),d.st==="none"')
+rep('reports:vReports,log:vLog}','reports:vReports,stats:vStats,log:vLog}')
+rep('if(S.tab==="log"||dlg.open)render()},function(){})});','if(S.tab==="log"||S.tab==="home"||dlg.open)render()},function(){})});')
+rep('hasKids:val("f_haskids"),kids:kidsRead(),','district:val("f_district"),hasKids:val("f_haskids"),kids:kidsRead(),')
+rep('"remindOff","part","chat","hasKids"])','"remindOff","part","chat","hasKids","district"])')
+rep('chat:"У чаті «Примирення»",wedding:"Дата вінчання",','chat:"У чаті «Примирення»",district:"Район",hasKids:"Чи є діти",wedding:"Дата вінчання",')
 for ch in '✕✓↑↓': assert ch not in js, ch
 import base64
 hd=open('build/head.html',encoding='utf8').read().replace('{{HANDS}}','data:image/webp;base64,'+open('logo/hands2.b64.txt').read().strip())

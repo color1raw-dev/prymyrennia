@@ -6,6 +6,7 @@ var ICO={grid:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3"
   calendar:'<rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/>',
   swap:'<path d="M17 3l4 4-4 4"/><path d="M3 7h18"/><path d="M7 21l-4-4 4-4"/><path d="M21 17H3"/>',
   chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  pie:'<path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15.5 3.6a9 9 0 0 1 4.9 4.9h-4.9z"/>',
   history:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
   search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',

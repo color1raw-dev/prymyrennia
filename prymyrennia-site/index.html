@@ -729,6 +729,192 @@ html:has(dialog[open]),html:has(dialog[open]) body{overflow:hidden}
 dialog{overscroll-behavior:contain}
 @media (min-width:921px) and (max-height:820px){.side-top::before{height:104px}.side .hands{top:44px;width:290px;transform:translate(-50%,-50%) rotate(-9deg)}#nav button{height:42px}}
 @media (min-width:921px) and (max-height:700px){.side-top::before{display:none}.side .hands{display:none}.side-top{padding-top:10px}}
+
+.kid .k-s{flex:none;display:flex;flex-direction:row;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);white-space:nowrap;cursor:pointer;margin:0}
+.kid .k-s input{margin:0;flex:none}
+.st-det summary{cursor:pointer;font-weight:500;padding:6px 0;width:max-content}
+.st-det[open] summary{margin-bottom:8px}
+.cols>.full{grid-column:1/-1}
+/* statistics tab */
+.f-sky{background:radial-gradient(70% 62% at 50% 60%,#2f7fd0 0%,transparent 74%),radial-gradient(80% 70% at 0% 0%,#f0c9a6 0%,transparent 66%),radial-gradient(70% 70% at 100% 100%,#b9a6ea 0%,transparent 70%),linear-gradient(180deg,#bcd3e6 0%,#6aa7dc 40%,#2c6cc0 100%)}
+.feature .fv small{font-size:.42em;margin-left:4px;font-weight:700}
+.st-sx{display:flex;flex-direction:column;gap:9px;width:100%}
+.sxb{display:flex;gap:4px;height:10px}
+.sxb i{display:block;min-width:6px;border-radius:99px;background:#fff}
+.sxb i+i{background:rgba(255,255,255,.45)}
+.sxl{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;opacity:.95}
+.sxl b{font-weight:600}
+.st-dots{display:grid;grid-template-columns:repeat(15,1fr);gap:6px;width:min(250px,84%)}
+.st-dots u{display:block;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.3)}
+.st-dots u.on{background:#fff}
+.st-dark{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
+.pyr{display:flex;flex-direction:column;gap:6px}
+.pyr-r{display:grid;grid-template-columns:minmax(0,1fr) 62px minmax(0,1fr);align-items:center;gap:10px;padding:9px 0;font-size:14px}
+.pyr-m,.pyr-w{display:flex;align-items:center;gap:10px;min-width:0}
+.pyr-m{justify-content:flex-end}
+.pyr-r i{display:block;height:12px;border-radius:99px;min-width:4px;background:var(--cin)}
+.pyr-w i{background:var(--ink-fg)}
+.pyr-r b{font-family:var(--dot);font-weight:700;font-size:20px;font-variant-numeric:tabular-nums;min-width:22px}
+.pyr-m b{text-align:right}
+.pyr-l{text-align:center;font-size:12.5px;color:var(--muted);white-space:nowrap}
+.st-duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:16px;align-items:stretch}
+.st-ring{position:relative;display:block;flex:none;width:116px;aspect-ratio:1}
+.st-ring.big{width:168px}
+.st-ring.big circle{stroke-linecap:butt}
+.st-ring svg{display:block;width:100%;height:100%}
+.st-ring circle{fill:none;stroke-width:11;stroke-linecap:round}
+.st-ring .rt{stroke:var(--track)}
+.st-ring .rv,.st-ring .c1{stroke:var(--lime)}
+.st-ring .c2{stroke:var(--fg)}
+.st-ring .c3{stroke:var(--muted);opacity:.45}
+.st-ring .rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center}
+.st-ring .rc b{font-family:var(--dot);font-weight:700;font-size:26px;line-height:1}
+.st-ring.big .rc b{font-size:46px}
+.st-ring .rc small{font-size:10.5px;color:var(--muted);line-height:1.15;max-width:78%}
+.st-ring.big .rc small{font-size:12.5px}
+.st-fam{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.st-leg{list-style:none;margin:0;padding:0;flex:1 1 180px;display:flex;flex-direction:column}
+.st-leg li{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+.st-leg li:last-child{border-bottom:0}
+.st-leg li span{flex:1 1 auto;min-width:0}
+.st-leg li b{font-family:var(--dot);font-weight:700;font-size:20px;font-variant-numeric:tabular-nums}
+.st-leg i{flex:none;width:10px;height:10px;border-radius:50%}
+.st-leg i.c1{background:var(--lime)} .st-leg i.c2{background:var(--fg)} .st-leg i.c3{background:var(--muted);opacity:.45}
+.st-chips{display:flex;flex-wrap:wrap;gap:6px}
+.st-chips .tag{padding:7px 12px;font-size:12px}
+.st-kids{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.st-kn{display:flex;flex-direction:column;gap:8px}
+.st-kn .dn{font-size:72px;font-weight:900}
+.kd{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kd-g{display:flex;flex-direction:column;gap:12px;padding:14px;border-radius:20px;background:var(--raise);min-width:0}
+.kd-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:12.5px;color:var(--muted)}
+.kd-h b{font-family:var(--dot);font-weight:700;font-size:24px;color:var(--fg);line-height:1}
+.kd-d{display:flex;flex-wrap:wrap;gap:6px;min-height:16px}
+.kd-d u,.kd-o{display:inline-block;width:16px;height:16px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--muted);opacity:.9}
+.kd-d u.on{background:var(--lime);box-shadow:none;opacity:1}
+.legend .kd-o{width:8px;height:8px;box-shadow:inset 0 0 0 1.5px var(--muted);background:none}
+/* map of Chernivtsi: clean green silhouette on a plain panel */
+.mapc{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(250px,1fr);gap:28px;align-items:start}
+.mapc>div{display:flex;flex-direction:column;gap:16px;min-width:0}
+.cm-wrap{position:relative}
+.cmap{display:block;width:100%;height:auto;max-height:640px}
+.cm-city{fill:url(#cmG);stroke:url(#cmG);stroke-width:18;stroke-linejoin:round}
+.cm-hw{fill:none;stroke:#fff;stroke-opacity:.16;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.cm-riv{fill:none;stroke:#8cc8f7;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.cm-rl{fill:#5b9bd3;font-style:italic;text-anchor:middle}
+.cm-d{cursor:pointer}
+.cm-hit{fill:transparent}
+.cm-p{fill:#fff;transition:fill .15s}
+.cm-b{fill:var(--lime)}
+.cm-n{font-family:var(--dot);font-weight:900;text-anchor:middle;fill:var(--lime-fg);pointer-events:none}
+.cm-t{fill:#131315;font-weight:600;pointer-events:none}
+.cm-d:hover .cm-p{fill:#f1f6e4}
+.cm-d.on .cm-p{fill:#131315}
+.cm-d.on .cm-t{fill:#fff}
+.cm-z{fill:#fff;opacity:.7}
+.cm-zt{fill:#fff;opacity:.8;pointer-events:none;paint-order:stroke;stroke:#1d7a3a;stroke-width:4px;stroke-linejoin:round}
+.cm-d.z.on .cm-z{opacity:1;stroke:#131315;stroke-width:3}
+.cm-d.z.on .cm-zt{opacity:1;font-weight:600}
+.cm-side{display:flex;flex-direction:column;gap:18px;min-width:0}
+.cm-kp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.cm-kp div{display:flex;flex-direction:column;gap:6px;padding:14px;border-radius:20px;background:var(--raise);min-width:0}
+.cm-kp b{font-family:var(--dot);font-weight:700;font-size:30px;line-height:1}
+.cm-kp span{font-size:12px;color:var(--muted)}
+.cm-who{display:flex;flex-direction:column;gap:14px;padding:16px;border-radius:24px;background:var(--raise)}
+.cm-who.cw-0{flex-direction:row;align-items:center;gap:12px;color:var(--muted);font-size:13px;line-height:1.45;background:none;box-shadow:inset 0 0 0 1.5px var(--line)}
+.cm-who.cw-0 svg.i{flex:none;width:18px;height:18px}
+.cw-h{display:flex;align-items:center;gap:12px}
+.cw-n{flex:none;min-width:46px;height:46px;padding:0 10px;border-radius:99px;display:grid;place-items:center;background:var(--lime);color:var(--lime-fg);font-family:var(--dot);font-weight:900;font-size:22px}
+.cw-t{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:2px}
+.cw-t b{font-size:17px;font-weight:500;letter-spacing:-.02em}
+.cw-t small,.cw-p small{font-size:12px;color:var(--muted)}
+.cw-h .iconbtn{flex:none;width:36px;height:36px}
+.cw-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:6px}
+.cw-p{display:flex;align-items:center;gap:10px;min-width:0;padding:7px 12px 7px 7px;border:0;border-radius:99px;background:var(--surface);color:inherit;font:inherit;text-align:left;cursor:pointer;transition:background .15s}
+.cw-p:hover{background:var(--soft)}
+.cw-p .av{width:34px;height:34px;background:var(--soft)}
+.cw-p>span:last-child{display:flex;flex-direction:column;min-width:0}
+.cw-p b{font-weight:500;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cw-p small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cw-e{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.45;color:var(--muted)}
+.cw-e svg.i{flex:none;width:18px;height:18px;margin-top:1px}
+.dlg.dist{gap:10px}
+.dlg.dist>*{margin-inline:0}
+.dlg.dist h3{margin:0;font-size:15px;font-weight:500;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+.dlg.dist h3 .cn{font-size:12px;color:var(--muted);background:var(--soft);border-radius:99px;padding:3px 9px}
+.dlg.dist .hero-head{padding:22px 22px 44px}
+.ds-h{display:flex;flex-direction:column;gap:8px;min-width:0;flex:1 1 auto}
+.ds-h h2{margin:0;font-size:34px;font-weight:500;letter-spacing:-.04em;line-height:1}
+.ds-k{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;opacity:.9}
+.ds-k svg.i{width:14px;height:14px;vertical-align:0}
+.ds-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.ds-g>div{display:flex;flex-direction:column;justify-content:space-between;gap:18px;min-height:104px;padding:16px;border-radius:22px;background:var(--raise);min-width:0}
+.ds-g b{font-family:var(--dot);font-weight:700;font-size:32px;line-height:.9;font-variant-numeric:tabular-nums}
+.ds-g span{font-size:12.5px;line-height:1.25;color:var(--muted)}
+.ds-g>div.hl{background:var(--lime);color:var(--lime-fg)}
+.ds-g>div.hl span{color:inherit;opacity:.8}
+.ds-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.ds-c{display:flex;flex-direction:column;gap:12px;padding:18px;border-radius:22px;background:var(--raise);min-width:0}
+.dlg.dist .hbar{grid-template-columns:minmax(0,112px) minmax(0,1fr) 26px;gap:10px;padding:7px 0;border-radius:0}
+.dlg.dist .cw-l{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.dlg.dist .cw-p{background:var(--surface)}
+.dlg.dist .cw-e{flex-direction:row}
+@media(max-width:760px){.ds-g{grid-template-columns:repeat(2,minmax(0,1fr))}.ds-2{grid-template-columns:1fr}.ds-h h2{font-size:28px}.dlg.dist .cw-l{grid-template-columns:1fr}}
+.cm-tips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.cm-tips>div{display:flex;align-items:center;gap:10px;padding:10px 14px 10px 10px;border-radius:20px;background:var(--raise);min-width:0}
+.cm-tips .si{width:34px;height:34px;background:var(--soft)}
+.cm-tips span:last-child{display:flex;flex-direction:column;gap:2px;font-size:12px;line-height:1.3;color:var(--muted);min-width:0}
+.cm-tips b{font-size:13px;font-weight:500;color:var(--fg)}
+.cm-osm{font-size:11.5px;color:var(--muted);opacity:.8}
+.mapc .hbar .t{height:10px}
+.mapc .hbar .f{background:linear-gradient(90deg,#23893f,#b9e86a)}
+.mapc .hbar .n{font-family:var(--dot);font-weight:700;font-size:18px}
+.dark .chip{background:none;border-color:var(--ink-line);color:var(--ink-fg)}
+.dark .btn{background:var(--ink-2);border-color:var(--ink-line);color:var(--ink-fg)}
+.dark .link{color:var(--ink-fg)}
+.dark button.hbar:hover{background:var(--ink-2)}
+.dark .rl{margin-bottom:4px}
+/* bento of gradient tiles */
+.st-bento{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.st-bento .feature{min-height:226px;padding:22px 20px 20px}
+.st-bento .feature .fv{font-size:clamp(54px,5.4vw,78px)}
+.st-main{grid-column:span 2;grid-row:span 2;align-items:stretch;text-align:left;justify-content:flex-start;gap:18px;cursor:default;padding:26px!important}
+.st-main:hover{transform:none}
+.sm-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.sm-chip{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:99px;background:var(--on-g-glass);border:1px solid var(--on-g-line);font-size:12.5px;white-space:nowrap}
+.sm-chip svg.i{width:14px;height:14px;vertical-align:0}
+.sm-mid{display:flex;align-items:flex-end;gap:22px;flex-wrap:wrap}
+.st-main .fv{font-size:clamp(96px,10vw,148px)!important;line-height:.82}
+.sm-sx{display:flex;flex-direction:column;gap:6px;font-size:13.5px;padding-bottom:6px}
+.sm-sx b{font-family:var(--dot);font-weight:900;font-size:26px;margin-right:8px;font-variant-numeric:tabular-nums}
+.sm-ppl{display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;margin-top:auto}
+.sm-ppl button{width:15px;height:15px;padding:0;border:0;border-radius:50%;background:#fff;cursor:pointer;transition:transform .15s}
+.sm-ppl button.w{background:rgba(255,255,255,.42)}
+.sm-ppl button.n{background:none;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.7)}
+.sm-ppl button:hover{transform:scale(1.5)}
+.sm-ppl.sm{gap:4px}.sm-ppl.sm button{width:9px;height:9px}
+.sm-ppl.md{gap:7px}.sm-ppl.md button{width:19px;height:19px}
+.sm-ppl.lg{gap:9px}.sm-ppl.lg button{width:26px;height:26px}
+.sm-leg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;opacity:.92}
+.sm-leg i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#fff;margin-right:6px}
+.sm-leg i.w{background:rgba(255,255,255,.42)}
+.f-plum{background:radial-gradient(66% 60% at 52% 60%,#7b4fd6 0%,transparent 74%),radial-gradient(80% 70% at 100% 0%,#f3b7c8 0%,transparent 66%),radial-gradient(70% 70% at 0% 100%,#3d2a8c 0%,transparent 70%),linear-gradient(180deg,#d9c6f2 0%,#9a78e0 42%,#5a3cb8 100%)}
+.f-rose{background:radial-gradient(64% 60% at 48% 58%,#ef4f6b 0%,transparent 74%),radial-gradient(80% 70% at 0% 0%,#f6d7a8 0%,transparent 66%),radial-gradient(70% 70% at 100% 100%,#b23a8a 0%,transparent 70%),linear-gradient(180deg,#f8cdb8 0%,#f0788a 44%,#d2456f 100%)}
+.st-seg{display:flex;gap:4px;height:10px;width:100%}
+.st-seg i{display:block;min-width:8px;border-radius:99px;background:#fff}
+.st-seg i.s1{background:rgba(255,255,255,.55)}.st-seg i.s2{background:rgba(255,255,255,.25)}
+.st-kd{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;max-height:34px;overflow:hidden;width:100%}
+.st-kd u{display:block;width:12px;height:12px;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.8)}
+.st-kd u.on{background:#fff;box-shadow:none}
+/* coloured bars of the statistics panels */
+.st-bars .hbar .t{height:10px}
+.st-bars .hbar .f{background:linear-gradient(90deg,var(--b1,var(--fg)),var(--b2,var(--fg)))}
+.st-bars .hbar .n{font-family:var(--dot);font-weight:700;font-size:18px}
+.b-green{--b1:#2f9e33;--b2:#c0dc6a}.b-sky{--b1:#2c6cc0;--b2:#8cc3ee}.b-sun{--b1:#ef5a26;--b2:#f6c046}.b-plum{--b1:#5a3cb8;--b2:#c9a9f0}.b-rose{--b1:#d2456f;--b2:#f6b29a}
+@media(max-width:1180px){.st-duo,.mapc,.st-dark{grid-template-columns:minmax(0,1fr)}.cm-tips{grid-template-columns:1fr}.st-bento{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.st-bento{gap:10px}.st-bento .feature{min-height:190px;padding:18px 14px 16px;border-radius:28px}.st-bento .feature .fv{font-size:52px}.st-bento .feature .fs{font-size:12px}.st-bento .feature .fl{font-size:13px}.st-main{padding:20px!important}.st-main .fv{font-size:96px!important}.sm-ppl button{width:13px;height:13px}.sm-ppl.md button{width:15px;height:15px}.sm-ppl.lg button{width:20px;height:20px}.st-dots{gap:4px}}
+@media(max-width:760px){.kid{flex-wrap:wrap}.kid .k-n{flex:1 1 100%}.kid .k-s{flex:1 1 auto}
+  .st-ring.big{width:136px}.st-ring.big .rc b{font-size:38px}.st-fam{gap:18px}.st-kn .dn{font-size:60px}.kd{grid-template-columns:1fr}.pyr-r{grid-template-columns:minmax(0,1fr) 54px minmax(0,1fr);gap:8px}}
 </style>
 
 <div id="pre" aria-hidden="true"><div class="pre-in"><div class="pre-l"></div><div class="pre-r"></div></div><div class="pre-w">Примирення<small>церковний облік</small></div></div>
@@ -744,6 +930,7 @@ dialog{overscroll-behavior:contain}
       <div class="nav-x" id="navX">
       <button data-tab="meetings" data-ic="calendar"><span class="nl">Зібрання</span><span class="cnt" id="c_meet"></span></button>
       <button data-tab="journal" data-ic="swap"><span class="nl">Рух членства</span></button>
+      <button data-tab="stats" data-ic="pie"><span class="nl">Статистика</span></button>
       <button data-tab="reports" data-ic="chart"><span class="nl">Звіти</span></button>
       <button data-tab="log" id="navLog" data-ic="history" hidden><span class="nl">Журнал змін</span></button>
       </div>
@@ -926,7 +1113,7 @@ SB.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(s)enter(s.
   /* after sign-in: find out whether this device is already subscribed and refresh its record */
   READY.then(function(){if(!P.ok||Notification.permission!=="granted")return;reg().then(function(r){return r.pushManager.getSubscription()}).then(function(s){P.on=!!s;tell();if(s)save(s).then(function(){},function(){})},function(){})})})();
 /* new version check: the page knows its own build id and compares it with version.txt on the server */
-(function(){var dir=location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/",cur="5458cc8827db",shown=false;
+(function(){var dir=location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/",cur="4d40a7bb4e36",shown=false;
   function latest(){return fetch(dir+"version.txt?v="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(t){return String(t).trim()})}
   function busy(){if(document.querySelector("dialog[open]"))return true;var f=document.querySelectorAll("input,textarea");for(var i=0;i<f.length;i++){var e=f[i];if(e.type==="checkbox"||e.type==="radio"||e.type==="date"||e.id==="gq")continue;if(e.value&&e.value!==e.defaultValue)return true}return false}
   function reload(v){location.replace(location.pathname+"?v="+encodeURIComponent(v))}
@@ -1022,6 +1209,7 @@ var ICO={grid:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3"
   calendar:'<rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/>',
   swap:'<path d="M17 3l4 4-4 4"/><path d="M3 7h18"/><path d="M7 21l-4-4 4-4"/><path d="M21 17H3"/>',
   chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  pie:'<path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15.5 3.6a9 9 0 0 1 4.9 4.9h-4.9z"/>',
   history:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
   search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
@@ -1317,7 +1505,7 @@ function renderDlg0(){
     h+='</div>'}
   dlg.innerHTML=h;if(!dlg.open)dlg.showModal()}
 function val(id){var el=document.getElementById(id);return el?el.value.trim():""}
-function readForm(){return {last:val("f_last"),first:val("f_first"),mid:val("f_mid"),sex:val("f_sex"),birth:val("f_birth"),baptism:val("f_baptism"),phone:val("f_phone"),address:val("f_address"),place:val("f_place"),family:val("f_family"),marital:val("f_marital"),wedding:val("f_wedding"),chat:val("f_chat"),hasKids:val("f_haskids"),kids:kidsRead(),notes:val("f_notes")}}
+function readForm(){return {last:val("f_last"),first:val("f_first"),mid:val("f_mid"),sex:val("f_sex"),birth:val("f_birth"),baptism:val("f_baptism"),phone:val("f_phone"),address:val("f_address"),place:val("f_place"),family:val("f_family"),marital:val("f_marital"),wedding:val("f_wedding"),chat:val("f_chat"),district:val("f_district"),hasKids:val("f_haskids"),kids:kidsRead(),notes:val("f_notes")}}
 
 /* ---------- data ---------- */
 function body(p){var b={};Object.keys(p).forEach(function(k){if(k!=="id")b[k]=p[k]});return JSON.parse(JSON.stringify(b))}
@@ -1397,7 +1585,7 @@ document.addEventListener("change",function(e){var t=e.target;if(t.dataset&&t.da
 
 /* ---------- audit log ---------- */
 var rdb=null,USER=null,LOGSUB={},LOGDATA={};
-var FL={last:"Прізвище",first:"Ім'я",mid:"По батькові",sex:"Стать",birth:"Дата народження",baptism:"Дата хрещення",phone:"Телефон",address:"Адреса",place:"Населений пункт",family:"Сім'я",marital:"Сімейний стан",chat:"У чаті «Примирення»",wedding:"Дата вінчання",notes:"Примітки",kind:"Тип картки",followUp:"Останній контакт",remindOff:"Нагадування вимкнено",name:"Назва",leader:"Лідер",info:"Опис",date:"Дата",type:"Тип",note:"Примітка"};
+var FL={last:"Прізвище",first:"Ім'я",mid:"По батькові",sex:"Стать",birth:"Дата народження",baptism:"Дата хрещення",phone:"Телефон",address:"Адреса",place:"Населений пункт",family:"Сім'я",marital:"Сімейний стан",chat:"У чаті «Примирення»",district:"Район",hasKids:"Чи є діти",wedding:"Дата вінчання",notes:"Примітки",kind:"Тип картки",followUp:"Останній контакт",remindOff:"Нагадування вимкнено",name:"Назва",leader:"Лідер",info:"Опис",date:"Дата",type:"Тип",note:"Примітка"};
 function cp(x){return x==null?null:JSON.parse(JSON.stringify(x))}
 function pn(id){var p=person(id);return p?fio(p):(id||"")}
 function sv(v){if(v===true)return "так";if(v===false||v==null||v==="")return "—";v=String(v);return /^\d{4}-\d\d-\d\d$/.test(v)?fd(v):(v.length>120?v.slice(0,120)+"…":v)}
@@ -1406,7 +1594,7 @@ function arrDiff(a,b,fmt,nm){a=a||[];b=b||[];var ka=a.map(function(x){return JSO
 function scal(a,b,keys){var o=[];keys.forEach(function(k){var x=a[k],y=b[k];if((x==null||x===false?"":String(x))!==(y==null||y===false?"":String(y)))o.push((FL[k]||k)+": "+sv(x)+" → "+sv(y))});return o}
 function fEv(e){return (EV[e.type]?EV[e.type].label:e.type)+(e.date?" "+sv(e.date):"")+(evDetail(e)?" ("+evDetail(e)+")":"")}
 function diffDoc(col,a,b){var o=[];a=a||{};b=b||{};
-  if(col==="people"){o=scal(a,b,["last","first","mid","sex","birth","baptism","phone","address","place","family","marital","wedding","notes","kind","followUp","remindOff","part","chat","hasKids"])
+  if(col==="people"){o=scal(a,b,["last","first","mid","sex","birth","baptism","phone","address","place","family","marital","wedding","notes","kind","followUp","remindOff","part","chat","hasKids","district"])
     .concat(arrDiff(a.events,b.events,fEv,"подія"),arrDiff(a.contacts,b.contacts,function(c){return [sv(c.date),c.kind,c.by,c.note].filter(Boolean).join(" · ")},"контакт"),arrDiff(a.needs,b.needs,function(x){return typeof x==="string"?x:[x.text||x.name||"",x.note||""].filter(Boolean).join(" · ")||JSON.stringify(x)},"потреба"),arrDiff(a.rel,b.rel,function(r){return (r.type||"")+" — "+pn(r.pid)},"родинний зв'язок"),arrDiff(a.kids,b.kids,kidFmt,"дитина"))}
   else if(col==="groups"){o=scal(a,b,["name","info"]);if((a.leader||"")!==(b.leader||""))o.push("Лідер: "+sv(pn(a.leader))+" → "+sv(pn(b.leader)));o=o.concat(arrDiff(a.members,b.members,pn,"учасник"))}
   else if(col==="meetings")o=scal(a,b,["date","type","note","video"]);
@@ -1431,7 +1619,7 @@ function wrapDb(real){
     doc:function(p){var q=p.split("/");return wd(real.doc(p),q[0],q[1])}}}
 function subLog(){if(!rdb||S.logOn)return;S.logOn=true;
   rdb.collection("log").limit(300).onSnapshot(function(snap){S.users=snap.docs.map(function(d){return d.id});namesFor();if(S.tab==="log")render();snap.docs.forEach(function(d){var u=d.id;if(LOGSUB[u])return;LOGSUB[u]=true;
-    rdb.collection("log/"+u+"/e").orderBy("ts","desc").limit(400).onSnapshot(function(sn){LOGDATA[u]=sn.docs.map(function(x){return Object.assign({uid:u,eid:x.id},x.data())});namesFor();if(S.tab==="log"||dlg.open)render()},function(){})});
+    rdb.collection("log/"+u+"/e").orderBy("ts","desc").limit(400).onSnapshot(function(sn){LOGDATA[u]=sn.docs.map(function(x){return Object.assign({uid:u,eid:x.id},x.data())});namesFor();if(S.tab==="log"||S.tab==="home"||dlg.open)render()},function(){})});
   },function(){S.logErr=true;if(S.tab==="log")render()})}
 function namesFor(){var ids=allUsers();if(!USER||!USER.profiles||!ids.length)return;Promise.resolve(USER.profiles(ids)).then(function(ps){var ch=false;ids.forEach(function(u){var n=ps&&ps[u]&&ps[u].name||"";if((S.names[u]||"")!==n){S.names[u]=n;ch=true}});if(ch&&S.tab==="log")render()},function(){})}
 function uname(u){return S.names[u]||((S.cfg.userLinks||{})[u]&&person(S.cfg.userLinks[u])&&pn(S.cfg.userLinks[u]))||((S.cfg.userNames||{})[u])||(S.me&&S.me.id===u&&S.me.name)||("Користувач "+(allUsers().indexOf(u)+1))}
@@ -1466,7 +1654,7 @@ function render0(){
   document.getElementById("c_people").textContent=act().length;var mset={};S.pastors.forEach(function(p){mset[p.pid]=1});S.dk.forEach(function(d){mset[d.pid||d.name]=1});Object.keys(S.min).forEach(function(k){S.min[k].forEach(function(id){mset[id]=1})});document.getElementById("c_deacons").textContent=Object.keys(mset).length;document.getElementById("c_groups").textContent=S.groups.length||"";document.getElementById("c_meet").textContent=S.meetings.length||"";
   var ae=document.activeElement,keep=ae&&ae.id==="q",pos=keep?ae.selectionStart:0;
   var RC=reminders().count,cb=document.getElementById("c_rem");cb.textContent=RC;cb.hidden=!RC;
-  app.innerHTML=({home:vHome,reminders:vReminders,groups:vGroups,meetings:vMeetings,people:vPeople,deacons:vDeacons,journal:vJournal,reports:vReports,log:vLog}[S.tab])();strip(app);
+  app.innerHTML=({home:vHome,reminders:vReminders,groups:vGroups,meetings:vMeetings,people:vPeople,deacons:vDeacons,journal:vJournal,reports:vReports,stats:vStats,log:vLog}[S.tab])();strip(app);
   if(keep){var q=document.getElementById("q");if(q){q.focus();q.setSelectionRange(pos,pos)}}
   if(dlg.open)renderDlg();if(TOUR)tourMark()}
 
@@ -1627,7 +1815,7 @@ function homeTop(){var h="";if(!S.roleKnown)return h;
   return h}
 
 ICO.sliders='<path d="M4 6h10M4 12h2M10 12h10M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>';
-var DASH=[["verse","Слово на сьогодні"],["yt","Трансляція"],["stats","Цифри в рядок"],["strip","Приріст і вік"],["f1","Членів церкви"],["f2","Медіанний вік"],["f3","Нагадування"],["chart","Рух за роками і диякони"],["minis","Прийнято, вибуло, пастор, групи"],["l1","Потребує уваги"],["l2","Дати на 2 тижні"],["l3","Останні зміни"]];
+var DASH=[["verse","Слово на сьогодні"],["yt","Трансляція"],["stats","Цифри в рядок"],["strip","Приріст і вік"],["f1","Членів церкви"],["f2","Медіанний вік"],["f3","Нагадування"],["chart","Рух за роками і диякони"],["minis","Прийнято, вибуло, пастор, групи"],["serve","Служіння"],["l1","Потребує уваги"],["l2","Дати на 2 тижні"],["l3","Останні зміни"]];
 S.hide=[];try{var hs0=JSON.parse(localStorage.getItem("dashHide")||"[]");if(Array.isArray(hs0))S.hide=hs0.filter(function(k){return typeof k==="string"})}catch(e){}
 function on(k){return S.hide.indexOf(k)<0}
 S.tourDone=false;try{S.tourDone=localStorage.getItem("tourDone")==="1"}catch(e){}
@@ -1670,7 +1858,7 @@ function vHome(){
       partList().slice(1).map(function(n){var c=A.filter(function(x){return x.p.part===n}).length;return c?'<li><button class="link" data-act="fpart" data-v="'+esc(n)+'">'+esc(n)+'</button><b>'+c+'</b></li>':""}).join("")+cnt("needs",function(x){return (x.p.needs||[]).length})+cnt("nocontact",function(x){return lastContact(x.p)<addMonths(today(),-3)})+cnt("nophone",function(x){return !x.p.phone})+cnt("noaddr",function(x){return !x.p.address&&!x.p.place})+cnt("nobirth",function(x){return !x.p.birth})+cnt("nochat",function(x){return x.p.chat!=="так"});
   var L1='<div class="panel pad">'+sh("Потребує уваги")+(att?'<ul class="list">'+att+'</ul>':'<div class="muted">Усе заповнено, зауважень немає.</div>')+'</div>',
     L2='<div class="panel pad">'+sh("Дати на 2 тижні",bd.length||null)+(bd.length?'<ul class="list">'+bd.map(function(b){return '<li><span>'+plink(b.x,b.x.d.deacon)+'<br><span class="small muted">'+esc(b.label)+'</span></span><span class="tag">'+(b.diff===0?"сьогодні":b.dm)+'</span></li>'}).join("")+'</ul>':'<div class="muted">Найближчим часом дат немає.</div>')+'</div>',
-    L3='<div class="panel pad">'+sh("Останні зміни")+(J.length?'<ul class="list">'+J.slice(0,6).map(function(j){return '<li><span><button class="link" data-act="open" data-id="'+esc(j.p.id)+'">'+esc(fio(j.p))+'</button><br><span class="muted small">'+esc(EV[j.e.type].label+(j.e.deacon?" · "+canon(j.e.deacon):""))+'</span></span><span class="small muted" style="white-space:nowrap">'+fd(j.e.date)+'</span></li>'}).join("")+'</ul>':'<div class="muted">Змін із точною датою ще немає.</div>')+'</div>',LL=(on("l1")?L1:"")+(on("l2")?L2:"")+(on("l3")?L3:"");
+    LA=lastActs(8),L3='<div id="hLast" class="panel pad'+(LA&&on("serve")&&on("l1")&&on("l2")?" full":"")+'">'+(LA?sh("Останні зміни")+LA:sh("Останні події членства")+(J.length?'<ul class="list">'+J.slice(0,6).map(function(j){return '<li><span><button class="link" data-act="open" data-id="'+esc(j.p.id)+'">'+esc(fio(j.p))+'</button><br><span class="muted small">'+esc(EV[j.e.type].label+(j.e.deacon?" · "+canon(j.e.deacon):""))+'</span></span><span class="small muted" style="white-space:nowrap">'+fd(j.e.date)+'</span></li>'}).join("")+'</ul>':'<div class="muted">Подій із точною датою ще немає.</div>'))+'</div>',LL=(on("serve")?servePanel(1):"")+(on("l1")?L1:"")+(on("l2")?L2:"")+(on("l3")?L3:"");
   if(LL)h+='<div class="cols">'+LL+'</div>';
   if(!S.dashEdit)h+='<div class="bar" style="justify-content:center"><button class="btn" data-act="dashEdit">'+ico("sliders")+' Налаштувати огляд</button><button class="btn" data-act="tourStart">'+ico("spark")+' Як користуватись</button></div>';
   return h}
@@ -1790,14 +1978,14 @@ function vJournal(){
   return h}
 
 function accIdx(p){var E=evs(p).filter(function(e){return e.type==="accepted"});return E.length?E[0].i:-1}
-function fixJoined(p,nb){var el=document.getElementById("f_joined"),i=accIdx(p);if(!el||i<0||!nb.events||!nb.events[i])return;nb.events=nb.events.slice();nb.events[i]=Object.assign({},nb.events[i],{date:el.value.trim()})}
+function fixJoined(p,nb){var el=document.getElementById("f_joined"),hw=document.getElementById("f_how_e"),i=accIdx(p);if((!el&&!hw)||i<0||!nb.events||!nb.events[i])return;var ch={};if(el)ch.date=el.value.trim();if(hw)ch.how=hw.value;nb.events=nb.events.slice();nb.events[i]=Object.assign({},nb.events[i],ch)}
 function personForm(p,isNew){p=p||{};function f(l,id,v,type,cls){return '<label'+(cls?' class="'+cls+'"':"")+'>'+l+'<input id="'+id+'" type="'+(type||"text")+'" value="'+esc(v||"")+'"></label>'}
   function dt(l,id,v){return v&&String(v).length!==10?f(l+" (рік або дата)",id,v):f(l,id,v,"date")}
   var ai=isNew?-1:accIdx(p);
   return '<div class="form">'+f("Прізвище","f_last",p.last)+f("Ім\'я","f_first",p.first)+f("По батькові","f_mid",p.mid)+
     '<label>Стать<select id="f_sex">'+opts(["ч","ж"],p.sex,"—")+'</select></label>'+dt("Дата народження","f_birth",p.birth)+dt("Дата хрещення","f_baptism",p.baptism)+
-    (ai>=0?dt("Дата прийняття в члени церкви","f_joined",p.events[ai].date):"")+
-    f("Телефон","f_phone",p.phone)+f("Населений пункт","f_place",p.place)+f("Адреса","f_address",p.address,"text","wide")+f("Сім\'я (спільна назва для родини)","f_family",p.family,"text","wide")+'<label>Сімейний стан<select id="f_marital">'+opts(MARITAL,p.marital,"—")+'</select></label>'+f("Дата шлюбу","f_wedding",p.wedding,"date")+'<label>У чаті «Примирення»<select id="f_chat">'+opts(["так","ні"],p.chat,"—")+'</select></label>'+kidsForm(p,isNew)+
+    (ai>=0?dt("Дата прийняття в члени церкви","f_joined",p.events[ai].date)+'<label>Як прийшов у церкву<select id="f_how_e">'+opts(HOW,p.events[ai].how,"не вказано")+'</select></label>':"")+
+    f("Телефон","f_phone",p.phone)+f("Населений пункт","f_place",p.place)+f("Адреса","f_address",p.address,"text","wide")+'<label>Район Чернівців<select id="f_district">'+opts(distNames(),p.district,distOf(p)&&!p.district?"авто: "+distOf(p):"не вказано")+'</select></label>'+f("Сім\'я (спільна назва для родини)","f_family",p.family,"text","wide")+'<label>Сімейний стан<select id="f_marital">'+opts(MARITAL,p.marital,"—")+'</select></label>'+f("Дата шлюбу","f_wedding",p.wedding,"date")+'<label>У чаті «Примирення»<select id="f_chat">'+opts(["так","ні"],p.chat,"—")+'</select></label>'+kidsForm(p,isNew)+
     (isNew||derive(p).st==="none"?'<label>Хто це<select id="f_kind">'+(isNew?'<option value="">член церкви</option>':'<option value="">не вказано</option>')+opts(KINDS,p.kind)+'</select></label>':"")+
     (isNew?f("Дата прийняття в члени церкви","f_adate","","date")+'<label>Як прийшов<select id="f_how">'+opts(HOW,HOW[0])+'</select></label><label>Закріплений за<select id="f_deacon">'+opts(careList(),"","не закріплений")+'</select></label><div class="wide small muted">Дата прийняття — це день, коли людину прийняли в члени церкви, а не сьогоднішня дата. Якщо не знаєте — лишіть порожньою, допишете пізніше через «Редагувати дані».</div>':"")+
     '<label class="wide">Примітки<textarea id="f_notes">'+esc(p.notes||"")+'</textarea></label></div>'}
@@ -1826,13 +2014,16 @@ function rolesBlock(p,W){var rs=cardRoles(p.id),lead=S.groups.filter(function(g)
       '<div class="composer"><input id="p_newRole" placeholder="Нове служіння: керівник кафе, парковка…" aria-label="Нове служіння"><button class="btn" data-act="roleNew">'+ico("plus")+' Створити і призначити</button></div>':"")+'</div>'}
 function extra(a,t,v){
   if(a==="mode"||a==="openMode"||a==="open"||a==="add"||a==="close"||a==="saveEdit"||a==="saveNew")S.kidKey=null;
-  if(a==="kidAdd"){var kb=document.getElementById("kidRows");if(kb){S.kidN=(S.kidN||0)+1;kb.insertAdjacentHTML("beforeend",kidRow(kb.querySelectorAll(".kid").length+Date.now()%1000*100,{}));var ni=kb.lastElementChild.querySelector("input");if(ni)ni.focus()}return true}
+  if(a==="mapD"){S.mapSel=v;S.mode="dist";S.card=null;renderDlg();return true}
+  if(a==="stGo"){var sg=document.getElementById(v);if(sg)try{sg.scrollIntoView({behavior:"smooth",block:"center"})}catch(e){sg.scrollIntoView()}return true}
+if(a==="kidAdd"){var kb=document.getElementById("kidRows");if(kb){S.kidN=(S.kidN||0)+1;kb.insertAdjacentHTML("beforeend",kidRow(kb.querySelectorAll(".kid").length+Date.now()%1000*100,{}));var ni=kb.lastElementChild.querySelector("input");if(ni)ni.focus()}return true}
   if(a==="kidDel"){var kr=t.closest(".kid");if(kr)kr.remove();return true}
   if(a==="dview"){S.dView=v;S.card=null;S.mode="care";renderDlg();return true}
   if(S.mode==="care"&&(a==="toDeacon"||a==="delDeacon"||a==="delPastor")){S.mode="";if(dlg.open)dlg.close()}
   if(a==="news"){meClose();S.card=null;S.mode="news";S.newsAll=false;renderDlg();newsSeen();return true}
   if(a==="newsAll"){S.newsAll=true;renderDlg();return true}
   if(a==="newsTour"){dlg.close();tourStart();return true}
+if(a==="newsTourNew"){dlg.close();tourNewStart();return true}
   if(a==="rems"){remOpen();return true}
   if(a==="ages"){S.mode="ages";S.card=null;S.ageG=-1;renderDlg();return true}
   if(a==="ageG"){S.ageG=S.ageG===+v?-1:+v;renderDlg();return true}
@@ -1906,7 +2097,7 @@ document.addEventListener("change",function(e){var t=e.target,d=t.dataset||{};if
   st.updateStaff(d.srole||d.sperson,d.srole?{role:t.value}:{person_id:t.value}).then(function(){toast("Збережено")},function(){toast("Не вдалося зберегти. Можливо, бракує прав.")})});
 function lim(){if(window.__site)return window.__site.role==="deacon";if(!(S.canWrite&&S.roleKnown)||S.isAdmin)return false;if((S.cfg.fullUsers||[]).indexOf(S.uid)>=0)return false;return !isOffice(myPid())}
 function ownOnly(p){if(!p||!lim())return false;var md=myDeacon();return !(md&&derive(p).deacon===md)}
-function renderDlg(){if(S.mode==="rems"){var sc=dlg.open?dlg.scrollTop:0;dlg.innerHTML='<div class="dlg rems"><div class="dlg-head"><h2>Нагадування</h2><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>'+vReminders()+'</div>';if(!dlg.open)dlg.showModal();dlg.scrollTop=sc;strip(dlg);return}if(S.mode==="news"){dlg.innerHTML=newsDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="care"){dlg.innerHTML=careDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="ages"){dlg.innerHTML=agesDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
+function renderDlg(){if(S.mode==="rems"){var sc=dlg.open?dlg.scrollTop:0;dlg.innerHTML='<div class="dlg rems"><div class="dlg-head"><h2>Нагадування</h2><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>'+vReminders()+'</div>';if(!dlg.open)dlg.showModal();dlg.scrollTop=sc;strip(dlg);return}if(S.mode==="news"){dlg.innerHTML=newsDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="care"){dlg.innerHTML=careDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="ages"){dlg.innerHTML=agesDlg();if(!dlg.open)dlg.showModal();strip(dlg);return}if(S.mode==="dist"){dlg.innerHTML=distDlg();if(!dlg.open)dlg.showModal();dlg.scrollTop=0;strip(dlg);try{var dae=document.activeElement;if(dae&&dae.blur&&dlg.contains(dae))dae.blur()}catch(e){}return}var p=S.mode==="new"?null:person(S.card),cw=S.canWrite;if(S.mode==="new"?lim():ownOnly(p))S.canWrite=false;try{renderDlg0()}finally{S.canWrite=cw}
   Array.prototype.forEach.call(dlg.querySelectorAll(".facts dd"),function(d){if(d.textContent.length>34)d.parentNode.classList.add("wide")});
   if(p&&ownOnly(p)&&dlg.open){var d=dlg.querySelector(".dlg-head");if(d)d.insertAdjacentHTML("afterend",'<div class="box small" style="margin-inline:12px">Ця людина закріплена за іншим служителем, тому картка відкрита лише для перегляду. Зміни вносить її диякон, пастор або секретар.</div>')}
   strip(dlg)}
@@ -1915,13 +2106,15 @@ var TOUR=null;
 function tourSteps(){var full=S.canWrite&&!lim(),s=[
   {tab:"home",ic:"spark",t:"Вітаємо в обліку «Примирення»",x:"Це робочий інструмент служителів: люди, служіння, малі групи, зібрання й нагадування в одному місці. Покажу головне за хвилину."},
   {tab:"home",ic:"grid",sel:".side-top,#nav button,.me",t:"Меню",x:"Усі розділи зібрані в одній панелі: на комп'ютері вона ліворуч, на телефоні — внизу екрана, гортається вбік. Під меню — ваш акаунт: там підказки, «Що нового» і налаштування огляду."},
-  {tab:"home",ic:"book",sel:".verse,.stats,.features",t:"Огляд",x:"Угорі — слово на сьогодні. Нижче головні цифри церкви: натисніть на картку, щоб перейти до списку. Картка «Медіанний вік» відкриває статистику за віком і віковими групами. Які блоки показувати, ви вибираєте в «Налаштувати огляд»."},
+  {tab:"home",ic:"book",sel:".verse,.stats,.features",t:"Огляд",x:"Угорі — слово на сьогодні. Нижче головні цифри церкви: натисніть на картку, щоб перейти до списку. Картка «Медіанний вік» відкриває статистику за віком і віковими групами. Ще нижче — блок «Служіння» і «Останні зміни»: хто і що змінив. Які блоки показувати, ви вибираєте в «Налаштувати огляд»."},
   {tab:"people",ic:"users",sel:".toolbar,.tools",t:"Люди",x:"Усі картки. Угорі — пошук по всьому: прізвище, телефон, адреса, примітки. Фільтри показують чинних, тих, хто на замітці, і вибулих, а також людей конкретного диякона чи пастора."},
   {tab:"people",ic:"heart",sel:"#app>.panel",one:1,t:"Картка людини",x:full?"У картці ви записуєте відвідини, дзвінки й переписку, ставите потреби, призначаєте служіння, додаєте родичів. Кнопки вгорі: прийняти в члени, закріпити за дияконом або пастором, взяти на замітку. Дату прийняття вказуйте фактичну, а не сьогоднішню.":"У картках своїх людей ви записуєте відвідини, дзвінки й переписку, оновлюєте телефон та адресу, ставите потреби. Картки людей інших служителів відкриваються лише для перегляду."},
   {tab:"home",ic:"bell",sel:".side-top",t:"Нагадування",x:"Дзвіночок біля назви, цифра на ньому — скільки справ на сьогодні. Натисніть, щоб додати своє нагадування з датою: подзвонити, відвідати, привітати. Туди ж самі потрапляють ті, у кого минув термін замітки, і ті, хто потребує опіки. Там же вмикаються сповіщення на телефон або комп'ютер."},
   {tab:"deacons",ic:"shield",sel:".dcards,#app>.sh",t:"Пастори і диякони",x:"Вони в одному списку, а колір картки показує, хто є хто: помаранчева — пастор, зелена — диякон, сіро-блакитна — диякон на випробувальному терміні. Натисніть на картку — відкриється список закріплених людей з копіюванням, Excel і друком."},
   {tab:"deacons",ic:"sliders",sel:"#app>.panel",t:"Інші служіння і малі групи",x:"Нижче — решта служінь: призначайте людей і редагуйте сам список служінь під свою церкву. У розділі «Малі групи» — склад, лідер і відвідуваність зустрічей."},
   {tab:"meetings",ic:"calendar",sel:"#app>.panel",one:1,t:"Зібрання і трансляція",x:"Членські зібрання з рішеннями щодо людей. Кнопка «Дивитися наживо» відкриває поточну трансляцію на YouTube."}];
+  s.push({tab:"stats",ic:"pie",sel:"#app>.st-bento",t:"Статистика",x:"Уся церква в цифрах на одній сторінці. Угорі кольорові картки: скільки членів (кожна крапка — людина, на неї можна натиснути), медіанний вік, хто має служіння, сім'ї та діти до 18 років. Нижче — вік і стать, рух за роками, диякони, служіння."});
+  s.push({tab:"stats",ic:"pin",sel:"#app>.mapc",t:"Мапа Чернівців",x:"Справжні обриси міста з районами. Цифра біля району — скільки там живе членів церкви. Натисніть на район — відкриється вікно з його статистикою і людьми. Район вибирається в картці людини або береться з адреси."});
   if(full)s.push({tab:"reports",ic:"chart",sel:"#app>.panel",one:1,t:"Звіти",x:"Річний підсумок, прийняті й вибулі, звіт ЄХБ, вік і стать. Усе вивантажується в Excel. Раз на тиждень зберігайте резервну копію."});
   if(S.isAdmin)s.push({tab:"log",ic:"history",sel:"#app>.panel",one:1,t:"Журнал і користувачі",x:"Тут видно, хто й що змінив, і будь-яку зміну можна повернути. Тут же ви підтверджуєте нових користувачів і задаєте їм права."});
   s.push({tab:"home",ic:"spark",sel:"#aiFab,#aiBtnM",t:"Помічник",x:"Кругла кольорова кнопка: на комп'ютері внизу праворуч, на телефоні — вгорі біля пошуку. Пишіть коротко: «знайди Бурлаку», «нагадай у суботу подзвонити Вадиму», «запиши: сьогодні відвідав Вадима», «познач Вадима як служить у ЗСУ» — він знайде або запише сам. Напишіть «що ти вмієш», щоб побачити всі команди."});
@@ -1934,10 +2127,23 @@ function tourMark(scroll){document.body.classList.toggle("touring",!!TOUR);Array
   els.forEach(function(e){e.classList.add("tour-on")})}
 function tourShow(){var el=document.getElementById("tour");if(!TOUR){if(el)el.remove();tourHl(null);tourMark();return}
   var st=TOUR.s[TOUR.i];if(S.tab!==st.tab)go(st.tab);tourHl(TOUR.i?st.tab:null);tourMark(true);
-  if(!el){el=document.createElement("div");el.id="tour";el.setAttribute("role","dialog");el.setAttribute("aria-label","Знайомство із застосунком");document.body.appendChild(el)}
-  el.innerHTML='<span class="si t-lime">'+ico(st.ic)+'</span><div class="tr-b"><div class="tr-n">Крок '+(TOUR.i+1)+' з '+TOUR.s.length+'</div><b>'+esc(st.t)+'</b><p>'+esc(st.x)+'</p><div class="bar"><button class="link small" data-act="tourEnd">Пропустити</button><span class="grow"></span>'+(TOUR.i?'<button class="btn small" data-act="tourPrev">Назад</button>':"")+'<button class="btn small primary" data-act="tourNext">'+(TOUR.i===TOUR.s.length-1?"Почати роботу":"Далі")+'</button></div></div>'}
+  if(!el){el=document.createElement("div");el.id="tour";el.setAttribute("role","dialog");el.setAttribute("aria-label","Підказки");document.body.appendChild(el)}
+  el.innerHTML='<span class="si t-lime">'+ico(st.ic)+'</span><div class="tr-b"><div class="tr-n">'+(TOUR.kind==="new"?"Нове · ":"")+'Крок '+(TOUR.i+1)+' з '+TOUR.s.length+'</div><b>'+esc(st.t)+'</b><p>'+esc(st.x)+'</p><div class="bar"><button class="link small" data-act="tourEnd">Пропустити</button><span class="grow"></span>'+(TOUR.i?'<button class="btn small" data-act="tourPrev">Назад</button>':"")+'<button class="btn small primary" data-act="tourNext">'+(TOUR.i===TOUR.s.length-1?(TOUR.kind==="new"?"Що нового":"Почати роботу"):"Далі")+'</button></div></div>'}
 function tourStart(){if(dlg.open)dlg.close();if(AI.open){AI.open=false;aiRender()}S.dashEdit=false;TOUR={i:0,s:tourSteps()};tourShow()}
-function tourEnd(){TOUR=null;tourShow();if(!S.tourDone){S.tourDone=true;dashSave()}newsSeen();go("home")}
+/* short tour for people who already know the app: only what the latest update brought. Rewrite these steps together with every new NEWS entry and keep TOURNEW_ID equal to its id. */
+var TOURNEW_ID="2026-10-09";
+function tourNewSteps(){if(typeof NEWS==="undefined"||NEWS[0].id!==TOURNEW_ID)return [];var full=S.canWrite&&!lim(),s=[
+  {tab:"stats",ic:"spark",t:"Вийшло оновлення",x:"Покажу тільки нове, це пів хвилини: вкладка «Статистика», мапа Чернівців, діти й недільна школа, нові блоки на головній."},
+  {tab:"stats",ic:"pie",sel:"#app>.st-bento",t:"Нова вкладка «Статистика»",x:"Уся церква в цифрах. Кожна крапка у зеленій картці — член церкви, на неї можна натиснути. Поруч — медіанний вік, хто має служіння, сім'ї та діти до 18 років."},
+  {tab:"stats",ic:"chart",sel:"#app>.st-dark",t:"Вік, стать і рух за роками",x:"Ліворуч — скільки чоловіків і жінок у кожній віковій групі, праворуч — скільки людей прийнято і скільки вибуло за останні роки."},
+  {tab:"stats",ic:"pin",sel:"#app>.mapc",t:"Мапа Чернівців",x:"Цифра біля району — скільки там живе членів церкви. Натисніть на район — відкриється вікно з його власною статистикою і списком людей."},
+  {tab:"stats",ic:"heart",sel:"#stFam,#stKids",t:"Сім'ї та діти до 18 років",x:"Скільки сімей з дітьми і без, і окремо діти, які ще не є членами церкви: кожна дитина — крапка, зелена означає, що ходить у недільну школу."},
+  {tab:"people",ic:"users",sel:"#app>.panel",one:1,t:"Нове в картці людини",x:full?"У «Редагувати дані» з'явились: «Район Чернівців», «Як прийшов у церкву» і галочка «нед. школа» біля кожної дитини. Заповніть їх — і статистика та мапа стануть точними.":"У картках своїх людей у «Редагувати дані» з'явились: «Район Чернівців», «Як прийшов у церкву» і галочка «нед. школа» біля кожної дитини."},
+  {tab:"home",ic:"shield",sel:"#hServe,#hLast",t:"Нове на головній",x:"Блок «Служіння» показує, скільки людей у кожному служінні."+(S.isAdmin?" А «Останні зміни» тепер показують справжні останні дії: хто, що і коли змінив.":"")},
+  {tab:"home",ic:"check",sel:".me,#meBtnM",t:"Це все нове",x:"Зараз відкриється повний список змін. Він і всі підказки завжди є в меню під вашим іменем → «Що нового»."}];
+  return s}
+function tourNewStart(){var s=tourNewSteps();if(!s.length)return false;if(dlg.open)dlg.close();if(AI.open){AI.open=false;aiRender()}S.dashEdit=false;TOUR={i:0,s:s,kind:"new"};tourShow();return true}
+function tourEnd(){if(TOUR&&TOUR.kind==="new"){TOUR=null;tourShow();go("home");S.card=null;S.mode="news";S.newsAll=false;renderDlg();newsSeen();return}TOUR=null;tourShow();if(!S.tourDone){S.tourDone=true;dashSave()}newsSeen();go("home")}
 function tourMaybe(){if(TOUR||S.tourDone||!S.ready||!S.roleKnown||!S.prefsOK||Date.now()-T0<3900)return;tourStart()}
 /* ---------- assistant ---------- */
 var AI={fn:null,open:false,busy:false,turns:[],log:[],ctl:null,tools:true,off:false,status:""};
@@ -2336,6 +2542,15 @@ function careWord(name,cap){var p=S.pastors.some(function(x){return x&&x.name===
 
 /* ---------- what's new: shown once after an update, and always available in the account menu ---------- */
 var NEWS=[
+ {id:"2026-10-09",d:"8 жовтня 2026",t:"Нова вкладка «Статистика» і мапа Чернівців",items:[
+  ["pie","Вкладка «Статистика»","Усі цифри церкви тепер на одній сторінці, з кольоровими картками і діаграмами; кожен член церкви — крапка, на яку можна натиснути. Усередині: вік і стать, диякони і пастори, служіння, сім'ї, діти, як люди прийшли в церкву, чат. Шукайте її в меню перед «Звітами»."],
+  ["shield","Статистика служінь","Скільки людей у кожному служінні і скільки членів церкви служать загалом. Цей блок є й на головній сторінці — його можна сховати в «Налаштувати огляд»."],
+  ["users","Сім'ї","Скільки в церкві сімей, скільки з дітьми, скільки без дітей і скільки з дітьми до 18 років."],
+  ["heart","Діти до 18 років і недільна школа","Окрема статистика дітей, які не є членами церкви: скільки їх і якого віку. У картці батьків біля кожної дитини з'явилась галочка «нед. школа»."],
+  ["pin","Мапа Чернівців за районами","Чиста мапа міста зі справжніми обрисами, Прутом і головними дорогами. На мапі райони: Садгора, Рогізна, Ленківці, Жучка, Калічанка, Клокучка, Роша, Цецино, Центр, Гореча, Гравітон, Проспект, Бульвар. Цифра показує, скільки членів церкви там живе; натисніть на район — відкриється вікно з його власною статистикою (люди, сім'ї, діти, вік, за ким закріплені) і списком людей. У картці з'явилось поле «Район Чернівців»; якщо район написаний в адресі, застосунок знайде його сам."],
+  ["swap","«Як прийшов у церкву» можна змінити","Це поле тепер є в «Редагувати дані» поруч із датою прийняття."],
+  ["help","Підказки тільки про нове","Після оновлення застосунок сам коротко покаже, що з'явилось, — без повторення всього навчання. Нові користувачі, як і раніше, бачать повне знайомство. Обидва варіанти є в меню під вашим іменем → «Що нового»."],
+  ["clock","«Останні зміни» показують усе","На головній сторінці цей блок тепер показує справжні останні дії з журналу: хто, що і коли змінив. Раніше там були лише події членства."]]},
  {id:"2026-10-08-3",d:"7 жовтня 2026",t:"Діти прямо в картці",items:[
   ["heart","Діти в анкеті людини","В анкеті з'явилось питання «Чи є діти». Якщо так — одразу впишіть ім'я і вік кожної дитини, окрему картку для дитини заводити не треба. Кнопка «Додати дитину» додає ще рядок."],
   ["users","Де це видно","Діти з віком показуються в картці, у друці та в Excel. Вік сам зростає щороку. Якщо дітей вписано в картці чоловіка або дружини, вони видно і в картці другого з подружжя."]]},
@@ -2367,11 +2582,11 @@ function newsSeen(){if(S.newsFrom==null)S.newsFrom=newsLast();try{localStorage.s
 function newsIsNew(){try{return localStorage.getItem("newsSeen")!==NEWS[0].id}catch(e){return false}}
 var NEWS_T=0;
 function newsMaybe(){if(NEWS_T||!S.ready||!S.roleKnown||!S.tourDone||TOUR||dlg.open||(typeof AI!=="undefined"&&AI.open)||document.getElementById("meMenu"))return;if(!newsIsNew()){NEWS_T=1;return}
-  var a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))return;NEWS_T=1;S.card=null;S.mode="news";S.newsAll=false;renderDlg();newsSeen()}
+  var a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))return;NEWS_T=1;if(tourNewStart())return;S.card=null;S.mode="news";S.newsAll=false;renderDlg();newsSeen()}
 function newsDlg(){var from=S.newsFrom==null?newsLast():S.newsFrom,cut=-1;NEWS.forEach(function(n,i){if(cut<0&&n.id===from)cut=i});var L=S.newsAll||cut<0?NEWS:NEWS.filter(function(n,i){return i<Math.max(1,cut)||n.d===NEWS[0].d});
   return '<div class="dlg news"><div class="dlg-head news-h"><div><span class="news-k">'+ico("spark")+' Оновлення · '+esc(NEWS[0].d)+'</span><h2>Що нового</h2></div><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>'+
     L.map(function(n,i){return (i&&n.d!==NEWS[0].d?'<h3 class="news-d">Раніше · '+esc(n.d)+'</h3>':"")+'<div class="news-t">'+esc(n.t)+'</div><ul class="news-l">'+n.items.map(function(x){return '<li><span class="si">'+ico(x[0])+'</span><span><b>'+esc(x[1])+'</b><span class="muted">'+esc(x[2])+'</span></span></li>'}).join("")+'</ul>'}).join("")+
-    '<div class="bar">'+(L.length<NEWS.length?'<button class="btn" data-act="newsAll">Попередні оновлення</button>':"")+'<button class="btn" data-act="newsTour">'+ico("help")+' Пройти підказки заново</button><span class="grow"></span><button class="btn primary" data-act="close">Зрозуміло</button></div></div>'}
+    '<div class="bar">'+(L.length<NEWS.length?'<button class="btn" data-act="newsAll">Попередні оновлення</button>':"")+'<button class="btn" data-act="newsTour">'+ico("help")+' Усі підказки</button>'+(tourNewSteps().length?'<button class="btn" data-act="newsTourNew">'+ico("spark")+' Показати нове</button>':"")+'<span class="grow"></span><button class="btn primary" data-act="close">Зрозуміло</button></div></div>'}
 
 /* ---------- generated avatars: a little figure drawn from the card (sex, age, ministry) ---------- */
 /* little biblical-style figures, drawn from what the card says about a person: sex, age, ministry. Same person -> same figure. */
@@ -2432,17 +2647,145 @@ function heroCls(p,d){var st=d.st;if(st==="excluded")return "g-red";if(st==="lef
 /* ---------- children are kept inside the parent's card: name + birth year (entered as an age) ---------- */
 FL.hasKids="Чи є діти";
 function kidAge(k){var y=+k.by;return y?Math.max(0,new Date().getFullYear()-y):null}
-function kidFmt(k){var a=kidAge(k);return (k.name||"без імені")+(a!=null?" ("+a+" р.)":"")}
+function kidFmt(k){var a=kidAge(k),x=[a!=null?a+" р.":"",k.ss?"нед. школа":""].filter(Boolean).join(", ");return (k.name||"без імені")+(x?" ("+x+")":"")}
 function kidsOwner(p){if(p.hasKids==="так"&&(p.kids||[]).length)return p;var ids=[];(p.rel||[]).forEach(function(r){if(/^(дружина|чоловік)$/.test(r.type||"")&&r.pid)ids.push(r.pid)});
   S.people.forEach(function(q){(q.rel||[]).forEach(function(r){if(r.pid===p.id&&/^(дружина|чоловік)$/.test(r.type||""))ids.push(q.id)})});
   for(var i=0;i<ids.length;i++){var q=person(ids[i]);if(q&&q.hasKids==="так"&&(q.kids||[]).length)return q}return null}
 function kidsText(p,plain){var o=kidsOwner(p);if(o)return o.kids.map(kidFmt).join(", ")+(o!==p&&!plain?" · з картки: "+short(o):"");return p.hasKids==="ні"?"немає":p.hasKids==="так"?"є, не вписані":""}
-function kidRow(i,k){var a=kidAge(k);return '<div class="kid"><input id="k_n_'+i+'" class="k-n" placeholder="Ім\'я" aria-label="Ім\'я дитини" value="'+esc(k.name||"")+'"><input id="k_a_'+i+'" class="k-a" type="number" inputmode="numeric" min="0" max="80" placeholder="Вік" aria-label="Вік дитини" value="'+(a==null?"":a)+'"><button type="button" class="iconbtn" data-act="kidDel" aria-label="Прибрати рядок" title="Прибрати">'+ico("x")+'</button></div>'}
+function kidRow(i,k){var a=kidAge(k);return '<div class="kid"><input id="k_n_'+i+'" class="k-n" placeholder="Ім\'я" aria-label="Ім\'я дитини" value="'+esc(k.name||"")+'"><input id="k_a_'+i+'" class="k-a" type="number" inputmode="numeric" min="0" max="80" placeholder="Вік" aria-label="Вік дитини" value="'+(a==null?"":a)+'"><label class="k-s" title="Відвідує недільну школу"><input type="checkbox" id="k_s_'+i+'"'+(k.ss?" checked":"")+'><span>нед. школа</span></label><button type="button" class="iconbtn" data-act="kidDel" aria-label="Прибрати рядок" title="Прибрати">'+ico("x")+'</button></div>'}
 function kidsForm(p,isNew){var kids=p.kids||[],key=(isNew?"new":p.id)+"|"+S.mode;if(S.kidKey!==key){S.kidKey=key;S.kidN=kids.length}var n=Math.max(kids.length,S.kidN||0,1),rows="";for(var i=0;i<n;i++)rows+=kidRow(i,kids[i]||{});
   return '<div class="wide kids"><label>Чи є діти<select id="f_haskids">'+opts(["так","ні"],p.hasKids,"—")+'</select></label><div id="kidsBox"'+(p.hasKids==="так"?"":" hidden")+'><div id="kidRows">'+rows+'</div><div class="bar"><button type="button" class="btn small" data-act="kidAdd">'+ico("plus")+' Додати дитину</button><span class="muted small">Вік вписуйте на сьогодні, далі він рахується сам.</span></div></div></div>'}
-function kidsRead(){if(val("f_haskids")!=="так")return [];var y=new Date().getFullYear(),out=[];Array.prototype.forEach.call(document.querySelectorAll("#kidRows .kid"),function(r){var n=r.querySelector(".k-n").value.trim(),a=r.querySelector(".k-a").value.trim();if(!n&&a==="")return;var k={name:n.slice(0,80)};if(a!==""&&!isNaN(+a))k.by=y-Math.max(0,Math.min(80,Math.round(+a)));out.push(k)});return out}
+function kidsRead(){if(val("f_haskids")!=="так")return [];var y=new Date().getFullYear(),out=[];Array.prototype.forEach.call(document.querySelectorAll("#kidRows .kid"),function(r){var n=r.querySelector(".k-n").value.trim(),a=r.querySelector(".k-a").value.trim();if(!n&&a==="")return;var k={name:n.slice(0,80)};if(a!==""&&!isNaN(+a))k.by=y-Math.max(0,Math.min(80,Math.round(+a)));var c=r.querySelector(".k-s input");if(c&&c.checked)k.ss=1;out.push(k)});return out}
 document.addEventListener("change",function(e){if(e.target&&e.target.id==="f_haskids"){var b=document.getElementById("kidsBox");if(b){b.hidden=e.target.value!=="так";if(!b.hidden){var f=b.querySelector(".k-n");if(f&&!f.value)f.focus()}}}});
 dlg.addEventListener("close",function(){S.kidKey=null});
+
+/* ---------- statistics: ministries, families, children, map of districts, the «Статистика» tab ---------- */
+TITLES.stats="Статистика";SUBT.stats="Уся церква в цифрах";
+ICO.pie='<path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15.5 3.6a9 9 0 0 1 4.9 4.9h-4.9z"/>';
+ICO.pin='<path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>';
+var SPO=/^(дружина|чоловік)$/;
+/* districts of Chernivtsi: name, x, y on the map (projected from OpenStreetMap coordinates), label side, pattern to find the district in an address */
+var DIST=[["Садгора",402,203,"r",/садг[оі]р/],["Рогізна",340,204,"l",/рогізн/],["Ленківці",243,280,"l",/ленківц/],["Жучка",419,313,"r",/жучк/],["Калічанка",433,397,"r",/кал[іи]чанк/],["Клокучка",279,370,"l",/клокучк/],["Роша",225,418,"l",/(^|[^а-яіїєґ'])рош[аіу]|ст[иі]нк/],["Цецино",116,406,"l",/цецин/],["Центр",343,422,"l",/(^|[^а-яіїєґ'])центр([^а-яіїєґ']|$)|старе місто/],["Гореча",517,452,"r",/гореч/],["Гравітон",470,500,"r",/гравітон/],["Проспект",382,500,"l",/проспект|пр-т|просп\./],["Бульвар",394,572,"r",/бульвар|героїв крут|комаров|південно|кільцев/]];
+var MAPG={b:"M0 381L125 484L298 545L332 582L338 608L349 590L361 593L358 583L388 600L413 599L409 578L456 557L472 580L478 577L466 554L487 544L508 508L517 512L549 486L512 433L553 390L525 313L529 303L587 330L600 209L566 191L589 144L568 128L588 115L599 127L608 110L584 90L577 100L518 97L542 46L516 0L485 6L441 70L426 74L420 65L333 108L300 112L271 94L232 102L181 85L161 216L188 230L175 255L188 264L185 275L155 263L152 289L228 299L233 321L246 327L250 318L259 328L200 356L86 354L96 369L73 363L25 385L6 372Z",r:"M-26 234l6 1 8-2 15-7 7-1 7 2 9 7 11 2 8-2 16-11 4-1 12 6 6 5 9 17 11 11 8 15 7 8 4 1 21 2 11-1 4-3 14 3 12-1 31 10 17 3 10 6 19 23 9 6 26 11 11 2 36 2 32 10 31 1 32-3 14 2 11 4 23 13 7 7 4 8 1 7-5 16 1 7 3 5 14 9 9 10 10 14 9 18 12 16 9 5 7 2 7-1 17-8 10 0 10 2 10 6 20 21 8 4",h:"M344 442l-5-1-7 29M344 442l-4-9 7-21M321 517l-2 7 4 37 6 17M344 442l63 136M398 437l17-18 3-1 7 4M418 413l-12-31M406 382l-1-19 3-43M406 382l-1-14 2-48M552 392l-13 8-10 21-28 20-5 0-11-3-10-8-8-3-5 0-16 5-16-7M416 295l25-6 9-5 21 15 25 11 27 4 3 5 17 52 6 11 5 5M346 400l-1 5 2 7M332 470l-75 62-6 2-19-3-10 4-53 71-50 42M557 392l5 8 19 23M297 352l4 9 5 6 5 2 5 11 22 12 8 8M47 178l72 17 98 49 30 22 11 12 8 17 3 18 10 13 4 2 14 3M525 524l6-8 3-17 5-6 19-12 26-2 10-3 10-7 11-13M524 516l11 6-6 5-5-2M609 443l7 9-1 4M617 454l7-6 4 0M332 581l57 5 18-8M398 437l41 18 22 15 47 37 16 9M398 437l-29-9-18-23M406 298l-99 28M407 578l23 50 11 18M414 298l-6 22M409 299l2 5-4 16M322 511l10-41M609 443l8 3 17 3 12 8M524 525l-21 17-4 8 0 10 6 10 49 49 3 12-2 11M617 440l3 3-3 11M40 176l-70-16M43 173l-62-119M617 446l-11-6M617 446l19 3 13 10M609 443l-21-13-7-7M606 440l-16-9-9-8"};
+function distNames(){return DIST.map(function(d){return d[0]})}
+function distOf(p){if(p.district&&distNames().indexOf(p.district)>=0)return p.district;var t=((p.address||"")+" "+(p.place||"")).toLowerCase();for(var i=0;i<DIST.length;i++)if(DIST[i][4].test(t))return DIST[i][0];return ""}
+/* where a person lives: {k:"d",v:district} | {k:"c"} city, district unknown | {k:"o",v:settlement} | {k:"n"} nothing written */
+function liveOf(p){var d=distOf(p);if(d)return {k:"d",v:d};var pl=(p.place||"").trim();if(!pl)return p.address?{k:"c"}:{k:"n"};return /чернівц/i.test(pl)?{k:"c"}:{k:"o",v:pl}}
+function serveStats(){var A=act(),mem={},sv={},rows=[];A.forEach(function(x){mem[x.p.id]=1});
+  function add(n,ids,cnt){ids.forEach(function(i){if(i)sv[i]=1});if(cnt)rows.push([n,cnt])}
+  add(S.pastors.length>1?"Пастори":"Пастор",S.pastors.map(function(p){return p.pid}),S.pastors.length);
+  add("Диякони",S.dk.map(function(d){return d.pid}),S.dk.length);
+  var rr=roleNames().map(function(r){return [r,(S.min[r]||[]).filter(function(i){return person(i)})]}).filter(function(r){return r[1].length}).sort(function(a,b){return b[1].length-a[1].length});
+  rr.forEach(function(r){add(r[0],r[1],r[1].length)});
+  var ld=[];S.groups.forEach(function(g){if(g.leader&&ld.indexOf(g.leader)<0)ld.push(g.leader)});add("Лідери малих груп",ld,ld.length);
+  var n=Object.keys(sv).filter(function(i){return mem[i]}).length;return {rows:rows,n:n,total:A.length,free:A.length-n}}
+function servePanel(link){var s=serveStats();return '<div class="panel pad"'+(link?' id="hServe"':"")+'>'+sh("Служіння",null,'<span class="tag lime">служать '+s.n+' з '+s.total+'</span>')+(s.rows.length?'<div>'+hbars(s.rows)+'</div>':'<div class="muted">Служіння ще нікому не призначені.</div>')+'<div class="muted small">Одна людина може мати кілька служінь, тому сума рядків буває більшою. Без служіння: '+s.free+'.</div>'+(link?'<div class="bar"><button class="btn small" data-act="nav" data-v="stats">'+ico("pie")+' Уся статистика</button></div>':"")+'</div>'}
+function famStats(){var A=act(),par={},byId={};A.forEach(function(x){par[x.p.id]=x.p.id;byId[x.p.id]=x});
+  function f(i){while(par[i]!==i){par[i]=par[par[i]];i=par[i]}return i}function un(a,b){if(par[a]==null||par[b]==null)return;par[f(a)]=f(b)}
+  var fn={},pairs=0;A.forEach(function(x){(x.p.rel||[]).forEach(function(r){if(SPO.test(r.type||"")&&r.pid&&byId[r.pid]){if(f(x.p.id)!==f(r.pid))pairs++;un(x.p.id,r.pid)}});var k=(x.p.family||"").trim().toLowerCase();if(k){if(fn[k])un(x.p.id,fn[k]);else fn[k]=x.p.id}});
+  var U={};A.forEach(function(x){var r=f(x.p.id);(U[r]=U[r]||[]).push(x)});
+  var cards=all().filter(function(x){return x.d.st==="none"&&(x.p.kind==="дитина члена церкви"||(x.a!=null&&x.a<18))}),used={};
+  var units=Object.keys(U).map(function(k){var xs=U[k],ids={},fam={},kids=[],seen={},yes=false,no=false,mar=false;
+    xs.forEach(function(x){ids[x.p.id]=1;if(x.p.family)fam[x.p.family.trim().toLowerCase()]=1;if(x.p.marital==="у шлюбі"||(x.p.rel||[]).some(function(r){return SPO.test(r.type||"")}))mar=true;if(x.p.hasKids==="так")yes=true;if(x.p.hasKids==="ні")no=true});
+    var names=xs.map(function(x){return short(x.p)}).join(", ");
+    xs.forEach(function(x){if(x.p.hasKids!=="так")return;(x.p.kids||[]).forEach(function(c){var key=(c.name||"").trim().toLowerCase()+"|"+(c.by||"");if(c.name&&seen[key])return;seen[key]=1;seen["n:"+(c.name||"").trim().toLowerCase()]=1;kids.push({name:c.name||"без імені",a:kidAge(c),ss:!!c.ss,par:names})})});
+    cards.forEach(function(c){if(used[c.p.id])return;var link=(c.p.rel||[]).some(function(r){return ids[r.pid]&&/^(батько|мати)$/.test(r.type||"")})||xs.some(function(x){return (x.p.rel||[]).some(function(r){return r.pid===c.p.id&&/^(син|донька)$/.test(r.type||"")})})||(c.p.family&&fam[c.p.family.trim().toLowerCase()]);
+      if(!link)return;used[c.p.id]=1;yes=true;var fnm=(c.p.first||"").trim().toLowerCase();if(fnm&&seen["n:"+fnm])return;kids.push({name:c.p.first||short(c.p),a:c.a,ss:false,par:names,id:c.p.id})});
+    return {xs:xs,kids:kids,fam:xs.length>1||mar||yes||kids.length>0,st:kids.length||yes?"y":no?"n":"u",minor:kids.some(function(c){return c.a!=null&&c.a<18})}});
+  var kids=[];units.forEach(function(u){kids=kids.concat(u.kids)});cards.forEach(function(c){if(!used[c.p.id])kids.push({name:short(c.p),a:c.a,ss:false,par:"",id:c.p.id})});
+  var F=units.filter(function(u){return u.fam});
+  return {units:units,fams:F.length,withK:F.filter(function(u){return u.st==="y"}).length,noK:F.filter(function(u){return u.st==="n"}).length,unk:F.filter(function(u){return u.st==="u"}).length,minor:F.filter(function(u){return u.minor}).length,single:units.length-F.length,pairs:pairs,
+    kids:kids.filter(function(c){return c.a!=null&&c.a<18}).sort(function(a,b){return a.a-b.a||a.name.localeCompare(b.name,"uk")}),noAge:kids.filter(function(c){return c.a==null}).length}}
+/* clean map: one green silhouette of the city, the river, a few main roads; every district with people is a white chip (number + name) */
+function mapSvg(C,sel){var mob=false;try{mob=window.innerWidth<=760}catch(e){}var fs=mob?18:13.5,H=fs+13,R=H/2-3;
+  var s='<svg class="cmap" viewBox="-24 -22 664 664" role="img" aria-label="Мапа Чернівців за районами"><defs><clipPath id="cmClip"><path d="'+MAPG.b+'"/></clipPath>'+
+    '<linearGradient id="cmG" gradientUnits="userSpaceOnUse" x1="120" y1="40" x2="520" y2="610"><stop offset="0" stop-color="#17603a"/><stop offset=".5" stop-color="#23893f"/><stop offset="1" stop-color="#4fb04a"/></linearGradient>'+
+    '<filter id="cmS" x="-20%" y="-40%" width="140%" height="200%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0b2a17" flood-opacity=".35"/></filter></defs>'+
+    '<path class="cm-city" d="'+MAPG.b+'"/><g clip-path="url(#cmClip)"><path class="cm-hw" d="'+MAPG.h+'"/></g><path class="cm-riv" d="'+MAPG.r+'"/><text class="cm-rl" x="50" y="204" transform="rotate(-14 50 204)" style="font-size:'+(fs-1)+'px">Прут</text>';
+  var top="";DIST.forEach(function(d){var n=C[d[0]]||0,x=d[1],y=d[2],left=d[3]==="l",on=sel===d[0],tw=d[0].length*fs*.6,g='<g class="cm-d'+(n?"":" z")+(on?" on":"")+'" data-act="mapD" data-v="'+d[0]+'" data-tip="'+d[0]+": "+n+'">';
+    if(!n){g+='<circle class="cm-hit" cx="'+x+'" cy="'+y+'" r="20"/><circle class="cm-z" cx="'+x+'" cy="'+y+'" r="'+(mob?5:4)+'"/><text class="cm-zt" text-anchor="'+(left?"end":"start")+'" x="'+(left?x-10:x+10)+'" y="'+(y+fs*.34).toFixed(1)+'" style="font-size:'+(fs-1)+'px">'+d[0]+'</text></g>';s+=g;return}
+    var w=H+tw+10,px=left?x+H/2-w:x-H/2,nt=String(n);
+    g+='<rect class="cm-p" x="'+px.toFixed(1)+'" y="'+(y-H/2).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+H.toFixed(1)+'" rx="'+(H/2).toFixed(1)+'" filter="url(#cmS)"/><circle class="cm-b" cx="'+x+'" cy="'+y+'" r="'+R.toFixed(1)+'"/><text class="cm-n" x="'+x+'" y="'+(y+fs*.36).toFixed(1)+'" style="font-size:'+(nt.length>2?fs-3:fs)+'px">'+nt+'</text><text class="cm-t" text-anchor="'+(left?"end":"start")+'" x="'+(left?x-H/2-2:x+H/2+2).toFixed(1)+'" y="'+(y+fs*.35).toFixed(1)+'" style="font-size:'+fs+'px">'+d[0]+'</text></g>';top+=g});
+  return s+top+'</svg>'}
+function mapPanel(){var A=act(),C={},city=[],none=[],out={},by={};A.forEach(function(x){var l=liveOf(x.p);if(l.k==="d"){C[l.v]=(C[l.v]||0)+1;(by[l.v]=by[l.v]||[]).push(x)}else if(l.k==="c")city.push(x);else if(l.k==="n")none.push(x);else out[l.v]=(out[l.v]||0)+1});
+  var sel="",on=Object.keys(C).reduce(function(a,k){return a+C[k]},0),orows=Object.keys(out).sort(function(a,b){return out[b]-out[a]}).map(function(k){return [k,out[k]]}),nout=orows.reduce(function(a,r){return a+r[1]},0);
+  var top=DIST.map(function(d){return [d[0],C[d[0]]||0]}).filter(function(r){return r[1]}).sort(function(a,b){return b[1]-a[1]});
+  var side='<div class="cm-kp"><div><b>'+on+'</b><span>на мапі</span></div><div><b>'+nout+'</b><span>поза містом</span></div><div><b>'+(city.length+none.length)+'</b><span>без району</span></div></div>'+
+    (top.length?'<div><div class="rl">Райони</div><div>'+hbars(top,"mapD")+'</div></div>':"")+
+    (orows.length?'<div><div class="rl">Поза Чернівцями</div><div>'+hbars(orows)+'</div></div>':"")+
+    (city.length||none.length?'<div class="bar">'+(city.length?'<button class="btn small" data-act="mapD" data-v="-">Район не вказано · '+city.length+'</button>':"")+(none.length?'<button class="btn small" data-act="mapD" data-v="?">Адреси немає · '+none.length+'</button>':"")+'</div>':"");
+  var tips='<div class="cm-tips"><div><span class="si">'+ico("pin")+'</span><span><b>Цифра біля району</b>скільки там живе членів церкви</span></div><div><span class="si">'+ico("users")+'</span><span><b>Натисніть на район</b>відкриється його статистика і люди</span></div><div><span class="si">'+ico("sliders")+'</span><span><b>Звідки район</b>з поля «Район» у картці або з адреси</span></div></div><div class="cm-osm">Обриси міста, Прут і дороги — © OpenStreetMap</div>';
+  return '<section class="panel pad mapc"><div>'+sh('<span class="si t-lime">'+ico("pin")+'</span>Де живуть члени церкви')+'<div class="cm-wrap">'+mapSvg(C,sel)+'</div>'+tips+'</div><div class="cm-side">'+side+'</div></section>'}
+function stPl(n,a,b,c){var m=n%100,k=n%10;return m>10&&m<20?c:k===1?a:k>=2&&k<=4?b:c}
+/* popup of one district: its own numbers and people */
+function distPeople(sel){return act().filter(function(x){var l=liveOf(x.p);return sel==="-"?l.k==="c":sel==="?"?l.k==="n":l.k==="d"&&l.v===sel})}
+function servIds(){var o={};S.pastors.forEach(function(p){if(p.pid)o[p.pid]=1});S.dk.forEach(function(d){if(d.pid)o[d.pid]=1});Object.keys(S.min).forEach(function(k){(S.min[k]||[]).forEach(function(i){o[i]=1})});S.groups.forEach(function(g){if(g.leader)o[g.leader]=1});return o}
+function distDlg(){var sel=S.mapSel||"",A=act(),L=distPeople(sel),name=sel==="-"?"Район не вказано":sel==="?"?"Адреси немає":sel,ids={};L.forEach(function(x){ids[x.p.id]=1});
+  var men=L.filter(function(x){return x.p.sex==="ч"}).length,wom=L.filter(function(x){return x.p.sex==="ж"}).length,ages=L.map(function(x){return x.a}).filter(function(a){return a!=null}),med=num(median(ages))||"—";
+  var U=famStats().units.filter(function(u){return u.xs.some(function(x){return ids[x.p.id]})}),fams=U.filter(function(u){return u.fam}),kids=0,ss=0,seen=[];fams.forEach(function(u){u.kids.forEach(function(c){if(c.a!=null&&c.a<18){kids++;if(c.ss)ss++}})});
+  var sv=servIds(),serv=L.filter(function(x){return sv[x.p.id]}).length,chat=L.filter(function(x){return x.p.chat==="так"}).length,pcv=A.length?Math.round(L.length/A.length*100):0;
+  var h='<div class="dlg dist"><div class="dlg-head hero-head g-green"><div class="ds-h"><span class="ds-k">'+ico("pin")+(sel==="-"||sel==="?"?"Чернівці":"Район Чернівців")+'</span><h2>'+esc(name)+'</h2><div class="muted">'+L.length+' '+stPl(L.length,"член церкви","члени церкви","членів церкви")+' · '+pcv+'% церкви</div></div><button class="iconbtn x" data-act="close" aria-label="Закрити">'+ico("x")+'</button></div>';
+  if(!L.length)return h+'<div class="ds-c cw-e">'+ico("pin")+'<span>'+(sel==="-"||sel==="?"?"Таких людей немає.":"У цьому районі ще ніхто не записаний. Щоб людина з\'явилась тут, виберіть район у її картці: «Редагувати дані» → «Район Чернівців» — або допишіть назву району в адресу.")+'</span></div></div>';
+  function tl(v,t,c){return '<div'+(c?' class="'+c+'"':"")+'><b>'+v+'</b><span>'+t+'</span></div>'}
+  h+='<div class="ds-g">'+tl(L.length,"членів церкви","hl")+tl(men,"чоловіків")+tl(wom,"жінок")+tl(med,"медіанний вік")+tl(fams.length,"сімей")+tl(kids,"дітей до 18")+tl(ss,"у недільній школі")+tl(serv,"мають служіння")+'</div>';
+  var G=[["до 18",0,17],["18–35",18,35],["36–60",36,60],["61+",61,200]],gr=G.map(function(g){return [g[0],ages.filter(function(a){return a>=g[1]&&a<=g[2]}).length]}),na=L.length-ages.length;if(na)gr.push(["вік невідомий",na]);
+  var dk={};L.forEach(function(x){var k=x.d.deacon||"Не закріплені";dk[k]=(dk[k]||0)+1});var dr=Object.keys(dk).sort(function(a,b){return dk[b]-dk[a]}).map(function(k){return [k,dk[k]]});
+  h+='<div class="ds-2"><div class="ds-c"><h3>Вік</h3><div class="st-bars b-sun">'+hbars(gr)+'</div></div><div class="ds-c"><h3>За ким закріплені</h3><div class="st-bars b-green">'+hbars(dr)+'</div></div></div>';
+  h+='<div class="ds-c"><h3>Люди <span class="cn">'+L.length+'</span></h3><div class="cw-l">'+L.map(function(x){return '<button class="cw-p" data-act="open" data-id="'+esc(x.p.id)+'">'+avFig(x.p,avc(x.n))+'<span><b>'+esc(short(x.p))+'</b><small>'+esc([x.a!=null?x.a+" р.":"",x.p.address||""].filter(Boolean).join(" · ")||x.d.deacon||"вік не вказано")+'</small></span></button>'}).join("")+'</div></div>';
+  return h+'</div>'}
+/* small chart helpers of the statistics tab */
+function stRing(p,big,sub){var c=2*Math.PI*42,v=Math.max(0,Math.min(1,p||0));return '<span class="st-ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="rt" cx="50" cy="50" r="42"/><circle class="rv" cx="50" cy="50" r="42" stroke-dasharray="'+(c*v).toFixed(1)+" "+c.toFixed(1)+'" transform="rotate(-90 50 50)"/></svg><span class="rc"><b>'+big+'</b>'+(sub?'<small>'+sub+'</small>':"")+'</span></span>'}
+function stDonut(segs,big,sub){var tot=segs.reduce(function(a,s){return a+s[1]},0),c=2*Math.PI*42,off=0,h="";segs.forEach(function(s){if(!s[1]||!tot)return;var l=c*s[1]/tot,gap=segs.filter(function(q){return q[1]}).length>1?3:0;h+='<circle class="'+s[2]+'" cx="50" cy="50" r="42" stroke-dasharray="'+Math.max(0.5,l-gap).toFixed(1)+" "+c.toFixed(1)+'" stroke-dashoffset="'+(-off).toFixed(1)+'" transform="rotate(-90 50 50)"><title>'+esc(s[0]+": "+s[1])+'</title></circle>';off+=l});
+  return '<span class="st-ring big"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="rt" cx="50" cy="50" r="42"/>'+h+'</svg><span class="rc"><b>'+big+'</b>'+(sub?'<small>'+sub+'</small>':"")+'</span></span>'}
+function stLegend(segs){return '<ul class="st-leg">'+segs.map(function(s){return '<li><i class="'+s[2]+'"></i><span>'+esc(s[0])+'</span><b>'+s[1]+'</b></li>'}).join("")+'</ul>'}
+function vStats(){var A=act(),Y=yearStats(),cy=Y[CY]||{inn:0,out:0},ages=A.map(function(x){return x.a}).filter(function(a){return a!=null}),net=cy.inn-cy.out,sign=(net>0?"+":"")+net;
+  var men=A.filter(function(x){return x.p.sex==="ч"}).length,wom=A.filter(function(x){return x.p.sex==="ж"}).length,medv=median(ages),med=num(medv);
+  function pc(n,t){t=t==null?A.length:t;return t?Math.round(n/t*100):0}
+  function pan(t,b,r,ic,cl){return '<div class="panel pad st-bars'+(cl?" "+cl:"")+'">'+sh((ic?'<span class="si">'+ico(ic)+'</span>':"")+t,null,r)+b+'</div>'}
+  function cntBy(fn){var o={};A.forEach(function(x){var k=fn(x)||"не вказано";o[k]=(o[k]||0)+1});return Object.keys(o).sort(function(a,b){return o[b]-o[a]}).map(function(k){return [k,o[k]]})}
+  var sv=serveStats(),sp=pc(sv.n),dots="";for(var i=0;i<30;i++)dots+='<u'+(i<Math.round(sp/100*30)?' class="on"':"")+'></u>';
+  /* bento of gradient tiles: every member is a dot */
+  var F=famStats(),K=F.kids,ss=K.filter(function(c){return c.ss}).length,big=A.length>260?" sm":A.length<=45?" lg":A.length<=120?" md":"";
+  var ppl=A.slice().sort(function(a,b){return (a.p.sex==="ж")-(b.p.sex==="ж")}).map(function(x){return '<button class="'+(x.p.sex==="ж"?"w":x.p.sex==="ч"?"m":"n")+'" data-act="open" data-id="'+esc(x.p.id)+'" data-tip="'+esc(x.n)+'" aria-label="'+esc(x.n)+'"></button>'}).join("");
+  var fsg=[F.withK,F.noK,F.unk],kdt=K.slice(0,60).map(function(c){return '<u'+(c.ss?' class="on"':"")+'></u>'}).join("");
+  var h='<section class="st-bento">'+
+    '<div class="feature f-green st-main"><div class="sm-top"><span class="fl">Членів церкви</span><span class="sm-chip">'+ico(net<0?"trenddown":net>0?"trend":"trendflat")+(net?sign+" за "+CY+" рік":"без змін за "+CY+" рік")+'</span></div>'+
+      '<div class="sm-mid"><span class="fv">'+A.length+'</span><span class="sm-sx"><span><b>'+men+'</b>чоловіків · '+pc(men)+'%</span><span><b>'+wom+'</b>жінок · '+pc(wom)+'%</span></span></div>'+
+      '<div class="sm-ppl'+big+'">'+ppl+'</div><div class="sm-leg"><span><i class="m"></i>чоловіки</span><span><i class="w"></i>жінки</span><span class="grow"></span><span>кожна крапка — людина, натисніть на неї</span></div></div>'+
+    '<button class="feature f-sun" data-act="ages"><span class="fl">Медіанний вік</span><span><span class="fv">'+(med||"—")+'</span><span class="fs">'+(ages.length?"від "+Math.min.apply(null,ages)+" до "+Math.max.apply(null,ages)+" р.":"")+'</span></span><span class="ruler-w"><span class="ruler"></span>'+(medv!==""?'<i style="left:'+Math.min(96,Math.max(4,medv))+'%"></i>':"")+'</span></button>'+
+    '<button class="feature f-sky" data-act="nav" data-v="deacons"><span class="fl">Мають служіння</span><span><span class="fv">'+sp+'<small>%</small></span><span class="fs">'+sv.n+' з '+sv.total+' членів церкви</span></span><span class="st-dots">'+dots+'</span></button>'+
+    '<button class="feature f-plum" data-act="stGo" data-v="stFam"><span class="fl">Сімей</span><span><span class="fv">'+F.fams+'</span><span class="fs">з дітьми '+F.withK+' · без дітей '+F.noK+'</span></span><span class="st-seg">'+fsg.map(function(n,i){return n?'<i class="s'+i+'" style="flex:'+n+'"></i>':""}).join("")+'</span></button>'+
+    '<button class="feature f-rose" data-act="stGo" data-v="stKids"><span class="fl">Дітей до 18 років</span><span><span class="fv">'+K.length+'</span><span class="fs">'+(K.length?"у недільній школі "+ss:"ще не вписані")+'</span></span><span class="st-kd">'+(kdt||"<u></u><u></u><u></u>")+'</span></button></section>';
+  /* dark: age and sex pyramid + movement by years */
+  var G=[["до 18",0,17],["18–35",18,35],["36–60",36,60],["61+",61,200]],PR=G.map(function(g){function f(sx){return A.filter(function(x){return x.a!=null&&x.a>=g[1]&&x.a<=g[2]&&x.p.sex===sx}).length}return [g[0],f("ч"),f("ж")]}),na=A.length-ages.length;
+  var pm=Math.max.apply(null,PR.map(function(r){return Math.max(r[1],r[2])}).concat([1]));
+  var pyr='<div class="pyr">'+PR.map(function(r){return '<div class="pyr-r" data-tip="'+esc(r[0]+": чоловіків "+r[1]+", жінок "+r[2])+'"><span class="pyr-m"><b>'+r[1]+'</b><i style="width:'+(r[1]/pm*100)+'%"></i></span><span class="pyr-l">'+r[0]+'</span><span class="pyr-w"><i style="width:'+(r[2]/pm*100)+'%"></i><b>'+r[2]+'</b></span></div>'}).join("")+'</div>'+(na?'<div class="muted small">Вік невідомий: '+na+'</div>':"");
+  var ys=[];for(var y=CY-7;y<=CY;y++)ys.push(y);var mx=Math.max.apply(null,ys.map(function(y){var r=Y[y]||{inn:0,out:0};return Math.max(r.inn,r.out)}).concat([1]));
+  h+='<section class="dark st-dark"><div>'+sh("Вік і стать",null,'<div class="legend"><span><i style="background:var(--cin)"></i>чоловіки</span><span><i style="background:var(--ink-fg)"></i>жінки</span></div>')+pyr+'<div class="bar"><button class="btn small" data-act="ages">Докладніше про вік</button></div></div>'+
+    '<div>'+sh("Рух за роками",null,'<div class="legend"><span><i style="background:var(--cin)"></i>прийнято</span><span><i style="background:var(--out)"></i>вибуло</span></div>')+'<div><div class="vchart">'+ys.map(function(y){var r=Y[y]||{inn:0,out:0};return '<div class="vg"><div class="vb in'+(r.inn?"":" zero")+'" style="height:'+(r.inn/mx*100)+'%" data-tip="'+y+': прийнято '+r.inn+'"><span>'+(r.inn||"")+'</span></div><div class="vb out'+(r.out?"":" zero")+'" style="height:'+(r.out/mx*100)+'%" data-tip="'+y+': вибуло '+r.out+'"><span>'+(r.out||"")+'</span></div></div>'}).join("")+'</div><div class="vx">'+ys.map(function(y){return '<div>'+y+'</div>'}).join("")+'</div></div></div></section>';
+  h+=mapPanel();
+  /* families and children */
+  var fs=[["з дітьми",F.withK,"c1"],["без дітей",F.noK,"c2"],["про дітей не вказано",F.unk,"c3"]];
+  var KG=[["до 6 років",0,6],["7–12 років",7,12],["13–17 років",13,17]];
+  var kd=KG.map(function(g){var L=K.filter(function(c){return c.a>=g[1]&&c.a<=g[2]});return '<div class="kd-g"><div class="kd-h"><span>'+g[0]+'</span><b>'+L.length+'</b></div><div class="kd-d">'+(L.length?L.map(function(c){return '<u'+(c.ss?' class="on"':"")+' data-tip="'+esc(c.name+", "+c.a+" р."+(c.ss?" · недільна школа":"")+(c.par?" · "+c.par:""))+'"></u>'}).join(""):'<span class="muted small">немає</span>')+'</div></div>'}).join("");
+  h+='<div class="st-duo">'+
+    '<div class="panel pad" id="stFam">'+sh('<span class="si t-lime">'+ico("users")+'</span>Сім\'ї')+'<div class="st-fam">'+stDonut(fs,F.fams,"сімей")+stLegend(fs)+'</div><div class="st-chips"><span class="tag lime">з дітьми до 18 · '+F.minor+'</span><span class="tag">пар, де обоє члени · '+F.pairs+'</span><span class="tag">членів поза сім\'ями · '+F.single+'</span></div><div class="muted small">Сім\'я — це подружжя або людина з дітьми. Чоловіка з дружиною застосунок об\'єднує за зв\'язком у картці або за однаковою назвою в полі «Сім\'я».</div></div>'+
+    '<div class="panel pad" id="stKids">'+sh('<span class="si t-lime">'+ico("heart")+'</span>Діти до 18 років',null,'<span class="tag">не члени церкви</span>')+'<div class="st-kids"><div class="st-kn"><span class="dn">'+K.length+'</span><span class="muted small">'+(K.length?"дітей у сім\'ях церкви":"дітей ще не вписано")+'</span></div>'+stRing(K.length?ss/K.length:0,ss,"нед. школа")+'</div><div class="kd">'+kd+'</div><div class="legend"><span><i style="background:var(--lime)"></i>ходить у недільну школу</span><span><i class="kd-o"></i>не відмічено</span></div>'+
+      (K.length?'<details class="st-det"><summary>Показати список</summary>'+tbl([["Дитина"],["Вік",1],["Батьки"],["Недільна школа"]],K.map(function(c){return [c.id?'<button class="link" data-act="open" data-id="'+esc(c.id)+'">'+esc(c.name)+'</button>':esc(c.name),c.a,esc(c.par||"—"),c.ss?"відвідує":'<span class="muted">—</span>']}))+'</details>':"")+
+      '<div class="muted small">Дітей вписуйте в картці батька або матері («Редагувати дані» → «Чи є діти»), там же ставте галочку «нед. школа». Дитина, вписана в обох батьків, рахується один раз.'+(F.noAge?' Без віку: '+F.noAge+' — вони сюди не потрапили.':"")+'</div></div></div>';
+  /* who cares for whom, ministries, how people came */
+  var dl=deaconList(),drows=dl.map(function(d){return [d,A.filter(function(x){return x.d.deacon===d}).length]}),nod=A.filter(function(x){return !x.d.deacon}).length;if(nod)drows.push(["Не закріплені",nod,"-"]);
+  var chY=A.filter(function(x){return x.p.chat==="так"}).length,chN=A.filter(function(x){return x.p.chat==="ні"}).length,cs=[["у чаті",chY,"c1"],["не в чаті",chN,"c2"],["не вказано",A.length-chY-chN,"c3"]];
+  h+='<div class="cols">'+pan("За дияконами і пасторами",drows.length?'<div>'+hbars(drows,"toDeacon")+'</div>':'<div class="muted">Членів ще немає.</div>',null,"shield","b-green")+servePanel().replace('class="panel pad"','class="panel pad st-bars b-sky"')+
+    pan("Як прийшли в церкву",'<div>'+hbars(cntBy(function(x){var e=evs(x.p).filter(function(e){return e.type==="accepted"})[0];return e&&e.how}))+'</div>',null,"swap","b-sun")+'</div>';
+  h+='<div class="cols">'+pan("У чаті «Примирення»",'<div class="st-fam">'+stDonut(cs,pc(chY)+"%","у чаті")+stLegend(cs)+'</div>')+
+    pan("Стан у церкві",'<div>'+hbars(cntBy(function(x){return x.p.part||partList()[0]}).concat([["на замітці",A.filter(function(x){return x.d.st==="note"}).length]]))+'</div>',null,null,"b-plum")+
+    pan("Сімейний стан",'<div>'+hbars(cntBy(function(x){return x.p.marital}))+'</div>',null,null,"b-rose")+'</div>';
+  return h+'<div class="bar" style="justify-content:center"><button class="btn" data-act="nav" data-v="reports">'+ico("chart")+' Звіти за рік і Excel</button></div>'}
+/* dashboard: what was really done recently (the change log), admins only; others see membership events */
+function lastActs(n){if(!S.isAdmin)return null;var L=logAll();if(!L.length)return null;
+  return '<ul class="list">'+L.slice(0,n).map(function(e){var ex=e.col==="people"&&person(e.id),ch=(e.ch||[]),c=ch[0]?String(ch[0]):"";if(c.length>110)c=c.slice(0,108)+"…";
+    return '<li><span>'+(ex?'<button class="link" data-act="open" data-id="'+esc(e.id)+'">'+esc(e.label||"")+'</button>':esc(e.label||""))+'<br><span class="muted small">'+esc((ACT[e.act]||"")+(c?": "+c:"")+(ch.length>1?" (+"+(ch.length-1)+")":""))+'</span></span><span class="small muted" style="text-align:right;white-space:nowrap">'+fts(e.ts)+'<br>'+esc(uname(e.uid))+'</span></li>'}).join("")+'</ul><div class="bar"><button class="btn small" data-act="nav" data-v="log">'+ico("history")+' Увесь журнал</button></div>'}
 
 start();
 })();
