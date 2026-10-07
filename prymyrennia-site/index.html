@@ -290,6 +290,7 @@ tr.sum td{font-weight:500}
 .s-none{background:var(--raise);color:var(--muted);box-shadow:0 0 0 1px var(--line) inset;font-weight:400}
 .pill.p1{--pc:#d98a08}.pill.p2{--pc:#5f7a1f}.pill.p3{--pc:#3f86b5}.pill.p4{--pc:#8362b8}
 .pill.n0{--pc:#d98a08}.pill.n1{--pc:#e0662a}.pill.n2{--pc:#d0352b}.pill.n9{--pc:#b0721a}
+.pill.c-y{--pc:#5f9a1f}.pill.c-n{--pc:#d0352b}.pill.c-u{background:none;color:var(--muted);box-shadow:0 0 0 1px var(--line) inset;font-weight:400}
 .pill.r-p{--pc:#e07b1a}.pill.r-d{--pc:#5f7a1f}.pill.r-t{--pc:#5d87a3}
 .s-note{--pc:#d98a08}.s-member{--pc:#9fb81f}
 .hero-head .pill.pc::before,.hero-head .pill.s-note::before,.hero-head .pill.s-member::before,.hero-head .pill.s-excluded::before,.hero-head .pill.s-left::before,.hero-head .pill.s-moved::before,.hero-head .pill.s-died::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--pc);margin-right:6px;vertical-align:1px}
@@ -913,7 +914,7 @@ SB.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(s)enter(s.
   /* after sign-in: find out whether this device is already subscribed and refresh its record */
   READY.then(function(){if(!P.ok||Notification.permission!=="granted")return;reg().then(function(r){return r.pushManager.getSubscription()}).then(function(s){P.on=!!s;tell();if(s)save(s).then(function(){},function(){})},function(){})})})();
 /* new version check: the page knows its own build id and compares it with version.txt on the server */
-(function(){var dir=location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/",cur="76860a455487",shown=false;
+(function(){var dir=location.pathname.indexOf("/prymyrennia-site")>=0?"":"prymyrennia-site/",cur="d98eb6ef1b29",shown=false;
   function latest(){return fetch(dir+"version.txt?v="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(t){return String(t).trim()})}
   function busy(){if(document.querySelector("dialog[open]"))return true;var f=document.querySelectorAll("input,textarea");for(var i=0;i<f.length;i++){var e=f[i];if(e.type==="checkbox"||e.type==="radio"||e.type==="date"||e.id==="gq")continue;if(e.value&&e.value!==e.defaultValue)return true}return false}
   function reload(v){location.replace(location.pathname+"?v="+encodeURIComponent(v))}
@@ -1688,7 +1689,7 @@ function vReminders(){
 
 function vPeople(){
   var rows=filtered(),k=S.sort,dir=S.dir,why=S.fStatus==="excluded"||S.fStatus==="gone",sq=S.q.trim().toLowerCase();
-  rows.sort(function(a,b){var r=0;if(k==="age")r=(a.a==null?-1:a.a)-(b.a==null?-1:b.a);else if(k==="deacon")r=(a.d.deacon||"я").localeCompare(b.d.deacon||"я","uk");else if(k==="status")r=a.d.st.localeCompare(b.d.st);else if(k==="place")r=(a.p.place||"я").localeCompare(b.p.place||"я","uk");return (r||a.n.localeCompare(b.n,"uk"))*dir});
+  rows.sort(function(a,b){var r=0;if(k==="age")r=(a.a==null?-1:a.a)-(b.a==null?-1:b.a);else if(k==="deacon")r=(a.d.deacon||"я").localeCompare(b.d.deacon||"я","uk");else if(k==="status")r=a.d.st.localeCompare(b.d.st);else if(k==="place")r=(a.p.place||"я").localeCompare(b.p.place||"я","uk");else if(k==="chat"){var cv=function(x){return x.p.chat==="так"?2:x.p.chat==="ні"?0:1};r=cv(a)-cv(b)}return (r||a.n.localeCompare(b.n,"uk"))*dir});
   function th(key,label,cls){return '<th'+(cls?' class="'+cls+'"':"")+' data-sort="'+key+'">'+label+(S.sort===key?ico(S.dir>0?"up":"down"):"")+'</th>'}
   var F=[["active","Чинні"],["note","На замітці"],["excluded","Вилучені"],["gone","Вибулі"],["non","Не члени"],["all","Усі"]],SUB=[["","усі вибулі"],["left","самоусунення"],["moved","перейшли до іншої церкви"],["died","перейшли у вічність"]],cntS={},FT={};all().forEach(function(x){var k=x.d.st;cntS[k]=(cntS[k]||0)+1});F.forEach(function(f){FT[f[0]]=f[1]});
   var FC={active:(cntS.member||0)+(cntS.note||0),note:cntS.note||0,excluded:cntS.excluded||0,gone:(cntS.left||0)+(cntS.moved||0)+(cntS.died||0),non:cntS.none||0,all:S.people.length};
@@ -1699,8 +1700,8 @@ function vPeople(){
     (S.fStatus==="gone"?'<div class="chips">'+SUB.map(function(f){return '<button class="chip" aria-pressed="'+(S.fSub===f[0])+'" data-act="fsub" data-v="'+f[0]+'">'+f[1]+(f[0]?'<span class="cn">'+(cntS[f[0]]||0)+'</span>':"")+'</button>'}).join("")+'</div>':"");
   if(!S.people.length)return h+emp("users","Список порожній","Натисніть «Додати людину», щоб завести першу картку.");
   if(!rows.length)return h+emp("search","Нікого не знайдено",sq?"За запитом «"+esc(S.q)+"» у цьому фільтрі нікого немає. Спробуйте фільтр «Усі».":"За цими умовами нікого немає.");
-  h+='<div class="panel"><div class="pad ph">'+sh(FT[S.fStatus]+(sq?' · «'+esc(S.q)+'»':""),rows.length)+'</div><div class="scroll"><table><thead><tr>'+th("name","ПІБ")+th("deacon","Диякон / пастор","hide-s")+th("status","Статус")+th("age","Вік","n hide-s")+'<th class="hide-s">Телефон</th>'+(why?'<th class="hide-s">Коли і чому</th>':th("place","Адреса","hide-s"))+'</tr></thead><tbody>'+
-    rows.map(function(x){return '<tr class="row" tabindex="0" data-act="open" data-id="'+esc(x.p.id)+'"><td>'+who(x)+(sq&&snip(x,sq)?'<div class="small muted" style="margin-left:50px">знайдено: '+esc(snip(x,sq))+'</div>':"")+'</td><td class="hide-s">'+(esc(x.d.deacon)||'<span class="muted">—</span>')+'</td><td>'+pill(x.d.st,x.p)+'</td><td class="n hide-s">'+(x.a==null?"":x.a)+'</td><td class="hide-s" style="white-space:nowrap">'+tel(x.p.phone)+'</td><td class="small hide-s">'+esc(why?lastOut(x.p):[x.p.place,x.p.address].filter(Boolean).join(", "))+'</td></tr>'}).join("")+'</tbody></table></div></div>';
+  h+='<div class="panel"><div class="pad ph">'+sh(FT[S.fStatus]+(sq?' · «'+esc(S.q)+'»':""),rows.length)+'</div><div class="scroll"><table><thead><tr>'+th("name","ПІБ")+th("deacon","Диякон / пастор","hide-s")+th("status","Статус")+th("chat","Чат")+th("age","Вік","n hide-s")+'<th class="hide-s">Телефон</th>'+(why?'<th class="hide-s">Коли і чому</th>':th("place","Адреса","hide-s"))+'</tr></thead><tbody>'+
+    rows.map(function(x){return '<tr class="row" tabindex="0" data-act="open" data-id="'+esc(x.p.id)+'"><td>'+who(x)+(sq&&snip(x,sq)?'<div class="small muted" style="margin-left:50px">знайдено: '+esc(snip(x,sq))+'</div>':"")+'</td><td class="hide-s">'+(esc(x.d.deacon)||'<span class="muted">—</span>')+'</td><td>'+pill(x.d.st,x.p)+'</td><td class="chatc">'+(x.p.chat==="так"?'<span class="pill pc c-y">у чаті</span>':x.p.chat==="ні"?'<span class="pill pc c-n">не в чаті</span>':'<span class="pill c-u">не вказано</span>')+'</td><td class="n hide-s">'+(x.a==null?"":x.a)+'</td><td class="hide-s" style="white-space:nowrap">'+tel(x.p.phone)+'</td><td class="small hide-s">'+esc(why?lastOut(x.p):[x.p.place,x.p.address].filter(Boolean).join(", "))+'</td></tr>'}).join("")+'</tbody></table></div></div>';
   return h}
 
 function careDlg(){var A=act(),w=S.canWrite,pn={},h="";S.pastors.forEach(function(pa){if(pa&&pa.name)pn[pa.name]=pa});
@@ -2320,8 +2321,9 @@ function careWord(name,cap){var p=S.pastors.some(function(x){return x&&x.name===
 
 /* ---------- what's new: shown once after an update, and always available in the account menu ---------- */
 var NEWS=[
- {id:"2026-10-08",d:"8 жовтня 2026",t:"Хто є в чаті «Примирення»",items:[
+ {id:"2026-10-08-2",d:"8 жовтня 2026",t:"Хто є в чаті «Примирення»",items:[
   ["users","Нове поле в анкеті","В анкеті людини з'явилось поле «У чаті «Примирення»» з вибором «так» або «ні». Воно видно в картці, друці та Excel."],
+  ["grid","Видно одразу в списку","У списку людей поруч зі статусом є колонка «Чат»: «у чаті», «не в чаті» або «не вказано». Натисніть на заголовок колонки, щоб зібрати разом тих, кого ще не додали."],
   ["sliders","Хто ще не в чаті","На огляді в блоці «Варто перевірити» є рядок «не в чаті «Примирення»»: натисніть, щоб побачити список."]]},
  {id:"2026-10-07-4",d:"7 жовтня 2026",t:"Нагадування переїхали у дзвіночок",items:[
   ["bell","Дзвіночок замість пункту меню","Нагадування тепер відкриваються дзвіночком біля назви «Примирення» (на телефоні — вгорі праворуч). Цифра на ньому показує, скільки справ на сьогодні."],
