@@ -225,7 +225,7 @@ function personForm(p,isNew){p=p||{};function f(l,id,v,type,cls){return '<label'
   return '<div class="form">'+f("Прізвище","f_last",p.last)+f("Ім\'я","f_first",p.first)+f("По батькові","f_mid",p.mid)+
     '<label>Стать<select id="f_sex">'+opts(["ч","ж"],p.sex,"—")+'</select></label>'+dt("Дата народження","f_birth",p.birth)+dt("Дата хрещення","f_baptism",p.baptism)+
     (ai>=0?dt("Дата прийняття в члени церкви","f_joined",p.events[ai].date):"")+
-    f("Телефон","f_phone",p.phone)+f("Населений пункт","f_place",p.place)+f("Адреса","f_address",p.address,"text","wide")+f("Сім\'я (спільна назва для родини)","f_family",p.family,"text","wide")+'<label>Сімейний стан<select id="f_marital">'+opts(MARITAL,p.marital,"—")+'</select></label>'+f("Дата шлюбу","f_wedding",p.wedding,"date")+'<label>У чаті «Примирення»<select id="f_chat">'+opts(["так","ні"],p.chat,"—")+'</select></label>'+
+    f("Телефон","f_phone",p.phone)+f("Населений пункт","f_place",p.place)+f("Адреса","f_address",p.address,"text","wide")+f("Сім\'я (спільна назва для родини)","f_family",p.family,"text","wide")+'<label>Сімейний стан<select id="f_marital">'+opts(MARITAL,p.marital,"—")+'</select></label>'+f("Дата шлюбу","f_wedding",p.wedding,"date")+'<label>У чаті «Примирення»<select id="f_chat">'+opts(["так","ні"],p.chat,"—")+'</select></label>'+kidsForm(p,isNew)+
     (isNew||derive(p).st==="none"?'<label>Хто це<select id="f_kind">'+(isNew?'<option value="">член церкви</option>':'<option value="">не вказано</option>')+opts(KINDS,p.kind)+'</select></label>':"")+
     (isNew?f("Дата прийняття в члени церкви","f_adate","","date")+'<label>Як прийшов<select id="f_how">'+opts(HOW,HOW[0])+'</select></label><label>Закріплений за<select id="f_deacon">'+opts(careList(),"","не закріплений")+'</select></label><div class="wide small muted">Дата прийняття — це день, коли людину прийняли в члени церкви, а не сьогоднішня дата. Якщо не знаєте — лишіть порожньою, допишете пізніше через «Редагувати дані».</div>':"")+
     '<label class="wide">Примітки<textarea id="f_notes">'+esc(p.notes||"")+'</textarea></label></div>'}
@@ -253,6 +253,9 @@ function rolesBlock(p,W){var rs=cardRoles(p.id),lead=S.groups.filter(function(g)
     (can&&act_?'<div class="composer"><select id="p_role" aria-label="Служіння">'+options.map(function(o){return '<option value="'+esc(o[0])+'">'+esc(o[1])+'</option>'}).join("")+'</select><button class="btn primary" data-act="roleAdd">Призначити</button></div>'+
       '<div class="composer"><input id="p_newRole" placeholder="Нове служіння: керівник кафе, парковка…" aria-label="Нове служіння"><button class="btn" data-act="roleNew">'+ico("plus")+' Створити і призначити</button></div>':"")+'</div>'}
 function extra(a,t,v){
+  if(a==="mode"||a==="openMode"||a==="open"||a==="add"||a==="close"||a==="saveEdit"||a==="saveNew")S.kidKey=null;
+  if(a==="kidAdd"){var kb=document.getElementById("kidRows");if(kb){S.kidN=(S.kidN||0)+1;kb.insertAdjacentHTML("beforeend",kidRow(kb.querySelectorAll(".kid").length+Date.now()%1000*100,{}));var ni=kb.lastElementChild.querySelector("input");if(ni)ni.focus()}return true}
+  if(a==="kidDel"){var kr=t.closest(".kid");if(kr)kr.remove();return true}
   if(a==="dview"){S.dView=v;S.card=null;S.mode="care";renderDlg();return true}
   if(S.mode==="care"&&(a==="toDeacon"||a==="delDeacon"||a==="delPastor")){S.mode="";if(dlg.open)dlg.close()}
   if(a==="news"){meClose();S.card=null;S.mode="news";S.newsAll=false;renderDlg();newsSeen();return true}

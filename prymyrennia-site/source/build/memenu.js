@@ -104,6 +104,9 @@ function careWord(name,cap){var p=S.pastors.some(function(x){return x&&x.name===
 
 /* ---------- what's new: shown once after an update, and always available in the account menu ---------- */
 var NEWS=[
+ {id:"2026-10-08-3",d:"8 жовтня 2026",t:"Діти прямо в картці",items:[
+  ["heart","Діти в анкеті людини","В анкеті з'явилось питання «Чи є діти». Якщо так — одразу впишіть ім'я і вік кожної дитини, окрему картку для дитини заводити не треба. Кнопка «Додати дитину» додає ще рядок."],
+  ["users","Де це видно","Діти з віком показуються в картці, у друці та в Excel. Вік сам зростає щороку. Якщо дітей вписано в картці чоловіка або дружини, вони видно і в картці другого з подружжя."]]},
  {id:"2026-10-08-2",d:"8 жовтня 2026",t:"Хто є в чаті «Примирення»",items:[
   ["users","Нове поле в анкеті","В анкеті людини з'явилось поле «У чаті «Примирення»» з вибором «так» або «ні». Воно видно в картці, друці та Excel."],
   ["grid","Видно одразу в списку","У списку людей поруч зі статусом є колонка «Чат»: «у чаті», «не в чаті» або «не вказано». Натисніть на заголовок колонки, щоб зібрати разом тих, кого ще не додали."],
@@ -193,3 +196,18 @@ function avFig(p,cls){return avOk(p)?'<span class="av fig'+(cls&&cls.indexOf("bi
 function heroCls(p,d){var st=d.st;if(st==="excluded")return "g-red";if(st==="left")return "g-clay";if(st==="moved")return "g-blue";if(st==="died")return "g-ink";if(st==="none")return "g-sand";if(st==="note")return "g-gold";
   var i=PART.indexOf(p.part);if(i===1)return "g-dust";if(i===2)return "g-khaki";if(i===3)return "g-blue";if(i===4)return "g-violet";
   if(isPastor(p.id))return "g-sun";if(isDeacon(p.id))return dkTrialP(p.id)?"g-steel":"g-olive";return "g-green"}
+
+/* ---------- children are kept inside the parent's card: name + birth year (entered as an age) ---------- */
+FL.hasKids="Чи є діти";
+function kidAge(k){var y=+k.by;return y?Math.max(0,new Date().getFullYear()-y):null}
+function kidFmt(k){var a=kidAge(k);return (k.name||"без імені")+(a!=null?" ("+a+" р.)":"")}
+function kidsOwner(p){if(p.hasKids==="так"&&(p.kids||[]).length)return p;var ids=[];(p.rel||[]).forEach(function(r){if(/^(дружина|чоловік)$/.test(r.type||"")&&r.pid)ids.push(r.pid)});
+  S.people.forEach(function(q){(q.rel||[]).forEach(function(r){if(r.pid===p.id&&/^(дружина|чоловік)$/.test(r.type||""))ids.push(q.id)})});
+  for(var i=0;i<ids.length;i++){var q=person(ids[i]);if(q&&q.hasKids==="так"&&(q.kids||[]).length)return q}return null}
+function kidsText(p,plain){var o=kidsOwner(p);if(o)return o.kids.map(kidFmt).join(", ")+(o!==p&&!plain?" · з картки: "+short(o):"");return p.hasKids==="ні"?"немає":p.hasKids==="так"?"є, не вписані":""}
+function kidRow(i,k){var a=kidAge(k);return '<div class="kid"><input id="k_n_'+i+'" class="k-n" placeholder="Ім\'я" aria-label="Ім\'я дитини" value="'+esc(k.name||"")+'"><input id="k_a_'+i+'" class="k-a" type="number" inputmode="numeric" min="0" max="80" placeholder="Вік" aria-label="Вік дитини" value="'+(a==null?"":a)+'"><button type="button" class="iconbtn" data-act="kidDel" aria-label="Прибрати рядок" title="Прибрати">'+ico("x")+'</button></div>'}
+function kidsForm(p,isNew){var kids=p.kids||[],key=(isNew?"new":p.id)+"|"+S.mode;if(S.kidKey!==key){S.kidKey=key;S.kidN=kids.length}var n=Math.max(kids.length,S.kidN||0,1),rows="";for(var i=0;i<n;i++)rows+=kidRow(i,kids[i]||{});
+  return '<div class="wide kids"><label>Чи є діти<select id="f_haskids">'+opts(["так","ні"],p.hasKids,"—")+'</select></label><div id="kidsBox"'+(p.hasKids==="так"?"":" hidden")+'><div id="kidRows">'+rows+'</div><div class="bar"><button type="button" class="btn small" data-act="kidAdd">'+ico("plus")+' Додати дитину</button><span class="muted small">Вік вписуйте на сьогодні, далі він рахується сам.</span></div></div></div>'}
+function kidsRead(){if(val("f_haskids")!=="так")return [];var y=new Date().getFullYear(),out=[];Array.prototype.forEach.call(document.querySelectorAll("#kidRows .kid"),function(r){var n=r.querySelector(".k-n").value.trim(),a=r.querySelector(".k-a").value.trim();if(!n&&a==="")return;var k={name:n.slice(0,80)};if(a!==""&&!isNaN(+a))k.by=y-Math.max(0,Math.min(80,Math.round(+a)));out.push(k)});return out}
+document.addEventListener("change",function(e){if(e.target&&e.target.id==="f_haskids"){var b=document.getElementById("kidsBox");if(b){b.hidden=e.target.value!=="так";if(!b.hidden){var f=b.querySelector(".k-n");if(f&&!f.value)f.focus()}}}});
+dlg.addEventListener("close",function(){S.kidKey=null});

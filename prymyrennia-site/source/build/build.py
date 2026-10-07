@@ -82,6 +82,12 @@ rep('"Сімейний стан","Статус","Диякон"','"Сімейни
 rep('p.address,p.family,p.marital,d.st==="none"','p.address,p.family,p.marital,p.chat||"",d.st==="none"')
 rep('nobirth:"без дати народження",','nobirth:"без дати народження",nochat:"не в чаті «Примирення»",')
 rep('if(k==="nobirth"&&x.p.birth)return false;','if(k==="nobirth"&&x.p.birth)return false;if(k==="nochat"&&x.p.chat==="так")return false;',js.count('if(k==="nobirth"&&x.p.birth)return false;'))
+rep('chat:val("f_chat"),','chat:val("f_chat"),hasKids:val("f_haskids"),kids:kidsRead(),')
+rep('["У чаті «Примирення»",p.chat],','["У чаті «Примирення»",p.chat],["Діти",kidsText(p)],',2)
+rep('"remindOff","part","chat"])','"remindOff","part","chat","hasKids"])')
+rep(',"родинний зв\'язок"))}',',"родинний зв\'язок"),arrDiff(a.kids,b.kids,kidFmt,"дитина"))}')
+rep('"У чаті","Статус","Диякон"','"У чаті","Діти","Статус","Диякон"')
+rep('p.chat||"",d.st==="none"','p.chat||"",kidsText(p,1),d.st==="none"')
 for ch in '✕✓↑↓': assert ch not in js, ch
 import base64
 hd=open('build/head.html',encoding='utf8').read().replace('{{HANDS}}','data:image/webp;base64,'+open('logo/hands2.b64.txt').read().strip())
