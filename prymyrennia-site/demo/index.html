@@ -2303,7 +2303,7 @@ function tourSteps(){var full=S.canWrite&&!lim(),s=[
   s.push({tab:"stats",ic:"pin",sel:"#app>.mapc",t:"Мапа Чернівців",x:"Справжні обриси міста з районами. Цифра біля району — скільки там живе членів церкви. Натисніть на район — відкриється вікно з його статистикою і людьми. Район вибирається в картці людини або береться з адреси."});
   if(full)s.push({tab:"reports",ic:"chart",sel:"#app>.panel",one:1,t:"Звіти",x:"Річний підсумок, прийняті й вибулі, звіт ЄХБ, вік і стать. Усе вивантажується в Excel. Раз на тиждень зберігайте резервну копію."});
   if(S.isAdmin)s.push({tab:"log",ic:"history",sel:"#app>.panel",one:1,t:"Журнал і користувачі",x:"Тут видно, хто й що змінив, і будь-яку зміну можна повернути. Тут же ви підтверджуєте нових користувачів і задаєте їм права."});
-  s.push({tab:"home",ic:"spark",sel:"#aiFab,#aiBtnM",t:"Помічник",x:"Кругла кольорова кнопка: на комп'ютері внизу праворуч, на телефоні — вгорі біля пошуку. Пишіть коротко: «знайди Бурлаку», «нагадай у суботу подзвонити Вадиму», «запиши: сьогодні відвідав Вадима», «познач Вадима як служить у ЗСУ» — він знайде або запише сам. Напишіть «що ти вмієш», щоб побачити всі команди."});
+  s.push({tab:"home",ic:"spark",sel:"#aiFab,#aiBtnM",t:"Помічник",x:"Кругла кольорова кнопка: на комп'ютері внизу праворуч, на телефоні — вгорі біля пошуку. Пишіть коротко: «знайди Бурлаку», «нагадай у суботу подзвонити Вадиму», «запиши: сьогодні відвідав Вадима», «познач Вадима як служить у ЗСУ» — він знайде або запише сам. Напишіть «що ти вмієш», щоб побачити всі команди."+(AI.gem?" А можна й просто запитати: «скільки дітей ходить у недільну школу?» — відповість модель Gemini, а імена й телефони до Google не потрапляють.":"")});
   s.push({tab:"home",ic:"check",sel:".me,#meBtnM",t:"Готово",x:"Ці підказки і список останніх оновлень завжди є в меню під вашим іменем (на телефоні — кружечок угорі). Коли виходить оновлення, застосунок сам покаже, що змінилось."});
   return s.filter(Boolean)}
 function tourHl(tab){Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){b.classList.toggle("tour-hl",!!tab&&b.dataset.tab===tab)});var m=document.getElementById("navMore");if(m)m.classList.toggle("tour-hl",!!tab&&!!document.querySelector("#navX button.tour-hl"))}
@@ -2321,19 +2321,12 @@ function tourShow(){var el=document.getElementById("tour");wgDemoStop();if(!TOUR
   el.innerHTML='<span class="si t-lime">'+ico(st.ic)+'</span><div class="tr-b"><div class="tr-n">'+(TOUR.kind==="new"?"Нове · ":"")+'Крок '+(TOUR.i+1)+' з '+TOUR.s.length+'</div><b>'+esc(st.t)+'</b><p>'+esc(st.x)+'</p>'+(st.art==="nav"?'<div class="tr-art" aria-hidden="true"><i></i><i class="a"></i><i class="b"></i><i class="mv"></i><i></i><u></u></div>':"")+(st.demo&&wgDesk()?'<div class="tr-live">'+ico("play")+' Дивіться на картки вище — показую, як це працює</div>':"")+'<div class="bar"><button class="link small" data-act="tourEnd">Пропустити</button><span class="grow"></span>'+(TOUR.i?'<button class="btn small" data-act="tourPrev">Назад</button>':"")+'<button class="btn small primary" data-act="tourNext">'+(TOUR.i===TOUR.s.length-1?(TOUR.kind==="new"?"Що нового":"Почати роботу"):"Далі")+'</button></div></div>'}
 function tourStart(){if(dlg.open)dlg.close();if(AI.open){AI.open=false;aiRender()}S.dashEdit=false;TOUR={i:0,s:tourSteps()};tourShow()}
 /* short tour for people who already know the app: only what the latest update brought. Rewrite these steps together with every new NEWS entry and keep TOURNEW_ID equal to its id. */
-var TOURNEW_ID="2026-10-09";
-function tourNewSteps(){if(typeof NEWS==="undefined"||NEWS[0].id!==TOURNEW_ID)return [];var full=S.canWrite&&!lim(),s=[
-  {tab:"stats",ic:"spark",t:"Вийшло оновлення",x:"Покажу тільки нове, це хвилина: вкладка «Статистика», мапа Чернівців, діти й недільна школа, служіння картками, головна сторінка з блоками, які можна перетягувати, і свій порядок меню."},
-  {tab:"stats",ic:"pie",sel:"#app>.st-bento",t:"Нова вкладка «Статистика»",x:"Уся церква в цифрах. Кожна крапка у зеленій картці — член церкви, на неї можна натиснути. Поруч — медіанний вік, хто має служіння, сім'ї та діти до 18 років."},
-  {tab:"stats",ic:"chart",sel:"#app>.st-dark",t:"Вік, стать і рух за роками",x:"Ліворуч — скільки чоловіків і жінок у кожній віковій групі, праворуч — скільки людей прийнято і скільки вибуло за останні роки."},
-  {tab:"stats",ic:"pin",sel:"#app>.mapc",t:"Мапа Чернівців",x:"Цифра біля району — скільки там живе членів церкви. Натисніть на район — відкриється вікно з його власною статистикою і списком людей."},
-  {tab:"stats",ic:"heart",sel:"#stFam,#stKids",t:"Сім'ї та діти до 18 років",x:"Скільки сімей з дітьми і без, і окремо діти, які ще не є членами церкви: кожна дитина — крапка, зелена означає, що ходить у недільну школу."},
-  {tab:"people",ic:"users",sel:"#app>.panel",one:1,t:"Нове в картці людини",x:full?"У «Редагувати дані» з'явились: «Район Чернівців», «Як прийшов у церкву» і галочка «нед. школа» біля кожної дитини. Заповніть їх — і статистика та мапа стануть точними.":"У картках своїх людей у «Редагувати дані» з'явились: «Район Чернівців», «Як прийшов у церкву» і галочка «нед. школа» біля кожної дитини."},
-  {tab:"deacons",ic:"sliders",sel:"#app>.panel",one:1,t:"Служіння окремими картками",x:"Кожне служіння тепер у своїй картці з кількістю людей. Хрестик біля імені прибирає людину зі служіння — але застосунок спершу перепитає, щоб не видалити випадково."},
-  {tab:"home",ic:"shield",sel:"#hServe,#hLast",t:"Нове на головній",x:"Блок «Служіння» показує, скільки людей у кожному служінні."+(S.isAdmin?" А «Останні зміни» тепер показують справжні останні дії: хто, що і коли змінив.":"")},
-  wgStep(),
-  {tab:"home",ic:"swap",sel:"#nav button",art:"nav",t:"Свій порядок меню",x:"Розділи меню теж можна розставити під себе: меню під вашим іменем → «Порядок меню», там просто затисніть рядок і перетягніть. В інших служителів нічого не зміниться."},
-  {tab:"home",ic:"check",sel:".me,#meBtnM",t:"Це все нове",x:"Зараз відкриється повний список змін. Він і всі підказки завжди є в меню під вашим іменем → «Що нового»."}];
+var TOURNEW_ID="2026-10-13";
+function tourNewSteps(){if(typeof NEWS==="undefined"||NEWS[0].id!==TOURNEW_ID)return [];var s=[
+  {tab:"home",ic:"spark",t:"Вийшло оновлення",x:"Одна новинка, пів хвилини: помічник тепер розуміє звичайні запитання."},
+  {tab:"home",ic:"spark",sel:"#aiFab,#aiBtnM",t:"Питайте як у людини",x:"Натисніть кольорову кнопку помічника і просто запитайте: «скільки дітей ходить у недільну школу?» або «хто з молоді давно не був на зв'язку?». Відповідь готує безкоштовна модель Gemini від Google."},
+  {tab:"home",ic:"shield",sel:"#aiFab,#aiBtnM",t:"Імена й телефони захищені",x:"До Google іде лише закодований список: замість імен — номери, без телефонів, адрес, дат народження і приміток. Імена у відповіді застосунок підставляє вже у вас. Короткі команди на кшталт «знайди Бурлаку» чи «нагадай…» працюють, як і раніше, одразу."},
+  {tab:"home",ic:"check",sel:".me,#meBtnM",t:"Це все нове",x:"Зараз відкриється список змін. Він і всі підказки завжди є в меню під вашим іменем → «Що нового»."}];
   return s.filter(Boolean)}
 function wgStep(){var k=wgDemoKeys();if(!wgDesk()||!k)return null;return {tab:"home",ic:"grid",sel:k.map(function(x){return ".w-"+x}).join(","),demo:k,t:"Огляд можна зібрати під себе",x:"Затисніть будь-який блок мишкою і перетягніть на інше місце — решта самі посунуться. За правий нижній кут блок можна зробити ширшим, вужчим або вищим — сусідні блоки самі підлаштуються, щоб не лишалось порожнього місця. Усе це лише ваше; повернути як було — у «Налаштувати огляд»."}}
 function tourNewStart(){var s=tourNewSteps();if(!s.length)return false;if(dlg.open)dlg.close();if(AI.open){AI.open=false;aiRender()}S.dashEdit=false;TOUR={i:0,s:s,kind:"new"};tourShow();return true}
@@ -2562,7 +2555,7 @@ function aiLocal(q){var s=lcN(q).replace(/\s+/g," ").trim(),T=lcTok(q),P,x,d,v,m
     v=/відвід|провід/.test(s)?CKIND[0]:/дзв|телефон/.test(s)?CKIND[1]:/допом/.test(s)?CKIND[3]:/написа|переписк|листува|списа/.test(s)?CKIND[4]:CKIND[2];var k1=q.indexOf(":"),k2=q.indexOf(":",k1+1),note=k2>=0?q.slice(k2+1).trim():(k1>=0&&k1>12?q.slice(k1+1).trim():"");
     return {kind:"act",who:x.p.id,acts:[{"do":"add_contact",id:x.p.id,kind:v,date:d,note:note}]}}
   /* card fields */
-  if(/телефон|номер/.test(s)&&(m=q.match(/\+?\d[\d\s()\-]{7,}\d/))){if(!P.length)return lcNoOne();if(!x)return lcAsk(P);return {kind:"act",who:x.p.id,acts:[{"do":"update_person",id:x.p.id,fields:{phone:m[0].trim()}}]}}
+  if(/телефон|номер/.test(s)&&(verb||!/\?/.test(q))&&!/(^|\s)(мій|мого|моє|мене)(\s|$)/.test(s)&&(m=q.match(/\+?\d[\d\s()\-]{7,}\d/))){if(!P.length)return lcNoOne();if(!x)return lcAsk(P);return {kind:"act",who:x.p.id,acts:[{"do":"update_person",id:x.p.id,fields:{phone:m[0].trim()}}]}}
   if(/приміт|нотатк/.test(s)&&q.indexOf(":")>=0){if(!P.length)return lcNoOne();if(!x)return lcAsk(P);v=lcAfter(q);if(!v)return {kind:"ask",say:"Напишіть текст примітки після двокрапки."};
     return {kind:"act",who:x.p.id,acts:[{"do":"update_person",id:x.p.id,fields:{notes:(x.p.notes?x.p.notes+"\n":"")+v}}]}}
   if(verb&&/адрес/.test(s)){if(!P.length)return lcNoOne();if(!x)return lcAsk(P);v=lcAfter(q);if(!v)return {kind:"ask",say:"Напишіть так: «зміни адресу Вадима на вул. Шевченка, 5»."};return {kind:"act",who:x.p.id,acts:[{"do":"update_person",id:x.p.id,fields:{address:v}}]}}
@@ -2610,7 +2603,7 @@ function aiLocal(q){var s=lcN(q).replace(/\s+/g," ").trim(),T=lcTok(q),P,x,d,v,m
   if(W.length&&W.length<=4){A=all().filter(function(z){var h=hay(z);return W.every(function(w){return h.indexOf(w.length>5?w.slice(0,w.length-2):w)>=0})});if(A.length)return lcList("Знайдено за текстом карток",A)}
   r=lcHelp("Не зрозумів запит.");r.kind="none";return r}
 function aiAsk(q){q=String(q||"").trim();if(!q||AI.busy)return;var r=null;try{r=aiLocal(q)}catch(e){r=null}
-  if(!aiLoc()&&!(r&&r.kind==="act"))return aiAskAI(q);
+  if(!aiLoc()&&!(r&&(r.kind==="act"||AI.gem&&gemLocal(r,q))))return aiAskAI(q);
   if(!r)r={kind:"none",say:"Не вдалося розібрати запит. Спробуйте простіше."};
   AI.log.push({r:"u",t:q});if(r.say)AI.log.push({r:"a",t:r.say});if(r.list&&r.list.length)AI.log.push({r:"ppl",l:r.list});if(r.help)AI.log.push({r:"help"});
   if(r.who)AI.lastP=r.who;AI.openCard="";AI.goTab="";
@@ -2620,7 +2613,7 @@ function aiAsk(q){q=String(q||"").trim();if(!q||AI.busy)return;var r=null;try{r=
 function aiRender(){var el=document.getElementById("aiPanel");if(!el)return;aiSync();el.hidden=!AI.open;if(!AI.open)return;
   var keep=document.getElementById("aiIn"),kv=keep?keep.value:"",foc=keep&&document.activeElement===keep,loc=aiLoc();
   var sug=loc?["Що ти вмієш?","Мої нагадування","Хто без контакту понад 3 місяці?","Дні народження","Скільки членів церкви?"]:["Скільки зараз чинних членів і як змінилось за рік?","Хто без контакту понад 3 місяці?","У кого день народження найближчим часом?"];
-  el.innerHTML='<div class="ai-h"><span class="ai-orb"></span><span class="grow"><b>Помічник</b><span class="muted small">'+(loc?"шукає і записує за командою":"знає все, що є в обліку")+'</span></span>'+(AI.log.length?'<button class="iconbtn" data-act="aiClear" aria-label="Очистити чат" title="Очистити чат">'+ico("trash")+'</button>':"")+'<button class="iconbtn" data-act="aiOpen" aria-label="Закрити чат">'+ico("x")+'</button></div>'+
+  el.innerHTML='<div class="ai-h"><span class="ai-orb"></span><span class="grow"><b>Помічник</b><span class="muted small">'+(loc?"шукає і записує за командою":AI.gem?"Gemini · без імен, телефонів і адрес":"знає все, що є в обліку")+'</span></span>'+(AI.log.length?'<button class="iconbtn" data-act="aiClear" aria-label="Очистити чат" title="Очистити чат">'+ico("trash")+'</button>':"")+'<button class="iconbtn" data-act="aiOpen" aria-label="Закрити чат">'+ico("x")+'</button></div>'+
     '<div class="ai-m" id="aiMsgs">'+(AI.log.length?AI.log.map(function(m,i){var last=i===AI.log.length-1;
       if(m.r==="act")return '<div class="ai-act'+(m.bad?" bad":"")+'">'+ico(m.bad?"alert":"check")+'<span>'+esc(m.t)+'</span>'+(m.id&&person(m.id)?'<button class="link" data-act="open" data-id="'+esc(m.id)+'">відкрити</button>':"")+'</div>';
       if(m.r==="ppl")return '<div class="ai-l">'+m.l.map(function(p){return '<button class="ai-p" data-act="open" data-id="'+esc(p.id)+'"><b>'+esc(p.t)+'</b>'+(p.s?'<span>'+esc(p.s)+'</span>':"")+ico("arrow")+'</button>'}).join("")+'</div>';
@@ -2629,6 +2622,57 @@ function aiRender(){var el=document.getElementById("aiPanel");if(!el)return;aiSy
       '<div class="ai-e"><b>'+(loc?"Напишіть, кого знайти або що записати":"Запитайте про будь-кого або попросіть записати")+'</b><span class="muted small">Наприклад: «знайди Бурлаку», «нагадай у суботу подзвонити Вадиму», «запиши: сьогодні відвідав Вадима».</span><div class="chips">'+sug.map(function(s0){return '<button class="chip" data-act="aiSug">'+esc(s0)+'</button>'}).join("")+'</div></div>')+'</div>'+
     '<form class="ai-f" id="aiForm"><input id="aiIn" placeholder="'+(loc?"Команда або запитання…":"Ваше запитання…")+'" aria-label="Запитання до помічника" autocomplete="off"'+(AI.busy?" disabled":"")+'>'+(AI.busy&&AI.ctl?'<button type="button" class="iconbtn inv" data-act="aiStop" aria-label="Зупинити">'+ico("stop")+'</button>':'<button type="submit" class="iconbtn inv" aria-label="Надіслати">'+ico("send")+'</button>')+'</form>';
   var ni=document.getElementById("aiIn");if(!AI.busy){ni.value=kv;if(foc)ni.focus()}var ms=document.getElementById("aiMsgs");ms.scrollTop=ms.scrollHeight}
+
+/* ---------- Gemini on the standalone site: the model sees only codes (P12, G3), never names, phones, addresses, birth dates or notes ---------- */
+/* short commands stay with the built-in rules (they know names and phones); real questions go to the model */
+function gemLocal(r,q){var w=String(q||"").trim().split(/\s+/).length;if(r.help&&w<=4)return true;if(w>5||/\?\s*$/.test(q)&&w>3)return false;return r.kind==="ask"||(r.kind==="info"&&!!(r.list&&r.list.length||r.who))}
+var GEM={map:{},back:{},names:{},tels:[]};
+function gemCodes(){var A=all(),m={},b={},n={};A.forEach(function(x,i){var c="P"+(i+1);m[x.p.id]=c;b[c]=x.p.id;n[c]=x.n});
+  S.groups.forEach(function(g,i){n["G"+(i+1)]=g.name});GEM.map=m;GEM.back=b;GEM.names=n;return A}
+function gemByName(nm){if(!nm)return "";var hit=all().filter(function(x){return x.n===nm||fio(x.p)===nm})[0];if(hit)return GEM.map[hit.p.id];
+  var k=Object.keys(GEM.names).filter(function(c){return GEM.names[c]===nm})[0];if(k)return k;var c="D"+(Object.keys(GEM.names).filter(function(c){return c.charAt(0)==="D"}).length+1);GEM.names[c]=nm;return c}
+function gemStem(w){w=lcN(w);return w.length<=4?w:w.slice(0,Math.max(4,w.length-2))}
+/* names -> codes, phone numbers and e-mails -> placeholders */
+function gemMask(t){t=String(t||"");
+  t=t.replace(/[\w.+-]+@[\w-]+\.[\w.]+/g,function(m){GEM.tels.push(m);return "TEL"+GEM.tels.length}).replace(/\+?\d[\d\s\-()]{6,}\d/g,function(m){GEM.tels.push(m);return "TEL"+GEM.tels.length});
+  var A=all(),L={},F={};A.forEach(function(x){var c=GEM.map[x.p.id];if(!c)return;var l=lcN(x.p.last||""),f=lcN(x.p.first||"");if(l.length>=3)(L[gemStem(l)]=L[gemStem(l)]||[]).push([c,l.length]);if(f.length>=3)(F[gemStem(f)]=F[gemStem(f)]||[]).push([c,f.length])});
+  function hits(tab,w){var n=lcN(w),out=[];Object.keys(tab).forEach(function(st){if(n.indexOf(st)===0)tab[st].forEach(function(e){if(n.length>=e[1]-2&&n.length<=e[1]+3)out.push(e[0])})});return out}
+  var parts=t.split(/([A-Za-zА-Яа-яІіЇїЄєҐґ'’ʼ-]+)/),info=parts.map(function(w,i){return i%2?{l:hits(L,w),f:hits(F,w)}:null});
+  for(var i=1;i<parts.length;i+=2){var a=info[i];if(!a||a.done)continue;var j=i+2,nb=(j<parts.length&&/^\s+$/.test(parts[i+1]))?info[j]:null,both=[];
+    if(nb){var x1=a.l.filter(function(c){return nb.f.indexOf(c)>=0}),x2=a.f.filter(function(c){return nb.l.indexOf(c)>=0});both=x1.concat(x2)}
+    if(both.length){parts[i]=both.slice(0,6).join(" або ");parts[j]="";parts[i+1]="";nb.done=true;continue}
+    var cap=/^[A-ZА-ЯІЇЄҐ]/.test(parts[i]),cs=a.l.length?a.l:(cap?a.f:[]);if(cs.length&&cs.length<=12)parts[i]=cs.join(" або ")}
+  return parts.join("")}
+function gemUnmask(t,acts){t=String(t||"");if(acts)t=t.replace(/("(?:id|person_id)"\s*:\s*")(P\d+)"/g,function(m,a,c){return GEM.back[c]?a+GEM.back[c]+'"':m});
+  return t.replace(/\b([PGD]\d+)\b/g,function(m){return GEM.names[m]||m}).replace(/\bTEL(\d+)\b/g,function(m,k){return GEM.tels[+k-1]||m})}
+function gemData(){var A=gemCodes(),Y=yearStats()[CY]||{inn:0,out:0},me=myPid();
+  var ppl=A.map(function(x){var p=x.p,d=x.d,o={c:GEM.map[p.id],sex:p.sex||"",age:x.a,status:d.st==="none"&&p.kind?p.kind:ST[d.st]};
+    if(d.deacon)o.deacon=gemByName(d.deacon);if(p.part)o.state=p.part;if((p.needs||[]).length)o.needs=p.needs;var rl=roles(p.id);if(rl.length)o.ministries=rl;
+    var gs=groupsOf(p.id).map(function(g){return "G"+(S.groups.indexOf(g)+1)});if(gs.length)o.groups=gs;var di=typeof distOf==="function"?distOf(p):"";if(di)o.district=di;
+    if(p.marital)o.marital=p.marital;if(d.joined)o.memberSince=String(d.joined).slice(0,4);if(d.left)o.left=String(d.left).slice(0,7);var lc=lastContact(p);o.lastContact=lc?lc.slice(0,7):"ніколи";
+    if(p.hasKids==="так"&&(p.kids||[]).length)o.kids=p.kids.map(function(k){var a=kidAge(k);return (a==null?"?":a)+(k.ss?" нед.школа":"")});if(p.chat)o.chat=p.chat;var hw=(evs(p).filter(function(e){return e.type==="accepted"&&e.how})[0]||{}).how;if(hw)o.how=hw;
+    o.phone=p.phone?"є":"немає";o.address=p.address||p.place?"є":"немає";if(!p.birth)o.birth="не вказано";return o});
+  var up=upcoming(30).slice(0,30).map(function(b){return (GEM.map[b.x.p.id]||"?")+" — "+b.label+" через "+b.diff+" дн."});
+  var gr=S.groups.map(function(g,i){var l=person(g.leader);return "G"+(i+1)+": лідер "+(l?GEM.map[l.id]:"—")+", людей "+gMembers(g).length});
+  var rems=(S.rem||[]).map(function(r){return r.id+" | "+(r.date||"без дати")+" | "+gemMask(r.text)+(r.pid&&GEM.map[r.pid]?" | "+GEM.map[r.pid]:"")}).join("\n")||"(немає)";
+  return "\n\nЗАХИСТ ДАНИХ. Люди позначені кодами P1, P2…, малі групи — G1, G2…, диякони без картки — D1…; номери телефонів у запитаннях замінені на TEL1… Імен, телефонів, адрес і дат народження ти не бачиш і не вигадуєш. Завжди пиши коди так, як вони є (наприклад «P12»), — застосунок сам покаже замість них імена. У діях як id і person_id використовуй коди P…. Якщо в запитанні після коду стоїть «або», це кілька людей з подібним іменем — уточни, кого мали на увазі.\n"+
+    "Ти зараз говориш із "+(me&&GEM.map[me]?GEM.map[me]:"служителем")+".\n\nПідсумок: чинних членів "+act().length+"; цього року прийнято "+Y.inn+", вибуло "+Y.out+". Сьогодні "+today()+".\n"+
+    "Диякони: "+(deaconList().map(gemByName).join(", ")||"немає")+". Пастори: "+(S.pastors.map(function(p){return gemByName(p.name)}).join(", ")||"не вказано")+".\n"+
+    "Служіння: "+(Object.keys(S.min).map(function(k){return k+": "+S.min[k].map(function(id){return GEM.map[id]||"?"}).join(" ")}).join("; ")||"немає")+".\n"+
+    "Малі групи:\n"+(gr.join("\n")||"немає")+"\n\nНайближчі дати (30 днів):\n"+(up.join("\n")||"немає")+"\n\nНагадування (id | дата | текст | людина):\n"+rems+
+    "\n\nЛюди (JSON; status — статус у церкві, state — стан, lastContact — місяць останнього контакту, kids — вік дітей):\n"+JSON.stringify(ppl).slice(0,90000)}
+function gemRules(){var saved=AI.tools;AI.tools=false;var r;try{r=aiRules()}finally{AI.tools=saved}var k=r.indexOf("\n\nДиякони: ");if(k>0)r=r.slice(0,k);
+  var me=S.me&&S.me.name||"";if(me)r=r.split(me).join("служитель");r=r.split("подзвонити Вадиму").join("подзвонити P7").split("Подзвонити Вадиму").join("Подзвонити P7");return r+gemData()}
+function gemCall(messages,o,json){GEM.tels=[];var sys=gemRules(),turns=messages.slice(1).map(function(m){return {role:m.role,content:gemMask(typeof m.content==="string"?m.content:JSON.stringify(m.content))}});
+  return window.__gem.ask({system:sys,messages:turns,json:!!json}).then(function(j){
+    if(j&&j.text)return j.text;var e=new Error(j&&j.error||"error");var c=j&&j.error||"";
+    e.code=c==="rate_limited"||c==="refused"||c==="empty_completion"?c:c==="no_key"||c==="unauthorized"?"not_granted":"error";throw e},function(){var e=new Error("network");e.code="error";throw e})}
+function gemFn(messages,o){return gemCall(messages,o,false).then(function(t){var k=t.indexOf(AIMARK);if(k<0)k=t.search(/@@\s*ACT/i);
+  var out=k<0?gemUnmask(t,false):gemUnmask(t.slice(0,k),false)+gemUnmask(t.slice(k),true);return {text:out}})}
+gemFn.json=function(messages,o){return gemCall(messages,o,true).then(function(t){var v;try{v=JSON.parse(gemUnmask(t,true))}catch(e){var a=t.indexOf("["),z=t.lastIndexOf("]");v=a>=0&&z>a?JSON.parse(gemUnmask(t.slice(a,z+1),true)):[]}return v})};
+function gemInstall(){return window.__gem.ok().then(function(ok){if(!ok||AI.fn)return;AI.fn=gemFn;AI.gem=true;AI.tools=false;aiSync();if(AI.open)aiRender()})}
+window.__gemInstall=gemInstall;
+(function(){if(!window.__SITE||!window.__gem)return;var n=0,t=setInterval(function(){n++;if(typeof S==="undefined"||!S.ready||!S.uid){if(n>60)clearInterval(t);return}clearInterval(t);gemInstall()},1000)})();
 
 /* ---------- account menu ---------- */
 function meIni(n){return String(n||"?").trim().split(/\s+/).map(function(w){return w.charAt(0)}).slice(0,2).join("").toUpperCase()||"?"}
@@ -2736,6 +2780,10 @@ function careWord(name,cap){var p=S.pastors.some(function(x){return x&&x.name===
 
 /* ---------- what's new: shown once after an update, and always available in the account menu ---------- */
 var NEWS=[
+ {id:"2026-10-13",d:"13 жовтня 2026",t:"Помічник розуміє звичайні запитання",items:[
+  ["spark","Питайте як у людини","Помічник тепер відповідає на звичайні запитання: «скільки дітей ходить у недільну школу?», «хто з молоді давно не був на зв'язку?», «у якому районі найбільше членів церкви?». Відповідь готує безкоштовна модель Gemini від Google."],
+  ["shield","Імена й телефони до Google не потрапляють","Помічник передає тільки закодовані дані: замість імен — номери, без телефонів, адрес, дат народження і приміток. Імена у відповіді застосунок підставляє вже у вас на екрані."],
+  ["check","Короткі команди — як і раніше","«знайди Бурлаку», «нагадай у суботу подзвонити Вадиму», «запиши: сьогодні відвідав Вадима» виконуються одразу, без Gemini. Безкоштовних запитань — кілька сотень на день на всю церкву."]]},
  {id:"2026-10-12",d:"12 жовтня 2026",t:"Акуратніший рядок дітей в анкеті",items:[
   ["users","Діти в анкеті більше не налазять одне на одне","Вік, позначка «нед. школа» і хрестик тепер стоять рівно. «Нед. школа» стала окремою кнопкою: натиснули — вона засвітилася лаймовим. На телефоні ім'я дитини йде окремим рядком, а кожна дитина відділена тонкою рискою."]]},
  {id:"2026-10-09",d:"8 жовтня 2026",t:"Нова вкладка «Статистика» і мапа Чернівців",items:[
